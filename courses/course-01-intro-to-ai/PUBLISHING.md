@@ -41,7 +41,7 @@ Until this is done, the community page shows a friendly note and links learners 
 
 ## Part D · Aira's live chat (optional, 15 minutes)
 
-Aira can answer learners directly on the site through the university's MindRouter cluster, via a free Cloudflare Worker that keeps the API key server-side. Full steps, security rules, and quota math: [proxy/AIRA_CHAT_SETUP.md](proxy/AIRA_CHAT_SETUP.md). Until it is configured, her "Ask me anything" falls back to the community flow and nothing looks broken.
+Aira can answer learners directly on the site through a free AI model (Google Gemini), via a free Cloudflare Worker that keeps the API key server-side. Full steps, security rules, and quota math: [proxy/AIRA_CHAT_SETUP.md](proxy/AIRA_CHAT_SETUP.md). Until it is configured, her "Ask me anything" falls back to the community flow and nothing looks broken.
 
 ## The engagement loop (already built, know it exists)
 

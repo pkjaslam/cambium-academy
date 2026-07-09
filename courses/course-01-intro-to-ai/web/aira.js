@@ -211,7 +211,7 @@
       })
       .catch(function(){
         typing.remove();
-        bubble("a", "I could not reach the classroom server. Check your connection, or ask me on the community page instead.");
+        bubble("a", "I could not reach my AI service just now. Check your connection, or ask me on the community page instead.");
       })
       .finally(function(){ busy = false; chatSend.disabled = false; chatIn.focus(); });
   }

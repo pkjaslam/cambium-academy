@@ -146,9 +146,9 @@ const liveOn = window.AIRA_CHAT && window.AIRA_CHAT.endpoint && window.AIRA_CHAT
 if (liveOn) {
   document.getElementById('liveRow').style.display = "flex";
   document.getElementById('extRow').style.display = "none";
-  document.getElementById('taHint').textContent = "Aira answers right here, powered by the university's MindRouter cluster. Short questions get the best answers. Prefer your own chatbot? The button above brings back Claude, ChatGPT, and Perplexity.";
+  document.getElementById('taHint').textContent = "Aira answers right here, powered by a fast, free AI model (Google Gemini). Short questions get the best answers. Prefer your own chatbot? The button above brings back Claude, ChatGPT, and Perplexity.";
 } else {
-  document.getElementById('taHint').textContent += " (Aira's built-in chat box appears here automatically once the classroom server is connected; site owner: PUBLISHING.md, Part D.)";
+  document.getElementById('taHint').textContent += " (Aira's built-in chat box appears here automatically once her AI endpoint is connected; site owner: PUBLISHING.md, Part D.)";
 }
 function toggleExt(){
   const ext = document.getElementById('extRow');
@@ -192,34 +192,51 @@ function askLive(){
       liveBubble("a", text);
       if (res.ok && res.j.reply) liveHistory.push({ role: "assistant", content: res.j.reply });
     })
-    .catch(() => { typing.remove(); liveBubble("a", "I could not reach the classroom server. Use the chatbot buttons instead for now."); })
+    .catch(() => { typing.remove(); liveBubble("a", "I could not reach my AI service just now. Use the chatbot buttons instead for now."); })
     .finally(() => { liveBusy = false; document.getElementById('askLiveBtn').disabled = false; });
 }
 document.getElementById('q').addEventListener('keydown', e => {
   if (e.key === "Enter" && !e.shiftKey && liveOn) { e.preventDefault(); askLive(); }
 });
+// Mount a giscus board. Returns a promise that resolves once its iframe has rendered.
+// Boards are mounted ONE AT A TIME (see below): loading all three giscus scripts at
+// once makes them collide and some never size (they render as empty boxes). Sequential
+// loading fixes that so every board renders reliably.
 function mountPanel(elId, cat){
-  const cfg = window.CAMBIUM_COMMUNITY, el = document.getElementById(elId);
-  if (!cfg || !cfg.repoId || !cat.categoryId) {
-    el.innerHTML = '<div class="pending"><b>This board opens with the next site update.</b><br>Meanwhile the forum already works on GitHub: <a href="https://github.com/' + (cfg ? cfg.repo : 'pkjaslam/cambium-academy') + '/discussions" target="_blank" rel="noopener">open the Cambium Academy forum</a> and post there. (Maintainer: finish the 10-minute setup in PUBLISHING.md, Part C.)</div>';
-    return;
-  }
-  const s = document.createElement('script');
-  s.src = "https://giscus.app/client.js";
-  s.async = true; s.crossOrigin = "anonymous";
-  const attrs = {
-    "data-repo": cfg.repo, "data-repo-id": cfg.repoId,
-    "data-category": cat.category, "data-category-id": cat.categoryId,
-    "data-mapping": "specific", "data-term": cat.term,
-    "data-strict": "0", "data-reactions-enabled": "1", "data-emit-metadata": "0",
-    "data-input-position": "top", "data-theme": "light", "data-lang": "en"
-  };
-  for (const k in attrs) s.setAttribute(k, attrs[k]);
-  el.appendChild(s);
+  return new Promise(function(resolve){
+    const cfg = window.CAMBIUM_COMMUNITY, el = document.getElementById(elId);
+    if (!cfg || !cfg.repoId || !cat.categoryId) {
+      el.innerHTML = '<div class="pending"><b>This board opens with the next site update.</b><br>Meanwhile the forum already works on GitHub: <a href="https://github.com/' + (cfg ? cfg.repo : 'pkjaslam/cambium-academy') + '/discussions" target="_blank" rel="noopener">open the Cambium Academy forum</a> and post there. (Maintainer: finish the 10-minute setup in PUBLISHING.md, Part C.)</div>';
+      return resolve();
+    }
+    const s = document.createElement('script');
+    s.src = "https://giscus.app/client.js";
+    s.async = true; s.crossOrigin = "anonymous";
+    const attrs = {
+      "data-repo": cfg.repo, "data-repo-id": cfg.repoId,
+      "data-category": cat.category, "data-category-id": cat.categoryId,
+      "data-mapping": "specific", "data-term": cat.term,
+      "data-strict": "0", "data-reactions-enabled": "1", "data-emit-metadata": "0",
+      "data-input-position": "top", "data-theme": "light", "data-lang": "en"
+    };
+    for (const k in attrs) s.setAttribute(k, attrs[k]);
+    el.appendChild(s);
+    // Resolve once giscus has injected + rendered its iframe (or after a safety timeout),
+    // so the next board only starts loading after this one is settled.
+    let done = false;
+    const finish = function(){ if (done) return; done = true; resolve(); };
+    const poll = setInterval(function(){
+      const f = el.querySelector('iframe');
+      if (f && f.offsetHeight > 60) { clearInterval(poll); setTimeout(finish, 500); }
+    }, 200);
+    setTimeout(function(){ clearInterval(poll); finish(); }, 7000);
+  });
 }
-mountPanel("qa-panel", window.CAMBIUM_COMMUNITY.qa);
-mountPanel("disc-panel", window.CAMBIUM_COMMUNITY.discussion);
-mountPanel("grad-panel", window.CAMBIUM_COMMUNITY.graduates);
+(async function mountBoardsInOrder(){
+  await mountPanel("qa-panel", window.CAMBIUM_COMMUNITY.qa);
+  await mountPanel("disc-panel", window.CAMBIUM_COMMUNITY.discussion);
+  await mountPanel("grad-panel", window.CAMBIUM_COMMUNITY.graduates);
+})();
 </script>
 <script src="aira.js"></script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
