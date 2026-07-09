@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Lab · Intro to AI · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--moss:#97BC62;--lite:#C6E89B;--gold:#D9B25C;--goldD:#B98A2D;--ink:#E8F2DE;--mut:#8FA684;--panel:rgba(151,188,98,.06);--line:rgba(151,188,98,.22)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:radial-gradient(ellipse 90% 50% at 50% 0%, #10220E 0%, #071007 55%, #040805 100%);color:var(--ink);line-height:1.6;min-height:100vh}
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px 80px}
+  .nav{display:flex;align-items:center;gap:12px;padding:16px 0;flex-wrap:wrap}
+  .nav img{width:40px;height:40px;border-radius:10px}
+  .nav a.brand{font-family:'Sora',sans-serif;font-weight:700;color:var(--lite);text-decoration:none;font-size:13px;letter-spacing:2px;display:flex;align-items:center;gap:10px}
+  .nav .links{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
+  .nav .links a{color:var(--moss);text-decoration:none;font-weight:600;font-size:13.5px}
+  .nav .links a:hover{color:var(--lite)}
+  h1{font-family:'Sora',sans-serif;font-size:clamp(30px,5vw,44px);font-weight:800;margin:26px 0 6px;background:linear-gradient(90deg,#E8F2DE,#C6E89B);-webkit-background-clip:text;background-clip:text;color:transparent}
+  p.lead{color:var(--mut);font-size:15.5px;max-width:640px}
+  .hud{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 34px}
+  .hud span{border:1px solid var(--line);border-radius:20px;padding:7px 15px;font-size:12.5px;font-weight:700;letter-spacing:.5px;color:var(--mut);background:var(--panel)}
+  .hud span.done{color:#0d1a0b;background:var(--moss);border-color:var(--moss)}
+  .hud span.bonus{border-style:dashed}
+  .lab{background:linear-gradient(180deg, rgba(151,188,98,.08), rgba(151,188,98,.02));border:1px solid var(--line);border-radius:20px;padding:26px 26px 30px;margin-bottom:30px;position:relative;overflow:hidden;backdrop-filter:blur(6px)}
+  .lab::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--moss),transparent);opacity:.6}
+  .tag{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--gold)}
+  .lab h2{font-family:'Sora',sans-serif;font-size:24px;font-weight:700;margin:6px 0 4px;color:var(--ink)}
+  .lab p.sub{color:var(--mut);font-size:13.5px;margin-bottom:18px;max-width:640px}
+  textarea,input[type=text]{width:100%;padding:13px 15px;font-size:15px;background:rgba(4,8,5,.6);border:1.5px solid var(--line);border-radius:11px;color:var(--ink);font-family:'DM Sans',sans-serif}
+  textarea:focus,input[type=text]:focus{outline:none;border-color:var(--moss);box-shadow:0 0 0 3px rgba(151,188,98,.18), 0 0 24px rgba(151,188,98,.15)}
+  .pipe{display:flex;align-items:center;gap:10px;margin:16px 0 6px;flex-wrap:wrap}
+  .pipe .stage{font-family:'Sora',sans-serif;font-size:11px;letter-spacing:2px;color:var(--mut);border:1px dashed var(--line);border-radius:8px;padding:6px 12px}
+  .pipe .arr{color:var(--gold);animation:pulseA 1.6s ease-in-out infinite}
+  @keyframes pulseA{0%,100%{opacity:.4;transform:translateX(0)}50%{opacity:1;transform:translateX(3px)}}
+  .chips{margin-top:12px;display:flex;flex-wrap:wrap;gap:7px;min-height:40px}
+  .chip{padding:6px 10px;border-radius:8px;font-family:ui-monospace,monospace;font-size:14px;font-weight:700;color:#0d1a0b;animation:pop .3s cubic-bezier(.34,1.56,.64,1) backwards;box-shadow:0 0 14px rgba(151,188,98,.25)}
+  .chip small{display:block;font-size:9px;font-weight:400;color:rgba(4,8,5,.7);letter-spacing:.5px}
+  @keyframes pop{from{transform:scale(.3) rotate(-6deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+  .counts{margin-top:12px;font-size:13px;color:var(--mut)}
+  .counts b{font-family:'Sora',sans-serif;color:var(--lite);font-size:17px}
+  .bars{margin-top:16px}
+  .bar{display:flex;align-items:center;gap:12px;margin:8px 0}
+  .bar .w{width:110px;font-family:ui-monospace,monospace;font-weight:700;font-size:14px;text-align:right;color:var(--lite);overflow:hidden;text-overflow:ellipsis}
+  .bar .track{flex:1;background:rgba(4,8,5,.5);border:1px solid var(--line);border-radius:7px;height:26px;position:relative;overflow:hidden}
+  .bar .fill{background:linear-gradient(90deg,#2C5F2D,var(--moss));height:100%;border-radius:6px;min-width:2px;transition:width .55s cubic-bezier(.22,1,.36,1);box-shadow:0 0 16px rgba(151,188,98,.4)}
+  .bar .pct{position:absolute;right:9px;top:3px;font-size:12px;color:var(--ink);font-weight:700}
+  .rowc{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:16px}
+  button{background:linear-gradient(135deg,#2C5F2D,#1F3D24);color:var(--lite);border:1px solid var(--moss);border-radius:10px;padding:11px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+  button:hover{box-shadow:0 0 22px rgba(151,188,98,.4);transform:translateY(-1px)}
+  button.gold{background:linear-gradient(135deg,#8C6320,#5c400f);border-color:var(--gold);color:#FBF7EA}
+  label.sl{font-size:13px;color:var(--mut);display:flex;align-items:center;gap:8px}
+  input[type=range]{accent-color:var(--moss);width:130px}
+  .console{margin-top:16px;background:rgba(4,8,5,.75);border:1px solid var(--line);border-radius:11px;padding:14px 16px;font-family:ui-monospace,monospace;font-size:14.5px;min-height:54px;color:var(--ink)}
+  .console em{color:var(--lite);font-style:normal;text-shadow:0 0 12px rgba(198,232,155,.5)}
+  .console .cur{display:inline-block;width:8px;height:16px;background:var(--moss);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  .duo{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-top:14px}
+  @media(max-width:700px){.duo{grid-template-columns:1fr}}
+  canvas.pane{width:100%;border:1px solid var(--line);border-radius:12px;background:rgba(4,8,5,.55)}
+  .readout{display:flex;gap:18px;margin-top:12px;flex-wrap:wrap}
+  .readout div{font-size:12px;color:var(--mut);letter-spacing:1px}
+  .readout b{display:block;font-family:'Sora',sans-serif;font-size:22px;color:var(--gold);text-shadow:0 0 14px rgba(217,178,92,.4)}
+  .aword{display:inline-block;padding:7px 12px;margin:4px;border:1.5px solid var(--line);border-radius:9px;font-size:16px;cursor:pointer;transition:all .28s;background:rgba(4,8,5,.5);color:var(--ink);position:relative}
+  .aword.src{background:var(--moss);color:#0d1a0b;border-color:var(--lite);box-shadow:0 0 20px rgba(151,188,98,.55)}
+  .aword small{position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--gold);font-weight:700;opacity:0;transition:opacity .25s}
+  .aword.lit small{opacity:1}
+  #beams{position:absolute;inset:0;pointer-events:none}
+  .confetti{position:fixed;top:-14px;width:9px;height:14px;z-index:200;pointer-events:none;animation:cfall linear forwards}
+  @keyframes cfall{to{transform:translateY(105vh) rotate(720deg);opacity:.9}}
+  .note{font-size:12.5px;color:var(--mut);margin-top:12px}
+  .note b{color:var(--lite)}
+  .stamp{position:absolute;top:24px;right:26px;font-family:'Sora',sans-serif;font-weight:800;font-size:14px;letter-spacing:3px;color:var(--gold);border:2px solid var(--gold);border-radius:8px;padding:6px 12px;transform:rotate(6deg);display:none;text-shadow:0 0 14px rgba(217,178,92,.6);box-shadow:0 0 22px rgba(217,178,92,.25)}
+  select{background:rgba(4,8,5,.7);color:var(--ink);border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;font-size:14px;font-family:'DM Sans',sans-serif}
+  @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI">CAMBIUM AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="slides.html">Slides</a><a href="flashcards.html">Flashcards</a><a href="quiz.html">Quiz</a><a href="community.html">Community</a></div>
+  </nav>
+
+  <h1>The AI Lab</h1>
+  <p class="lead">Five live instruments. Everything runs in your browser, nothing is sent anywhere. The three core labs count toward unlocking the quiz; the two bonus labs are pure wonder.</p>
+  <div class="hud" id="hud"></div>
+
+  <!-- LAB 1 -->
+  <div class="lab">
+    <div class="tag">LAB 01 · REQUIRED</div>
+    <h2>Text becomes numbers</h2>
+    <p class="sub">A model never sees your words. Type anything and watch it get chopped into tokens, each one just a number to the machine.</p>
+    <div class="pipe"><span class="stage">YOUR TEXT</span><span class="arr">&#10142;</span><span class="stage">TOKENS</span><span class="arr">&#10142;</span><span class="stage">NUMBERS</span><span class="arr">&#10142;</span><span class="stage">THE MODEL</span></div>
+    <textarea id="tokIn" rows="2">Understanding tokens is easier when you can see them.</textarea>
+    <div class="chips" id="tokChips"></div>
+    <div class="counts">Words <b id="wCount">0</b> &nbsp;&#183;&nbsp; Tokens <b id="tCount">0</b> &nbsp;&#183;&nbsp; rule of thumb: tokens &#8776; words &#215; 4/3</div>
+  </div>
+
+  <!-- LAB 2 -->
+  <div class="lab">
+    <div class="tag">LAB 02 · REQUIRED</div>
+    <h2>The prediction engine</h2>
+    <p class="sub">This tiny model read a few paragraphs and counts what follows what. Watch its top bets update live as you type, the exact game ChatGPT plays with trillions of words.</p>
+    <input type="text" id="lmIn" value="the model learns from">
+    <div class="bars" id="lmBars"></div>
+    <div class="rowc">
+      <label class="sl">temperature <input type="range" id="temp" min="0" max="2" step="0.1" value="0.7"> <b id="tempVal" style="color:var(--gold)">0.7</b></label>
+      <button onclick="autoWrite()">Let it write</button>
+      <button class="gold" onclick="surprise()">Surprise me</button>
+    </div>
+    <div class="console" id="genOut">Its continuation streams here. Cold temperature plays it safe; hot temperature gambles.<span class="cur"></span></div>
+  </div>
+
+  <!-- LAB 3 -->
+  <div class="lab">
+    <div class="stamp" id="stamp">TRAINED</div>
+    <div class="tag">LAB 03 · REQUIRED</div>
+    <h2>The training chamber</h2>
+    <p class="sub">Green dots are data. Your model is three dials. Drag them to cut the error, then press auto-train and watch gradient descent walk downhill, the same loop that trains every frontier model, at 1/100,000,000,000th the size.</p>
+    <div class="duo">
+      <canvas id="net" class="pane" width="760" height="330"></canvas>
+      <div>
+        <canvas id="lossPane" class="pane" width="360" height="240"></canvas>
+        <div class="readout"><div>EPOCH<b id="epochR">0</b></div><div>LOSS<b id="lossR">-</b></div><div>STATE<b id="stateR" style="font-size:14px;line-height:2.1">untrained</b></div></div>
+      </div>
+    </div>
+    <div class="rowc">
+      <label class="sl">dial a <input type="range" id="wa" min="-2" max="2" step="0.01" value="-1.4"></label>
+      <label class="sl">dial b <input type="range" id="wb" min="-2" max="2" step="0.01" value="1.6"></label>
+      <label class="sl">dial c <input type="range" id="wc" min="-2" max="2" step="0.01" value="-1.2"></label>
+      <button onclick="autoTrain()" id="trainBtn">Auto-train</button>
+      <button class="gold" onclick="randomize()">Scramble</button>
+    </div>
+  </div>
+
+  <!-- LAB 4 -->
+  <div class="lab" style="position:relative">
+    <div class="tag">LAB 04 · BONUS</div>
+    <h2>Attention, live</h2>
+    <p class="sub">The transformer's superpower. Hover any word and watch golden beams show where the model looks while reading it. Try the word "it".</p>
+    <div id="attnWrap" style="position:relative;padding:26px 0 6px">
+      <svg id="beams"></svg>
+      <div id="attn" style="line-height:3;text-align:center;position:relative"></div>
+    </div>
+    <div class="note" id="attnNote"></div>
+  </div>
+
+  <!-- LAB 5 -->
+  <div class="lab">
+    <div class="tag">LAB 05 · BONUS</div>
+    <h2>Word math</h2>
+    <p class="sub">Inside a model, words are points in space, and meaning is geometry. The most famous trick in AI: take king, subtract man, add woman, and the nearest word is queen. Watch it happen.</p>
+    <div class="rowc" style="margin-top:4px">
+      <select id="analogy">
+        <option value="king,man,woman">king &#8722; man + woman = ?</option>
+        <option value="paris,france,japan">paris &#8722; france + japan = ?</option>
+        <option value="puppy,dog,cat">puppy &#8722; dog + cat = ?</option>
+        <option value="winter,cold,hot">winter &#8722; cold + hot = ?</option>
+      </select>
+      <button class="gold" onclick="runAnalogy()">Compute</button>
+      <span id="anaOut" style="font-family:'Sora',sans-serif;font-weight:700;color:var(--gold);font-size:16px"></span>
+    </div>
+    <canvas id="space" class="pane" width="820" height="430" style="margin-top:16px"></canvas>
+    <div class="note">Real models place words in a space of thousands of dimensions; this map is a two-dimensional sketch of the same idea. It is why models grasp analogy, tone, and relationship, not just spelling.</div>
+  </div>
+
+  <div class="note" style="text-align:center;margin-top:6px">Part of <a href="index.html" style="color:var(--moss)">Course 01 &#183; Intro to AI</a> &#183; Cambium Academy &#183; free forever</div>
+</div>
+
+<script>
+// ------- course credit -------
+var PGKEY = "cambium-c01-playground";
+var pgState = {};
+try { pgState = JSON.parse(localStorage.getItem(PGKEY) || "{}"); } catch(e) {}
+var bonus = {};
+function pgMark(k){
+  if (k === "attn" || k === "vec") { if (!bonus[k]) { bonus[k] = 1; hud(); } return; }
+  if (pgState[k]) return;
+  pgState[k] = 1;
+  localStorage.setItem(PGKEY, JSON.stringify(pgState));
+  hud();
+}
+function hud(){
+  var items = [["tok","01 Tokens",1],["lm","02 Prediction",1],["net","03 Training",1],["attn","04 Attention",0],["vec","05 Word math",0]];
+  document.getElementById('hud').innerHTML = items.map(function(it){
+    var done = it[2] ? pgState[it[0]] : bonus[it[0]];
+    return '<span class="' + (done ? 'done' : '') + (it[2] ? '' : ' bonus') + '">' + (done ? '&#10003; ' : '') + it[1] + (it[2] ? '' : ' &#183; bonus') + '</span>';
+  }).join("") + '<span style="border:none;background:none;color:var(--mut)">' + (((pgState.tok?1:0)+(pgState.lm?1:0)+(pgState.net?1:0)) === 3 ? 'core labs complete, quiz credit earned' : 'complete all three core labs for quiz credit') + '</span>';
+}
+
+// ------- LAB 1: tokens -------
+var VOWEL = /[aeiouy]/i;
+function chunkWord(w){
+  if (w.length <= 4) return [w];
+  var parts = [], cur = "";
+  for (var i = 0; i < w.length; i++){
+    cur += w[i];
+    if (cur.length >= 3 && VOWEL.test(cur) && (i + 1 < w.length) && !VOWEL.test(w[i+1]) && cur.length + (w.length - i - 1) > 5) { parts.push(cur); cur = ""; }
+    else if (cur.length >= 5) { parts.push(cur); cur = ""; }
+  }
+  if (cur) parts.push(cur);
+  return parts;
+}
+var PAL = ["#97BC62","#C6E89B","#D9B25C","#7FA06F"];
+function tokenize(){
+  var txt = document.getElementById('tokIn').value;
+  var bits = txt.split(/(\s+|[.,!?;:'"()])/).filter(function(x){ return x && !/^\s+$/.test(x); });
+  var chips = [];
+  bits.forEach(function(b){
+    if (/^[.,!?;:'"()]$/.test(b)) chips.push(b);
+    else chips.push.apply(chips, chunkWord(b));
+  });
+  document.getElementById('tokChips').innerHTML = chips.map(function(c, i){
+    return '<span class="chip" style="background:' + PAL[i % 4] + ';animation-delay:' + Math.min(i * 28, 700) + 'ms">' + c.replace(/</g, "&lt;") + '<small>#' + (1000 + ((i * 7919 + c.length * 131) % 9000)) + '</small></span>';
+  }).

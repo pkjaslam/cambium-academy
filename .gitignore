@@ -1,0 +1,11 @@
+# Session archives and TTS candidate samples never enter the repo
+courses/**/_old/
+**/voice-samples/
+
+# Personal photo originals live in the private academy_media folder, not here
+assets/JASLAM.png
+assets/AMELIA.png
+
+# OS noise
+Thumbs.db
+.DS_Store
