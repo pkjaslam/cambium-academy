@@ -198,45 +198,39 @@ function askLive(){
 document.getElementById('q').addEventListener('keydown', e => {
   if (e.key === "Enter" && !e.shiftKey && liveOn) { e.preventDefault(); askLive(); }
 });
-// Mount a giscus board. Returns a promise that resolves once its iframe has rendered.
-// Boards are mounted ONE AT A TIME (see below): loading all three giscus scripts at
-// once makes them collide and some never size (they render as empty boxes). Sequential
-// loading fixes that so every board renders reliably.
+// Each board is embedded as its OWN iframe (board.html), so giscus is the only instance
+// in that document. Three giscus widgets in one document collide and the 2nd/3rd fail
+// with "Failed to fetch"; isolated iframes render reliably. board.html posts its height
+// back so we can size the iframe to fit (no inner scrollbar).
 function mountPanel(elId, cat){
-  return new Promise(function(resolve){
-    const cfg = window.CAMBIUM_COMMUNITY, el = document.getElementById(elId);
-    if (!cfg || !cfg.repoId || !cat.categoryId) {
-      el.innerHTML = '<div class="pending"><b>This board opens with the next site update.</b><br>Meanwhile the forum already works on GitHub: <a href="https://github.com/' + (cfg ? cfg.repo : 'pkjaslam/cambium-academy') + '/discussions" target="_blank" rel="noopener">open the Cambium Academy forum</a> and post there. (Maintainer: finish the 10-minute setup in PUBLISHING.md, Part C.)</div>';
-      return resolve();
-    }
-    const s = document.createElement('script');
-    s.src = "https://giscus.app/client.js";
-    s.async = true; s.crossOrigin = "anonymous";
-    const attrs = {
-      "data-repo": cfg.repo, "data-repo-id": cfg.repoId,
-      "data-category": cat.category, "data-category-id": cat.categoryId,
-      "data-mapping": "specific", "data-term": cat.term,
-      "data-strict": "0", "data-reactions-enabled": "1", "data-emit-metadata": "0",
-      "data-input-position": "top", "data-theme": "light", "data-lang": "en"
-    };
-    for (const k in attrs) s.setAttribute(k, attrs[k]);
-    el.appendChild(s);
-    // Resolve once giscus has injected + rendered its iframe (or after a safety timeout),
-    // so the next board only starts loading after this one is settled.
-    let done = false;
-    const finish = function(){ if (done) return; done = true; resolve(); };
-    const poll = setInterval(function(){
-      const f = el.querySelector('iframe');
-      if (f && f.offsetHeight > 60) { clearInterval(poll); setTimeout(finish, 500); }
-    }, 200);
-    setTimeout(function(){ clearInterval(poll); finish(); }, 7000);
+  const cfg = window.CAMBIUM_COMMUNITY, el = document.getElementById(elId);
+  if (!cfg || !cfg.repoId || !cat.categoryId) {
+    el.innerHTML = '<div class="pending"><b>This board opens with the next site update.</b><br>Meanwhile the forum already works on GitHub: <a href="https://github.com/' + (cfg ? cfg.repo : 'pkjaslam/cambium-academy') + '/discussions" target="_blank" rel="noopener">open the Cambium Academy forum</a> and post there. (Maintainer: finish the 10-minute setup in PUBLISHING.md, Part C.)</div>';
+    return;
+  }
+  const qs = new URLSearchParams({
+    repo: cfg.repo, repoId: cfg.repoId,
+    cat: cat.category, catId: cat.categoryId, term: cat.term
   });
+  const fr = document.createElement('iframe');
+  fr.src = "board.html?" + qs.toString();
+  fr.setAttribute('data-term', cat.term);
+  fr.setAttribute('scrolling', 'no');
+  fr.setAttribute('title', cat.category + ' board');
+  fr.loading = 'lazy';
+  fr.style.cssText = "width:100%;border:0;height:240px;overflow:hidden;background:transparent";
+  el.appendChild(fr);
 }
-(async function mountBoardsInOrder(){
-  await mountPanel("qa-panel", window.CAMBIUM_COMMUNITY.qa);
-  await mountPanel("disc-panel", window.CAMBIUM_COMMUNITY.discussion);
-  await mountPanel("grad-panel", window.CAMBIUM_COMMUNITY.graduates);
-})();
+mountPanel("qa-panel", window.CAMBIUM_COMMUNITY.qa);
+mountPanel("disc-panel", window.CAMBIUM_COMMUNITY.discussion);
+mountPanel("grad-panel", window.CAMBIUM_COMMUNITY.graduates);
+// Size each board iframe to its content (board.html reports its own height).
+window.addEventListener('message', function(e){
+  var d = e.data;
+  if (!d || !d.cambiumBoard || !d.height) return;
+  var fr = document.querySelector('iframe[data-term="' + d.cambiumBoard + '"]');
+  if (fr) fr.style.height = (d.height + 8) + 'px';
+});
 </script>
 <script src="aira.js"></script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
