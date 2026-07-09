@@ -153,4 +153,6 @@ New course every week. Cambium Academy is free forever.
 
 (Adjust chapter times to your actual recording before publishing.)
 
-**Tags:** intro to a
+**Tags:** intro to ai, ai course, free ai course, how ai works, chatgpt explained, llm explained, ai for beginners, claude ai, gemini, ai certificate
+
+**Playlist:** Cambium Academy · Visibility: Public · License: Standard YouTube

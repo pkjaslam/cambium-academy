@@ -1,0 +1,9 @@
+{
+  "@context": "https://w3id.org/openbadges/v2",
+  "type": "Issuer",
+  "id": "https://pkjaslam.github.io/cambium-academy/courses/course-01-intro-to-ai/web/badges/issuer.json",
+  "name": "Cambium AI Research Institution — Cambium Academy",
+  "url": "https://pkjaslam.github.io/cambium-academy/start/",
+  "description": "Cambium Academy publishes free, beginner-friendly AI courses with an enforced learning path (lecture, flashcards, hands-on AI Lab, proctorless quiz at 70%). Certificates are honor-based, independently verifiable by ID, and free.",
+  "email": "pkjaslamagrico@gmail.com"
+}

@@ -78,4 +78,12 @@ function verify(){
   const expected = "CAMB-C01-" + hashId((name + "|" + date).toLowerCase());
   if (expected === id) {
     r.className = "ok";
-    r.textContent = "Valid. This ID matches a Cour
+    r.textContent = "Valid. This ID matches a Course 01 certificate for " + name + ", completed " + date + ".";
+  } else {
+    r.className = "bad";
+    r.textContent = "No match. Check the spelling and spacing of the name and the exact date on the certificate. If it still fails, this ID was not produced by the Course 01 certificate.";
+  }
+}
+</script>
+</body>
+</html>

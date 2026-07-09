@@ -50,7 +50,7 @@ New key URLs:
 ## Step C · Tell Claude "domain is live"
 
 One pass then updates every reference: the og:url tags, the share buttons and share-image
-footer, PUBLISHING.md, the YouTube description links, and, important, the Amelia chat
+footer, PUBLISHING.md, the YouTube description links, and, important, the Aira chat
 worker's ALLOW_ORIGIN variable in Cloudflare must change to `https://cambiumai.is-a.dev`
 or her live chat will be blocked by CORS on the new domain.
 

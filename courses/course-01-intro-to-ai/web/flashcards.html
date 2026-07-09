@@ -137,4 +137,29 @@ function refresh(){
   document.getElementById('known').textContent = Object.keys(known).length;
   document.getElementById('left').textContent = queue.length;
   const doneEl = document.getElementById('done'), cardEl = document.getElementById('card'), act = document.getElementById('actions');
-  if (!queue.length) { doneEl.style.display = "block"; cardEl.style.display = "none"; act.style.display = "none
+  if (!queue.length) { doneEl.style.display = "block"; cardEl.style.display = "none"; act.style.display = "none"; return; }
+  doneEl.style.display = "none"; cardEl.style.display = "block"; act.style.display = "flex";
+  const c = CARDS[queue[0]];
+  cardEl.classList.remove('flipped');
+  seenBack = false;
+  setActions(false);
+  document.getElementById('modF').textContent = "Module " + c[0].slice(1);
+  document.getElementById('modB').textContent = c[1];
+  document.getElementById('term').textContent = c[1];
+  document.getElementById('def').textContent = c[2];
+}
+function mark(gotIt){
+  if (!seenBack) return;
+  const i = queue.shift();
+  if (gotIt) { known[i] = 1; localStorage.setItem(KEY, JSON.stringify(known)); }
+  else { queue.push(i); }
+  refresh();
+}
+function resetAll(){
+  known = {}; localStorage.removeItem(KEY); buildQueue(); refresh();
+}
+buildQueue(); refresh();
+</script>
+<script src="aira.js"></script>
+</body>
+</html>

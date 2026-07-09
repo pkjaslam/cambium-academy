@@ -143,4 +143,76 @@ const S = [
 {t:"rows",k:"Module 5 · A 10-second decision",h:"Four questions beat any leaderboard",rows:[["Is the data sensitive?","Run an open model locally, or use a paid plan with training turned off."],["Do you need checkable sources?","Use a research tool that cites: Perplexity or Deep Research."],["Is the input huge?","Pick a million-token context model: Claude or Gemini."],["Just everyday help?","Any of the big three free tiers is excellent. Stop optimizing."]],note:"<b>Best advice:</b> pick one model and learn it deeply. Prompting skill transfers everywhere; tool-hopping does not compound."},
 {t:"divider",n:6,h:"Using AI well",sub:"The human stays in charge."},
 {t:"rows",k:"Module 6 · Habits",h:"Five golden rules",rows:[["Verify before you rely","Check names, numbers, dates, and citations. AI is confident even when wrong."],["Guard private data","Do not paste passwords, client records, or secrets into tools you have not vetted."],["You own the judgment","AI drafts, suggests, and accelerates. Decisions and responsibility stay with you."],["Disclose when it matters","School, work, publishing: say when AI helped. Honesty ages well."],["Reassess monthly","Models leapfrog each other constantly. Today's winner is next month's runner-up."]]},
-{t:"quote",k:"Module 6 · A taste of Course 02",h:"Better answers in four moves",q:"<em>You are a seasoned travel planner.</em> Two adults are visiting Boise for three days in October on a modest budget. <em>Plan a day-by-day itinera
+{t:"quote",k:"Module 6 · A taste of Course 02",h:"Better answers in four moves",q:"<em>You are a seasoned travel planner.</em> Two adults are visiting Boise for three days in October on a modest budget. <em>Plan a day-by-day itinerary with one outdoor highlight per day.</em> Present it as a simple table.",rows:[["Role","Who should the AI be?"],["Context","What does it need to know?"],["Task","Exactly what do you want?"],["Format","How should the answer look?"]],note:"Course 02, Prompting Essentials, goes deep on this next week."},
+{t:"rows",k:"Module 6 · Keep going, free",h:"Hand-verified free resources",rows:[["How Machines Learn · CGP Grey","The best 5-minute mental model on YouTube."],["Intro to Large Language Models · Andrej Karpathy","A legendary 1-hour talk by a top AI researcher."],["Neural Networks · 3Blue1Brown","Beautiful visual series on what is inside the box."],["Elements of AI · University of Helsinki","The classic free intro course, 2M+ learners."],["AI for Everyone · Andrew Ng","Free-to-audit course made for non-engineers."]],note:"Every link, with time estimates and levels, lives on the <a href='../resources.md'>resources page</a>. Each one was verified live in July 2026."},
+{t:"close",k:"Your turn",h:"Finish the path. Earn your certificate.",rows:[["Step 1, the lecture: done","You just finished it by reading these slides."],["Step 2: all 24 flashcards","Flip and clear the deck until every card sticks."],["Step 3: the AI Lab","Explore the three hands-on stations."],["Then the quiz unlocks","20 questions, 70% to pass, certificate prints on the spot."]],foot:"Next week · Course 02: Prompting Essentials · Cambium Academy, free forever"}
+];
+
+const CHAPTERS = [[1,"Welcome"],[5,"Module 1 · What is AI?"],[10,"Module 2 · How models work"],[16,"Module 3 · Training"],[21,"Module 4 · The landscape"],[28,"Module 5 · Which model"],[32,"Module 6 · Using AI well"],[36,"Quiz & certificate"]];
+const slideEl = document.getElementById('slide'), bar = document.getElementById('bar'), count = document.getElementById('count');
+let i = Math.min(Math.max(parseInt(location.hash.slice(1)) || 1, 1), S.length) - 1;
+
+const chapEl = document.getElementById('chapters');
+chapEl.innerHTML = CHAPTERS.map(ch => `<button data-s="${ch[0]}" data-t="${ch[1]}"></button>`).join("");
+chapEl.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { i = +b.dataset.s - 1; render(); }));
+
+function chipHtml(){ return '<div class="chip"><img src="../../../assets/logo-mark@2x.png" alt=""></div>'; }
+function render(){
+  const s = S[i];
+  let h = "";
+  const dark = (s.t === "cover" || s.t === "divider" || s.t === "close");
+  slideEl.className = "slide" + (dark ? " dark" : "");
+  if (s.t === "cover") {
+    h = `<div class="kicker" style="margin-top:6%">${s.k}</div><h1 style="font-size:clamp(38px,7vw,72px);background:linear-gradient(180deg,#FFFDF6,#CFE3BF);-webkit-background-clip:text;background-clip:text;color:transparent">${s.h}</h1><div class="sub" style="max-width:78%">${s.sub}</div><div class="foot">${s.foot}</div>${chipHtml()}`;
+  } else if (s.t === "divider") {
+    h = `<div class="wm">${s.n}</div><div class="kicker" style="margin-top:9%">Module ${s.n} of 6</div><h1 style="font-size:clamp(30px,5.4vw,54px);color:#FFFDF6">${s.h}</h1><div class="sub" style="max-width:74%">${s.sub}</div><div class="foot">Cambium Academy · Course 01</div>${chipHtml()}`;
+  } else if (s.t === "close") {
+    h = `<div class="kicker" style="margin-top:3%">${s.k}</div><h1 style="color:#FFFDF6">${s.h}</h1><div class="rows" style="margin-top:16px">` +
+      s.rows.map(r => `<div class="row"><div class="dot"></div><div><b>${r[0]}</b><span>${r[1]}</span></div></div>`).join("") +
+      `</div><div style="margin-top:18px"><a href="flashcards.html" style="display:inline-block;background:linear-gradient(135deg,#D9B25C,#B98A2D);color:#1F3D24;font-weight:800;padding:12px 26px;border-radius:10px;text-decoration:none;box-shadow:0 6px 20px rgba(217,178,92,.35)">Continue the path &#8594; flashcards</a></div><div class="foot">${s.foot}</div>${chipHtml()}`;
+  } else {
+    h = `<div class="kicker">${s.k}</div><h2 class="stitle">${s.h}</h2>`;
+    if (s.q) h += `<div class="quote">${s.q}</div>`;
+    if (s.rows) h += `<div class="rows">` + s.rows.map(r => `<div class="row"><div class="dot"></div><div><b>${r[0]}</b><span>${r[1]}</span></div></div>`).join("") + `</div>`;
+    if (s.cards) h += `<div class="grid ${s.cls || 'g3'}">` + s.cards.map(c => `<div class="card">${c[0] ? `<div class="cnum">${c[0]}</div>` : ""}<b>${c[1]}</b><p>${c[2] || ""}</p></div>`).join("") + `</div>`;
+    if (s.stats) h += `<div class="stats">` + s.stats.map(x => `<div class="stat"><div class="v">${x[0]}</div><p>${x[1]}</p></div>`).join("") + `</div>`;
+    if (s.rowsT) h += `<table><tr>${s.head.map(x => `<th>${x}</th>`).join("")}</tr>` + s.rowsT.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join("")}</tr>`).join("") + `</table>`;
+    if (s.note) h += `<div class="note">${s.note}</div>`;
+    if (s.warn) h += `<div class="note warn">${s.warn}</div>`;
+  }
+  slideEl.innerHTML = h;
+  slideEl.style.animation = "none";
+  void slideEl.offsetWidth;
+  slideEl.style.animation = "";
+  count.innerHTML = "<b>" + (i + 1) + "</b> · " + S.length;
+  bar.style.width = (100 * (i + 1) / S.length) + "%";
+  document.getElementById('prev').disabled = i === 0;
+  document.getElementById('next').disabled = i === S.length - 1;
+  chapEl.querySelectorAll('button').forEach(b => {
+    const st = +b.dataset.s;
+    b.className = (i + 1) >= st && (CHAPTERS.find(c => c[0] > st) ? (i + 1) < CHAPTERS.find(c => c[0] > st)[0] : true) ? "on" : ((i + 1) > st ? "past" : "");
+  });
+  history.replaceState(null, "", "#" + (i + 1));
+  slideEl.scrollTop = 0;
+}
+function go(d){ i = Math.min(Math.max(i + d, 0), S.length - 1); render(); }
+document.getElementById('prev').onclick = () => go(-1);
+document.getElementById('next').onclick = () => go(1);
+document.addEventListener('keydown', e => {
+  if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); go(1); }
+  if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); go(-1); }
+});
+let tx = null;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  if (tx === null) return;
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 60) go(dx < 0 ? 1 : -1);
+  tx = null;
+});
+render();
+</script>
+<script src="checkpoints.js"></script>
+<script src="aira.js"></script>
+</body>
+</html>

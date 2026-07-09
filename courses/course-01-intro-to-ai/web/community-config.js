@@ -8,6 +8,12 @@
 //    friendly pending card and a direct link to the GitHub forum.
 window.CAMBIUM_COMMUNITY = {
   repo: "pkjaslam/cambium-academy",
-  repoId: "",
-  qa: { category: "Academy Q&A", categoryId: "", term: "course-01-qa" },
-  discu
+  repoId: "R_kgDOTS-VKQ",
+  qa: { category: "Academy Q&A", categoryId: "DIC_kwDOTS-VKc4DA0c1", term: "course-01-qa" },
+  discussion: { category: "Academy discussion", categoryId: "DIC_kwDOTS-VKc4DA0dI", term: "course-01-discussion" },
+  graduates: { category: "Academy discussion", categoryId: "DIC_kwDOTS-VKc4DA0dI", term: "course-01-graduate-wall" }
+};
+// The graduate wall uses the same categoryId as discussion; the setup script below copies it.
+if (!window.CAMBIUM_COMMUNITY.graduates.categoryId) {
+  window.CAMBIUM_COMMUNITY.graduates.categoryId = window.CAMBIUM_COMMUNITY.discussion.categoryId;
+}

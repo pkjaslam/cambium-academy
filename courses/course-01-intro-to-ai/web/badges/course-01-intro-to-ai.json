@@ -1,0 +1,13 @@
+{
+  "@context": "https://w3id.org/openbadges/v2",
+  "type": "BadgeClass",
+  "id": "https://pkjaslam.github.io/cambium-academy/courses/course-01-intro-to-ai/web/badges/course-01-intro-to-ai.json",
+  "name": "Intro to Artificial Intelligence — Cambium Academy Course 01",
+  "description": "Completed the full learning path of Cambium Academy Course 01: the narrated lecture, all 24 flashcards, all three hands-on AI Lab stations, and a 20-question quiz passed at 70% or better. Approximately 3 instructional hours. July 2026 curriculum snapshot with public sources.",
+  "image": "https://pkjaslam.github.io/cambium-academy/assets/social-preview.png",
+  "criteria": {
+    "narrative": "Watch or read the full lecture; clear all 24 flashcards (flip required before marking); explore the token pipeline, prediction engine, and training chamber stations in the AI Lab; then pass the 20-question quiz at 70% or better. The quiz stays locked until every prior step is complete. Certificates are issued once per quiz pass and carry a verification ID and QR."
+  },
+  "issuer": "https://pkjaslam.github.io/cambium-academy/courses/course-01-intro-to-ai/web/badges/issuer.json",
+  "tags": ["AI", "artificial intelligence", "LLM", "beginner", "Cambium Academy"]
+}

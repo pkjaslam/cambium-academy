@@ -25,4 +25,26 @@
     var host = document.getElementById("progress-host");
     if (!host) return;
     var h = '<div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px"><h2 style="font-family:Cambria,Georgia,serif;font-size:30px;margin-bottom:6px">Your path</h2><div style="font-size:14px;color:#5C6B5A">saved in this browser only</div></div>';
-    h += '<div style="backgrou
+    h += '<div style="background:#D3DECC;border-radius:8px;height:12px;margin:10px 0 16px"><div style="background:#2C5F2D;height:12px;border-radius:8px;width:' + total + '%"></div></div>';
+    h += '<div class="grid">';
+    steps.forEach(function(s){
+      h += '<a href="' + s.href + '" style="text-decoration:none"><div class="card"><h3 style="display:flex;justify-content:space-between"><span>' + s.label + '</span><span style="color:' + (s.pct >= 100 ? "#2C5F2D" : "#B98A2D") + '">' + s.pct + "%" + '</span></h3><p>' + s.detail + '</p></div></a>';
+    });
+    h += '</div>';
+    if (total >= 100) h += '<p style="margin-top:12px;font-size:14.5px;color:#2C5F2D;font-weight:600">Course complete. Post your certificate on the graduate wall and see you next week for Course 02.</p>';
+    host.innerHTML = h;
+  }
+  render();
+
+  var btn = document.getElementById("lectureBtn");
+  if (btn) {
+    var w = !!(read("cambium-c01-lecture") || {}).watched;
+    if (w) { btn.textContent = "Lecture marked as watched"; btn.style.background = "#97BC62"; btn.style.color = "#1F3D24"; }
+    btn.addEventListener("click", function(){
+      localStorage.setItem("cambium-c01-lecture", JSON.stringify({ watched: true, date: new Date().toISOString().slice(0,10) }));
+      btn.textContent = "Lecture marked as watched";
+      btn.style.background = "#97BC62"; btn.style.color = "#1F3D24";
+      render();
+    });
+  }
+})();

@@ -59,7 +59,7 @@
 <div class="wrap">
   <div id="lockPanel" style="display:none;background:#fff;border:2px solid var(--amber);border-radius:14px;padding:26px;margin-bottom:20px">
     <div style="font-family:Cambria,Georgia,serif;font-size:24px;font-weight:700;color:var(--ink);margin-bottom:6px">The quiz unlocks after you study</div>
-    <p style="color:var(--muted);font-size:14.5px;margin-bottom:16px">Certificates here are earned. Finish these three steps and this page opens automatically. Amelia tracks your progress in this browser.</p>
+    <p style="color:var(--muted);font-size:14.5px;margin-bottom:16px">Certificates here are earned. Finish these three steps and this page opens automatically. Aira tracks your progress in this browser.</p>
     <div id="lockList"></div>
     <p style="color:var(--muted);font-size:12.5px;margin-top:14px">Watched the lecture on YouTube instead of reading the slides? Mark it watched on the <a href="index.html" style="color:var(--forest);font-weight:600">course home</a> under the video.</p>
   </div>
@@ -141,4 +141,91 @@ const Q = [
  ["pasting it into any free chatbot","posting it in a public forum for help","emailing it to yourself first","running an open model locally, for example via Ollama"],3,
  "Local open models keep sensitive data on your own machine."],
 ["The single rule this course asks you to carry out the door:",
- ["The newest model is always best","Trust, but verify names, numbers, dates, and citations","
+ ["The newest model is always best","Trust, but verify names, numbers, dates, and citations","Never use AI for real work","Always use three models at once"],1,
+ "AI is confident even when wrong. Verify before you rely."]
+];
+
+const quizEl = document.getElementById('quiz');
+quizEl.innerHTML = Q.map((q,qi)=>
+  `<div class="q" id="q${qi}"><h3><span class="n">${qi+1}.</span>${q[0]}</h3>` +
+  q[1].map((o,oi)=>`<label class="opt"><input type="radio" name="q${qi}" value="${oi}">${o}</label>`).join("") +
+  `<div class="fb" id="fb${qi}"></div></div>`).join("");
+
+document.getElementById('grade').onclick = function(){
+  let score = 0, firstUnanswered = null;
+  Q.forEach((q,qi)=>{
+    const pick = document.querySelector(`input[name="q${qi}"]:checked`);
+    if (!pick && firstUnanswered === null) firstUnanswered = qi;
+  });
+  if (firstUnanswered !== null) {
+    alert("Question " + (firstUnanswered+1) + " is still unanswered. Answer all 20, then grade.");
+    document.getElementById("q"+firstUnanswered).scrollIntoView({behavior:"smooth"});
+    return;
+  }
+  Q.forEach((q,qi)=>{
+    const pick = +document.querySelector(`input[name="q${qi}"]:checked`).value;
+    const box = document.getElementById("q"+qi), fb = document.getElementById("fb"+qi);
+    const ok = pick === q[2];
+    if (ok) score++;
+    box.className = "q " + (ok ? "correct" : "wrong");
+    fb.innerHTML = (ok ? "<b>Correct.</b>" : `<b>Not quite. Correct answer: ${q[1][q[2]]}</b>`) + q[3];
+    box.querySelectorAll("input").forEach(el=>el.disabled=true);
+  });
+  const res = document.getElementById('result'), pass = score >= 14;
+  res.style.display = "block";
+  res.className = pass ? "" : "fail";
+  document.getElementById('scoreTxt').textContent = score + " / 20";
+  document.getElementById('msg').textContent = pass
+    ? "You passed. Enter your name exactly as it should appear on the certificate."
+    : "You need 14 to pass. Review the marked questions or reread the slides, then try again. The course is not going anywhere.";
+  document.getElementById('nameRow').style.display = pass ? "block" : "none";
+  document.getElementById('retry').style.display = pass ? "none" : "block";
+  if (pass) window.__score = score;
+  try {
+    const prev = JSON.parse(localStorage.getItem('cambium-c01-quiz') || '{}');
+    localStorage.setItem('cambium-c01-quiz', JSON.stringify({ best: Math.max(prev.best || 0, score), passed: !!(prev.passed || pass), date: new Date().toISOString().slice(0,10) }));
+  } catch(e) {}
+  res.scrollIntoView({behavior:"smooth"});
+  this.style.display = "none";
+};
+
+// Learning-path gate: lecture + all flashcards + all playground labs before the quiz.
+(function(){
+  function rd(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch(e){ return null; } }
+  var seen = (rd("cambium-c01-slides") || {}).seen || 0;
+  var lecture = seen >= 36 || !!(rd("cambium-c01-lecture") || {}).watched;
+  var cards = Object.keys(rd("cambium-c01-cards") || {}).length;
+  var pg = rd("cambium-c01-playground") || {};
+  var pgN = (pg.tok?1:0) + (pg.lm?1:0) + (pg.net?1:0);
+  var steps = [
+    { ok: lecture, label: "The lecture", detail: lecture ? "done" : (seen > 0 ? seen + " of 36 slides read" : "read the slides or watch the video"), href: "slides.html" },
+    { ok: cards >= 24, label: "All 24 flashcards", detail: cards >= 24 ? "done" : cards + " of 24 known so far", href: "flashcards.html" },
+    { ok: pgN >= 3, label: "All 3 playground labs", detail: pgN >= 3 ? "done" : pgN + " of 3 explored", href: "playground.html" }
+  ];
+  if (steps.every(function(s){ return s.ok; })) return;
+  document.getElementById('quiz').style.display = "none";
+  document.querySelector('.actions').style.display = "none";
+  var panel = document.getElementById('lockPanel');
+  panel.style.display = "block";
+  document.getElementById('lockList').innerHTML = steps.map(function(s){
+    return '<a href="' + s.href + '" style="display:flex;justify-content:space-between;align-items:center;gap:10px;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;background:' + (s.ok ? '#EBF4E4' : '#fff') + '">' +
+      '<span style="font-weight:600">' + (s.ok ? '&#10003; ' : '&#9675; ') + s.label + '</span><span style="font-size:13px;color:var(--muted)">' + s.detail + ' &#8594;</span></a>';
+  }).join("");
+})();
+
+document.getElementById('cert').onclick = function(){
+  const name = document.getElementById('learner').value.trim();
+  if (!name) { alert("Enter your name first."); return; }
+  const desig = document.getElementById('ldesig').value.trim();
+  const orgName = document.getElementById('lorg').value.trim();
+  const email = document.getElementById('lemail').value.trim();
+  const org = [desig, orgName].filter(Boolean).join(", ");
+  const t = new Date();
+  const d = t.getFullYear() + "-" + String(t.getMonth()+1).padStart(2,"0") + "-" + String(t.getDate()).padStart(2,"0");
+  try { localStorage.setItem('cambium-c01-learner', JSON.stringify({ name: name, org: org, email: email })); } catch(e) {}
+  location.href = "certificate.html?name=" + encodeURIComponent(name) + (org ? "&org=" + encodeURIComponent(org) : "") + "&score=" + window.__score + "&date=" + d;
+};
+</script>
+<script src="aira.js"></script>
+</body>
+</html>

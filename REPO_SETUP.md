@@ -36,7 +36,7 @@ framework repo. Learner Q&A stays with the Academy.
 When is-a.dev PR #43042 merges, cambiumai.is-a.dev should be configured on
 **this** repo (Settings → Pages → Custom domain), not on Cambium_AI. The domain
 literally names the Academy. Full steps: `start/DOMAIN_SETUP.md`. After the
-domain is live, update the Amelia worker ALLOW_ORIGIN to
+domain is live, update the Aira worker ALLOW_ORIGIN to
 https://cambiumai.is-a.dev or chat breaks on CORS.
 
 ## What stayed behind in Cambium_AI
@@ -53,7 +53,7 @@ those stubs (push_cambium.bat, then run its Pages workflow).
 
 | Thing | Repo |
 |---|---|
-| Weekly courses, lander, certificates, Amelia | **cambium-academy** |
+| Weekly courses, lander, certificates, Aira | **cambium-academy** |
 | Agents, tools, tests, docs, plugin, releases | Cambium_AI |
 | Research-training app (`academy/`, ten modules) | Cambium_AI (it teaches the framework) |
 | Lecture MP4s, SRT, photo originals | `Cambium\academy_media\` (private, outside both) |

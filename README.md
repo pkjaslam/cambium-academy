@@ -17,7 +17,7 @@ The full 12-course roadmap is in [courses/README.md](courses/README.md).
 
 ## About
 
-Lectures are narrated by **Amelia**, the Academy's AI teacher (an AI-generated voice and persona, always labeled as such). The human course director is Dr. Jaslam Poolakkal, PhD, Director of AI Initiatives.
+Lectures are narrated by **Aira**, the Academy's AI teacher (an AI-generated voice and persona, always labeled as such). The human course director is Dr. Jaslam Poolakkal, PhD, Director of AI Initiatives.
 
 The Academy is built and maintained with the [Cambium AI research framework](https://github.com/pkjaslam/Cambium_AI), the agentic-research side of the institute, which lives in its own repository.
 

@@ -1,7 +1,7 @@
 # Course 01 · YouTube upload pack (ready to paste)
 
 The finished lecture video is at `D:\IFC_SSD2\idaho_sae\Cambium\academy_media\Cambium-Academy-Course01-Intro-to-AI-lecture.mp4`
-(16:44, 1080p, narrated by Amelia, our AI teacher). It sits outside the repo on purpose: YouTube hosts the video, git should not.
+(16:44, 1080p, narrated by Aira, our AI teacher). It sits outside the repo on purpose: YouTube hosts the video, git should not.
 
 ## Upload steps (10 minutes)
 
@@ -36,7 +36,7 @@ Chapters:
 New course every week. Cambium Academy is free forever.
 Follow Cambium AI Research Institution: https://www.linkedin.com/company/cambium-ai-institute/
 
-Note: this lecture is narrated by Amelia, Cambium Academy's AI teacher (an AI-generated voice and persona). Facts are a July 2026 snapshot; sources are listed on the course resources page.
+Note: this lecture is narrated by Aira, Cambium Academy's AI teacher (an AI-generated voice and persona). Facts are a July 2026 snapshot; sources are listed on the course resources page.
 
 ## Tags
 
@@ -44,4 +44,4 @@ intro to ai, ai course, free ai course, how ai works, chatgpt explained, llm exp
 
 ## Re-rendering the video (any future edit)
 
-The whole pipeline is saved in `script/render/` (narration.py, tts.py, seg.sh). Change the narration or voice there, re-run TTS and seg.sh, concat, done. Rendering is free (edge-tts neural voices + ffmpeg). To re-render with a different voice
+The whole pipeline is saved in `script/render/` (narration.py, tts.py, seg.sh). Change the narration or voice there, re-run TTS and seg.sh, concat, done. Rendering is free (edge-tts neural voices + ffmpeg). To re-render with a different voice, edit the VOICE line in tts.py; samples of four candidate voices live in `script/voice-samples/`.

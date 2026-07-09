@@ -27,7 +27,7 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;family=Herr+Von+Muellerhoff&amp;family=Spectral:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;family=Herr+Von+Muellerhoff&amp;family=Mrs+Saint+Delafield&amp;family=Spectral:wght@300;400;500&amp;display=swap" rel="stylesheet">
 <style>
   body { margin: 0; background: #22301F; }
   a { color: #B98A2D; text-decoration: none; }
@@ -99,7 +99,7 @@
       <div id="qrCode" style="background:#fff;padding:5px;border:1px solid #B98A2D;display:inline-block"></div>
       <div style="font-family:'Spectral',serif;font-size:8px;letter-spacing:1.5px;color:#5C6B5A;margin-top:3px">SCAN TO VERIFY</div>
     </div>
-    <div style="position:absolute;inset:38px;display:flex;flex-direction:column;align-items:center;text-align:center;padding:28px 100px 46px">
+    <div style="position:absolute;inset:38px;display:flex;flex-direction:column;align-items:center;text-align:center;padding:26px 100px 38px">
 
       <img src="assets/logo.png" alt="Cambium AI Research Institution" style="width:94px;height:auto;margin-bottom:8px;filter:drop-shadow(0 2px 6px rgba(31,42,32,.18))">
 
@@ -173,7 +173,14 @@
 
         <!-- signature -->
         <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;max-width:280px">
-          <div style="font-family:'Herr Von Muellerhoff',cursive;font-size:42px;line-height:.75;color:#1F3D24;transform:rotate(-3deg);padding-bottom:2px">Jaslam Poolakkal</div>
+          <div style="display:flex;flex-direction:column;align-items:center;transform:rotate(-3.5deg);padding-bottom:2px">
+            <div style="font-family:'Mrs Saint Delafield','Herr Von Muellerhoff',cursive;font-size:52px;line-height:.72;color:#182B1D;letter-spacing:.5px;text-shadow:.4px .5px .3px rgba(24,43,29,.28);white-space:nowrap">Jaslam Poolakkal</div>
+            <svg width="232" height="14" viewBox="0 0 232 14" style="margin-top:-7px" aria-hidden="true">
+              <path d="M8 9 C 54 1.5, 116 13, 163 6 S 214 3.5, 222 8" stroke="#182B1D" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".82"></path>
+              <path d="M170 10.5 C 186 12.5, 202 11.5, 212 10" stroke="#182B1D" stroke-width=".9" fill="none" stroke-linecap="round" opacity=".45"></path>
+              <circle cx="226" cy="7.6" r="1.4" fill="#182B1D" opacity=".8"></circle>
+            </svg>
+          </div>
           <div style="border-top:1px solid #B98A2D;padding-top:6px;min-width:220px;text-align:center">
             <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:#1F2A20;letter-spacing:.5px">Dr. Jaslam Poolakkal, PhD</div>
             <div style="font-family:'Spectral',serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#5C6B5A;margin-top:2px">Director of AI Initiatives</div>
@@ -182,7 +189,8 @@
 
       </div>
 
-      <div style="margin-top:8px;font-family:'Spectral',serif;font-size:11px;letter-spacing:2px;color:#8A9784">CERTIFICATE ID &#183; <span style="color:#B98A2D;font-weight:500">{{ certId }}</span></div>
+      <div style="margin-top:5px;font-family:'Spectral',serif;font-size:11px;letter-spacing:2px;color:#8A9784">CERTIFICATE ID &#183; <span style="color:#B98A2D;font-weight:500">{{ certId }}</span></div>
+      <div id="credLine" style="margin-top:3px;font-family:'Spectral',serif;font-size:8px;letter-spacing:1px;color:#8A9784">Verifiable digital credential &#183; match this ID at the Academy verify page &#183; &#8776;3 instructional hours &#183; Produced with Claude Fable 5 (Anthropic) under the direction and review of the Course Director</div>
 
     </div>
   </div>
@@ -243,4 +251,107 @@ function tidyName(n){
   return n;
 }
 (function(){
-  function q(k)
+  function q(k){ return new URLSearchParams(location.search).get(k); }
+  function fmt(d){ var dt = d ? new Date(d + "T12:00:00") : new Date(); return dt.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }); }
+  function rd(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch(e){ return null; } }
+  var urlName = q("name"), urlOrg = q("org") || "", urlDate = q("date"), urlScore = q("score") || "";
+  var qz = rd("cambium-c01-quiz") || {};
+  var saved = rd("cambium-c01-cert") || {};
+  var name = null, org = "", dateIso = "", score = "", mode = null;
+
+  // One certificate per quiz pass. A stored certificate wins over any name in the link,
+  // UNLESS this browser holds a fresh, unconsumed quiz pass, in which case a new
+  // certificate may be issued (each pass mints exactly one).
+  var freshPass = qz.passed === true;
+  if (saved.issued && saved.name && !(freshPass && urlName && parseInt(urlScore || "0", 10) >= 14 && tidyName(urlName) !== saved.name)) {
+    name = saved.name; org = saved.org || ""; dateIso = saved.date || ""; score = saved.score || "";
+    mode = (urlName && tidyName(urlName) !== saved.name) ? "mismatch" : "reprint";
+  } else if (urlName && (parseInt(urlScore || "0", 10) >= 14) && (freshPass || !saved.issued)) {
+    name = tidyName(urlName); org = urlOrg; dateIso = urlDate || ""; score = urlScore;
+    mode = "issue";
+  } else if (urlName && parseInt(urlScore || "0", 10) >= 14 && saved.issued) {
+    name = saved.name; org = saved.org || ""; dateIso = saved.date || ""; score = saved.score || "";
+    mode = "mismatch";
+  }
+
+  if (name) {
+    window.__CERT = { name: name, org: org, date: dateIso, score: score };
+    var sc = document.querySelector('script[type="text/x-dc"]');
+    if (sc) {
+      try {
+        var props = JSON.parse(sc.getAttribute("data-props"));
+        props.learnerName["default"] = name;
+        props.completionDate["default"] = fmt(dateIso);
+        sc.setAttribute("data-props", JSON.stringify(props));
+      } catch(e) {}
+    }
+    if (mode === "issue") {
+      try {
+        localStorage.setItem("cambium-c01-cert", JSON.stringify({ issued: true, name: name, org: org, date: dateIso, score: score }));
+        // Consume the pass: a new name now requires passing the quiz again.
+        localStorage.setItem("cambium-c01-quiz", JSON.stringify({ best: qz.best || parseInt(score, 10), passed: false, consumedBy: name, date: qz.date || dateIso }));
+      } catch(e) {}
+    }
+    document.title = "Certificate · " + name + " · Cambium Academy";
+    document.addEventListener("DOMContentLoaded", function(){
+      setTimeout(function(){
+        var cert = document.querySelector('x-dc div[style*="1240px"]');
+        if (cert) cert.id = "certSheet";
+        var line = document.getElementById("learnerLine");
+        if (line && name.length > 26) line.style.fontSize = Math.max(30, Math.round(50 * 26 / name.length)) + "px";
+        var ol = document.getElementById("orgLine");
+        if (ol && org) { ol.textContent = org; ol.style.display = "block"; }
+        var m = (document.body.innerText || "").match(/CAMB-C01-[A-Z0-9]{6}/);
+        if (m && window.QRCode) {
+          try {
+            var vurl = "https://pkjaslam.github.io/cambium-academy/courses/course-01-intro-to-ai/web/verify.html?name=" + encodeURIComponent(name) + "&date=" + encodeURIComponent(dateIso) + "&id=" + encodeURIComponent(m[0]);
+            new QRCode(document.getElementById("qrCode"), { text: vurl, width: 72, height: 72, correctLevel: QRCode.CorrectLevel.M });
+            document.getElementById("qrBox").style.display = "block";
+            var cl = document.getElementById("credLine");
+            if (cl) cl.textContent = "Verifiable digital credential · scan the QR or match this ID at the Academy verify page · ≈3 instructional hours · Produced with Claude Fable 5 (Anthropic) under the direction and review of the Course Director";
+          } catch(e) {}
+        }
+        var noteTxt = mode === "reprint"
+          ? "Welcome back. This is your earned certificate, print or save it again anytime."
+          : (mode === "mismatch"
+            ? "This browser's certificate belongs to " + name + ". Each quiz pass issues exactly one certificate; a different name needs a fresh quiz pass."
+            : "");
+        if (noteTxt) {
+          var note = document.createElement("div");
+          note.style.cssText = "position:fixed;bottom:14px;left:14px;z-index:98;background:rgba(255,253,246,.97);border:1px solid #B98A2D;border-radius:10px;padding:9px 14px;font-family:Arial,sans-serif;font-size:12.5px;color:#1F2A20;max-width:min(430px,86vw)";
+          note.textContent = noteTxt;
+          document.body.appendChild(note);
+          setTimeout(function(){ note.remove(); }, 9000);
+        }
+      }, 350);
+    });
+    return;
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    if (qz.passed) {
+      var c = document.getElementById("certNameCtl");
+      if (c) c.style.display = "inline-flex";
+      return;
+    }
+    var lock = document.createElement("div");
+    lock.style.cssText = "position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:98;background:#FFFDF6;border:2px solid #B98A2D;border-radius:12px;padding:16px 22px;max-width:min(480px,90vw);font-family:Arial,sans-serif;font-size:14px;color:#1F2A20;box-shadow:0 12px 34px rgba(0,0,0,.35);text-align:center";
+    lock.innerHTML = '<b style="color:#2C5F2D">Certificates are earned, not printed.</b><br>Pass the 20-question quiz (70% or better) and this page unlocks with your name on it. Each pass issues exactly one certificate.<br><a href="quiz.html" style="display:inline-block;margin-top:10px;background:#2C5F2D;color:#fff;border-radius:8px;padding:10px 20px;font-weight:700;text-decoration:none">Take the quiz</a>';
+    document.body.appendChild(lock);
+  });
+})();
+function applyCertName(){
+  var v = document.getElementById("certNameInput").value.trim();
+  if (!v) return;
+  var qz = {};
+  try { qz = JSON.parse(localStorage.getItem("cambium-c01-quiz") || "{}"); } catch(e) {}
+  if (!qz.passed) { alert("Pass the quiz first; each pass issues one certificate."); return; }
+  var t = new Date();
+  var d = t.getFullYear() + "-" + String(t.getMonth()+1).padStart(2,"0") + "-" + String(t.getDate()).padStart(2,"0");
+  location.search = "?name=" + encodeURIComponent(v) + "&date=" + d + "&score=" + (qz.best || 14);
+}
+</script>
+<script src="cert-extras.js"></script>
+
+</body>
+</html>

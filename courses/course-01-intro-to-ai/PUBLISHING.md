@@ -31,4 +31,37 @@ Prefer your own voice instead? Record it yourself:
 
 The community page (`web/community.html`) ships with an AI teaching assistant that works immediately, plus a Q&A board and a discussion space powered by GitHub Discussions through giscus (free, no server, no ads; learners sign in with a free GitHub account, readers need nothing).
 
-1. On github.com/pkj
+1. On github.com/pkjaslam/cambium-academy: Settings, General, Features, tick "Discussions".
+2. In the new Discussions tab, create two categories: "Academy Q&A" (format: Q&A) and "Academy discussion" (format: open-ended).
+3. Install the giscus app on the repo: github.com/apps/giscus.
+4. Open giscus.app, select the repo and the "Academy Q&A" category, and copy the `data-repo-id` and `data-category-id` values it shows. Repeat with "Academy discussion" for its category id.
+5. Paste the three values into `web/community-config.js`, push, redeploy Pages.
+
+Until this is done, the community page shows a friendly note and links learners straight to the repo's Discussions tab, so nothing looks broken.
+
+## Part D · Aira's live chat (optional, 15 minutes)
+
+Aira can answer learners directly on the site through the university's MindRouter cluster, via a free Cloudflare Worker that keeps the API key server-side. Full steps, security rules, and quota math: [proxy/AIRA_CHAT_SETUP.md](proxy/AIRA_CHAT_SETUP.md). Until it is configured, her "Ask me anything" falls back to the community flow and nothing looks broken.
+
+## The engagement loop (already built, know it exists)
+
+Learners see a progress bar on the course home, hit a two-question checkpoint after every module in the web slides, drill flashcards, play with the hands-on AI playground, and finish with the quiz. Passing unlocks the certificate page with an "Add to LinkedIn profile" button (prefilled with Cambium AI Research Institution as issuer) and a downloadable share image, then invites them to post on the graduate wall. Every certificate on LinkedIn is free marketing; every wall post is social proof. A monthly async AMA keeps the human heartbeat with zero live pressure: on the first Monday of each month, pin a new thread titled "AMA · Month Year" in the Academy Q&A category and answer posts during the week. Five thoughtful answers a month is plenty.
+
+Two more weekly rituals, five minutes each: every Monday pin a "Cohort · week of Month Day" thread in the discussion category (learners introduce themselves and aim to finish by Sunday), and once a month feature the best capstone write-up from the project gallery in the AMA thread. The capstone brief, rubric, and gallery link live at `web/capstone.html`; the career guide at `web/career.html` teaches graduates to put the certificate on their resume and LinkedIn, which is where new learners come from.
+
+## Spreading it (all free)
+
+**The link to share everywhere is the short one:** `https://pkjaslam.github.io/cambium-academy/start/`
+That is the conversion landing page (hook, path, teachers, FAQ, big start button). It reads well in ads, bio links, and posts, and it forwards people into the course. UTM parameters on it are harmless (the site runs no trackers); if you later want ad analytics, a free privacy-friendly counter like GoatCounter can be added in minutes.
+
+Want a truly short branded URL like `cambium.academy`? Buy the domain (roughly $10-30 a year, the only non-free item in the whole stack), then Settings, Pages, Custom domain, and add the DNS CNAME your registrar shows. Every existing link keeps working.
+
+Share the landing page link and the YouTube link on LinkedIn, X, Facebook groups, and relevant subreddits (r/learnmachinelearning and r/artificial allow free course posts; read each community's rules first). Pin a "new course every week" comment under the video. The certificate is a genuine share hook: invite learners to post it and tag the Academy.
+
+## Weekly rhythm (every new course)
+
+Build from `courses/_templates/COURSE_TEMPLATE.md`, then repeat Part B, add a card to the catalog table in `courses/README.md`, and redeploy. Part A never needs doing again.
+
+## Zero-cost checklist
+
+GitHub Pages hosting: $0. YouTube hosting: $0. Quiz and certificate: static browser pages, $0, no accounts, no data collected. The only investment is your recording voice and one push.
