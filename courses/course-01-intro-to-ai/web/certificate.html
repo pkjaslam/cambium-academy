@@ -6,6 +6,8 @@
 <title>Certificate · Intro to AI · Cambium Academy</title>
 <link rel="icon" href="../../../assets/favicon.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script src="./support.js"></script>
 <template id="__bundler_thumbnail" data-bg-color="#1B2818">
@@ -225,14 +227,16 @@ class Component extends DCLogic {
 }
 </script>
 
-<div id="certCtl" style="position:fixed;top:14px;left:14px;z-index:99;display:flex;gap:8px;align-items:center;font-family:Arial,sans-serif">
+<div id="certCtl" style="position:fixed;top:14px;left:14px;right:14px;z-index:99;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-family:Arial,sans-serif">
   <a href="index.html" style="background:rgba(255,255,255,.94);color:#1F3D24;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:700;text-decoration:none">&#8592; Course</a>
   <span id="certNameCtl" style="display:none;gap:6px">
     <input id="certNameInput" placeholder="Your full name" maxlength="60" style="padding:9px 11px;font-size:13px;border:1.5px solid #DFE9D8;border-radius:8px;width:200px">
     <button onclick="applyCertName()" style="background:#2C5F2D;color:#fff;border:0;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer">Apply</button>
   </span>
-  <button onclick="window.print()" style="background:rgba(255,255,255,.94);color:#1F3D24;border:0;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer">Print / PDF</button>
-  <a href="verify.html" style="background:rgba(255,255,255,.7);color:#1F3D24;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:600;text-decoration:none">Verify</a>
+  <button id="savePdfBtn" onclick="downloadCert('pdf')" style="background:#2C5F2D;color:#fff;border:0;border-radius:8px;padding:9px 15px;font-size:13px;font-weight:700;cursor:pointer">Save PDF</button>
+  <button onclick="downloadCert('png')" style="background:rgba(255,255,255,.94);color:#1F3D24;border:0;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer">Save image</button>
+  <button onclick="window.print()" style="background:rgba(255,255,255,.7);color:#1F3D24;border:0;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:600;cursor:pointer">Print</button>
+  <a href="verify.html" style="background:rgba(255,255,255,.7);color:#1F3D24;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:600;text-decoration:none">Verify</a>
 </div>
 <style>
 @media print{
@@ -244,6 +248,76 @@ class Component extends DCLogic {
 }
 </style>
 <script>
+// One-tap certificate download that works on phones (no print dialog needed).
+// Renders the certificate itself to a full-size landscape PDF or PNG.
+async function downloadCert(kind){
+  var sheet = document.getElementById("certSheet");
+  if (!sheet || typeof html2canvas === "undefined") { window.print(); return; }
+  var ctl = document.getElementById("certCtl");
+  var busy = document.getElementById("savePdfBtn");
+  var oldLabel = busy ? busy.textContent : "";
+  if (busy) { busy.textContent = "Preparing…"; busy.disabled = true; }
+  if (ctl) ctl.style.visibility = "hidden";
+  var hide = ["amWrap", "extrasbar", "micTab"].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  hide.forEach(function(e){ e.setAttribute("data-oldd", e.style.display); e.style.display = "none"; });
+  var prevZoom = sheet.style.zoom, prevMargin = sheet.style.margin;
+  sheet.style.zoom = ""; sheet.style.margin = "0";
+  try {
+    if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch(e){} }
+    var canvas = await html2canvas(sheet, {
+      scale: 2, backgroundColor: "#FFFDF6", useCORS: true, allowTaint: false,
+      width: 1240, height: 860, windowWidth: 1240, windowHeight: 920,
+      onclone: function(doc){
+        var s = doc.getElementById("certSheet");
+        if (s){ s.style.zoom = ""; s.style.margin = "0"; s.style.boxShadow = "none"; }
+        // gradient-clipped text renders as transparent in raster; make it solid gold so it shows
+        doc.querySelectorAll("#certSheet *").forEach(function(el){
+          try {
+            var cs = doc.defaultView.getComputedStyle(el);
+            var f = cs.webkitTextFillColor;
+            if (f === "transparent" || f === "rgba(0, 0, 0, 0)"){
+              el.style.webkitTextFillColor = "#B0842B";
+              el.style.color = "#B0842B";
+              el.style.backgroundImage = "none";
+            }
+          } catch(e){}
+        });
+      }
+    });
+    var nm = (window.__CERT && window.__CERT.name ? window.__CERT.name : "certificate").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    var fname = "Cambium-Academy-Intro-to-AI-" + nm;
+    if (kind === "png"){
+      var url = canvas.toDataURL("image/png");
+      if (!triggerDownload(url, fname + "-certificate.png")) window.open(url, "_blank");
+    } else {
+      var JsPDF = (window.jspdf && window.jspdf.jsPDF) ? window.jspdf.jsPDF : (window.jsPDF || null);
+      if (!JsPDF){ // no jsPDF: fall back to image
+        var u2 = canvas.toDataURL("image/png");
+        if (!triggerDownload(u2, fname + "-certificate.png")) window.open(u2, "_blank");
+      } else {
+        var pdf = new JsPDF({ orientation: "landscape", unit: "px", format: [1240, 860], compress: true });
+        pdf.addImage(canvas.toDataURL("image/jpeg", 0.96), "JPEG", 0, 0, 1240, 860);
+        pdf.save(fname + "-certificate.pdf");
+      }
+    }
+  } catch(err){
+    window.print();
+  } finally {
+    hide.forEach(function(e){ e.style.display = e.getAttribute("data-oldd") || ""; e.removeAttribute("data-oldd"); });
+    sheet.style.margin = prevMargin;
+    if (typeof window.__fitCert === "function") window.__fitCert(); else sheet.style.zoom = prevZoom;
+    if (ctl) ctl.style.visibility = "";
+    if (busy) { busy.textContent = oldLabel; busy.disabled = false; }
+  }
+}
+function triggerDownload(url, filename){
+  try {
+    var a = document.createElement("a");
+    a.href = url; a.download = filename; a.rel = "noopener";
+    document.body.appendChild(a); a.click(); a.remove();
+    return true;
+  } catch(e){ return false; }
+}
 function tidyName(n){
   n = n.trim().replace(/\s+/g, " ");
   if (n === n.toUpperCase()) n = n.toLowerCase();
@@ -305,6 +379,7 @@ function tidyName(n){
           s.style.margin = "0 auto";
         }
         fitCert();
+        window.__fitCert = fitCert;
         window.addEventListener("resize", fitCert);
         window.addEventListener("beforeprint", function(){ var s = document.getElementById("certSheet"); if (s) s.style.zoom = ""; });
         window.addEventListener("afterprint", fitCert);
