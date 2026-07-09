@@ -1,12 +1,12 @@
-# Course 01 · Intro to AI · Video narration script
+# Course 02 · Prompting Essentials · Video narration script
 
 One narration block per slide. Read it as written or riff on it; the same text is embedded in the deck as speaker notes, so you can record straight from PowerPoint's Presenter View.
 
-Target length: 16 to 19 minutes. Pace: talk to one curious friend, not an auditorium. Pause one beat after each big number.
+Target length: about 29 minutes (roughly 28:58 at 150 words per minute). Pace: talk to one nervous beginner, not a room. Pause a beat after every before-and-after example so it can be read.
 
 ## Recording setup (10 minutes, one time)
 
-1. Open the deck in PowerPoint: `slides/Cambium-Academy-Course01-Intro-to-AI.pptx`
+1. Open the deck in PowerPoint: `slides/Cambium-Academy-Course02-Prompting-Essentials.pptx`
 2. Slide Show menu, then "Record Slide Show". PowerPoint captures your voice (and webcam if you want) over the slides.
 3. Speak each slide's block below, click through, and stop. Re-record any single slide by opening Record on that slide.
 4. File, Export, Create a Video, 1080p. That MP4 is your YouTube upload.
@@ -19,140 +19,152 @@ Microphone beats camera. Any quiet room and a phone headset already sounds fine.
 ## Narration
 
 **Slide 1 · Title**
-Welcome to Cambium Academy. This is Course 1, Intro to AI. In about an hour you will understand what AI actually is, how models like ChatGPT and Claude work under the hood, how they are trained, and which model to pick for any job. Everything is free, there is a quiz at the end, and you earn a certificate when you pass.
+Welcome back to Cambium Academy. This is Course 2, Prompting Essentials. Last week you learned what these AI models are. This week you learn how to talk to them, because here is the strange truth: the same AI that gives your friend brilliant answers will give you mediocre ones, and the difference is not talent, it is technique. In about ninety minutes you will have that technique. You will write requests that work on the first try, and, just as important, you will know when to trust the answer and when to check it. Free, no signup, and a certificate when you pass the quiz.
 
 **Slide 2 · Built for beginners**
-Quick promise before we start. You need no math, no programming, and no prior AI knowledge. A browser, about ninety minutes, and zero dollars. That is the whole entry fee.
+Same promise as last week. You need no programming, no technical background, and no particular AI app, because everything here works in ChatGPT, Claude, Gemini, or whatever chatbot you already have open. If you have ever typed a question into one of them and thought, hmm, that answer was fine but not great, you are exactly who I made this for. A browser, about ninety minutes, and zero dollars. That is the whole entry fee.
 
-**Slide 3 · Five outcomes**
-Here is the deal we are making. By the end you can explain AI simply, picture what happens inside a model, describe how models get trained, name the major models of 2026, and choose the right one for any task you actually have.
+**Slide 3 · What you'll be able to do**
+Here is the deal we are making. By the end, you can structure a request so it lands on the first try. You can choose between the fast mode and the thinking mode on purpose instead of by accident. You can control tone and format by showing an example. You can pull honest answers out of a system that is trained to sound confident. You can hand the AI your own documents the right way, and you can see and edit what it remembers about you. And you can check any answer in about sixty seconds. Six skills. Ninety minutes. Let's go.
 
-**Slide 4 · Course map**
-The route we will take. Six short modules, about an hour. Watching this lecture is step one of your path. After it, the flashcards and the hands-on AI Lab unlock the quiz. Pass at seventy percent and your certificate prints immediately. No account, no email, no payment.
+**Slide 4 · Your path through the course**
+The route is the same one that worked last week. Watch this lecture, six short modules. Then the flashcards and the hands-on AI Lab unlock the quiz. Twenty questions, you need fourteen, and your certificate prints on the spot. No account, no email, no payment. One suggestion before you start: open your favorite chatbot in another tab right now. This is a doing course, and you will want to try things the moment you see them.
 
 **Slide 5 · Module 1 divider**
-Module one. Let us pin down what artificial intelligence actually means, because the term gets thrown around loosely.
+Module one. Before we fix your prompts, I want to fix a belief. Most people think there is a secret vocabulary, magic words that unlock the good answers, and that power users are just people who memorized them. That was half true in 2023. It is not true now. But there is one switch most people have never touched, and it changes everything. Let me show you what actually matters in 2026.
 
-**Slide 6 · AI in one sentence**
-Here is the whole idea in one sentence. AI is software that learns patterns from examples and uses them to make useful guesses about new things. Compare that with traditional software, where a person writes every rule by hand. With machine learning you show the computer a million examples and it works out the rules itself.
+**Slide 6 · The era of magic words is over**
+In 2023, prompting was a treasure hunt. People traded lists of magic phrases, and some genuinely worked, because early models were brittle. Today's models are far better at understanding ordinary language, so the treasure hunt is over. But here is what people get wrong: they hear "prompt engineering is dead" and conclude that nothing they type matters. Also false. What died is the trick vocabulary. What survived, and what this course teaches, is structure: what you ask for, what background you give, and what shape you want back. Think less secret password, more good briefing.
 
-**Slide 7 · The family tree**
-These four terms get mixed up constantly, so here is the family tree. AI is the broadest term. Machine learning is the approach that dominates today. Deep learning is machine learning built on many-layered neural networks. And generative AI, the newest child, is deep learning that creates things: text, images, audio, video. ChatGPT, Claude, and Gemini all live in that innermost circle.
+**Slide 7 · Meet your intern**
+Here is the mental model that will carry you through this whole course. The AI is a brilliant intern. It has read almost everything humanity ever published, and it is fast, tireless, and eager. But it is the intern's first day. It does not know who you are, who the work is for, what you already tried, or what good looks like to you. And unless you use the memory features we will meet in Module 5, every new chat is another first day. So when an answer disappoints you, ask yourself the manager's question: did I brief this intern well, or did I just bark a topic at them? Almost everything in the next hour is learning to brief well.
 
-**Slide 8 · Seventy-five years**
-AI research started in the nineteen fifties, so the field is older than the internet. Deep Blue beat Kasparov in ninety-seven. Deep learning took off in twenty twelve. Then in twenty seventeen Google published the transformer architecture, and that single invention set up the ChatGPT moment of twenty twenty-two. Today AI assistants sit in about a billion pockets. The technology is old. The scale is new.
+**Slide 8 · The one switch that matters**
+Now the switch. Every major chatbot in 2026 has two speeds. There is an instant mode, which answers in a second or two and is perfect for everyday questions. And there is a thinking mode, where the model works through the problem privately before it answers, which can take from seconds to minutes. In ChatGPT you will see Instant and Thinking in the model picker. Claude now decides for itself how hard to think, and Gemini gives you thinking levels you can raise. The labels move around from month to month, so do not memorize buttons. Memorize the idea: two speeds, and you are allowed to choose.
 
-**Slide 9 · Already everywhere**
-One more reframe before we go deeper. You already use AI every day. Spam filters, phone cameras, map routing, autocomplete, recommendations, voice assistants. All machine learning. Chatbots are just the newest and chattiest face of a technology you have trusted for years.
+**Slide 9 · When to flip it**
+So when do you flip it? Stay on instant for the everyday stuff: quick facts, rewrites, brainstorming, casual back and forth. Switch to thinking for anything where being right matters more than being fast: real math, a plan with dependencies, comparing options, tricky logic. Here is my rule of thumb. If you would give a human colleague ten quiet minutes to work on it, give the AI the thinking mode. Most disappointing answers to hard questions are not the AI being dumb. They are a hard question asked at the wrong speed.
 
 **Slide 10 · Module 2 divider**
-Module two. Time to open the hood. No math, I promise. Just three ideas: prediction, tokens, and attention.
+Module two, the heart of the course. I am going to show you the three parts of a request that works: the task, the context, and the format. Three parts, no jargon, and you already know how to do all three, because it is exactly how you would brief a person. Then, at the end of this module, I need to correct a famous piece of advice. Including a piece of it that I gave you myself last week.
 
-**Slide 11 · Predict the next word**
-Everything a chatbot does comes from one trick: predict the next word. The capital of France is, blank. Paris, ninety-seven percent. Predict a word, append it, predict again, thousands of times. To get really good at this game on trillions of words, the model is forced to absorb grammar, facts, and reasoning patterns. Essays and code emerge from that single skill.
+**Slide 11 · Give it a job, not a topic**
+Part one, the task. The single most common mistake is typing a topic, like you are still using a search engine. "Marketing plan for a bakery" is a topic. The model has to guess everything: how long, for whom, for what kind of bakery. Now look at the after version. Write, that is the verb. A one-page marketing plan, that is the deliverable. A neighborhood bakery targeting families within two miles, that is the audience. Under five hundred dollars a month, that is the limit. Same number of seconds to type, wildly better answer. Give it a job, not a topic.
 
-**Slide 12 · Tokens**
-Models do not see words or letters. Text gets chopped into tokens, chunks of roughly three quarters of a word, and each token becomes a number. Two things follow. Models have a token budget called the context window. And tokens are the currency of AI: pricing and speed are measured in them.
+**Slide 12 · Tell it what it can't know**
+Part two, context. Remember, it is the intern's first day. It cannot know your dad is a retired teacher with a dry sense of humor unless you say so. Look at the difference. "Write a birthday message" gets you a greeting card written for nobody in particular. The after version gets you something that sounds like it came from his actual kid. When you brief, answer the questions a thoughtful person would ask: who is this for, what is the situation, what have I already tried, what does good look like here? Two or three sentences of context routinely does more than any clever wording ever could.
 
-**Slide 13 · Billions of dials**
-Inside the model is a neural network. Picture columns of tiny dials, billions of them, each holding one number called a weight. Training works like this: the model guesses, the guess is scored, and every dial gets a microscopic nudge so the right answer comes out stronger next time. Repeat trillions of times and fluency emerges. Nobody hand-writes any rules.
+**Slide 13 · Say what the answer should look like**
+Part three, format. If you do not say what the answer should look like, the model picks for you, and its default is that bullet-heavy, slightly corporate voice you can smell from across the room. So say it. Three plain sentences, no bullet points. A table with one row per option. Under a hundred and fifty words, in the tone of a friendly text. Format is the cheapest instruction you can give: one short phrase at the end of your ask, and the answer arrives already shaped like the thing you actually needed.
 
-**Slide 14 · The transformer**
-In twenty seventeen Google researchers published a design called the transformer, built on a mechanism called attention. Every word learns which other words to pay attention to. The trophy did not fit in the suitcase because it was too big. Attention correctly links "it" to "trophy". And because transformers read everything in parallel, training on internet-scale data became practical. That is the T in GPT.
+**Slide 14 · The whole recipe on one slide**
+Here is the whole recipe on one slide, and yes, this one is worth a screenshot. Task: what you want made. Context: what it cannot guess. Format: what the result should look like. Read the example and notice it is not clever. There is no secret phrase in it anywhere. It is just a complete briefing, the kind you would give a smart intern on their first morning. That is the entire modern art of prompting: say what you want, say what it needs to know, say what it should look like. Everything else in this course builds on this slide.
 
-**Slide 15 · Context window**
-A model's working memory is its context window, measured in tokens. Typical models hold a couple hundred thousand tokens, about a novel. Claude and Gemini offer million-token tiers. Meta advertises ten million on Llama 4 Scout, though independent testing finds about half of that reliably usable. Practical tip: when the window fills, the oldest content silently falls out. If a long chat gets forgetful, start fresh.
+**Slide 15 · The famous tip to drop: "act as an expert"**
+Now the correction, and this one surprised nearly everyone, including me. The most repeated prompting tip on the internet is to start with a persona: you are a world-class expert, act as a veteran analyst. In 2026, researchers finally tested this properly, and here is what they found. On tasks about facts, math, and precise recall, expert personas made accuracy slightly worse, not better. In one study, a broad knowledge test dropped from about seventy-two percent to about sixty-eight percent the moment a persona was added. The best explanation: you switched the model into sound-like-an-expert mode, and sounding expert competes with being accurate. Last week I told you the four moves included giving the AI a role. I owe you the 2026 update: the role move is real, but it is for voice, not for facts. Let me show you when it still shines.
 
-**Slide 16 · Module 3 divider**
-Module three. Where does a model actually come from? The recipe has four steps, and you can summarize it as: read everything, learn the job, learn manners.
+**Slide 16 · When a role helps, and when to skip it**
+So here is the honest two-sided rule, because personas are not useless, they are mis-marketed. When the job is about how something is said, a role works beautifully. Explain like a patient tutor talking to a nervous adult. Write this in the voice of a friendly coach. That is a style instruction wearing a costume, and style is exactly what personas are good at. But when the job is a fact or a number, drop the costume and add honesty instead. Look at the tax example. The before version invites a confident wrong number delivered in an expert voice, which is the most dangerous kind of wrong. The after version asks plainly and invites the model to flag uncertainty. Facts want plain questions. Style wants personas. That distinction alone puts you ahead of most of the internet.
 
-**Slide 17 · The recipe**
-Four steps. Gather trillions of words. Pretrain by playing predict-the-next-token on all of it, which builds a brilliant autocomplete that knows language and facts but has no manners. Then fine-tune it on example conversations so it follows instructions. Finally, human feedback: real people rank candidate answers and the model learns what helpful, honest, and safe look like.
+**Slide 17 · Module 3 divider**
+Module three, and it is a short one with a big payoff. You now know how to describe what you want. But there is something even stronger than describing, and every professional prompt you will ever see uses it. Show it.
 
-**Slide 18 · The price tag**
-Pretraining is the expensive part. Months of continuous compute, tens of thousands of specialized chips, and estimated costs above a hundred million dollars for a single frontier run. That is why only a handful of labs play at this level. But the efficiency race is real: in twenty twenty-six, open models like DeepSeek V4 deliver near-frontier results at roughly a tenth of the serving cost.
+**Slide 18 · Why everything sounds like AI**
+First, the diagnosis. You have seen the AI voice: delve, dive in, game-changer, I hope this email finds you well. Why does everything come out sounding like that? Because when you do not show the model what you want, it writes the average of everything it has ever read, and the average of the internet is exactly that beige, over-enthusiastic voice. People try to fix it with adjectives: make it casual, make it punchy, make it warm. Adjectives help a little. But you and I might mean completely different things by casual. A sample is unambiguous.
 
-**Slide 19 · Before and after**
-Here is why the polishing steps matter. Ask a raw base model how to bake bread and it may reply, "asked Jim, who had baked for years." It is not being rude. It is autocompleting, because that is all it knows. After fine-tuning and human feedback, the same network answers the question, declines harmful requests, and admits uncertainty. That finishing school is why chatbots feel like assistants.
+**Slide 19 · Paste the tone you want**
+So here is the move. Before you ask for the real thing, paste a short sample of the tone you want. Here is an email I wrote that sounds like me. Now write the new announcement in the same voice. That is it. One good sample usually transforms the output; two or three consistent ones lock it in. And a detail that matters: the model imitates the pattern of whatever you show it, formatting included. If your samples are tidy and consistent, the output will be too. If they contradict each other, you get mush. By the way, researchers call this few-shot prompting. You can forget that name in ten seconds, as long as you keep the habit: show before you ask.
 
-**Slide 20 · Hallucination**
-Now the most important limitation. A language model always produces the most plausible next words. Plausible is not the same as true. When it hits a gap in its knowledge, it fills the gap smoothly, sometimes inventing names, dates, and citations. This is called hallucination. Search and reasoning features reduce it, but nothing eliminates it. So carry one rule out of this course: trust, but verify.
+**Slide 20 · Order the exact shape**
+The same show-don't-describe trick works for structure. If you want a table, name the columns. If you want a list, say how many items and what each line contains. And when the shape is unusual, sketch one line of it. Format each item like: name, year in parentheses, then a one-line why. That single sketched line does more than a paragraph of description, because the model completes patterns for a living, and you just handed it the pattern. Task, context, format, and now a sample. Your asks are already better than ninety percent of what these models see all day. Next up: the steering habits that keep answers honest.
 
 **Slide 21 · Module 4 divider**
-Module four, the tour of who makes what in July twenty twenty-six. One warning: this is the fastest-moving slide in the deck. Names change monthly. The two philosophies do not.
+Module four. Everything so far happens before you press enter. This module is about steering: four small habits that change what comes back, and what you do the moment it arrives. None of them takes more than one sentence to use. All of them will still work years from now, whatever the models are called by then.
 
-**Slide 22 · Closed or open**
-Every model you meet falls on one side of a line. Closed weights: you use it as a service and the recipe stays secret. GPT, Claude, Gemini. Open weights: you can download the actual model and run it on your own machine. Llama, DeepSeek, Qwen, Mistral. Closed usually buys polish and peak performance. Open buys freedom, privacy, and zero cost. Both philosophies are thriving in twenty twenty-six.
+**Slide 22 · The pink elephant problem**
+Habit one. Do not think of a pink elephant. You just did, and so does the model. When your instructions are a pile of don'ts, don't be formal, don't use jargon, don't make it long, you are filling the model's attention with the exact things you want gone, and they leak back in. The fix is to say what you want instead. Write like you would text a friendly coworker. Use everyday words. Keep it under a hundred words. Now, don'ts are not banned. If the model keeps making one specific mistake, calling it out directly is fine. Just pair every don't with a do, so the model always has somewhere to go, not only somewhere to avoid.
 
-**Slide 23 · The frontier three**
-The frontier three in the United States. OpenAI ships GPT 5.5, with 5.6 rolling out this month, the most used AI on the planet. Anthropic's Claude is prized for careful long-form work and coding, and its new Sonnet 5 just became the free default. Google's Gemini is woven through Search, Docs, and Gmail and gives away the broadest free tier. All three are excellent for everyday use.
+**Slide 23 · Give it an out**
+Habit two, and if you only keep one line from this entire course, make it this one. These models are trained to be helpful, and to their training, an empty answer feels like a failure. So when they hit a gap, the pull is to fill it fluently, which is exactly how you get a confident wrong answer. You can push back with a single sentence. If you're not fully sure, say so, and tell me what you'd check. That is the whole habit. It gives the model explicit permission to be uncertain, and in practice it turns silent guesses into visible ones: you get "I believe it's X but verify the current figure" instead of a smooth wrong number. I use it on anything involving names, dates, prices, laws, or medicine. Say it with me once: if you're not fully sure, say so, and tell me what you'd check.
 
-**Slide 24 · More heavyweights**
-Four more heavyweights. Meta surprised everyone by making its new flagship, Muse Spark, closed weight, while keeping the open Llama 4 line alive, free inside WhatsApp and Instagram. Grok from xAI taps live X data. DeepSeek proved open models can match the frontier at a tenth of the cost. And Mistral carries the flag for Europe with the largest fully open Western model.
+**Slide 24 · "Think step by step" is now a sometimes-tool**
+Habit three is about the second most famous magic phrase: think step by step. In 2023 it genuinely boosted accuracy. Then models changed. Researchers at Wharton tested it properly and found that on thinking models, the ones that already reason privately before answering, the phrase adds twenty to eighty percent more waiting for little or no accuracy gain. You are telling someone who is already deep in thought to please think. On instant models it still helps modestly with genuinely multi-step problems, but it also makes answers more variable, so it can even break questions the model would have gotten right. Here is the rule that survives: ask for steps when the task naturally has steps, a plan, a checklist, a comparison. And if the problem is truly hard, do not chant at the instant model. Flip the switch from Module 1 and use the thinking mode. That is what it is for.
 
-**Slide 25 · The open-weights wave**
-The open-weights wave is led from Asia right now. Alibaba's Qwen family comes in every size. Moonshot's Kimi is a trillion-parameter coding favorite. And GLM 5.2 is MIT licensed with a million-token window. One honest caveat: their hosted apps fall under Chinese data rules, so for sensitive work, download the weights and run them locally instead.
+**Slide 25 · Never ship the first draft**
+Habit four, the biggest single productivity unlock for beginners. Most people treat a chatbot like a slot machine: pull the lever once, take whatever falls out. But the first answer is a first draft, and unlike a human intern, this one revises instantly and never gets tired of your notes. My three favorite follow-ups. What's weak about this? Fix it. The model is surprisingly good at criticizing its own work when you ask. Give me three versions: safe, bold, unexpected, so you choose instead of settle. And my favorite, flipped around: ask me three questions before you answer, which is wonderful whenever you are not sure what context the model needs. One more pull of the lever is not failure. It is the technique.
 
-**Slide 26 · Four numbers**
-Four numbers to feel the scale. The ChatGPT app passed a billion monthly users in June, the fastest app in history to get there. Gemini passed nine hundred million. One Google image tool generated five billion images in about two months. And Anthropic was valued at nearly a trillion dollars in May. This is why every industry is paying attention.
+**Slide 26 · The pocket toolkit**
+Here is your pocket toolkit, the second screenshot slide of the course. Six moves. Give it a job, not a topic. Brief it with the context it cannot guess. Show a sample. Phrase things positively. Give it an out. And never ship the first draft. Notice what is not on this list: no magic words, no personas for facts, no chanting step by step at a model that is already thinking. This list will still be true when the model names have changed five more times. Take the screenshot, and then let's talk about something most people never learn at all: how to work with your own material.
 
-**Slide 27 · On your own computer**
-Because open weights exist, you can run a real model on your own computer. Install a free app called Ollama, pick a small model like Qwen 3, and you have a private assistant that works offline and costs nothing. Honest trade-off: local models are clearly weaker than the frontier ones. Ideal for private material and learning, not for your hardest problems.
+**Slide 27 · Module 5 divider**
+Module five. So far we have worked inside one message box. But the biggest quality jump available to you is not a better sentence. It is better material. What the model can see, your documents, your notes, your past chats, decides what it can actually do for you. The pros call this context engineering. You can just call it handing over the folder.
 
-**Slide 28 · Module 5 divider**
-Module five, the practical payoff. People ask which AI is best. Wrong question. The right question is: best for what? Here is the cheat sheet.
+**Slide 28 · Open book, not training**
+First, the idea that clears up the most confusion. When you upload a file to a chatbot, you are not teaching the AI. Nothing about the model's brain changes, and your file does not become part of some public pool of knowledge. What you are doing is handing the intern a folder: an open-book reference it can read for this conversation and, in the workspaces I will show you next, for every conversation in that workspace. That is why uploading beats summarizing your document by hand into the prompt box. The model quotes your actual material instead of guessing. One separate note while we are here: whether your chats may be used to improve models is a privacy setting, not an upload side effect, and every major app now lets you turn it off. Worth checking once in settings.
 
-**Slide 29 · Cheat sheet, part 1**
-Part one, the word-and-work jobs. Everyday writing: ChatGPT's free tier is excellent, and many prefer Claude's more natural writing voice. Coding: Claude leads, with DeepSeek and Kimi as strong free options. Research with sources: Perplexity cites as it answers, and Gemini's Deep Research writes full reports. Long documents: reach for the million-token models, Claude or Gemini.
+**Slide 29 · The three rooms**
+All three big apps now give you a room where your material lives, so you stop re-uploading and re-explaining. In Claude they are called Projects: files plus standing instructions, shared by every chat inside. ChatGPT has Projects too, same idea, plus Custom GPTs, which are more like a packaged assistant you can hand to other people. And Gemini has Gems, with a genuinely nice trick: they can link to Google Drive files and stay current when the file changes. Set one up this week. Put in the three documents you reference constantly and one paragraph of standing instructions, who you are, what you are working on, how you like answers. It takes ten minutes, and it upgrades every single future chat. File limits and names change often enough that I will not quote numbers; the room is the durable idea.
 
-**Slide 30 · Cheat sheet, part 2**
-Part two, media and privacy. Images: Google's Nano Banana tool is free and shockingly good, with Midjourney the paid pick for art direction. Video: Veo 3.1 leads on quality, Kling on price. Voice: ElevenLabs. Privacy: run Qwen or Gemma locally through Ollama. And if you just want one free pick, Gemini's free tier is the broadest today, with ChatGPT right behind.
+**Slide 30 · First or last, never buried**
+Now a quirk that will save you real frustration. When you give a model a lot of material, it does not weigh every page equally. It is most reliable with what sits at the start and at the end, and weakest in the middle. Researchers literally call the effect lost in the middle. So work with it. Put your most important document, or your actual instruction, first or last, never sandwiched in the middle of a giant paste. When you do paste something huge, add a pointer: focus on section four, or, the part I care about is the pricing table. Big context windows are wonderful, but attention is not evenly spread, and now you know where the strong seats are.
 
-**Slide 31 · Four questions**
-When in doubt, four questions beat any leaderboard. Is the data sensitive? Go local, or use a plan with training turned off. Need sources you can check? Use a citing research tool. Is the input huge? Big context model. Otherwise, honestly, any of the big three free tiers is excellent. And the best advice in this whole course: pick one model and learn it deeply. Skill compounds. Tool-hopping does not.
+**Slide 31 · It remembers you now**
+Last idea in this module, and it is one many daily users have never checked. In 2026, the big chatbots remember things about you across separate chats: your job, your preferences, your ongoing projects. Used well, it is lovely, less re-explaining. But you should know three things. First, you can read everything it has stored: in ChatGPT under Settings, Personalization, Memory; in Claude under Settings, Memory; in Gemini on the Saved info page. Second, you can edit or delete any of it, and memories do go stale, so glance at the list occasionally, the way you would clean out a junk drawer. And third, every app now has a temporary or incognito chat mode that leaves no memory behind, for the conversations you want to stay in the room. The AI keeping notes on you is fine. Not knowing it keeps notes is not.
 
 **Slide 32 · Module 6 divider**
-Last module. You now know how these systems work. Let us close with how to use them well, because the difference between an AI power user and everyone else is habits, not access.
+Last module, and the one I most want you to keep. You can now get impressive answers on demand. This module is about the moment right after, when you decide what to do with one. Because the difference between people who get real value from AI and people who get burned by it is rarely the prompting. It is the judgment.
 
-**Slide 33 · Five golden rules**
-Five habits separate power users from everyone else. Verify before you rely. Guard private data. Keep the judgment yourself; AI accelerates, but you decide. Disclose AI help where it matters. And reassess monthly, because models leapfrog each other all the time. None of these require technical skill. All of them require discipline.
+**Slide 33 · Confidence is not accuracy**
+Start with the uncomfortable fact from Course 1, now with 2026 numbers. These models sometimes generate confident, fluent, specific answers that are simply wrong. Stanford's AI Index this year measured hallucination rates across twenty-six top models on one benchmark and found them ranging from twenty-two percent all the way to ninety-four percent, depending on the model and task. The detail that matters for you: the tone never wobbles. A wrong answer sounds exactly like a right one, polished, structured, sure of itself. So do not use confidence as your signal, ever. Use cost. If a wrong answer costs you nothing, a movie recommendation, enjoy. If it costs money, health, a grade, or your reputation, you verify. Here is how, in about sixty seconds.
 
-**Slide 34 · Four moves**
-A parting gift and a teaser for next week. Most prompt advice fits in four moves. Give the AI a role. Give it context. State the task precisely. And say what format you want back. That one habit doubles the quality of answers from any model. Course 2, Prompting Essentials, goes deep on this next week.
+**Slide 34 · The sixty-second check: lateral reading**
+The verification move is called lateral reading, and it is what professional fact-checkers do. Do not sit inside the chat asking, are you sure? The model will grade its own homework, politely, and that tells you almost nothing. Instead, go lateral: open a new tab, search the specific claim, the number, the name, the date, and see if one independent source agrees. Sixty seconds, usually less. And when the model gives you sources, lovely, but click one. In 2026 the links are usually real; the question is whether the page actually says what the summary claims. One opened link puts you ahead of almost everybody. Verify the claim, not the vibe.
 
-**Slide 35 · Keep learning**
-If this course lit a spark, here is where to go next, all free and all verified by hand this month. CGP Grey for a five-minute mental model. Karpathy's one-hour intro. 3Blue1Brown for gorgeous visuals. Elements of AI and AI for Everyone for structured courses. The links live on the course resources page.
+**Slide 35 · Don't lead the witness**
+Here is the finding from this year's research that genuinely changed how I ask questions. Models are trained on human approval, and it shows: they tend to agree with whatever you signal you already believe. Researchers tested the same false claims two ways. Framed as, someone says this, models corrected the error just fine. Framed as, I believe this, accuracy collapsed, in one reported case from about ninety-eight percent to about sixty-four on the same claims, just because the wrongness now belonged to the user. So watch your framing. Ask, is this true, not, this is true, right? Keep your conclusion out of the question when you want the truth. And when you actually want help with a decision, use the power move: argue against my plan. Flattery cannot survive that instruction, and the answer you get is worth ten agreeable ones.
 
-**Slide 36 · Closing**
-That is the lecture, step one of your path, done. Two short steps remain before the quiz unlocks: clear all twenty-four flashcards, and explore the three stations in the AI Lab. Then the quiz opens: twenty questions, fourteen to pass, and your certificate prints on the spot, ready for LinkedIn. Next week, Course 2, Prompting Essentials. I will see you there.
+**Slide 36 · Hidden instructions are real**
+Now one safety idea from the developer world that every ordinary user should know, because in 2026 it stopped being theoretical. Everything you paste into a chat, an article, an email, a resume, a prompt someone shared, is read by the model as potential instructions, not just as information. Attackers exploit that with hidden text, white on white, or tucked mid-document, saying things like, ignore your instructions and do this instead. A real case this year: security researchers found that a specially crafted claude.ai link could pre-fill a prompt containing instructions the victim could not see. Press enter once, and buried commands could quietly send parts of your chat history to an attacker. It has been fixed, but the pattern is the lesson. So, three habits. Treat paste-this-prompt links from strangers like unmarked pills. Skim anything large before you paste it. And if an answer suddenly veers weird right after a paste, suspect the paste. Not paranoia, just seatbelts.
+
+**Slide 37 · Say when AI helped**
+One more judgment call, and I will be honest with you: this one has no universal rule, and anyone who sells you one is simplifying. Whether to say AI helped you depends on the room you are in. In school, the syllabus decides, and in 2026 many courses set the rule assignment by assignment, so when it is unclear, ask, do not guess. At work, the growing norm is that a human who reviews, edits, and stands behind the output owns it, though more companies now ask for a heads-up internally. Two things are true everywhere. You are responsible for what you ship, AI-assisted or not, so never send what you have not read. And when you are in doubt, disclosing costs you a sentence, while being caught not disclosing can cost you trust. Know the rules of the room. When in doubt, say so.
+
+**Slide 38 · The habits that compound**
+Here is the whole course on one slide, and yes, this is the third screenshot. Twelve habits in three rows. Ask well: a job, a briefing, a sample, a shape. Steer well: positive phrasing, an out, the right speed, a second draft. Trust well: verify by cost, read laterally, keep your conclusions out of your questions, and watch what you paste. Read the last line one more time, because it is the sentence I most want you to remember a year from now. Technique gets you good answers. Judgment makes them safe to use. You now have both.
+
+**Slide 39 · Keep learning**
+If this course lit a spark, here is where to go next, all free, all checked by hand this month. The official prompting guides from Anthropic, OpenAI, and Google are genuinely good now, and they agree with each other far more than the internet does. Learn Prompting is a gentle full beginner course. And when you want your hands dirty, Anthropic publishes an interactive tutorial with real exercises. The full annotated list, with what each one is best for, lives on the course resources page.
+
+**Slide 40 · Closing**
+And that is the lecture, step one of your path, done. Two short steps remain before the quiz unlocks. Clear the twenty-four flashcards, they are quick, and go play at the three Lab stations, where you will watch a persona wreck a factual answer with your own eyes. Then the quiz opens: twenty questions, fourteen to pass, and your certificate prints on the spot, ready for LinkedIn. Before you go, do one thing for me. Take the worst prompt you wrote last month, you know the one, and rewrite it with the pocket toolkit. Send both versions to a friend who needs this course. That is the whole final exam of real life: better asks, wiser trust. A new Cambium Academy course lands next week. I will see you there.
 
 ---
 
 ## YouTube upload block (copy-paste)
 
-**Title:** Intro to AI: How AI Works, How It's Trained, and Which Model to Use (Free Course + Certificate)
+**Title:** Prompting Essentials: How to Ask AI, and When to Trust the Answer (Free Course + Certificate)
 
 **Description:**
 
-Free beginner course from Cambium Academy. No math, no code, no signup. Learn what AI really is, how models like ChatGPT, Claude, and Gemini work, how they are trained, the July 2026 model landscape, and exactly which model to use for each job.
+Free beginner course from Cambium Academy. No code, no jargon, no signup. Learn how to turn a vague request into a structured ask that works on the first try, when to use instant mode versus thinking mode, how to control tone by showing an example instead of describing it, the steering habits that keep answers honest, how to give the AI your own material and manage what it remembers about you, and how to verify any answer in under a minute. Works with ChatGPT, Claude, Gemini, or any chatbot you already use.
 
-Finish the path (flashcards + hands-on AI Lab unlock the quiz) and print your free certificate: PASTE COURSE PAGE LINK HERE
+Finish the path (flashcards plus the hands-on AI Lab unlock the quiz) and print your free certificate: PASTE COURSE PAGE LINK HERE
 Slides, resources, and all courses: PASTE ACADEMY LINK HERE
 
 Chapters:
 0:00 Welcome
-1:29 Module 1 · What is AI?
-3:39 Module 2 · How AI models work
-6:27 Module 3 · How models are trained
-8:52 Module 4 · The 2026 model landscape
-12:19 Module 5 · Which model for which job
-14:21 Module 6 · Using AI well
-16:07 Quiz and certificate
+2:23 Module 1 · Why answers vary so much
+5:38 Module 2 · The anatomy of a great ask
+10:42 Module 3 · Show, don't describe
+13:10 Module 4 · Steering, and second drafts
+17:54 Module 5 · Your material, and its memory
+21:56 Module 6 · When to trust the answer
+27:32 Keep learning and closing
 
 New course every week. Cambium Academy is free forever.
 
-(Adjust chapter times to your actual recording before publishing.)
+(Adjust chapter times to your actual recording before publishing. Times above are estimates at 150 words per minute.)
 
-**Tags:** intro to ai, ai course, free ai course, how ai works, chatgpt explained, llm explained, ai for beginners, claude ai, gemini, ai certificate
+**Tags:** prompting essentials, prompt engineering, how to prompt ai, chatgpt tips, claude, gemini, ai for beginners, free ai course, ai certificate, when to trust ai
 
 **Playlist:** Cambium Academy · Visibility: Public · License: Standard YouTube
