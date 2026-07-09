@@ -88,6 +88,12 @@
     .foot{position:static;margin-top:14px}
     .chip{display:none}
     .chapters button:hover::after{display:none}
+    .g3{grid-template-columns:1fr 1fr}
+    .g2{grid-template-columns:1fr}
+    h2.stitle{font-size:clamp(20px,5.5vw,28px)}
+  }
+  @media (max-width:430px) and (orientation:portrait){
+    .g3{grid-template-columns:1fr}
   }
 </style>
 </head>
@@ -225,5 +231,6 @@ render();
 </script>
 <script src="checkpoints.js"></script>
 <script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

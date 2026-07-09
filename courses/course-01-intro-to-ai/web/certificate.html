@@ -294,6 +294,20 @@ function tidyName(n){
       setTimeout(function(){
         var cert = document.querySelector('x-dc div[style*="1240px"]');
         if (cert) cert.id = "certSheet";
+        // Fit the fixed 1240px certificate to the screen (phones, small windows).
+        // Uses zoom (affects layout box, so no overflow or empty gap) on screen only.
+        function fitCert(){
+          var s = document.getElementById("certSheet");
+          if (!s) return;
+          var avail = document.documentElement.clientWidth - 16;
+          var scale = avail < 1240 ? Math.max(0.24, avail / 1240) : 1;
+          s.style.zoom = scale < 1 ? scale : "";
+          s.style.margin = "0 auto";
+        }
+        fitCert();
+        window.addEventListener("resize", fitCert);
+        window.addEventListener("beforeprint", function(){ var s = document.getElementById("certSheet"); if (s) s.style.zoom = ""; });
+        window.addEventListener("afterprint", fitCert);
         var line = document.getElementById("learnerLine");
         if (line && name.length > 26) line.style.fontSize = Math.max(30, Math.round(50 * 26 / name.length)) + "px";
         var ol = document.getElementById("orgLine");
@@ -351,5 +365,6 @@ function applyCertName(){
 </script>
 <script src="cert-extras.js"></script>
 
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
