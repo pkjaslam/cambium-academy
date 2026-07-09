@@ -6,8 +6,7 @@
 <title>Certificate · Intro to AI · Cambium Academy</title>
 <link rel="icon" href="../../../assets/favicon.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.js"></script>
 
 <script src="./support.js"></script>
 <template id="__bundler_thumbnail" data-bg-color="#1B2818">
@@ -233,9 +232,7 @@ class Component extends DCLogic {
     <input id="certNameInput" placeholder="Your full name" maxlength="60" style="padding:9px 11px;font-size:13px;border:1.5px solid #DFE9D8;border-radius:8px;width:200px">
     <button onclick="applyCertName()" style="background:#2C5F2D;color:#fff;border:0;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer">Apply</button>
   </span>
-  <button id="savePdfBtn" onclick="downloadCert('pdf')" style="background:#2C5F2D;color:#fff;border:0;border-radius:8px;padding:9px 15px;font-size:13px;font-weight:700;cursor:pointer">Save PDF</button>
-  <button onclick="downloadCert('png')" style="background:rgba(255,255,255,.94);color:#1F3D24;border:0;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer">Save image</button>
-  <button onclick="window.print()" style="background:rgba(255,255,255,.7);color:#1F3D24;border:0;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:600;cursor:pointer">Print</button>
+  <button id="dlCertBtn" onclick="downloadCert()" style="background:#2C5F2D;color:#fff;border:0;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer">&#8681; Download certificate</button>
   <a href="verify.html" style="background:rgba(255,255,255,.7);color:#1F3D24;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:600;text-decoration:none">Verify</a>
 </div>
 <style>
@@ -248,66 +245,123 @@ class Component extends DCLogic {
 }
 </style>
 <script>
-// One-tap certificate download that works on phones (no print dialog needed).
-// Renders the certificate itself to a full-size landscape PDF or PNG.
-async function downloadCert(kind){
+// Certificate download as a high-quality PNG, drawn directly on a canvas so it is
+// pixel-perfect and identical on phone and laptop (no print dialog, saves to gallery).
+var CERT_LOGO = null;
+function loadCertLogo(){
+  return new Promise(function(res){
+    if (CERT_LOGO) return res(CERT_LOGO);
+    var img = new Image();
+    img.onload = function(){ CERT_LOGO = img; res(img); };
+    img.onerror = function(){ res(null); };
+    img.src = "assets/logo.png";
+  });
+}
+function spaced(ctx, text, cx, y, spacing){
+  var widths = [], total = 0, i;
+  for (i = 0; i < text.length; i++){ var w = ctx.measureText(text[i]).width; widths.push(w); total += w + (i < text.length - 1 ? spacing : 0); }
+  var x = cx - total / 2, prev = ctx.textAlign; ctx.textAlign = "left";
+  for (i = 0; i < text.length; i++){ ctx.fillText(text[i], x, y); x += widths[i] + spacing; }
+  ctx.textAlign = prev;
+}
+function wrapLines(ctx, text, maxW){
+  var words = text.split(" "), lines = [], line = "", i;
+  for (i = 0; i < words.length; i++){ var t = line ? line + " " + words[i] : words[i]; if (ctx.measureText(t).width > maxW && line){ lines.push(line); line = words[i]; } else line = t; }
+  if (line) lines.push(line); return lines;
+}
+function arcTextC(ctx, text, r, a0deg, a1deg, size, color, bottom){
+  ctx.save(); ctx.fillStyle = color; ctx.font = '600 ' + size + 'px "Spectral"'; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  var a0 = a0deg * Math.PI / 180, a1 = a1deg * Math.PI / 180, per = (a1 - a0) / Math.max(1, text.length - 1);
+  for (var i = 0; i < text.length; i++){ var a = a0 + per * i; ctx.save(); ctx.translate(r * Math.cos(a), r * Math.sin(a)); ctx.rotate(a + (bottom ? -Math.PI / 2 : Math.PI / 2)); ctx.fillText(text[i], 0, 0); ctx.restore(); }
+  ctx.restore();
+}
+function drawStamp(ctx, x, y, logo){
+  ctx.save(); ctx.translate(x, y); ctx.rotate(-0.12); ctx.globalAlpha = 0.86; ctx.strokeStyle = "#1C1C1C";
+  ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(0, 0, 74, 0, 7); ctx.stroke();
+  ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(0, 0, 67, 0, 7); ctx.stroke();
+  ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(0, 0, 47, 0, 7); ctx.stroke();
+  arcTextC(ctx, "CAMBIUM AI", 57, -164, -16, 11, "#1C1C1C", false);
+  arcTextC(ctx, "RESEARCH INSTITUTION", 57, 168, 12, 9, "#1C1C1C", true);
+  ctx.textAlign = "center"; ctx.textBaseline = "alphabetic"; ctx.font = '600 8px "Spectral"'; ctx.fillStyle = "#1C1C1C";
+  spaced(ctx, "CERTIFIED", 0, 40, 2);
+  if (logo){ ctx.save(); ctx.globalAlpha = 0.5; ctx.drawImage(logo, -27, -30, 54, 54); ctx.restore(); }
+  ctx.restore();
+}
+function drawCert(ctx, W, H, logo, d){
+  var cx = W / 2, i;
+  var bg = ctx.createLinearGradient(0, 0, W, H);
+  bg.addColorStop(0, "#FFFDF6"); bg.addColorStop(0.55, "#FBF7EA"); bg.addColorStop(1, "#F6F0DE");
+  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
+  if (logo){ ctx.save(); ctx.globalAlpha = 0.05; ctx.drawImage(logo, cx - 260, H / 2 - 270, 520, 520); ctx.restore(); }
+  ctx.strokeStyle = "#C6A24E"; ctx.lineWidth = 2; ctx.strokeRect(30, 30, W - 60, H - 60);
+  ctx.strokeStyle = "rgba(185,138,45,.45)"; ctx.lineWidth = 1; ctx.strokeRect(40, 40, W - 80, H - 80);
+  ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1.5;
+  [[46, 46, 1, 1], [W - 46, 46, -1, 1], [46, H - 46, 1, -1], [W - 46, H - 46, -1, -1]].forEach(function(c){ ctx.beginPath(); ctx.moveTo(c[0] + c[2] * 28, c[1]); ctx.lineTo(c[0], c[1]); ctx.lineTo(c[0], c[1] + c[3] * 28); ctx.stroke(); });
+  ctx.textAlign = "center";
+  if (logo){ ctx.drawImage(logo, cx - 42, 58, 84, 84); }
+  ctx.fillStyle = "#2C5F2D"; ctx.font = '500 14px "Spectral"'; spaced(ctx, "CAMBIUM AI RESEARCH INSTITUTION", cx, 168, 6);
+  var ty = 232, g = ctx.createLinearGradient(0, ty - 40, 0, ty + 6);
+  g.addColorStop(0, "#8C6320"); g.addColorStop(0.45, "#D9B25C"); g.addColorStop(0.62, "#B98A2D"); g.addColorStop(1, "#7A561C");
+  ctx.font = '700 46px "Cormorant Garamond"'; var tw = 0; for (i = 0; i < 11; i++) tw += ctx.measureText("CERTIFICATE"[i]).width + 7;
+  ctx.fillStyle = g; spaced(ctx, "CERTIFICATE", cx, ty, 7);
+  ctx.strokeStyle = "#C6A24E"; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(cx - tw / 2 - 84, ty - 14); ctx.lineTo(cx - tw / 2 - 28, ty - 14); ctx.moveTo(cx + tw / 2 + 28, ty - 14); ctx.lineTo(cx + tw / 2 + 84, ty - 14); ctx.stroke();
+  ctx.fillStyle = "#B98A2D"; ctx.font = '500 13px "Spectral"'; spaced(ctx, "OF COMPLETION", cx, 256, 6);
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 14px "Spectral"'; spaced(ctx, "THIS IS TO CERTIFY THAT", cx, 292, 3);
+  var ns = d.name.length > 28 ? Math.max(30, Math.round(50 * 28 / d.name.length)) : 50;
+  ctx.fillStyle = "#1F3D24"; ctx.font = 'italic 700 ' + ns + 'px "Cormorant Garamond"'; ctx.fillText(d.name, cx, 338);
+  ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(cx - 190, 356); ctx.quadraticCurveTo(cx, 349, cx + 190, 356); ctx.stroke();
+  ctx.fillStyle = "#B98A2D"; ctx.beginPath(); ctx.arc(cx, 353, 2.4, 0, 7); ctx.fill();
+  var y = 388;
+  if (d.org){ ctx.fillStyle = "#5C6B5A"; ctx.font = '500 13px "Spectral"'; spaced(ctx, d.org.toUpperCase(), cx, y, 2); y += 24; }
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 15px "Spectral"'; ctx.fillText("has fulfilled all requirements of the programme", cx, y + 8);
+  ctx.fillStyle = "#1F3D24"; ctx.font = '700 32px "Cormorant Garamond"'; ctx.fillText("Intro to Artificial Intelligence", cx, y + 46);
+  ctx.fillStyle = "#B98A2D"; ctx.font = '500 12px "Spectral"'; spaced(ctx, "EXECUTIVE PROGRAMME · COURSE 01", cx, y + 68, 4);
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 13.5px "Spectral"';
+  var lines = wrapLines(ctx, "How AI works, how models are trained, and which model to use, covering the 2026 model landscape and how to use AI well.", 660);
+  for (i = 0; i < lines.length; i++) ctx.fillText(lines[i], cx, y + 94 + i * 20);
+  var by = 648;
+  ctx.fillStyle = "#1F2A20"; ctx.font = '600 22px "Cormorant Garamond"'; ctx.fillText(d.date || "", 250, by);
+  ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(148, by + 9); ctx.lineTo(352, by + 9); ctx.stroke();
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '400 11px "Spectral"'; spaced(ctx, "DATE OF COMPLETION", 250, by + 27, 2.5);
+  ctx.fillStyle = "#182B1D"; ctx.font = '400 42px "Mrs Saint Delafield"'; ctx.save(); ctx.translate(cx + 288, by - 2); ctx.rotate(-0.05); ctx.textAlign = "center"; ctx.fillText("Jaslam Poolakkal", 0, 0); ctx.restore();
+  ctx.textAlign = "center"; ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx + 188, by + 9); ctx.lineTo(cx + 388, by + 9); ctx.stroke();
+  ctx.fillStyle = "#1F2A20"; ctx.font = '700 17px "Cormorant Garamond"'; ctx.fillText("Dr. Jaslam Poolakkal, PhD", cx + 288, by + 29);
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '500 11px "Spectral"'; spaced(ctx, "DIRECTOR OF AI INITIATIVES", cx + 288, by + 45, 2.5);
+  drawStamp(ctx, cx, by - 4, logo);
+  ctx.fillStyle = "#8A9784"; ctx.font = '500 11px "Spectral"'; spaced(ctx, "CERTIFICATE ID · " + d.certId, cx, 766, 2);
+  ctx.fillStyle = "#8A9784"; ctx.font = '400 9px "Spectral"';
+  ctx.fillText("Verifiable digital credential · match this ID at the Academy verify page · approx. 3 instructional hours", cx, 784);
+  ctx.fillText("Produced with Claude Fable 5 (Anthropic) under the direction and review of the Course Director", cx, 797);
+}
+// Faithful capture of the REAL certificate DOM (exact design: parchment, stamp,
+// script signature, gold title, QR) to a high-res PNG. Uses the browser's own
+// rendering (foreignObject), so what downloads is exactly what is on screen.
+async function downloadCert(){
   var sheet = document.getElementById("certSheet");
-  if (!sheet || typeof html2canvas === "undefined") { window.print(); return; }
-  var ctl = document.getElementById("certCtl");
-  var busy = document.getElementById("savePdfBtn");
-  var oldLabel = busy ? busy.textContent : "";
-  if (busy) { busy.textContent = "Preparing…"; busy.disabled = true; }
-  if (ctl) ctl.style.visibility = "hidden";
+  var lib = window.htmlToImage;
+  var btn = document.getElementById("dlCertBtn"); var old = btn ? btn.textContent : "";
+  if (!sheet || !lib) { alert("Give the certificate a moment to finish loading, then tap Download again."); return; }
+  if (btn){ btn.textContent = "Preparing…"; btn.disabled = true; }
   var hide = ["amWrap", "extrasbar", "micTab"].map(function(id){ return document.getElementById(id); }).filter(Boolean);
   hide.forEach(function(e){ e.setAttribute("data-oldd", e.style.display); e.style.display = "none"; });
-  var prevZoom = sheet.style.zoom, prevMargin = sheet.style.margin;
+  var pz = sheet.style.zoom, pm = sheet.style.margin;
   sheet.style.zoom = ""; sheet.style.margin = "0";
   try {
     if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch(e){} }
-    var canvas = await html2canvas(sheet, {
-      scale: 2, backgroundColor: "#FFFDF6", useCORS: true, allowTaint: false,
-      width: 1240, height: 860, windowWidth: 1240, windowHeight: 920,
-      onclone: function(doc){
-        var s = doc.getElementById("certSheet");
-        if (s){ s.style.zoom = ""; s.style.margin = "0"; s.style.boxShadow = "none"; }
-        // gradient-clipped text renders as transparent in raster; make it solid gold so it shows
-        doc.querySelectorAll("#certSheet *").forEach(function(el){
-          try {
-            var cs = doc.defaultView.getComputedStyle(el);
-            var f = cs.webkitTextFillColor;
-            if (f === "transparent" || f === "rgba(0, 0, 0, 0)"){
-              el.style.webkitTextFillColor = "#B0842B";
-              el.style.color = "#B0842B";
-              el.style.backgroundImage = "none";
-            }
-          } catch(e){}
-        });
-      }
-    });
-    var nm = (window.__CERT && window.__CERT.name ? window.__CERT.name : "certificate").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "");
-    var fname = "Cambium-Academy-Intro-to-AI-" + nm;
-    if (kind === "png"){
-      var url = canvas.toDataURL("image/png");
-      if (!triggerDownload(url, fname + "-certificate.png")) window.open(url, "_blank");
-    } else {
-      var JsPDF = (window.jspdf && window.jspdf.jsPDF) ? window.jspdf.jsPDF : (window.jsPDF || null);
-      if (!JsPDF){ // no jsPDF: fall back to image
-        var u2 = canvas.toDataURL("image/png");
-        if (!triggerDownload(u2, fname + "-certificate.png")) window.open(u2, "_blank");
-      } else {
-        var pdf = new JsPDF({ orientation: "landscape", unit: "px", format: [1240, 860], compress: true });
-        pdf.addImage(canvas.toDataURL("image/jpeg", 0.96), "JPEG", 0, 0, 1240, 860);
-        pdf.save(fname + "-certificate.pdf");
-      }
-    }
+    // two passes: the first warms font/image embedding so the second is complete
+    var opt = { pixelRatio: 2, backgroundColor: "#FFFDF6", width: 1240, height: 860, cacheBust: true, style: { margin: "0", boxShadow: "none", zoom: "1" } };
+    try { await lib.toPng(sheet, opt); } catch(e){}
+    var dataUrl = await lib.toPng(sheet, opt);
+    var name = (window.__CERT && window.__CERT.name ? window.__CERT.name : "certificate").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    if (!triggerDownload(dataUrl, "Cambium-Academy-Intro-to-AI-" + name + "-certificate.png")) window.open(dataUrl, "_blank");
   } catch(err){
-    window.print();
+    alert("Sorry, the certificate image could not be generated. Please reload the page and try again.");
   } finally {
     hide.forEach(function(e){ e.style.display = e.getAttribute("data-oldd") || ""; e.removeAttribute("data-oldd"); });
-    sheet.style.margin = prevMargin;
-    if (typeof window.__fitCert === "function") window.__fitCert(); else sheet.style.zoom = prevZoom;
-    if (ctl) ctl.style.visibility = "";
-    if (busy) { busy.textContent = oldLabel; busy.disabled = false; }
+    sheet.style.margin = pm;
+    if (typeof window.__fitCert === "function") window.__fitCert(); else sheet.style.zoom = pz;
+    if (btn){ btn.textContent = old; btn.disabled = false; }
   }
 }
 function triggerDownload(url, filename){
