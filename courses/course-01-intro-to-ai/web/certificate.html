@@ -235,6 +235,16 @@ class Component extends DCLogic {
   <a href="verify.html" style="background:rgba(255,255,255,.7);color:#1F3D24;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:600;text-decoration:none">Verify</a>
 </div>
 <style>
+/* Stop mobile Chrome/Safari from auto-inflating text ("font boosting") inside the
+   zoomed-down certificate. Without this, portrait (small zoom) blows the text up and
+   it overflows the fixed frame, while landscape (larger zoom) looks fine. 100% keeps
+   pinch-to-zoom working for accessibility. */
+html,body{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+#certSheet,#certSheet *{-webkit-text-size-adjust:100% !important;text-size-adjust:100% !important}
+/* On phones, pin the (now compact) certificate near the top instead of vertically
+   centering it in a full-screen-height area, so the "Make it count" actions sit right
+   under it and are visible without a long scroll. Toggled by fitCert(). */
+.certFlexFitMobile{min-height:0 !important;align-items:flex-start !important;padding-top:62px !important;padding-bottom:22px !important}
 @media print{
   #certCtl,#extrasbar,#amWrap,#micTab{display:none !important}
   html,body{margin:0 !important;padding:0 !important;background:#fff !important;height:auto !important;overflow:visible !important}
@@ -248,7 +258,27 @@ class Component extends DCLogic {
 <script>
 // Certificate download as a high-quality PNG, drawn directly on a canvas so it is
 // pixel-perfect and identical on phone and laptop (no print dialog, saves to gallery).
-var CERT_LOGO = null;
+var CERT_LOGO = null, CERT_LOGO_GRAY = null;
+// Pure black-and-white version of the logo for the stamp centre, matching the on-screen
+// stamp (CSS filter grayscale(100%) contrast(1.25) brightness(.55), multiply). Done with
+// manual pixel math so it is identical on every browser (canvas `filter` is unsupported
+// on some mobile Safari builds, which is why the phone download used to show it in green).
+function grayLogo(img){
+  if (CERT_LOGO_GRAY) return CERT_LOGO_GRAY;
+  try {
+    var w = img.naturalWidth || img.width || 120, h = img.naturalHeight || img.height || 120;
+    var c = document.createElement("canvas"); c.width = w; c.height = h;
+    var x = c.getContext("2d"); x.drawImage(img, 0, 0, w, h);
+    var d = x.getImageData(0, 0, w, h), a = d.data;
+    for (var i = 0; i < a.length; i += 4){
+      var g = 0.299 * a[i] + 0.587 * a[i+1] + 0.114 * a[i+2]; // grayscale
+      g = (g - 128) * 1.25 + 128;                              // contrast 1.25
+      g = g * 0.55;                                            // brightness .55
+      a[i] = a[i+1] = a[i+2] = g < 0 ? 0 : g > 255 ? 255 : g;
+    }
+    x.putImageData(d, 0, 0); CERT_LOGO_GRAY = c; return c;
+  } catch(e){ return img; }
+}
 function loadCertLogo(){
   return new Promise(function(res){
     if (CERT_LOGO) return res(CERT_LOGO);
@@ -283,7 +313,7 @@ function drawStamp(ctx,x,y,logo){ ctx.save();ctx.translate(x,y);ctx.rotate(-0.14
   arcTextC(ctx,"CAMBIUM AI",57,-164,-16,12,"#1C1C1C",false);arcTextC(ctx,"RESEARCH INSTITUTION",57,168,12,9.5,"#1C1C1C",true);
   ctx.textAlign="center";ctx.textBaseline="alphabetic";ctx.font='600 8px "Spectral"';spaced(ctx,"CERTIFIED",0,40,2);
   for(var s=0;s<36;s++){var aa=(s*97%360)*Math.PI/180,r2=40+(s*53%38);ctx.globalAlpha=.28;ctx.beginPath();ctx.arc(r2*Math.cos(aa),r2*Math.sin(aa),.9,0,7);ctx.fill();}
-  ctx.globalAlpha=1;if(logo){ctx.save();ctx.beginPath();ctx.arc(0,-2,30,0,7);ctx.fillStyle="#12210E";ctx.fill();ctx.globalAlpha=.9;ctx.drawImage(logo,-26,-28,52,52);ctx.restore();}
+  ctx.globalAlpha=1;if(logo){var gl=grayLogo(logo);ctx.save();ctx.globalCompositeOperation="multiply";ctx.globalAlpha=.82;ctx.drawImage(gl,-30,-32,60,60);ctx.restore();}
   ctx.restore(); }
 function drawCert(ctx, W, H, logo, d, qr){
   var cx = W / 2, i;
@@ -332,9 +362,12 @@ function drawCert(ctx, W, H, logo, d, qr){
 }
 // Draws the exact certificate (1:1 with the print/PDF) onto a canvas and downloads
 // a high-res PNG. Reliable everywhere and saves to the phone gallery.
-async function downloadCert(){
+// SYNCHRONOUS on purpose. Any await before the download consumes the tap's
+// user-activation and mobile Chrome then silently blocks the download/share
+// ("Preparing… then nothing"). Fonts + logo are preloaded at render (preloadCertAssets)
+// so we never need to await here. This mirrors the badge download, which works.
+function downloadCert(){
   var btn = document.getElementById("dlCertBtn"); var old = btn ? btn.textContent : "";
-  if (btn){ btn.textContent = "Preparing…"; btn.disabled = true; }
   try {
     var C = window.__CERT || {};
     var ln = document.getElementById("learnerLine");
@@ -344,8 +377,8 @@ async function downloadCert(){
     try { if (C.date) dateStr = new Date(C.date + "T12:00:00").toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }); } catch(e){}
     if (!dateStr){ var dm = document.body.innerText.match(/[A-Z][a-z]+ \d{1,2}, \d{4}/); dateStr = dm ? dm[0] : ""; }
     var im = document.body.innerText.match(/CAMB-C01-[A-Z0-9]{6}/); var certId = im ? im[0] : "";
-    if (document.fonts){ try { await Promise.all(['700 46px "Cormorant Garamond"', 'italic 700 50px "Cormorant Garamond"', '700 32px "Cormorant Garamond"', '600 22px "Cormorant Garamond"', '500 14px "Spectral"', '300 15px "Spectral"', '400 56px "Mrs Saint Delafield"'].map(function(f){ return document.fonts.load(f); })); await document.fonts.ready; } catch(e){} }
-    var logo = await loadCertLogo();
+    if (document.fonts && document.fonts.load){ try { ['700 46px "Cormorant Garamond"', 'italic 700 50px "Cormorant Garamond"', '700 32px "Cormorant Garamond"', '600 22px "Cormorant Garamond"', '500 14px "Spectral"', '300 15px "Spectral"', '400 56px "Mrs Saint Delafield"'].forEach(function(f){ document.fonts.load(f); }); } catch(e){} }
+    var logo = CERT_LOGO || (window.__certLogoImg && window.__certLogoImg.complete ? window.__certLogoImg : null);
     var qr = document.querySelector("#qrCode canvas") || document.querySelector("#qrCode img");
     var S = 2, W = 1240, H = 860;
     var cv = document.createElement("canvas"); cv.width = W * S; cv.height = H * S;
@@ -353,28 +386,42 @@ async function downloadCert(){
     drawCert(ctx, W, H, logo, { name: name, org: org, date: dateStr, certId: certId }, qr);
     var nm = (name || "certificate").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "");
     saveCanvasPng(cv, "Cambium-Academy-Intro-to-AI-" + nm + "-certificate.png");
-  } catch(err){ alert("Sorry, the certificate image could not be generated. Please reload and try again."); }
-  finally { if (btn){ btn.textContent = old; btn.disabled = false; } }
+    if (btn){ btn.textContent = "Saved ✓"; setTimeout(function(){ btn.textContent = old; btn.disabled = false; }, 2500); }
+  } catch(err){
+    if (btn){ btn.textContent = old; btn.disabled = false; }
+    alert("Sorry, the certificate image could not be generated. Please reload and try again.");
+  }
 }
 // Cross-device save. Mobile: hand the OS a real image file (share sheet -> Save to
 // Photos), which works where a big data-URL download is blocked (mobile Chrome).
 // Desktop: a normal blob download. Data-URL is the last-ditch fallback.
 function saveCanvasPng(cv, filename){
-  function dataUrlFallback(){ var u = cv.toDataURL("image/png"); if (!triggerDownload(u, filename)) window.open(u, "_blank"); }
-  function blobDownload(blob){ var url = URL.createObjectURL(blob); if (!triggerDownload(url, filename)) window.open(url, "_blank"); setTimeout(function(){ URL.revokeObjectURL(url); }, 30000); }
+  // Build the blob SYNCHRONOUSLY (toDataURL -> bytes -> Blob). Async cv.toBlob would
+  // yield the event loop and drop the tap's activation on mobile; this keeps it.
+  var blob = null;
   try {
-    if (!cv.toBlob) { dataUrlFallback(); return; }
-    cv.toBlob(function(blob){
-      if (!blob) { dataUrlFallback(); return; }
-      var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "");
-      var file = null; try { file = new File([blob], filename, { type: "image/png" }); } catch(e){}
-      if (isMobile && file && navigator.canShare && navigator.canShare({ files: [file] })) {
-        navigator.share({ files: [file], title: "Cambium Academy certificate" }).catch(function(){ blobDownload(blob); });
-        return;
-      }
-      blobDownload(blob);
-    }, "image/png");
-  } catch(e){ dataUrlFallback(); }
+    var dataUrl = cv.toDataURL("image/png");
+    var b64 = dataUrl.split(",")[1], bin = atob(b64), n = bin.length, u8 = new Uint8Array(n);
+    while (n--) u8[n] = bin.charCodeAt(n);
+    blob = new Blob([u8], { type: "image/png" });
+  } catch(e){ blob = null; }
+  if (!blob){ var u = cv.toDataURL("image/png"); if (!triggerDownload(u, filename)) window.open(u, "_blank"); return; }
+  var url = URL.createObjectURL(blob);
+  function blobDownload(){ if (!triggerDownload(url, filename)) window.open(url, "_blank"); setTimeout(function(){ URL.revokeObjectURL(url); }, 30000); }
+  var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "");
+  var file = null; try { file = new File([blob], filename, { type: "image/png" }); } catch(e){}
+  // Mobile: hand the OS the real file (share sheet -> Save to Photos / Files), which
+  // works where a big data-URL download is blocked. Called synchronously inside the tap.
+  if (isMobile && file && navigator.canShare && navigator.canShare({ files: [file] })) {
+    try {
+      navigator.share({ files: [file], title: "Cambium Academy certificate" })
+        .then(function(){ setTimeout(function(){ URL.revokeObjectURL(url); }, 30000); })
+        .catch(function(){ blobDownload(); });
+      return;
+    } catch(e){}
+  }
+  // Desktop + fallback: a normal blob download (no size limit, unlike a data: URL).
+  blobDownload();
 }
 function triggerDownload(url, filename){
   try {
@@ -388,7 +435,7 @@ function triggerDownload(url, filename){
 // certificate-sized page. On phones, choose "Save as PDF" as the destination.
 function saveCertPdf(){
   var s = document.getElementById("certSheet") || document.querySelector('[style*="1240px"]');
-  if (s){ s.id = "certSheet"; s.style.zoom = ""; }
+  if (s){ s.id = "certSheet"; if (window.__unfitCert) window.__unfitCert(); else s.style.zoom = ""; }
   var seen; try { seen = sessionStorage.getItem("certPdfHint"); } catch(e){ seen = "1"; }
   if (!seen){
     try { sessionStorage.setItem("certPdfHint", "1"); } catch(e){}
@@ -452,19 +499,51 @@ function tidyName(n){
         var cert = document.querySelector('[style*="1240px"]');
         if (cert) cert.id = "certSheet";
         // Fit the fixed 1240px certificate to the screen (phones, small windows).
-        // Uses zoom (affects layout box, so no overflow or empty gap) on screen only.
+        // Uses transform:scale inside a size-matched wrapper. transform is supported on
+        // EVERY browser; the old `zoom` was ignored on some mobile browsers, leaving the
+        // card at full width so it overflowed in portrait. The wrapper is sized to the
+        // scaled dimensions so it stays centered with no overflow and no empty gap.
         function fitCert(){
           var s = document.getElementById("certSheet");
           if (!s) return;
+          s.style.zoom = ""; // clear any legacy value
+          var wrap = (s.parentNode && s.parentNode.classList && s.parentNode.classList.contains("certScaler")) ? s.parentNode : null;
+          if (!wrap){
+            wrap = document.createElement("div");
+            wrap.className = "certScaler";
+            s.parentNode.insertBefore(wrap, s);
+            wrap.appendChild(s);
+          }
           var avail = document.documentElement.clientWidth - 16;
           var scale = avail < 1240 ? Math.max(0.24, avail / 1240) : 1;
-          s.style.zoom = scale < 1 ? scale : "";
-          s.style.margin = "0 auto";
+          var flexWrap = wrap.parentNode;
+          if (scale >= 1){
+            s.style.transform = ""; s.style.transformOrigin = "";
+            wrap.style.width = ""; wrap.style.height = ""; wrap.style.overflow = ""; wrap.style.margin = "";
+            if (flexWrap && flexWrap.classList) flexWrap.classList.remove("certFlexFitMobile");
+          } else {
+            s.style.transformOrigin = "top left";
+            s.style.transform = "scale(" + scale + ")";
+            wrap.style.width = Math.round(1240 * scale) + "px";
+            wrap.style.height = Math.round(860 * scale) + "px";
+            wrap.style.overflow = "hidden";
+            wrap.style.margin = "0 auto";
+            if (flexWrap && flexWrap.classList) flexWrap.classList.add("certFlexFitMobile");
+          }
+        }
+        function unfitCert(){ // full-size, unwrapped — for print/PDF
+          var s = document.getElementById("certSheet");
+          if (!s) return;
+          s.style.zoom = ""; s.style.transform = ""; s.style.transformOrigin = "";
+          var w = s.parentNode;
+          if (w && w.classList && w.classList.contains("certScaler")){ w.style.width = ""; w.style.height = ""; w.style.overflow = ""; w.style.margin = ""; if (w.parentNode && w.parentNode.classList) w.parentNode.classList.remove("certFlexFitMobile"); }
         }
         fitCert();
         window.__fitCert = fitCert;
+        window.__unfitCert = unfitCert;
         window.addEventListener("resize", fitCert);
-        window.addEventListener("beforeprint", function(){ var s = document.getElementById("certSheet"); if (s) s.style.zoom = ""; });
+        window.addEventListener("orientationchange", function(){ setTimeout(fitCert, 60); });
+        window.addEventListener("beforeprint", unfitCert);
         window.addEventListener("afterprint", fitCert);
         var line = document.getElementById("learnerLine");
         if (line && name.length > 26) line.style.fontSize = Math.max(30, Math.round(50 * 26 / name.length)) + "px";
@@ -481,6 +560,17 @@ function tidyName(n){
             if (cl) cl.textContent = "Verifiable digital credential · scan the QR or match this ID at the Academy verify page · ≈3 instructional hours · Produced with Claude Fable 5 (Anthropic) under the direction and review of the Course Director";
           } catch(e) {}
         }
+        // Preload the exact fonts + logo the downloaded PNG needs, so downloadCert()
+        // can run fully synchronously (no await) and the tap's activation survives —
+        // this is what makes the file actually download/share on mobile Chrome.
+        (function preloadCertAssets(){
+          try {
+            if (document.fonts && document.fonts.load){
+              ['700 46px "Cormorant Garamond"','italic 700 50px "Cormorant Garamond"','700 32px "Cormorant Garamond"','600 22px "Cormorant Garamond"','500 14px "Spectral"','300 15px "Spectral"','400 56px "Mrs Saint Delafield"'].forEach(function(f){ try{ document.fonts.load(f); }catch(e){} });
+            }
+          } catch(e){}
+          try { loadCertLogo().then(function(img){ if (img) window.__certLogoImg = img; }); } catch(e){}
+        })();
         var noteTxt = mode === "reprint"
           ? "Welcome back. This is your earned certificate, print or save it again anytime."
           : (mode === "mismatch"
