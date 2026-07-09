@@ -75,9 +75,9 @@
 
   <div class="done" id="done">
     <h2>Deck cleared.</h2>
-    <p>Every card marked known. You are more than ready for the quiz.</p>
+    <p id="doneMsg">Every card marked known.</p>
     <div class="row2">
-      <a class="abtn" href="quiz.html">Take the quiz</a>
+      <a class="abtn" href="playground.html" id="doneNext">Next: the AI Lab</a>
       <button class="again" onclick="resetAll()">Study again</button>
     </div>
   </div>
@@ -137,7 +137,20 @@ function refresh(){
   document.getElementById('known').textContent = Object.keys(known).length;
   document.getElementById('left').textContent = queue.length;
   const doneEl = document.getElementById('done'), cardEl = document.getElementById('card'), act = document.getElementById('actions');
-  if (!queue.length) { doneEl.style.display = "block"; cardEl.style.display = "none"; act.style.display = "none"; return; }
+  if (!queue.length) {
+    doneEl.style.display = "block"; cardEl.style.display = "none"; act.style.display = "none";
+    try {
+      const rd = k => { try { return JSON.parse(localStorage.getItem(k) || "{}"); } catch(e){ return {}; } };
+      const pg = rd("cambium-c01-playground");
+      const labs = ["tok","lm","net"].filter(k => pg[k]).length;
+      const lec = !!(rd("cambium-c01-slides").done) || !!(rd("cambium-c01-lecture").watched);
+      const nb = document.getElementById('doneNext'), msg = document.getElementById('doneMsg');
+      if (labs < 3) { nb.href = "playground.html"; nb.textContent = "Next on your path: the AI Lab"; msg.textContent = "Every card marked known. One step left before the quiz: explore the three stations in the AI Lab."; }
+      else if (!lec) { nb.href = "index.html"; nb.textContent = "Finish the lecture"; msg.textContent = "Every card marked known. Finish the lecture (watch the video or read the slides) and the quiz unlocks."; }
+      else { nb.href = "quiz.html"; nb.textContent = "Take the quiz"; msg.textContent = "Every card marked known. Your path is complete and the quiz is unlocked. Twenty questions, fourteen to pass."; }
+    } catch(e){}
+    return;
+  }
   doneEl.style.display = "none"; cardEl.style.display = "block"; act.style.display = "flex";
   const c = CARDS[queue[0]];
   cardEl.classList.remove('flipped');

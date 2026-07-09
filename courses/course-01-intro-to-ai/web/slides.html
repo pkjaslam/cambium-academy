@@ -169,7 +169,7 @@ function render(){
   } else if (s.t === "close") {
     h = `<div class="kicker" style="margin-top:3%">${s.k}</div><h1 style="color:#FFFDF6">${s.h}</h1><div class="rows" style="margin-top:16px">` +
       s.rows.map(r => `<div class="row"><div class="dot"></div><div><b>${r[0]}</b><span>${r[1]}</span></div></div>`).join("") +
-      `</div><div style="margin-top:18px"><a href="flashcards.html" style="display:inline-block;background:linear-gradient(135deg,#D9B25C,#B98A2D);color:#1F3D24;font-weight:800;padding:12px 26px;border-radius:10px;text-decoration:none;box-shadow:0 6px 20px rgba(217,178,92,.35)">Continue the path &#8594; flashcards</a></div><div class="foot">${s.foot}</div>${chipHtml()}`;
+      `</div><div style="margin-top:18px"><a href="${nextStep().href}" style="display:inline-block;background:linear-gradient(135deg,#D9B25C,#B98A2D);color:#1F3D24;font-weight:800;padding:12px 26px;border-radius:10px;text-decoration:none;box-shadow:0 6px 20px rgba(217,178,92,.35)">${nextStep().label}</a></div><div class="foot">${s.foot}</div>${chipHtml()}`;
   } else {
     h = `<div class="kicker">${s.k}</div><h2 class="stitle">${s.h}</h2>`;
     if (s.q) h += `<div class="quote">${s.q}</div>`;
@@ -194,6 +194,17 @@ function render(){
   });
   history.replaceState(null, "", "#" + (i + 1));
   slideEl.scrollTop = 0;
+}
+function nextStep(){
+  try {
+    var rd = k => { try { return JSON.parse(localStorage.getItem(k) || "{}"); } catch(e){ return {}; } };
+    var cards = Object.keys(rd("cambium-c01-cards")).length;
+    var pg = rd("cambium-c01-playground");
+    var labs = ["tok","lm","net"].filter(k => pg[k]).length;
+    if (cards < 24) return { href: "flashcards.html", label: "Continue the path &#8594; flashcards" };
+    if (labs < 3)   return { href: "playground.html", label: "Continue the path &#8594; the AI Lab" };
+    return { href: "quiz.html", label: "The quiz is unlocked &#8594; take it now" };
+  } catch(e) { return { href: "flashcards.html", label: "Continue the path &#8594; flashcards" }; }
 }
 function go(d){ i = Math.min(Math.max(i + d, 0), S.length - 1); render(); }
 document.getElementById('prev').onclick = () => go(-1);

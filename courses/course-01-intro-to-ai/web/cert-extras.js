@@ -64,13 +64,31 @@
     var anchor = document.querySelector(".scalebox") || document.querySelector("x-dc") || document.body.lastElementChild;
     anchor.parentNode.insertBefore(bar, anchor.nextSibling);
 
+    // Small floating "Make it count" tab so nobody misses the actions below the fold.
+    if (!sessionStorage.getItem("micTabHidden")) {
+      document.head.insertAdjacentHTML("beforeend", "<style>@media print{#micTab{display:none!important}}@media (max-width:900px){#micTab{display:none!important}}</style>");
+      var tab = document.createElement("div");
+      tab.id = "micTab";
+      tab.style.cssText = "position:fixed;right:14px;top:34%;z-index:60;background:#fff;border:1.5px solid #97BC62;border-radius:14px;padding:12px;width:170px;box-shadow:0 10px 30px rgba(31,42,32,.2);font-family:Georgia,serif";
+      tab.innerHTML =
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:9px"><b style="font-size:13.5px;color:#1F3D24">Make it count</b><a href="#" id="micX" style="text-decoration:none;color:#8A9784;font-size:16px;line-height:1">&times;</a></div>' +
+        '<button id="micLi" style="display:block;width:100%;background:#0A66C2;color:#fff;border:0;border-radius:8px;padding:9px 10px;font-size:12.5px;font-weight:700;cursor:pointer;margin-bottom:7px">Add to LinkedIn</button>' +
+        '<button id="micBadge" style="display:block;width:100%;background:#2C5F2D;color:#fff;border:0;border-radius:8px;padding:9px 10px;font-size:12.5px;font-weight:700;cursor:pointer;margin-bottom:7px">Download badge</button>' +
+        '<a href="#" id="micMore" style="display:block;text-align:center;font-size:12px;color:#5C6B5A">All options &darr;</a>';
+      document.body.appendChild(tab);
+      document.getElementById("micX").onclick = function(e){ e.preventDefault(); tab.remove(); try { sessionStorage.setItem("micTabHidden","1"); } catch(_){} };
+      document.getElementById("micLi").onclick = function(){ var lk = bar.querySelector('a[href*="profile/add"]'); if (lk) lk.click(); else bar.scrollIntoView({ behavior: "smooth" }); };
+      document.getElementById("micBadge").onclick = function(){ var bb = document.getElementById("badgeBtn"); if (bb) bb.click(); };
+      document.getElementById("micMore").onclick = function(e){ e.preventDefault(); bar.scrollIntoView({ behavior: "smooth" }); };
+    }
+
     // Achievement badge: gold-ringed medallion on forest, logo crest, ribbon with the name.
     document.getElementById("badgeBtn").onclick = function(){
       var cv = document.createElement("canvas"); cv.width = 640; cv.height = 800;
       var c = cv.getContext("2d");
       var cx = 320, cy = 330, R = 240;
 
-      function arcText(text, radius, startDeg, endDeg, size, color, weight){
+      function arcText(text, radius, startDeg, endDeg, size, color, weight, bottom){
         var a0 = startDeg * Math.PI / 180, a1 = endDeg * Math.PI / 180;
         var per = (a1 - a0) / Math.max(1, text.length - 1);
         c.save();
@@ -81,7 +99,7 @@
           var a = a0 + per * i;
           c.save();
           c.translate(cx + radius * Math.cos(a), cy + radius * Math.sin(a));
-          c.rotate(a + Math.PI / 2);
+          c.rotate(a + (bottom ? -Math.PI / 2 : Math.PI / 2));
           c.fillText(text[i], 0, 0);
           c.restore();
         }
@@ -99,19 +117,16 @@
       c.beginPath(); c.arc(cx, cy, R - 30, 0, 7); c.strokeStyle = "rgba(217,178,92,.65)"; c.lineWidth = 1.5; c.stroke();
 
       arcText("C A M B I U M   A I   I N S T I T U T E", R - 52, -164, -16, 19, "#D9B25C");
-      arcText("F O U N D I N G   C O H O R T   2 0 2 6", R - 52, 168, 12, 15, "#97BC62");
+      arcText("F O U N D I N G   C O H O R T   2 0 2 6", R - 52, 168, 12, 15, "#97BC62", "700", true);
 
-      // laurel dashes
-      c.strokeStyle = "#97BC62"; c.lineWidth = 3; c.lineCap = "round";
+      // gold diamond separators between the two arc texts
       [-1, 1].forEach(function(s){
-        for (var k = 0; k < 7; k++){
-          var a = Math.PI / 2 + s * (0.55 + k * 0.13);
-          var r1 = R - 66, r2 = R - 44;
-          c.beginPath();
-          c.moveTo(cx + r1 * Math.cos(a), cy + r1 * Math.sin(a));
-          c.lineTo(cx + r2 * Math.cos(a - s * 0.06), cy + r2 * Math.sin(a - s * 0.06));
-          c.stroke();
-        }
+        c.save();
+        c.translate(cx + (R - 52) * s, cy);
+        c.rotate(Math.PI / 4);
+        c.fillStyle = "#D9B25C";
+        c.fillRect(-5, -5, 10, 10);
+        c.restore();
       });
 
       function finish(){

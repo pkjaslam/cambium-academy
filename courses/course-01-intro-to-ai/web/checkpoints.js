@@ -76,6 +76,7 @@
     seen[pending] = 1; localStorage.setItem(SEENKEY, JSON.stringify(seen));
     pending = null;
     _cpGo(1);
+    saveProgress();
   }
   var _cpGo = go;
   go = function(d){

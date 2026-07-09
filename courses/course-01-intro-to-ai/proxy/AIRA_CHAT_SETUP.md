@@ -1,27 +1,33 @@
-# Aira live chat setup (MindRouter + Cloudflare Worker, ~15 minutes, $0)
+# Aira live chat setup (Google Gemini + Cloudflare Worker, ~15 minutes, $0)
 
-Aira's live chat lets learners talk to her directly on the course site, powered by the
-University of Idaho MindRouter cluster. The architecture keeps your API key safe:
+Aira's live chat lets learners talk to her directly on the course site. The architecture
+keeps your API key safe:
 
 ```
-Learner's browser  ->  Cloudflare Worker (holds the key as a secret)  ->  MindRouter
+Learner's browser  ->  Cloudflare Worker (holds the key as a secret)  ->  Gemini API
 ```
 
 The course site is public on GitHub Pages, so the key can NEVER appear in any file in this
 repo. Anyone can read a public site's source. The worker is the locked box.
 
-## Before you start: two responsibilities
+## Why Gemini, not MindRouter
 
-1. **Rotate your key.** The key you shared in chat should be treated as exposed. In the
-   MindRouter dashboard (mindrouter.uidaho.edu/dashboard), create a fresh API key for this
-   purpose and deactivate the old one. Use the NEW key below, and never paste it anywhere
-   except the Cloudflare secret field.
-2. **Confirm acceptable use.** MindRouter is a shared research cluster (RCDS/IIDS, Luke
-   Sheneman's group). A public course chatbot sends public traffic to it. Send Luke a
-   two-line note describing the use and expected volume before going live. Your current
-   quota ("other" group) is 100,000 tokens and 30 requests/minute; a typical Aira answer
-   costs ~120-180 tokens, so the budget covers roughly 600-800 answers before you need a
-   quota increase (Dashboard, Request Quota).
+MindRouter (mindrouter.uidaho.edu) is a University of Idaho research cluster, and its API
+only accepts requests from the campus network or VPN. A public website's server (Cloudflare,
+or any host) is not on campus, so it can never authenticate — the request comes back as a
+Cloudflare `523` "origin unreachable". Confirmed 2026-07-09. So Aira uses a public free API
+instead. Google Gemini's free tier needs no credit card and gives ~1,500 requests/day, which
+is plenty for a launching course; it is OpenAI-compatible, so the worker is a thin proxy.
+
+## Get a Gemini API key (2 minutes, free, no card)
+
+1. Go to https://aistudio.google.com and sign in with a Google account.
+2. Click **Get API key**, then **Create API key**.
+3. Copy the key (it starts with `AIza...`). Paste it ONLY into the Cloudflare secret below.
+
+Privacy note: on Gemini's FREE tier, prompts may be used to improve Google's products. The
+chat carries a small "don't share personal information" note for learners. Fine for course
+questions; do not send anything sensitive.
 
 ## Deploy the worker (one time)
 
@@ -30,11 +36,13 @@ repo. Anyone can read a public site's source. The worker is the locked box.
 3. Click "Edit code", replace everything with the contents of `aira-worker.js` (next to
    this file), then Deploy.
 4. Worker Settings, Variables and Secrets, add:
-   - `MR_API_KEY` (type: Secret) = your NEW MindRouter key
-   - `MR_BASE_URL` (type: Text) = `https://mindrouter.uidaho.edu`
-   - `MR_MODEL` (type: Text) = `default-llm-small`
-   - `ALLOW_ORIGIN` (type: Text) = `https://pkjaslam.github.io`
+   - `MR_API_KEY` (type: Secret) = your Gemini API key (the `AIza...` value)
+   - `ALLOW_ORIGIN` (type: Text) = `https://pkjaslam.github.io`  (optional; this is the default)
+   - `LLM_MODEL` (type: Text, optional) = `gemini-2.5-flash`  (the default; change only to switch model)
 5. Copy the worker URL, e.g. `https://aira-chat.YOURNAME.workers.dev`.
+
+The secret is still named `MR_API_KEY` so an existing worker keeps working after the switch;
+it just holds the Gemini key now.
 
 ## Point the site at it
 
@@ -49,11 +57,12 @@ flow (opening the question in a free chatbot).
 ## Built-in protections
 
 The worker only accepts POSTs from your site's origin, clamps conversations to the last
-6 short messages, caps answers at 1,500 tokens, enforces a best-effort 8 requests/minute
-per visitor IP, keeps Aira's system prompt server-side, and never exposes the key or
-MindRouter's address to the browser. MindRouter's own 30 RPM limit on the key is the hard
-backstop. If the daily budget runs out, learners see a polite "class is busy" note and the
-community page still works.
+6 short messages, caps answers at 500 tokens, enforces a best-effort 8 requests/minute
+per visitor IP, keeps Aira's system prompt server-side, and never exposes the key to the
+browser. If Gemini's daily free limit is reached, learners see a polite "very popular right
+now" note and the community page still works. If the course grows, raise the limit by
+enabling billing on the Gemini key, or swap in another OpenAI-compatible key via `LLM_MODEL`
+and `LLM_BASE_URL`.
 
 ## Local test (optional)
 

@@ -10,7 +10,7 @@ The finished lecture video is at `D:\IFC_SSD2\idaho_sae\Cambium\academy_media\Ca
 3. Visibility Public. Add to a playlist named "Cambium Academy".
 4. Under "Altered content", answer Yes: the narration is AI-generated. YouTube asks this at upload; the description already discloses it too.
 5. Subtitles: in the upload flow (or Studio, Subtitles), add the English caption file `Cambium-Academy-Course01-Intro-to-AI-lecture.srt` from the same academy_media folder. It is timed exactly to this render (244 cues). YouTube can then auto-translate captions into dozens of languages.
-6. After publishing, copy the video ID (the part after `watch?v=`) and replace `REPLACE_WITH_VIDEO_ID` in `web/index.html`. Push and redeploy Pages.
+6. DONE 2026-07-09: published as https://youtu.be/jRpYchejlTg and embedded in `web/index.html`.
 
 ## Title
 

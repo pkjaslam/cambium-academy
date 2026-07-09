@@ -1,8 +1,9 @@
 // Aira live chat configuration.
-// Set endpoint to your deployed proxy URL (see ../proxy/AIRA_CHAT_SETUP.md).
-// While it is empty, Aira's "Ask me anything" gently falls back to the
-// community page and nothing looks broken.
-// NEVER put a MindRouter API key in this file. This file is public.
+// endpoint = the deployed Cloudflare Worker proxy (see ../proxy/AIRA_CHAT_SETUP.md).
+// The worker holds the API key as a server-side secret; this file is public and
+// must NEVER contain a key. Empty endpoint = graceful fallback to the community page.
 window.AIRA_CHAT = {
-  endpoint: ""
+  endpoint: "https://aira-chat.pkjaslamagrico.workers.dev",
+  // Shown once under the chat: honest note for a free public API.
+  notice: "Aira runs on a free AI model. Please don't share personal or sensitive information in chat."
 };

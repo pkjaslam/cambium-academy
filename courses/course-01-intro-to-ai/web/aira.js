@@ -88,7 +88,8 @@
         '<button data-act="ask">Ask me anything</button>' +
         '<button data-act="voice"></button>' +
       '</div>' +
-      '<div id="amFoot">Aira is an AI creation of Cambium AI Research Institution. Her voice is the same one that narrates the lectures.</div>' +
+      '<div id="amFoot">Aira is an AI creation of Cambium AI Research Institution. Her voice is the same one that narrates the lectures.' +
+        ((window.AIRA_CHAT && window.AIRA_CHAT.notice) ? '<br><span style="opacity:.8">' + window.AIRA_CHAT.notice + '</span>' : '') + '</div>' +
     '</div>' +
     '<button id="amBtn" aria-label="Talk to Aira, the AI teacher"><img src="' + IMG + '" alt="Aira"><span class="ai">AI</span></button>';
   document.body.appendChild(wrap);

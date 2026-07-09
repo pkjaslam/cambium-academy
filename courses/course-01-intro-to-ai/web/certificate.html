@@ -259,19 +259,16 @@ function tidyName(n){
   var saved = rd("cambium-c01-cert") || {};
   var name = null, org = "", dateIso = "", score = "", mode = null;
 
-  // One certificate per quiz pass. A stored certificate wins over any name in the link,
-  // UNLESS this browser holds a fresh, unconsumed quiz pass, in which case a new
-  // certificate may be issued (each pass mints exactly one).
-  var freshPass = qz.passed === true;
-  if (saved.issued && saved.name && !(freshPass && urlName && parseInt(urlScore || "0", 10) >= 14 && tidyName(urlName) !== saved.name)) {
+  // ONE CERTIFICATE PER BROWSER, permanently. A stored certificate always wins;
+  // no link, score, or re-graded quiz can mint a second name here. A new
+  // certificate is issued only when this browser has no certificate yet AND
+  // holds a real, unconsumed quiz pass of its own.
+  if (saved.issued && saved.name) {
     name = saved.name; org = saved.org || ""; dateIso = saved.date || ""; score = saved.score || "";
-    mode = (urlName && tidyName(urlName) !== saved.name) ? "mismatch" : "reprint";
-  } else if (urlName && (parseInt(urlScore || "0", 10) >= 14) && (freshPass || !saved.issued)) {
+    mode = (urlName && tidyName(urlName).toLowerCase() !== String(saved.name).toLowerCase()) ? "mismatch" : "reprint";
+  } else if (urlName && parseInt(urlScore || "0", 10) >= 14 && qz.passed === true) {
     name = tidyName(urlName); org = urlOrg; dateIso = urlDate || ""; score = urlScore;
     mode = "issue";
-  } else if (urlName && parseInt(urlScore || "0", 10) >= 14 && saved.issued) {
-    name = saved.name; org = saved.org || ""; dateIso = saved.date || ""; score = saved.score || "";
-    mode = "mismatch";
   }
 
   if (name) {
@@ -305,7 +302,8 @@ function tidyName(n){
         if (m && window.QRCode) {
           try {
             var vurl = "https://pkjaslam.github.io/cambium-academy/courses/course-01-intro-to-ai/web/verify.html?name=" + encodeURIComponent(name) + "&date=" + encodeURIComponent(dateIso) + "&id=" + encodeURIComponent(m[0]);
-            new QRCode(document.getElementById("qrCode"), { text: vurl, width: 72, height: 72, correctLevel: QRCode.CorrectLevel.M });
+            document.getElementById("qrCode").style.padding = "8px";
+            new QRCode(document.getElementById("qrCode"), { text: vurl, width: 108, height: 108, correctLevel: QRCode.CorrectLevel.L });
             document.getElementById("qrBox").style.display = "block";
             var cl = document.getElementById("credLine");
             if (cl) cl.textContent = "Verifiable digital credential · scan the QR or match this ID at the Academy verify page · ≈3 instructional hours · Produced with Claude Fable 5 (Anthropic) under the direction and review of the Course Director";
