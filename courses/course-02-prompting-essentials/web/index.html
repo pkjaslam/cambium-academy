@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompting Essentials · Cambium Academy Course 02</title>
+<meta name="description" content="Free beginner course: how to write prompts that work on the first try, and how to know when to trust an AI answer. Quiz and certificate included. No signup, no cost.">
+<link rel="icon" href="../../../assets/favicon.png">
+<link rel="stylesheet" href="polish.css">
+<meta property="og:title" content="Prompting Essentials · free course with certificate · Cambium Academy">
+<meta property="og:description" content="How to ask, and when to trust. Get visibly better answers from any AI chatbot in the next hour. 90 minutes, hands-on AI Lab, quiz, printable certificate, AI teaching assistant. Free forever.">
+<meta property="og:image" content="https://pkjaslam.github.io/cambium-academy/assets/social-preview.png">
+<meta property="og:url" content="https://pkjaslam.github.io/cambium-academy/courses/course-02-prompting-essentials/web/index.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--mossdeep:#6E9648;--tint:#F0F5EC;--ink:#1F2A20;--muted:#5C6B5A;--amber:#D97706;--line:#DFE9D8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#fff;line-height:1.6}
+  h1,h2,h3{font-family:Cambria,Georgia,serif}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  header{background:var(--dark);color:#fff;padding:56px 0 48px}
+  .kicker{color:var(--moss);font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+  header h1{font-size:52px;margin:10px 0 8px}
+  header p.sub{color:#CFE3BF;font-size:20px;font-style:italic;max-width:640px}
+  .meta{margin-top:18px;color:#7FA06F;font-size:14px}
+  .btnrow{margin-top:28px;display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-block;padding:12px 22px;border-radius:8px;text-decoration:none;font-weight:600;font-size:15px}
+  .btn.primary{background:var(--moss);color:var(--dark)}
+  .btn.ghost{border:1.5px solid var(--moss);color:#E8F2DE}
+  .btn.light{background:var(--tint);color:var(--forest);border:1px solid var(--line)}
+  section{padding:44px 0}
+  section h2{font-size:30px;margin-bottom:6px}
+  section p.lead{color:var(--muted);margin-bottom:24px}
+  .video-shell{background:var(--tint);border:1px solid var(--line);border-radius:12px;padding:20px;text-align:center}
+  .video-shell .ratio{position:relative;padding-top:56.25%;border-radius:8px;overflow:hidden;background:#0e1f12}
+  .video-shell iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .video-shell .placeholder{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;color:#CFE3BF}
+  .video-note{font-size:13px;color:var(--muted);margin-top:12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
+  .card{border:1px solid var(--line);border-radius:12px;padding:20px;background:#fff;box-shadow:0 2px 8px rgba(31,42,32,.06)}
+  .card .num{font-family:Cambria,Georgia,serif;font-size:26px;font-weight:700;color:var(--moss)}
+  .card h3{font-size:17px;margin:6px 0 6px}
+  .card p{font-size:14px;color:var(--muted)}
+  .card .time{font-size:12px;color:var(--mossdeep);font-weight:600;margin-top:8px}
+  .steps{background:var(--tint);border-radius:12px;padding:26px;border:1px solid var(--line)}
+  .steps ol{margin-left:22px}
+  .steps li{margin:8px 0}
+  ul.res{list-style:none}
+  ul.res li{padding:12px 0;border-bottom:1px solid var(--line)}
+  ul.res a{color:var(--forest);font-weight:600;text-decoration:none}
+  ul.res a:hover{text-decoration:underline}
+  ul.res span{color:var(--muted);font-size:14px}
+  footer{background:var(--dark);color:#7FA06F;padding:34px 0;font-size:14px}
+  footer a{color:var(--moss)}
+  .pill{display:inline-block;background:var(--tint);color:var(--forest);border-radius:20px;padding:4px 14px;font-size:13px;font-weight:600;margin:0 6px 6px 0}
+  @media(max-width:640px){header h1{font-size:36px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="https://www.linkedin.com/company/cambium-ai-institute/" title="Cambium AI Research Institution on LinkedIn" style="display:inline-flex;align-items:center;gap:12px;text-decoration:none;margin-bottom:26px">
+      <img src="../../../assets/logo-mark@2x.png" alt="Cambium AI Research Institution logo" style="width:52px;height:52px">
+      <span style="color:#E8F2DE;font-weight:700;font-size:15px;letter-spacing:.5px">CAMBIUM AI <span style="color:var(--moss);font-weight:600">· RESEARCH INSTITUTION</span></span>
+    </a>
+    <div class="kicker">Cambium Academy · Course 02 · Free forever</div>
+    <h1>Prompting Essentials</h1>
+    <p class="sub">How to ask. When to trust.</p>
+    <div class="meta">Beginner friendly · about 90 minutes · no math, no code, no signup · July 2026 edition</div>
+    <div class="btnrow">
+      <a class="btn primary" href="slides.html">Read the slides</a>
+      <a class="btn ghost" href="quiz.html">Take the quiz</a>
+      <a class="btn ghost" href="playground.html">AI Lab</a>
+      <a class="btn ghost" href="flashcards.html">Flashcards</a>
+      <a class="btn ghost" href="community.html">Community and help</a>
+      <a class="btn ghost" href="../slides/Cambium-Academy-Course02-Prompting-Essentials.pptx">Download PPTX</a>
+      <a class="btn ghost" href="../slides/Cambium-Academy-Course02-Prompting-Essentials.pdf">Download PDF</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Watch the lecture</h2>
+    <p class="lead">About 20 minutes, narrated by Aira. Prefer reading? The <a href="slides.html" style="color:var(--forest)">browser slides</a> cover every word.</p>
+    <div class="video-shell">
+      <div class="ratio">
+        <!-- DIRECTOR: paste the Course 02 YouTube embed here once the lecture is published.
+             Replace this entire placeholder <div class="placeholder"> block with:
+             <iframe src="https://www.youtube.com/embed/YOUTUBE_ID" title="Prompting Essentials, Cambium Academy Course 02" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+        <div class="placeholder">
+          <div style="font-size:16px;font-weight:700;letter-spacing:1px;color:#E8F2DE">Lecture video coming soon</div>
+          <div style="font-size:13px;color:#7FA06F;margin-top:8px;max-width:420px">The narrated Course 02 lecture will appear right here. Until then, the browser slides below carry every word.</div>
+        </div>
+      </div>
+      <div class="video-note">Prefer reading? The <a href="slides.html" style="color:var(--forest)">full slides</a> and the <a href="transcript.html" style="color:var(--forest)">transcript</a> cover every word.</div>
+      <div style="margin-top:12px"><button id="lectureBtn" style="background:var(--forest);color:#fff;border:0;border-radius:8px;padding:11px 20px;font-size:14px;font-weight:700;cursor:pointer">I watched the full lecture</button><span style="font-size:12.5px;color:var(--muted);margin-left:10px">Counts as your lecture step if you watched the video instead of reading the slides.</span></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap" id="progress-host"></div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>What you will learn</h2>
+    <p class="lead">Six short modules. One idea per slide, plain English throughout. By the end you can write an ask that works on the first try, and know when to trust the answer.</p>
+    <div class="grid">
+      <div class="card"><div class="num">1</div><h3>Why answers vary so much</h3><p>The era of magic words is over. Meet your brilliant intern, and the one switch, instant versus thinking mode, that most people never touch.</p><div class="time">10 min</div></div>
+      <div class="card"><div class="num">2</div><h3>The anatomy of a great ask</h3><p>Task, context, format: the three parts of a request that works. Plus the famous "act as an expert" tip you should drop for facts.</p><div class="time">14 min</div></div>
+      <div class="card"><div class="num">3</div><h3>Show, don't describe</h3><p>The fastest way to control tone and shape is to show one example. Why everything sounds like AI, and the one-line fix.</p><div class="time">10 min</div></div>
+      <div class="card"><div class="num">4</div><h3>Steering, and second drafts</h3><p>The pink elephant problem, giving the model an out, when "think step by step" still helps, and never shipping the first draft.</p><div class="time">12 min</div></div>
+      <div class="card"><div class="num">5</div><h3>Your material, and its memory</h3><p>Hand over the folder: Projects, Gems, and Custom GPTs. Where to place key documents, and how to read or delete what the AI remembers about you.</p><div class="time">12 min</div></div>
+      <div class="card"><div class="num">6</div><h3>When to trust the answer</h3><p>Confidence is not accuracy. Verify in sixty seconds with lateral reading, keep your conclusion out of the question, and catch a smuggled instruction.</p><div class="time">14 min</div></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Support that answers back</h2>
+    <p class="lead">Most free courses hand you a video and wish you luck. This one comes with living support, and all of it costs nothing.</p>
+    <div class="grid">
+      <div class="card"><h3>Aira, your AI teacher</h3><p>She narrates the lectures, floats on every page, tracks your progress, and answers questions 24/7 in the free chatbot of your choice.</p><div class="time"><a href="community.html" style="color:var(--mossdeep)">Ask Aira</a></div></div>
+      <div class="card"><h3>Q&A board</h3><p>Ask once, help everyone after you. Questions and accepted answers stay public and searchable.</p><div class="time"><a href="community.html" style="color:var(--mossdeep)">Post a question</a></div></div>
+      <div class="card"><h3>Discussion and study group</h3><p>Introduce yourself, share wins, request next week's topic. The Academy is built in the open.</p><div class="time"><a href="community.html" style="color:var(--mossdeep)">Join in</a></div></div>
+      <div class="card"><h3>Flashcards</h3><p>24 core ideas as flip cards. Miss one and it circles back until it sticks. Then take the quiz.</p><div class="time"><a href="flashcards.html" style="color:var(--mossdeep)">Study the deck</a></div></div>
+      <div class="card"><h3>Hands-on AI Lab</h3><p>Watch a persona wreck a factual answer, sharpen a vague prompt in three moves, and catch a smuggled instruction in the act.</p><div class="time"><a href="playground.html" style="color:var(--mossdeep)">Open the Lab</a></div></div>
+      <div class="card"><h3>Monthly AMA</h3><p>A pinned "Ask me anything" thread opens on the first Monday of every month. Ask anything, get a real answer within the week.</p><div class="time"><a href="community.html" style="color:var(--mossdeep)">Ask anything</a></div></div>
+      <div class="card"><h3>Capstone project</h3><p>Apply the course to one real task from your life, grade yourself on a rubric, and publish it in the project gallery.</p><div class="time"><a href="capstone.html" style="color:var(--mossdeep)">Read the brief</a></div></div>
+      <div class="card"><h3>Career guide</h3><p>Exact resume lines, LinkedIn placement, and interview rehearsal prompts so the certificate actually works for you.</p><div class="time"><a href="career.html" style="color:var(--mossdeep)">Put it to work</a></div></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Meet your course director</h2>
+    <div class="steps" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
+      <img src="../../../assets/instructor.jpg" alt="Dr. Jaslam Poolakkal" style="width:104px;height:104px;border-radius:50%;object-fit:cover;background:#fff;border:2px solid var(--moss)">
+      <div style="flex:1;min-width:260px">
+        <div style="font-family:Cambria,Georgia,serif;font-size:22px;font-weight:700">Dr. Jaslam Poolakkal, PhD</div>
+        <div style="color:var(--mossdeep);font-weight:600;font-size:14px;margin:2px 0 8px">Course Director · Director of AI Initiatives</div>
+        <p style="font-size:14.5px;color:var(--muted)">Lead Data Scientist (R&amp;D) at the Intermountain Forestry Cooperative, College of Natural Resources, University of Idaho. Specializes in AI, machine learning, and predictive analytics, building intelligent systems that turn complex environmental data into real-world decisions for forestry and natural resources. Every course is researched live, sourced, and verified before release.</p>
+        <div style="margin-top:10px"><a href="https://www.linkedin.com/in/jaslampk" style="color:var(--forest);font-weight:600;font-size:14px">Connect with Dr. Poolakkal on LinkedIn</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/company/cambium-ai-institute/" style="color:var(--forest);font-weight:600;font-size:14px">Follow the institute</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>And meet Aira, your AI teacher</h2>
+    <div class="steps" style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
+      <img src="../../../assets/aira-face.jpg" alt="Aira, the Cambium Academy AI teacher (an AI creation)" style="width:96px;height:96px;border-radius:50%;object-fit:cover;background:#fff;border:2px solid var(--moss)">
+      <div style="flex:1;min-width:260px">
+        <div style="font-family:Cambria,Georgia,serif;font-size:22px;font-weight:700">Aira <span style="font-size:12px;color:var(--mossdeep);vertical-align:middle;border:1px solid var(--moss);border-radius:8px;padding:2px 8px;letter-spacing:1px">AI</span></div>
+        <div style="color:var(--mossdeep);font-weight:600;font-size:14px;margin:2px 0 8px">AI teacher and personal study advisor · created by Dr. Poolakkal</div>
+        <p style="font-size:14.5px;color:var(--muted)">Aira is the voice of every lecture and the friendly face in the corner of every page. Click her anytime: she explains where you are, watches your progress, tells you exactly what to do next, and answers questions day and night. She is an AI creation, and proudly so; this is, after all, a course about AI.</p>
+        <div style="margin-top:10px;font-size:13.5px;color:var(--muted)">Find her floating at the bottom-right of every course page, or <a href="community.html" style="color:var(--forest);font-weight:600">ask her anything</a> right now.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Earn your certificate</h2>
+    <p class="lead">This is a real course with a real path. The quiz stays locked until the study steps are done, so the certificate means something.</p>
+    <div class="steps">
+      <ol>
+        <li><b>The lecture:</b> watch the video (then mark it watched above) or read all 40 <a href="slides.html" style="color:var(--forest);font-weight:600">slides</a>.</li>
+        <li><b>All 24 <a href="flashcards.html" style="color:var(--forest);font-weight:600">flashcards</a></b> marked known. Missed cards recycle until they stick.</li>
+        <li><b>All 3 <a href="playground.html" style="color:var(--forest);font-weight:600">AI Lab stations</a></b> explored hands-on.</li>
+        <li>The <a href="quiz.html" style="color:var(--forest);font-weight:600">20-question quiz</a> unlocks. Score 70% or better (14 of 20).</li>
+        <li>Enter your name and print your certificate on the spot. Nothing is stored or sent anywhere.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <h2>Keep learning, free</h2>
+    <p class="lead">Hand-verified on July 9, 2026. The full list with what each one is best for is in <a href="../resources.md" style="color:var(--forest)">resources.md</a>.</p>
+    <ul class="res">
+      <li><a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview">Prompt Engineering Overview and Best Practices · Anthropic</a> <span>· free, no login · the living official reference that matches this course</span></li>
+      <li><a href="https://platform.claude.com/docs/en/resources/prompt-library/library">Prompt Library · Anthropic</a> <span>· free · dozens of well-built prompts to steal shapes from</span></li>
+      <li><a href="https://platform.openai.com/docs/guides/prompt-engineering">Prompt Engineering Guide · OpenAI</a> <span>· free to read · the same principles in OpenAI's own words</span></li>
+      <li><a href="https://ai.google.dev/gemini-api/docs/prompting-strategies">Gemini Prompting Strategies · Google</a> <span>· free, no login · the strongest official take on example-driven prompting</span></li>
+      <li><a href="https://learnprompting.org/docs/basics/introduction">Learn Prompting: Free Beginner's Guide</a> <span>· free core guide · the gentlest full-course expansion, for non-technical readers</span></li>
+      <li><a href="https://github.com/anthropics/prompt-eng-interactive-tutorial">Interactive Prompt Engineering Tutorial · Anthropic</a> <span>· free repo · graded hands-on exercises when you want your hands dirty</span></li>
+      <li><a href="https://www.promptingguide.ai/">Prompt Engineering Guide · DAIR.AI</a> <span>· free, open source · model-agnostic and research-linked when you outgrow beginner material</span></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div style="margin-bottom:10px">
+      <span class="pill">Next week · a new Cambium Academy course</span>
+    </div>
+    Cambium Academy · a project of <a href="https://www.linkedin.com/company/cambium-ai-institute/">Cambium AI Research Institution</a> · free forever, one new course every week.<br>
+    Materials are free to share and adapt for non-commercial use with credit. Facts and model names are a July 2026 snapshot.
+  </div>
+</footer>
+
+<script src="progress.js"></script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

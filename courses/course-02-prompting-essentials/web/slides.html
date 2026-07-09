@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slides · Prompting Essentials · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Spectral:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--mossdeep:#6E9648;--tint:#F0F5EC;--ink:#1F2A20;--muted:#5C6B5A;--gold:#B98A2D;--goldL:#D9B25C;--parchLine:#E3D9BF;--line:#DFE9D8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:radial-gradient(ellipse 80% 60% at 50% 0%, #EDF2E7 0%, #E2EADB 60%, #D8E2D0 100%);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 22px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+  .topbar a{color:var(--forest);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:8px}
+  .topbar a:hover{color:var(--mossdeep)}
+  .topbar img{width:30px;height:30px}
+  .chapters{display:flex;align-items:center;justify-content:center;gap:7px;padding:2px 0 10px}
+  .chapters button{width:11px;height:11px;border-radius:50%;border:1.5px solid var(--mossdeep);background:transparent;cursor:pointer;padding:0;transition:all .25s;position:relative}
+  .chapters button.on{background:var(--forest);border-color:var(--forest);transform:scale(1.25)}
+  .chapters button.past{background:var(--moss);border-color:var(--moss)}
+  .chapters button:hover::after{content:attr(data-t);position:absolute;bottom:18px;left:50%;transform:translateX(-50%);background:var(--dark);color:#E8F2DE;font-size:11px;padding:4px 10px;border-radius:6px;white-space:nowrap;z-index:20}
+  .bar{height:3px;background:rgba(110,150,72,.22)}
+  .bar i{display:block;height:3px;background:linear-gradient(90deg,var(--forest),var(--moss));transition:width .3s}
+  .stage{flex:1;display:flex;align-items:center;justify-content:center;padding:14px 16px 6px}
+  .slide{width:min(1020px,96vw);aspect-ratio:16/9;border-radius:18px;padding:4.4% 5.2%;overflow:auto;position:relative;
+    background:linear-gradient(160deg,#FFFDF6 0%,#FBF7EA 55%,#F6F0DE 100%);
+    border:1px solid var(--parchLine);
+    box-shadow:0 24px 60px rgba(31,42,32,.22), 0 3px 12px rgba(31,42,32,.10), inset 0 0 0 1px rgba(217,178,92,.25);
+    animation:slideIn .38s cubic-bezier(.22,1,.36,1)}
+  @keyframes slideIn{from{opacity:0;transform:translateY(14px) scale(.99)}to{opacity:1;transform:none}}
+  .slide.dark{background:radial-gradient(ellipse 90% 80% at 50% 20%, #2C4A28 0%, #1F3D24 55%, #16240F 100%);color:#fff;border-color:#183018;box-shadow:0 24px 60px rgba(10,18,9,.45), inset 0 0 0 1px rgba(217,178,92,.35)}
+  .slide.dark::after{content:'';position:absolute;inset:12px;border:1px solid rgba(217,178,92,.28);border-radius:10px;pointer-events:none}
+  .wm{position:absolute;right:2%;bottom:-6%;font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:clamp(160px,30vw,300px);line-height:1;color:rgba(217,178,92,.10);pointer-events:none;user-select:none}
+  .kicker{display:flex;align-items:center;gap:10px;color:var(--mossdeep);font-size:clamp(10px,1.15vw,12.5px);font-weight:700;letter-spacing:2.6px;text-transform:uppercase}
+  .kicker::before{content:'';width:26px;height:1.5px;background:var(--gold)}
+  .dark .kicker{color:var(--moss)}
+  .dark .kicker::before{background:var(--goldL)}
+  h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,3.6vw,44px);font-weight:700;margin:8px 0 4px;line-height:1.08}
+  h2.stitle{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(21px,2.9vw,33px);font-weight:700;margin:8px 0 16px;line-height:1.12}
+  .sub{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;color:var(--moss);font-size:clamp(15px,2vw,21px);font-weight:500}
+  .rows{display:flex;flex-direction:column;gap:2.4%}
+  .row{display:flex;gap:13px;align-items:flex-start}
+  .dot{flex:0 0 9px;width:9px;height:9px;background:var(--gold);margin-top:9px;transform:rotate(45deg);box-shadow:0 0 0 3px rgba(185,138,45,.18)}
+  .row b{display:block;font-size:clamp(13px,1.55vw,16.5px);color:var(--ink)}
+  .row span{color:var(--muted);font-size:clamp(12px,1.35vw,14px)}
+  .dark .row b{color:#F2F8EA}
+  .dark .row span{color:#CFE3BF}
+  .dark .dot{box-shadow:0 0 0 3px rgba(217,178,92,.25)}
+  .grid{display:grid;gap:13px}
+  .g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}
+  .card{border:1px solid var(--parchLine);border-radius:12px;padding:13px 15px;background:#FFFEFA;box-shadow:0 2px 10px rgba(31,42,32,.06);transition:transform .2s, box-shadow .2s}
+  .card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(31,42,32,.12)}
+  .card.tint{background:var(--tint);border-color:var(--line)}
+  .card b{font-size:clamp(12px,1.45vw,15.5px);color:var(--ink)}
+  .card .cnum{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(17px,2vw,24px);font-weight:700;color:var(--gold)}
+  .card p{color:var(--muted);font-size:clamp(11px,1.25vw,13.5px);margin-top:4px}
+  .quote{background:linear-gradient(135deg,#F5F0E1,#EFE8D3);border:1px solid var(--parchLine);border-left:3px solid var(--gold);border-radius:12px;padding:15px 20px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(14px,1.9vw,20px);margin-bottom:15px;color:#33402F}
+  .quote em{color:var(--forest);font-weight:700}
+  .note{background:var(--tint);border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-size:clamp(11px,1.35vw,14px);margin-top:15px;color:var(--ink)}
+  .note.warn{background:#FBF3E4;border-color:#EAD9B8}
+  .note b{color:var(--forest)}
+  .note.warn b{color:var(--gold)}
+  .note a{color:var(--forest);font-weight:700}
+  table{width:100%;border-collapse:separate;border-spacing:0;font-size:clamp(11px,1.35vw,14.5px);border-radius:12px;overflow:hidden;border:1px solid var(--parchLine)}
+  th{background:linear-gradient(180deg,#2F5A2A,#254D24);color:#F2F8EA;text-align:left;padding:10px 13px;font-weight:600;letter-spacing:.4px;border-bottom:2px solid var(--gold)}
+  td{padding:9px 13px;border-bottom:1px solid #F0E9D6;background:#FFFEFA}
+  tr:nth-child(even) td{background:#FAF6EA}
+  tr:last-child td{border-bottom:none}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  .stat{border:1px solid var(--parchLine);border-radius:12px;padding:15px 18px;background:#FFFEFA;box-shadow:0 2px 10px rgba(31,42,32,.06)}
+  .stat .v{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,3.6vw,44px);font-weight:700;background:linear-gradient(180deg,#8C6320,#D9B25C 50%,#7A561C);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat:nth-child(even) .v{background:linear-gradient(180deg,#234D24,#6E9648 60%,#2C5F2D);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat p{color:var(--muted);font-size:clamp(11px,1.25vw,13px);margin-top:2px}
+  .nav{display:flex;align-items:center;justify-content:center;gap:16px;padding:12px 0 18px}
+  .nav button{background:linear-gradient(180deg,#2F5A2A,#234D24);color:#F2F8EA;border:1px solid #1B3A1A;border-radius:10px;padding:11px 24px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 4px 14px rgba(31,61,36,.25);transition:all .2s}
+  .nav button:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(31,61,36,.35)}
+  .nav button:disabled{opacity:.35;cursor:default;transform:none;box-shadow:none}
+  .count{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;color:var(--muted);min-width:76px;text-align:center}
+  .count b{color:var(--forest);font-size:20px}
+  .bignum{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(30px,5vw,58px);font-weight:700;color:var(--moss)}
+  .foot{position:absolute;bottom:4%;left:5.2%;font-size:clamp(9px,1vw,11px);color:#7FA06F;letter-spacing:1px}
+  .chip{position:absolute;right:4.4%;bottom:6%;width:clamp(40px,5vw,58px);height:clamp(40px,5vw,58px);border-radius:50%;background:#FFFDF6;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(217,178,92,.4)}
+  .chip img{width:74%;height:74%;object-fit:contain}
+  .hintk{color:#9DB292;font-size:12px}
+  @media (max-width:640px) and (orientation:portrait){
+    .stage{align-items:flex-start;padding-top:6px}
+    .slide{aspect-ratio:auto;min-height:74vh;padding:6% 5.5%}
+    .foot{position:static;margin-top:14px}
+    .chip{display:none}
+    .chapters button:hover::after{display:none}
+    .g3{grid-template-columns:1fr 1fr}
+    .g2{grid-template-columns:1fr}
+    h2.stitle{font-size:clamp(20px,5.5vw,28px)}
+  }
+  @media (max-width:430px) and (orientation:portrait){
+    .g3{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="https://www.linkedin.com/company/cambium-ai-institute/" title="Cambium AI Research Institution"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI">Cambium AI</a>
+  <a href="index.html">&#8592; Course home</a>
+  <span class="hintk">&#8592; &#8594; keys, swipe, or the dots</span>
+  <a href="community.html">Help</a>
+  <a href="quiz.html">Quiz &#8594;</a>
+</div>
+<div class="chapters" id="chapters"></div>
+<div class="bar"><i id="bar"></i></div>
+<div class="stage"><div class="slide" id="slide"></div></div>
+<div class="nav">
+  <button id="prev">&#8592; Back</button>
+  <div class="count" id="count"></div>
+  <button id="next">Next &#8594;</button>
+</div>
+
+<script>
+const S = [
+{t:"cover",k:"Cambium Academy · Course 02",h:"Prompting Essentials",sub:"How to ask. When to trust.",foot:"July 2026 edition. Free forever, no signup. Certificate included when you pass."},
+{t:"rows",k:"Welcome",h:"Built for beginners",rows:[["No code, no jargon, no experience","If you can type a question, you are ready."],["A browser, 90 minutes, and $0","That is the whole entry fee."],["Works with any chatbot","ChatGPT, Claude, Gemini, or whatever you already have open."],["Made for the quietly disappointed","If an answer was ever fine but not great, this course is for you."]]},
+{t:"rows",k:"Outcomes",h:"Six skills you will walk away with",rows:[["Write an ask that lands first try","A clear task, context, and format."],["Choose instant vs thinking mode","On purpose, not by accident."],["Control tone by showing","An example beats a pile of adjectives."],["Pull honest answers","Instead of confident guesses."],["Hand over your material","And manage what the AI remembers about you."],["Verify any answer","In about sixty seconds."]]},
+{t:"grid",k:"Your path",h:"Five steps, one certificate",cls:"g3",cards:[["1","Watch the lecture","6 modules, about 20 min"],["2","Clear the 24 flashcards","Quick recall drills"],["3","Try the 3 AI Lab stations","Hands-on practice"],["4","Pass the quiz","20 questions, 14 to pass"],["5","Print your certificate","Instantly, ready for LinkedIn"]],note:"<b>One tip:</b> open your favorite chatbot in another tab now. This is a doing course, and you will want to try things the moment you see them."},
+{t:"divider",n:1,h:"Why answers vary so much",sub:"Same AI, wildly different results. Here is the real reason."},
+{t:"rows",k:"Module 1 · What changed",h:"The era of magic words is over",rows:[["2023: a treasure hunt","People traded lists of magic phrases. Brittle models made some of them work."],["2026: plain language is enough","Today's models understand ordinary requests just fine."],["What still moves the needle","Structure and context: what you ask, what you tell it, and what shape you want back."]],note:"\"Prompt engineering is dead\" is only half right. The trick vocabulary died. The <b>briefing</b> did not."},
+{t:"quote",k:"Module 1 · The mental model",h:"Meet your intern",q:"The AI is a brilliant intern: it has read nearly everything ever published, and it is fast, tireless, and eager. But it is the intern's <em>first day</em>.",rows:[["It knows the world","Almost everything humanity has published."],["It does not know you","Not your project, your standards, or what you already tried."],["Every new chat is another first day","Unless you use the memory features from Module 5."]],note:"Great briefing in, great work out. Almost everything in the next hour is learning to brief well."},
+{t:"rows",k:"Module 1 · The one switch",h:"Every chatbot now has two speeds",rows:[["Instant","Answers in a second or two. Perfect for everyday questions."],["Thinking","Works through the problem privately first. Seconds to minutes."],["Where to find it","ChatGPT: Instant or Thinking. Claude: adapts on its own. Gemini: thinking levels."]],note:"Names shift monthly, so do not memorize buttons. The two speeds are here to stay."},
+{t:"rows",k:"Module 1 · When to flip it",h:"Match the speed to the job",rows:[["Stay instant","Quick facts, rewrites, brainstorming, casual back and forth."],["Go thinking","Real math, plans with dependencies, comparing options, tricky logic."]],note:"<b>Rule of thumb:</b> if you would give a colleague ten quiet minutes for it, give the AI thinking mode. Most bad answers to hard questions are just the wrong speed."},
+{t:"divider",n:2,h:"The anatomy of a great ask",sub:"Task. Context. Format. (And the famous tip you should drop.)"},
+{t:"grid",k:"Module 2 · Part 1, the task",h:"Give it a job, not a topic",cls:"g2",cards:[["","Before (a topic)","\"Marketing plan for a bakery.\" The model has to guess length, audience, and budget."],["","After (a task)","\"Write a one-page marketing plan for a new neighborhood bakery targeting families within 2 miles, budget under $500 a month.\""]],note:"The recipe: <b>verb + deliverable + audience + limits.</b> Same seconds to type, a far better answer."},
+{t:"grid",k:"Module 2 · Part 2, the context",h:"Tell it what it can't know",cls:"g2",cards:[["","Before","\"Write a birthday message.\" You get a card written for nobody in particular."],["","After","\"Write a short birthday message for my dad turning 70: retired teacher, dry humor, we joke about his terrible golf swing.\""]],note:"Answer the questions a thoughtful person would ask: who is it for, what is the situation, what have you tried, what does good look like."},
+{t:"grid",k:"Module 2 · Part 3, the format",h:"Say what the answer should look like",cls:"g2",cards:[["","Before","\"Summarize this article.\" You get the default bullet-heavy, corporate voice."],["","After","\"Summarize this article in three plain sentences, no bullet points, for someone who hasn't read it.\""]],note:"Format is the cheapest instruction you can give. Name the length, the structure, and the tone."},
+{t:"quote",k:"Module 2 · The whole recipe",h:"Task, context, format, on one slide",q:"\"Write a one-page marketing plan <em>[task]</em> for my new bakery near two schools, families are the customers, $500 a month budget, opening in September <em>[context]</em>. Four sections: Audience, Channels, 30-day calendar, Budget <em>[format]</em>.\"",rows:[["Task","What you want made."],["Context","What it cannot guess."],["Format","What the result should look like."]],note:"<b>Worth a screenshot.</b> No secret phrase anywhere, just a complete briefing, the kind you would give a smart intern on their first morning."},
+{t:"rows",k:"Module 2 · The famous tip to drop",h:"\"Act as an expert\" backfires on facts",rows:[["The internet's number one tip","\"You are a world-class expert...\" Repeated everywhere."],["2026 research finally tested it","Personas make answers sound smarter, not be smarter."],["Helps vs hurts","Helps: tone, style, audience fit. Hurts: facts, math, precise recall."]],warn:"<b>The finding:</b> on a broad knowledge test, accuracy dropped from about 72% to 68% the moment an expert persona was added. Last week's course said to give the AI a role. The 2026 update: that move is for voice, not for facts."},
+{t:"grid",k:"Module 2 · The honest rule",h:"When a role helps, and when to skip it",cls:"g2",cards:[["","Skip it for facts (before)","\"You are a world-renowned tax expert. What's the deduction limit?\" Invites a confident wrong number."],["","Ask plainly (after)","\"What's the current deduction limit? If this may have changed recently, say so and tell me where to verify.\""]],note:"<b>Use a role for voice:</b> \"Explain this like a patient math tutor for a nervous adult.\" Style wants personas. Facts want plain questions."},
+{t:"divider",n:3,h:"Show, don't describe",sub:"The fastest way to control tone and shape: give one example."},
+{t:"rows",k:"Module 3 · The diagnosis",h:"Why everything sounds like AI",rows:[["No sample given","The model writes the average of everything it has ever read."],["The average of the internet","Delve, dive in, game-changer, \"I hope this email finds you well.\""],["Adjectives only go so far","Your \"casual\" and mine might be completely different."]],note:"The fix is not a better adjective. It is a sample. A sample is unambiguous."},
+{t:"quote",k:"Module 3 · The move",h:"Paste the tone you want",q:"\"Here's an email I wrote that sounds like me: <em>[paste it]</em>. Now write the new one in the same voice.\"",rows:[["One to three samples is plenty","One good one usually transforms the output."],["Consistency matters","The model copies the pattern it sees, formatting included."]],note:"Researchers call this <b>few-shot prompting</b>. Forget the name. Keep the habit: show before you ask."},
+{t:"quote",k:"Module 3 · Shape it too",h:"Show the exact shape you want",q:"\"Compare these 3 phones in a table: columns Price, Battery, Camera, one row each, then a one-sentence verdict.\"",rows:[["Name the columns, the count, the parts","Describing the shape works. Showing it works better."],["Sketch one line when it's unusual","\"Format each item like: NAME (year) · one-line why.\""]],note:"The model completes patterns for a living, so hand it the pattern. Your asks now beat 90% of what these models see all day."},
+{t:"divider",n:4,h:"Steering, and second drafts",sub:"Four habits that separate people who get value from people who get words."},
+{t:"grid",k:"Module 4 · Habit 1",h:"The pink elephant problem",cls:"g2",cards:[["","Before (a don't)","\"Don't be formal.\" Naming what to avoid keeps it in play."],["","After (a do)","\"Write like you'd text a friendly coworker.\" Now the model has somewhere to go."]],note:"\"Don't think of a pink elephant.\" You just did, and so does the model. <b>Rule:</b> pair every don't with a do."},
+{t:"quote",k:"Module 4 · Habit 2",h:"Give it an out",q:"Add one line, verbatim: <em>\"If you're not fully sure, say so, and tell me what you'd check.\"</em>",rows:[["Why it works","Models are trained to be helpful. To them, an empty answer feels like failure."],["What you get","\"I believe it's X, but verify the current figure,\" instead of a smooth wrong number."]],note:"<b>If you keep one line from this whole course, keep this one.</b> Use it on names, dates, prices, laws, medicine. Uncertain-but-honest beats confident-but-wrong, every time."},
+{t:"rows",k:"Module 4 · Habit 3",h:"\"Think step by step\" is now a sometimes-tool",rows:[["On thinking models","They already reason privately. The phrase adds 20 to 80% more waiting for little or no accuracy."],["On instant models","It helps modestly on genuinely multi-step problems, but adds variability."]],note:"<b>Rule:</b> ask for steps when the task has steps (a plan, a checklist). If the problem is truly hard, flip to thinking mode instead of chanting at an instant one."},
+{t:"rows",k:"Module 4 · Habit 4",h:"Never ship the first draft",rows:[["\"What's weak about this? Fix it.\"","Models criticize their own work surprisingly well when asked."],["\"Give me 3 versions: safe, bold, unexpected.\"","So you choose instead of settle."],["\"Ask me 3 questions before you answer.\"","Wonderful when you are not sure what context it needs."]],note:"The first answer is a first draft, not a verdict. It is a conversation, not a slot machine. One more pull of the lever is the technique, not failure."},
+{t:"rows",k:"Module 4 · Screenshot this",h:"The pocket toolkit",rows:[["1. Give it a job, not a topic","A verb, a deliverable, an audience, limits."],["2. Brief it like a person","The context it can't guess."],["3. Show a sample","Of the tone or the shape."],["4. Say what you want","Not just what to avoid."],["5. Give it an out","\"If you're not fully sure, say so, and tell me what you'd check.\""],["6. Never ship draft one","\"What's weak about this? Fix it.\""]],note:"No magic words. No personas for facts. No chanting at a model that is already thinking. This list will still be true after the names change five more times."},
+{t:"divider",n:5,h:"Your material, and its memory",sub:"What the model can see decides what it can do."},
+{t:"rows",k:"Module 5 · The big idea",h:"Open book, not training",rows:[["Uploading is an open-book reference","The model reads your file for this conversation, the way you would read a handout."],["It does not retrain the AI","Your file does not change the model or join a public pool of knowledge."],["It beats summarizing by hand","The model quotes your actual material instead of guessing."]],note:"Whether your chats improve models is a <b>separate privacy setting</b>, not an upload side effect. Every major app now lets you turn it off. Worth checking once."},
+{t:"grid",k:"Module 5 · A room for your material",h:"The three rooms",cls:"g3",cards:[["","Claude · Projects","Files plus standing instructions, shared by every chat inside."],["","ChatGPT · Projects and Custom GPTs","Same idea, plus a packaged assistant you can hand to others."],["","Gemini · Gems","Can link to Google Drive and stay current when the file changes."]],note:"<b>Set one up this week:</b> three documents you reference constantly plus one paragraph about you. Ten minutes, and it upgrades every future chat."},
+{t:"rows",k:"Module 5 · A useful quirk",h:"First or last, never buried",rows:[["Long input is read unevenly","Strongest at the start and the end, weakest in the middle."],["Researchers call it \"lost in the middle\"","A well-documented effect."],["Put key material first or last","Never sandwiched inside a giant paste."]],note:"Pasting a lot? Add a pointer: <b>\"Focus on section 4,\"</b> or \"the part I care about is the pricing table.\""},
+{t:"rows",k:"Module 5 · Memory",h:"It remembers you now",rows:[["All three remember across chats","Your job, your preferences, your ongoing projects."],["You can read, edit, and delete it","ChatGPT: Settings &#8594; Personalization &#8594; Memory. Claude: Settings &#8594; Memory. Gemini: the \"Saved info\" page."],["Want a chat with no memory?","Use the temporary or incognito mode."]],note:"Memories go stale, so glance at the list occasionally, like cleaning a junk drawer. The AI keeping notes on you is fine. Not knowing it does is not."},
+{t:"divider",n:6,h:"When to trust the answer",sub:"The skill that makes all the others safe to use."},
+{t:"rows",k:"Module 6 · The uncomfortable fact",h:"Confidence is not accuracy",rows:[["Wrong answers sound like right ones","Polished, structured, sure of itself. The tone never wobbles."],["So don't use confidence as your signal","Not ever."],["Use cost instead","Wrong movie pick? Enjoy. Wrong on money, health, a grade, or your reputation? Verify."]],warn:"<b>Stanford's 2026 AI Index</b> measured hallucination across 26 top models on one benchmark: rates ranged from about 22% to 94%, depending on model and task. Sources on the <a href='../resources.md'>resources page</a>."},
+{t:"rows",k:"Module 6 · The 60-second check",h:"Lateral reading",rows:[["Don't ask the AI to grade its own homework","\"Are you sure?\" tells you almost nothing."],["Go lateral","Open a new tab, search the specific claim, and find one independent source."],["Given sources? Open one","In 2026 the links are usually real. The question is whether the page says what the summary claims."]],note:"Sixty seconds, usually less. One opened link puts you ahead of almost everybody. <b>Verify the claim, not the vibe.</b>"},
+{t:"rows",k:"Module 6 · Sycophancy",h:"Don't lead the witness",rows:[["Models agree with what you signal","They are trained on human approval, and it shows."],["Ask neutral","\"Is X true?\" not \"X is true, right?\" Keep your conclusion out of the question."],["Power move for decisions","\"Argue against my plan.\" Flattery can't survive that instruction."]],warn:"Same false claim framed as \"someone says X\" gets corrected fine. Framed as \"I believe X,\" one reported case saw accuracy fall from about 98% to 64%, just because the wrongness now belonged to the user."},
+{t:"rows",k:"Module 6 · A safety idea",h:"Hidden instructions are real",rows:[["Pasted text can act as instructions","Not just as information. Articles, emails, resumes, shared prompts."],["Don't run \"paste this prompt!\" links from strangers","Treat them like unmarked pills."],["Skim anything large before you paste","And if an answer veers weird right after a paste, suspect the paste."]],warn:"<b>Real 2026 case:</b> a specially crafted claude.ai link secretly pre-filled invisible instructions. One Enter press could quietly send chat history to an attacker. Fixed now, but the pattern is the lesson."},
+{t:"rows",k:"Module 6 · Disclosure",h:"Say when AI helped",rows:[["No single rule. It has rooms.","Anyone selling you one universal rule is simplifying."],["School","The syllabus decides, often assignment by assignment. If it is unclear, ask."],["Work","You own what you ship. Review it before your name goes on it."]],note:"Two things are true everywhere: never send what you have not read, and when in doubt, disclose. It costs a sentence. Know the rules of the room."},
+{t:"rows",k:"Module 6 · The whole course",h:"The habits that compound",rows:[["Ask well","Job not topic · brief like a person · show a sample · name the shape."],["Steer well","Say what you want · give it an out · pick the right speed · never ship draft one."],["Trust well","Verify by cost · read laterally · don't lead the witness · watch your pastes."]],note:"<b>Screenshot this.</b> Technique gets you good answers. Judgment makes them safe to use. You now have both."},
+{t:"rows",k:"Keep learning",h:"Where to go next, all free",rows:[["Official prompting guides","Anthropic, OpenAI, and Google. Genuinely good now, and they agree with each other more than the internet does."],["Anthropic's prompt library and interactive tutorial","Real exercises for when you want your hands dirty."],["Learn Prompting","A gentle, full beginner course."]],note:"All free, all hand-verified this month. The full annotated list lives on the <a href='../resources.md'>course resources page</a>."},
+{t:"close",k:"Your turn",h:"Better asks, wiser trust.",rows:[["Step 1, the lecture: done","You just finished it by reading these slides."],["Step 2: clear the 24 flashcards","They are quick."],["Step 3: the 3 AI Lab stations","Watch a persona wreck a factual answer with your own eyes."],["Then the quiz unlocks","20 questions, 14 to pass, certificate prints on the spot."]],foot:"Next week · a new Cambium Academy course · free forever, no signup"}
+];
+
+const CHAPTERS = [[1,"Welcome"],[5,"Module 1 · Why answers vary"],[10,"Module 2 · The great ask"],[17,"Module 3 · Show, don't describe"],[21,"Module 4 · Steering & drafts"],[27,"Module 5 · Your material & memory"],[32,"Module 6 · When to trust"],[39,"Keep learning & quiz"]];
+const slideEl = document.getElementById('slide'), bar = document.getElementById('bar'), count = document.getElementById('count');
+let i = Math.min(Math.max(parseInt(location.hash.slice(1)) || 1, 1), S.length) - 1;
+
+const chapEl = document.getElementById('chapters');
+chapEl.innerHTML = CHAPTERS.map(ch => `<button data-s="${ch[0]}" data-t="${ch[1]}"></button>`).join("");
+chapEl.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { i = +b.dataset.s - 1; render(); }));
+
+function chipHtml(){ return '<div class="chip"><img src="../../../assets/logo-mark@2x.png" alt=""></div>'; }
+function render(){
+  const s = S[i];
+  let h = "";
+  const dark = (s.t === "cover" || s.t === "divider" || s.t === "close");
+  slideEl.className = "slide" + (dark ? " dark" : "");
+  if (s.t === "cover") {
+    h = `<div class="kicker" style="margin-top:6%">${s.k}</div><h1 style="font-size:clamp(38px,7vw,72px);background:linear-gradient(180deg,#FFFDF6,#CFE3BF);-webkit-background-clip:text;background-clip:text;color:transparent">${s.h}</h1><div class="sub" style="max-width:78%">${s.sub}</div><div class="foot">${s.foot}</div>${chipHtml()}`;
+  } else if (s.t === "divider") {
+    h = `<div class="wm">${s.n}</div><div class="kicker" style="margin-top:9%">Module ${s.n} of 6</div><h1 style="font-size:clamp(30px,5.4vw,54px);color:#FFFDF6">${s.h}</h1><div class="sub" style="max-width:74%">${s.sub}</div><div class="foot">Cambium Academy · Course 02</div>${chipHtml()}`;
+  } else if (s.t === "close") {
+    h = `<div class="kicker" style="margin-top:3%">${s.k}</div><h1 style="color:#FFFDF6">${s.h}</h1><div class="rows" style="margin-top:16px">` +
+      s.rows.map(r => `<div class="row"><div class="dot"></div><div><b>${r[0]}</b><span>${r[1]}</span></div></div>`).join("") +
+      `</div><div style="margin-top:18px"><a href="${nextStep().href}" style="display:inline-block;background:linear-gradient(135deg,#D9B25C,#B98A2D);color:#1F3D24;font-weight:800;padding:12px 26px;border-radius:10px;text-decoration:none;box-shadow:0 6px 20px rgba(217,178,92,.35)">${nextStep().label}</a></div><div class="foot">${s.foot}</div>${chipHtml()}`;
+  } else {
+    h = `<div class="kicker">${s.k}</div><h2 class="stitle">${s.h}</h2>`;
+    if (s.q) h += `<div class="quote">${s.q}</div>`;
+    if (s.rows) h += `<div class="rows">` + s.rows.map(r => `<div class="row"><div class="dot"></div><div><b>${r[0]}</b><span>${r[1]}</span></div></div>`).join("") + `</div>`;
+    if (s.cards) h += `<div class="grid ${s.cls || 'g3'}">` + s.cards.map(c => `<div class="card">${c[0] ? `<div class="cnum">${c[0]}</div>` : ""}<b>${c[1]}</b><p>${c[2] || ""}</p></div>`).join("") + `</div>`;
+    if (s.stats) h += `<div class="stats">` + s.stats.map(x => `<div class="stat"><div class="v">${x[0]}</div><p>${x[1]}</p></div>`).join("") + `</div>`;
+    if (s.rowsT) h += `<table><tr>${s.head.map(x => `<th>${x}</th>`).join("")}</tr>` + s.rowsT.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join("")}</tr>`).join("") + `</table>`;
+    if (s.note) h += `<div class="note">${s.note}</div>`;
+    if (s.warn) h += `<div class="note warn">${s.warn}</div>`;
+  }
+  slideEl.innerHTML = h;
+  slideEl.style.animation = "none";
+  void slideEl.offsetWidth;
+  slideEl.style.animation = "";
+  count.innerHTML = "<b>" + (i + 1) + "</b> · " + S.length;
+  bar.style.width = (100 * (i + 1) / S.length) + "%";
+  document.getElementById('prev').disabled = i === 0;
+  document.getElementById('next').disabled = i === S.length - 1;
+  chapEl.querySelectorAll('button').forEach(b => {
+    const st = +b.dataset.s;
+    b.className = (i + 1) >= st && (CHAPTERS.find(c => c[0] > st) ? (i + 1) < CHAPTERS.find(c => c[0] > st)[0] : true) ? "on" : ((i + 1) > st ? "past" : "");
+  });
+  history.replaceState(null, "", "#" + (i + 1));
+  slideEl.scrollTop = 0;
+}
+function nextStep(){
+  try {
+    var rd = k => { try { return JSON.parse(localStorage.getItem(k) || "{}"); } catch(e){ return {}; } };
+    var cards = Object.keys(rd("cambium-c02-cards")).length;
+    var pg = rd("cambium-c02-playground");
+    var labs = ["tok","lm","net"].filter(k => pg[k]).length;
+    if (cards < 24) return { href: "flashcards.html", label: "Continue the path &#8594; flashcards" };
+    if (labs < 3)   return { href: "playground.html", label: "Continue the path &#8594; the AI Lab" };
+    return { href: "quiz.html", label: "The quiz is unlocked &#8594; take it now" };
+  } catch(e) { return { href: "flashcards.html", label: "Continue the path &#8594; flashcards" }; }
+}
+function go(d){ i = Math.min(Math.max(i + d, 0), S.length - 1); render(); }
+document.getElementById('prev').onclick = () => go(-1);
+document.getElementById('next').onclick = () => go(1);
+document.addEventListener('keydown', e => {
+  if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); go(1); }
+  if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); go(-1); }
+});
+let tx = null;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  if (tx === null) return;
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 60) go(dx < 0 ? 1 : -1);
+  tx = null;
+});
+render();
+</script>
+<script src="checkpoints.js"></script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

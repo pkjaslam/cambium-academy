@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcards · Prompting Essentials · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link rel="stylesheet" href="polish.css">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--mossdeep:#6E9648;--tint:#F0F5EC;--ink:#1F2A20;--muted:#5C6B5A;--line:#DFE9D8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#F6F8F4;line-height:1.55;min-height:100vh}
+  .wrap{max-width:720px;margin:0 auto;padding:0 18px 50px}
+  .nav{display:flex;align-items:center;gap:12px;padding:12px 0;flex-wrap:wrap}
+  .nav img{width:36px;height:36px}
+  .nav a.brand{font-weight:700;color:var(--dark);text-decoration:none;font-size:14px;display:flex;align-items:center;gap:9px}
+  .nav .links{margin-left:auto;display:flex;gap:14px}
+  .nav .links a{color:var(--forest);text-decoration:none;font-weight:600;font-size:13.5px}
+  h1{font-family:Cambria,Georgia,serif;font-size:28px;margin:8px 0 4px}
+  p.lead{color:var(--muted);font-size:14.5px;margin-bottom:18px}
+  .stats{display:flex;gap:10px;margin-bottom:14px;font-size:13px;flex-wrap:wrap}
+  .pill{background:#fff;border:1px solid var(--line);border-radius:20px;padding:5px 14px;color:var(--muted)}
+  .pill b{color:var(--forest)}
+  .card{perspective:1200px;cursor:pointer;height:290px;margin-bottom:14px}
+  .inner{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+  .card.flipped .inner{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px;border:1px solid var(--line)}
+  .front{background:#fff}
+  .front .term{font-family:Cambria,Georgia,serif;font-size:32px;font-weight:700;color:var(--dark)}
+  .front .tap{position:absolute;bottom:14px;font-size:12px;color:var(--muted)}
+  .back{background:var(--dark);color:#fff;transform:rotateY(180deg)}
+  .back .def{font-size:17px;line-height:1.65;color:#E8F2DE;max-width:560px}
+  .mod{position:absolute;top:14px;left:0;right:0;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--mossdeep)}
+  .back .mod{color:var(--moss)}
+  .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  button{border:0;border-radius:9px;padding:12px 22px;font-size:14.5px;font-weight:700;cursor:pointer}
+  .know{background:var(--forest);color:#fff}
+  .again{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+  .subtle{background:none;border:0;color:var(--muted);font-weight:600;font-size:13px;text-decoration:underline;cursor:pointer;padding:8px}
+  .done{background:#fff;border:2px solid var(--forest);border-radius:16px;padding:30px;text-align:center;display:none}
+  .done h2{font-family:Cambria,Georgia,serif;color:var(--forest);font-size:26px;margin-bottom:8px}
+  .done p{color:var(--muted);font-size:14.5px;margin-bottom:14px}
+  .row2{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  a.abtn{background:var(--forest);color:#fff;border-radius:9px;padding:12px 22px;font-size:14.5px;font-weight:700;text-decoration:none}
+  .cardFx{position:absolute;inset:0;border-radius:16px;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;z-index:6}
+  .cardFx .chk{width:104px;height:104px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:58px;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .cardFx .lbl{position:absolute;bottom:34px;font-size:15px;font-weight:700;letter-spacing:.3px}
+  .cardFx.ok{animation:fxok .55s ease forwards}
+  .cardFx.no{animation:fxno .42s ease forwards}
+  @keyframes fxok{0%{opacity:0;transform:scale(.7)}22%{opacity:1;transform:scale(1)}78%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.06)}}
+  @keyframes fxno{0%{opacity:0}30%{opacity:1}100%{opacity:0}}
+  #known,#left{display:inline-block}
+  .pulse{animation:pulseC .5s ease}
+  @keyframes pulseC{0%{transform:scale(1)}40%{transform:scale(1.4);color:#1E7d34}100%{transform:scale(1)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI logo">Cambium AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="slides.html">Slides</a><a href="quiz.html">Quiz</a><a href="community.html">Community</a></div>
+  </nav>
+
+  <h1>Flashcards</h1>
+  <p class="lead">24 core ideas from the course. Tap a card to flip it. Be honest with the buttons; cards you miss come back around until they stick. Your progress stays in this browser.</p>
+
+  <div class="stats">
+    <span class="pill">Remaining this round: <b id="left">24</b></span>
+    <span class="pill">Known: <b id="known">0</b> / 24</span>
+    <button class="subtle" onclick="resetAll()">Reset progress</button>
+  </div>
+
+  <div class="card" id="card" onclick="flipCard()">
+    <div class="inner">
+      <div class="face front"><div class="mod" id="modF"></div><div class="term" id="term"></div><div class="tap">tap to flip</div></div>
+      <div class="face back"><div class="mod" id="modB"></div><div class="def" id="def"></div></div>
+    </div>
+    <div class="cardFx" id="cardFx"></div>
+  </div>
+
+  <div class="actions" id="actions">
+    <button class="again" id="btnAgain" onclick="mark(false)" disabled style="opacity:.4">Show me again</button>
+    <button class="know" id="btnKnow" onclick="mark(true)" disabled style="opacity:.4">Got it</button>
+  </div>
+  <p id="flipHint" style="text-align:center;font-size:13px;color:var(--muted);margin-top:10px">Flip the card and read the answer first; then be honest with the buttons.</p>
+
+  <div class="done" id="done">
+    <h2>Deck cleared.</h2>
+    <p id="doneMsg">Every card marked known.</p>
+    <div class="row2">
+      <a class="abtn" href="playground.html" id="doneNext">Next: the AI Lab</a>
+      <button class="again" onclick="resetAll()">Study again</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const CARDS = [
+["M1","The two speeds every 2026 chatbot has","INSTANT (answers in seconds, everyday questions) and THINKING (works privately before answering, for hard problems). Labels change; the two speeds don't."],
+["M1","When should a question get thinking mode?","If you'd give a human colleague ten quiet minutes for it, give the AI thinking mode."],
+["M2","What's wrong with \"Marketing plan for a bakery\"?","It's a topic, not a task. Add a verb, a deliverable, an audience, and limits: \"Write a one-page plan for a neighborhood bakery targeting nearby families, under $500 a month.\""],
+["M2","The three parts of a great ask","TASK (what to make) + CONTEXT (what it can't guess) + FORMAT (what the answer looks like). Brief it like you'd brief a person."],
+["M2","What context should you include?","Who it's for, what the situation is, what you already tried, and what good looks like to you."],
+["M2","The answer came back bullet-heavy and corporate. Why?","You didn't specify format, so the model used its default. Name the length, structure, and tone: \"three plain sentences, no bullet points.\""],
+["M2","\"Act as a world-class expert\" on a factual question","Makes the answer SOUND smarter but slightly LESS accurate. Personas help tone and style; they hurt facts and math (2026 research)."],
+["M2","When is a persona a good idea?","When the job is about voice or audience: \"explain like a patient tutor for a nervous adult.\" Skip it for facts, figures, and math."],
+["M3","Fastest way to get output in YOUR voice","Paste a short sample you actually wrote and ask for the new piece \"in the same voice.\" One to three consistent samples is plenty."],
+["M3","You need an unusual output format","Sketch one example line of the shape, like \"NAME (year) · one-line why.\" Models complete patterns, so showing beats describing."],
+["M4","The pink elephant problem","Naming what to AVOID keeps it active (\"don't be formal\" invites formality). Say what you want instead, and pair every don't with a do."],
+["M4","The \"give it an out\" line (say it verbatim)","\"If you're not fully sure, say so, and tell me what you'd check.\""],
+["M4","Why the out-line works","Models are trained to be helpful and fluent, so gaps get filled with confident guesses unless you give explicit permission to be uncertain."],
+["M4","\"Think step by step\" in 2026","On thinking models: adds time, little or no gain. On instant models: modest help on multi-step tasks, more variability. Ask for steps when the TASK has steps."],
+["M4","The first answer is just okay. Next move?","Iterate, it's a conversation: \"What's weak about this? Fix it.\" · \"Give me 3 versions: safe, bold, unexpected.\" · \"Ask me 3 questions before you answer.\""],
+["M5","Uploading files to a Project, Gem, or Custom GPT does what?","Gives the model an OPEN-BOOK REFERENCE for your chats. It does not retrain the AI; training permissions are a separate privacy setting."],
+["M5","The \"rooms\" in the big three apps","Claude Projects, ChatGPT Projects (plus shareable Custom GPTs), Gemini Gems: a workspace where your files and standing instructions apply to every chat inside."],
+["M5","\"Lost in the middle\"","Models read long input unevenly: strongest at the start and end, weakest in the middle. Put key material first or last, and point to what matters."],
+["M5","What do chatbots remember about you across chats?","Preferences and facts you've shared. You can view, edit, or delete it in settings (ChatGPT: Personalization → Memory; Claude: Settings → Memory; Gemini: Saved info), or use a temporary chat."],
+["M6","The answer sounds extremely confident. Is it right?","Unknown: wrong answers arrive in the same confident tone as right ones. Verify by cost: the more a wrong answer would cost you, the more you check."],
+["M6","Lateral reading","Verify OUTSIDE the chat: open a new tab, search the specific claim, find one independent source. Never ask the AI to grade its own homework."],
+["M6","Why is \"I believe X, explain why it's true\" risky?","Sycophancy: models tend to agree with what you signal you believe. Ask neutrally (\"Is X true?\") and for decisions try \"Argue against my plan.\""],
+["M6","A stranger shares a \"paste this amazing prompt!\" link","Prompt injection risk: pasted text and pre-filled links can carry instructions you can't see. Skim before pasting; if the answer veers weird after a paste, suspect the paste."],
+["M6","Should you disclose AI help?","Know the rules of the room: school follows the syllabus (often per assignment), at work you own what you ship. When in doubt, say so, and never send what you haven't read."]
+];
+const KEY = "cambium-c02-cards";
+let known = {};
+try { known = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e) { known = {}; }
+let queue = [];
+
+function buildQueue(){
+  queue = CARDS.map((c,i)=>i).filter(i=>!known[i]);
+  for (let i = queue.length-1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [queue[i],queue[j]] = [queue[j],queue[i]]; }
+}
+let seenBack = false;
+function setActions(on){
+  ["btnAgain", "btnKnow"].forEach(id => {
+    const b = document.getElementById(id);
+    b.disabled = !on;
+    b.style.opacity = on ? "1" : ".4";
+  });
+  const h = document.getElementById('flipHint');
+  if (h) h.style.visibility = on ? "hidden" : "visible";
+}
+function flipCard(){
+  document.getElementById('card').classList.toggle('flipped');
+  if (!seenBack) { seenBack = true; setActions(true); }
+}
+function refresh(){
+  document.getElementById('known').textContent = Object.keys(known).length;
+  document.getElementById('left').textContent = queue.length;
+  const doneEl = document.getElementById('done'), cardEl = document.getElementById('card'), act = document.getElementById('actions');
+  if (!queue.length) {
+    doneEl.style.display = "block"; cardEl.style.display = "none"; act.style.display = "none";
+    try {
+      const rd = k => { try { return JSON.parse(localStorage.getItem(k) || "{}"); } catch(e){ return {}; } };
+      const pg = rd("cambium-c02-playground");
+      const labs = ["tok","lm","net"].filter(k => pg[k]).length;
+      const lec = !!(rd("cambium-c02-slides").done) || !!(rd("cambium-c02-lecture").watched);
+      const nb = document.getElementById('doneNext'), msg = document.getElementById('doneMsg');
+      if (labs < 3) { nb.href = "playground.html"; nb.textContent = "Next on your path: the AI Lab"; msg.textContent = "Every card marked known. One step left before the quiz: explore the three stations in the AI Lab."; }
+      else if (!lec) { nb.href = "index.html"; nb.textContent = "Finish the lecture"; msg.textContent = "Every card marked known. Finish the lecture (watch the video or read the slides) and the quiz unlocks."; }
+      else { nb.href = "quiz.html"; nb.textContent = "Take the quiz"; msg.textContent = "Every card marked known. Your path is complete and the quiz is unlocked. Twenty questions, fourteen to pass."; }
+    } catch(e){}
+    return;
+  }
+  doneEl.style.display = "none"; cardEl.style.display = "block"; act.style.display = "flex";
+  const c = CARDS[queue[0]];
+  cardEl.classList.remove('flipped');
+  seenBack = false;
+  setActions(false);
+  document.getElementById('modF').textContent = "Module " + c[0].slice(1);
+  document.getElementById('modB').textContent = c[1];
+  document.getElementById('term').textContent = c[1];
+  document.getElementById('def').textContent = c[2];
+}
+function flashFeedback(gotIt){
+  const fx = document.getElementById('cardFx');
+  if (!fx) return;
+  fx.className = 'cardFx';
+  if (gotIt){
+    fx.style.background = 'rgba(44,95,45,.93)';
+    fx.innerHTML = '<div class="chk" style="background:#3E8E41">&#10003;</div><div class="lbl" style="color:#EAF3E6">Got it &#183; counted</div>';
+    void fx.offsetWidth; fx.classList.add('ok');
+    const k = document.getElementById('known');
+    if (k){ k.classList.remove('pulse'); void k.offsetWidth; k.classList.add('pulse'); }
+  } else {
+    fx.style.background = 'rgba(224,178,74,.92)';
+    fx.innerHTML = '<div class="chk" style="background:#C9962E">&#8635;</div><div class="lbl" style="color:#3B2E0B">No worries &#183; this one comes back</div>';
+    void fx.offsetWidth; fx.classList.add('no');
+  }
+}
+function mark(gotIt){
+  if (!seenBack) return;
+  const i = queue.shift();
+  if (gotIt) { known[i] = 1; localStorage.setItem(KEY, JSON.stringify(known)); }
+  else { queue.push(i); }
+  flashFeedback(gotIt);
+  setActions(false);
+  setTimeout(refresh, gotIt ? 560 : 440);
+}
+function resetAll(){
+  known = {}; localStorage.removeItem(KEY); buildQueue(); refresh();
+}
+buildQueue(); refresh();
+</script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
