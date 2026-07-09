@@ -6,7 +6,6 @@
 <title>Certificate · Intro to AI · Cambium Academy</title>
 <link rel="icon" href="../../../assets/favicon.png">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.13/dist/html-to-image.js"></script>
 
 <script src="./support.js"></script>
 <template id="__bundler_thumbnail" data-bg-color="#1B2818">
@@ -232,7 +231,7 @@ class Component extends DCLogic {
     <input id="certNameInput" placeholder="Your full name" maxlength="60" style="padding:9px 11px;font-size:13px;border:1.5px solid #DFE9D8;border-radius:8px;width:200px">
     <button onclick="applyCertName()" style="background:#2C5F2D;color:#fff;border:0;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer">Apply</button>
   </span>
-  <button id="dlCertBtn" onclick="saveCertPdf()" style="background:#2C5F2D;color:#fff;border:0;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer">&#8681; Save as PDF</button>
+  <button id="dlCertBtn" onclick="downloadCert()" style="background:#2C5F2D;color:#fff;border:0;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer">&#8681; Download certificate</button>
   <a href="verify.html" style="background:rgba(255,255,255,.7);color:#1F3D24;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:600;text-decoration:none">Verify</a>
 </div>
 <style>
@@ -277,68 +276,62 @@ function arcTextC(ctx, text, r, a0deg, a1deg, size, color, bottom){
   for (var i = 0; i < text.length; i++){ var a = a0 + per * i; ctx.save(); ctx.translate(r * Math.cos(a), r * Math.sin(a)); ctx.rotate(a + (bottom ? -Math.PI / 2 : Math.PI / 2)); ctx.fillText(text[i], 0, 0); ctx.restore(); }
   ctx.restore();
 }
-function drawStamp(ctx, x, y, logo){
-  ctx.save(); ctx.translate(x, y); ctx.rotate(-0.12); ctx.globalAlpha = 0.86; ctx.strokeStyle = "#1C1C1C";
-  ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(0, 0, 74, 0, 7); ctx.stroke();
-  ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(0, 0, 67, 0, 7); ctx.stroke();
-  ctx.lineWidth = 1.5; ctx.beginPath(); ctx.arc(0, 0, 47, 0, 7); ctx.stroke();
-  arcTextC(ctx, "CAMBIUM AI", 57, -164, -16, 11, "#1C1C1C", false);
-  arcTextC(ctx, "RESEARCH INSTITUTION", 57, 168, 12, 9, "#1C1C1C", true);
-  ctx.textAlign = "center"; ctx.textBaseline = "alphabetic"; ctx.font = '600 8px "Spectral"'; ctx.fillStyle = "#1C1C1C";
-  spaced(ctx, "CERTIFIED", 0, 40, 2);
-  if (logo){ ctx.save(); ctx.globalAlpha = 0.5; ctx.drawImage(logo, -27, -30, 54, 54); ctx.restore(); }
-  ctx.restore();
-}
-function drawCert(ctx, W, H, logo, d){
+function neural(ctx,x,y,mir){ ctx.save();ctx.translate(x,y);if(mir)ctx.scale(-1,1);ctx.strokeStyle="#B98A2D";ctx.globalAlpha=.5;ctx.lineWidth=1;var p=[[20,30],[70,80],[40,150],[90,200],[55,270],[100,330]];ctx.beginPath();ctx.moveTo(p[0][0],p[0][1]);for(var i=1;i<p.length;i++)ctx.lineTo(p[i][0],p[i][1]);ctx.stroke();var b=[[70,80,120,60],[40,150,110,130],[90,200,140,180],[55,270,125,250]];ctx.globalAlpha=.35;b.forEach(function(q){ctx.beginPath();ctx.moveTo(q[0],q[1]);ctx.lineTo(q[2],q[3]);ctx.stroke();});ctx.globalAlpha=.5;[[20,30,3,"#B98A2D"],[70,80,4,"#FBF7EA"],[120,60,2.5,"#B98A2D"],[40,150,3,"#B98A2D"],[110,130,2.5,"#2C5F2D"],[90,200,4,"#FBF7EA"],[140,180,2.5,"#B98A2D"],[55,270,3,"#2C5F2D"],[125,250,2.5,"#B98A2D"],[100,330,3,"#B98A2D"]].forEach(function(n){ctx.beginPath();ctx.arc(n[0],n[1],n[2],0,7);ctx.fillStyle=n[3];ctx.fill();if(n[3]=="#FBF7EA"){ctx.strokeStyle="#B98A2D";ctx.lineWidth=1.2;ctx.stroke();}});ctx.restore(); }
+function corner(ctx,x,y,rx,ry){ ctx.save();ctx.translate(x,y);ctx.scale(rx,ry);ctx.strokeStyle="#B98A2D";ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(0,68);ctx.lineTo(0,16);ctx.quadraticCurveTo(0,0,16,0);ctx.lineTo(68,0);ctx.stroke();ctx.lineWidth=1.2;ctx.strokeStyle="rgba(185,138,45,.5)";ctx.beginPath();ctx.moveTo(10,68);ctx.lineTo(10,24);ctx.quadraticCurveTo(10,10,24,10);ctx.lineTo(68,10);ctx.stroke();ctx.beginPath();ctx.arc(0,0,4.5,0,7);ctx.strokeStyle="#B98A2D";ctx.lineWidth=1.5;ctx.stroke();ctx.beginPath();ctx.arc(0,0,1.6,0,7);ctx.fillStyle="#B98A2D";ctx.fill();ctx.restore(); }
+function drawStamp(ctx,x,y,logo){ ctx.save();ctx.translate(x,y);ctx.rotate(-0.14);ctx.strokeStyle="#1C1C1C";ctx.fillStyle="#1C1C1C";ctx.globalAlpha=.88;
+  for(var ring=0;ring<3;ring++){var rr=[74,67,47][ring];ctx.lineWidth=[3,1,1.5][ring];for(var a=0;a<360;a+=6){if(((a*7+ring*13)%29)<5)continue;ctx.beginPath();ctx.arc(0,0,rr,a*Math.PI/180,(a+6)*Math.PI/180);ctx.stroke();}}
+  arcTextC(ctx,"CAMBIUM AI",57,-164,-16,12,"#1C1C1C",false);arcTextC(ctx,"RESEARCH INSTITUTION",57,168,12,9.5,"#1C1C1C",true);
+  ctx.textAlign="center";ctx.textBaseline="alphabetic";ctx.font='600 8px "Spectral"';spaced(ctx,"CERTIFIED",0,40,2);
+  for(var s=0;s<36;s++){var aa=(s*97%360)*Math.PI/180,r2=40+(s*53%38);ctx.globalAlpha=.28;ctx.beginPath();ctx.arc(r2*Math.cos(aa),r2*Math.sin(aa),.9,0,7);ctx.fill();}
+  ctx.globalAlpha=1;if(logo){ctx.save();ctx.beginPath();ctx.arc(0,-2,30,0,7);ctx.fillStyle="#12210E";ctx.fill();ctx.globalAlpha=.9;ctx.drawImage(logo,-26,-28,52,52);ctx.restore();}
+  ctx.restore(); }
+function drawCert(ctx, W, H, logo, d, qr){
   var cx = W / 2, i;
-  var bg = ctx.createLinearGradient(0, 0, W, H);
-  bg.addColorStop(0, "#FFFDF6"); bg.addColorStop(0.55, "#FBF7EA"); bg.addColorStop(1, "#F6F0DE");
-  ctx.fillStyle = bg; ctx.fillRect(0, 0, W, H);
-  if (logo){ ctx.save(); ctx.globalAlpha = 0.05; ctx.drawImage(logo, cx - 260, H / 2 - 270, 520, 520); ctx.restore(); }
-  ctx.strokeStyle = "#C6A24E"; ctx.lineWidth = 2; ctx.strokeRect(30, 30, W - 60, H - 60);
-  ctx.strokeStyle = "rgba(185,138,45,.45)"; ctx.lineWidth = 1; ctx.strokeRect(40, 40, W - 80, H - 80);
-  ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1.5;
-  [[46, 46, 1, 1], [W - 46, 46, -1, 1], [46, H - 46, 1, -1], [W - 46, H - 46, -1, -1]].forEach(function(c){ ctx.beginPath(); ctx.moveTo(c[0] + c[2] * 28, c[1]); ctx.lineTo(c[0], c[1]); ctx.lineTo(c[0], c[1] + c[3] * 28); ctx.stroke(); });
-  ctx.textAlign = "center";
-  if (logo){ ctx.drawImage(logo, cx - 42, 58, 84, 84); }
-  ctx.fillStyle = "#2C5F2D"; ctx.font = '500 14px "Spectral"'; spaced(ctx, "CAMBIUM AI RESEARCH INSTITUTION", cx, 168, 6);
-  var ty = 232, g = ctx.createLinearGradient(0, ty - 40, 0, ty + 6);
-  g.addColorStop(0, "#8C6320"); g.addColorStop(0.45, "#D9B25C"); g.addColorStop(0.62, "#B98A2D"); g.addColorStop(1, "#7A561C");
+  ctx.fillStyle = "#1F3D24"; ctx.fillRect(0, 0, W, H);
+  var bg = ctx.createLinearGradient(26, 26, W - 26, H - 26); bg.addColorStop(0, "#FFFDF6"); bg.addColorStop(0.55, "#FBF7EA"); bg.addColorStop(1, "#F6F0DE");
+  ctx.fillStyle = bg; ctx.fillRect(26, 26, W - 52, H - 52);
+  function fr(ins, c, lw){ ctx.strokeStyle = c; ctx.lineWidth = lw; ctx.strokeRect(ins, ins, W - 2 * ins, H - 2 * ins); }
+  fr(7, "rgba(217,178,92,.9)", 1); fr(22, "rgba(217,178,92,.55)", 1); fr(32, "#B98A2D", 1.5); fr(37, "rgba(44,95,45,.3)", 1);
+  corner(ctx, 44, 44, 1, 1); corner(ctx, W - 44, 44, -1, 1); corner(ctx, 44, H - 44, 1, -1); corner(ctx, W - 44, H - 44, -1, -1);
+  neural(ctx, 44, H / 2 - 180, false); neural(ctx, W - 44 - 170, H / 2 - 180, true);
+  if (logo){ ctx.save(); ctx.globalAlpha = 0.05; ctx.drawImage(logo, cx - 260, H / 2 - 250, 520, 520 * logo.height / logo.width); ctx.restore(); }
+  ctx.textAlign = "center"; if (logo) ctx.drawImage(logo, cx - 47, 52, 94, 94 * logo.height / logo.width);
+  ctx.fillStyle = "#2C5F2D"; ctx.font = '500 14px "Spectral"'; spaced(ctx, "CAMBIUM AI RESEARCH INSTITUTION", cx, 182, 7);
+  var ty = 244, g = ctx.createLinearGradient(0, ty - 40, 0, ty + 6); g.addColorStop(0, "#8C6320"); g.addColorStop(0.45, "#D9B25C"); g.addColorStop(0.62, "#B98A2D"); g.addColorStop(1, "#7A561C");
   ctx.font = '700 46px "Cormorant Garamond"'; var tw = 0; for (i = 0; i < 11; i++) tw += ctx.measureText("CERTIFICATE"[i]).width + 7;
   ctx.fillStyle = g; spaced(ctx, "CERTIFICATE", cx, ty, 7);
-  ctx.strokeStyle = "#C6A24E"; ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(cx - tw / 2 - 84, ty - 14); ctx.lineTo(cx - tw / 2 - 28, ty - 14); ctx.moveTo(cx + tw / 2 + 28, ty - 14); ctx.lineTo(cx + tw / 2 + 84, ty - 14); ctx.stroke();
-  ctx.fillStyle = "#B98A2D"; ctx.font = '500 13px "Spectral"'; spaced(ctx, "OF COMPLETION", cx, 256, 6);
-  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 14px "Spectral"'; spaced(ctx, "THIS IS TO CERTIFY THAT", cx, 292, 3);
+  ctx.strokeStyle = "#C6A24E"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx - tw / 2 - 84, ty - 14); ctx.lineTo(cx - tw / 2 - 30, ty - 14); ctx.moveTo(cx + tw / 2 + 30, ty - 14); ctx.lineTo(cx + tw / 2 + 84, ty - 14); ctx.stroke();
+  ctx.fillStyle = "#B98A2D"; [-1, 1].forEach(function(s){ ctx.save(); ctx.translate(cx + s * (tw / 2 + 26), ty - 14); ctx.rotate(Math.PI / 4); ctx.fillRect(-3, -3, 6, 6); ctx.restore(); });
+  ctx.fillStyle = "#B98A2D"; ctx.font = '500 13px "Spectral"'; spaced(ctx, "OF COMPLETION", cx, 266, 6);
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 14px "Spectral"'; spaced(ctx, "THIS IS TO CERTIFY THAT", cx, 300, 3);
   var ns = d.name.length > 28 ? Math.max(30, Math.round(50 * 28 / d.name.length)) : 50;
-  ctx.fillStyle = "#1F3D24"; ctx.font = 'italic 700 ' + ns + 'px "Cormorant Garamond"'; ctx.fillText(d.name, cx, 338);
-  ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(cx - 190, 356); ctx.quadraticCurveTo(cx, 349, cx + 190, 356); ctx.stroke();
-  ctx.fillStyle = "#B98A2D"; ctx.beginPath(); ctx.arc(cx, 353, 2.4, 0, 7); ctx.fill();
-  var y = 388;
+  ctx.fillStyle = "#1F3D24"; ctx.font = 'italic 700 ' + ns + 'px "Cormorant Garamond"'; ctx.fillText(d.name, cx, 346);
+  ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(cx - 190, 364); ctx.quadraticCurveTo(cx, 357, cx + 190, 364); ctx.stroke();
+  ctx.fillStyle = "#B98A2D"; ctx.beginPath(); ctx.arc(cx, 361, 2.4, 0, 7); ctx.fill();
+  var y = 396;
   if (d.org){ ctx.fillStyle = "#5C6B5A"; ctx.font = '500 13px "Spectral"'; spaced(ctx, d.org.toUpperCase(), cx, y, 2); y += 24; }
-  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 15px "Spectral"'; ctx.fillText("has fulfilled all requirements of the programme", cx, y + 8);
-  ctx.fillStyle = "#1F3D24"; ctx.font = '700 32px "Cormorant Garamond"'; ctx.fillText("Intro to Artificial Intelligence", cx, y + 46);
-  ctx.fillStyle = "#B98A2D"; ctx.font = '500 12px "Spectral"'; spaced(ctx, "EXECUTIVE PROGRAMME · COURSE 01", cx, y + 68, 4);
-  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 13.5px "Spectral"';
-  var lines = wrapLines(ctx, "How AI works, how models are trained, and which model to use, covering the 2026 model landscape and how to use AI well.", 660);
-  for (i = 0; i < lines.length; i++) ctx.fillText(lines[i], cx, y + 94 + i * 20);
-  var by = 648;
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 15px "Spectral"'; ctx.fillText("has fulfilled all requirements of the programme", cx, y + 10);
+  ctx.fillStyle = "#1F3D24"; ctx.font = '700 32px "Cormorant Garamond"'; ctx.fillText("Intro to Artificial Intelligence", cx, y + 50);
+  ctx.fillStyle = "#B98A2D"; ctx.font = '500 12px "Spectral"'; spaced(ctx, "EXECUTIVE PROGRAMME · COURSE 01", cx, y + 72, 4);
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 14px "Spectral"';
+  var lines = wrapLines(ctx, "How AI works, how models are trained, and which model to use — covering the 2026 model landscape and how to use AI well.", 620);
+  for (i = 0; i < lines.length; i++) ctx.fillText(lines[i], cx, y + 100 + i * 22);
+  var by = 650;
   ctx.fillStyle = "#1F2A20"; ctx.font = '600 22px "Cormorant Garamond"'; ctx.fillText(d.date || "", 250, by);
-  ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(148, by + 9); ctx.lineTo(352, by + 9); ctx.stroke();
+  ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(150, by + 9); ctx.lineTo(350, by + 9); ctx.stroke();
   ctx.fillStyle = "#5C6B5A"; ctx.font = '400 11px "Spectral"'; spaced(ctx, "DATE OF COMPLETION", 250, by + 27, 2.5);
-  ctx.fillStyle = "#182B1D"; ctx.font = '400 42px "Mrs Saint Delafield"'; ctx.save(); ctx.translate(cx + 288, by - 2); ctx.rotate(-0.05); ctx.textAlign = "center"; ctx.fillText("Jaslam Poolakkal", 0, 0); ctx.restore();
-  ctx.textAlign = "center"; ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx + 188, by + 9); ctx.lineTo(cx + 388, by + 9); ctx.stroke();
-  ctx.fillStyle = "#1F2A20"; ctx.font = '700 17px "Cormorant Garamond"'; ctx.fillText("Dr. Jaslam Poolakkal, PhD", cx + 288, by + 29);
-  ctx.fillStyle = "#5C6B5A"; ctx.font = '500 11px "Spectral"'; spaced(ctx, "DIRECTOR OF AI INITIATIVES", cx + 288, by + 45, 2.5);
-  drawStamp(ctx, cx, by - 4, logo);
-  ctx.fillStyle = "#8A9784"; ctx.font = '500 11px "Spectral"'; spaced(ctx, "CERTIFICATE ID · " + d.certId, cx, 766, 2);
+  ctx.fillStyle = "#182B1D"; ctx.font = '400 56px "Mrs Saint Delafield"'; ctx.save(); ctx.translate(cx + 295, by - 2); ctx.rotate(-0.05); ctx.textAlign = "center"; ctx.fillText("Jaslam Poolakkal", 0, 0); ctx.restore();
+  ctx.textAlign = "center"; ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx + 193, by + 22); ctx.lineTo(cx + 397, by + 22); ctx.stroke();
+  ctx.fillStyle = "#1F2A20"; ctx.font = '700 17px "Cormorant Garamond"'; ctx.fillText("Dr. Jaslam Poolakkal, PhD", cx + 295, by + 42);
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '500 11px "Spectral"'; spaced(ctx, "DIRECTOR OF AI INITIATIVES", cx + 295, by + 58, 2.5);
+  drawStamp(ctx, cx, by + 2, logo);
+  ctx.fillStyle = "#8A9784"; ctx.font = '500 11px "Spectral"'; spaced(ctx, "CERTIFICATE ID · " + d.certId, cx, 768, 2);
   ctx.fillStyle = "#8A9784"; ctx.font = '400 9px "Spectral"';
-  ctx.fillText("Verifiable digital credential · match this ID at the Academy verify page · approx. 3 instructional hours", cx, 784);
-  ctx.fillText("Produced with Claude Fable 5 (Anthropic) under the direction and review of the Course Director", cx, 797);
+  ctx.fillText("Verifiable digital credential · scan the QR or match this ID at the Academy verify page · ≈3 instructional hours · Produced with Claude Fable 5 (Anthropic) under the direction and review of the Course Director", cx, 796);
+  if (qr){ var qz = 94; ctx.fillStyle = "#fff"; ctx.fillRect(60, 686, qz + 8, qz + 8); ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1; ctx.strokeRect(60, 686, qz + 8, qz + 8); ctx.drawImage(qr, 64, 690, qz, qz); ctx.fillStyle = "#5C6B5A"; ctx.font = '500 9px "Spectral"'; ctx.textAlign = "center"; spaced(ctx, "SCAN TO VERIFY", 108, 800, 1.4); }
 }
-// Faithful capture of the REAL certificate DOM (exact design: parchment, stamp,
-// script signature, gold title, QR) to a high-res PNG. Uses the browser's own
-// rendering (foreignObject), so what downloads is exactly what is on screen.
+// Draws the exact certificate (1:1 with the print/PDF) onto a canvas and downloads
+// a high-res PNG. Reliable everywhere and saves to the phone gallery.
 async function downloadCert(){
   var btn = document.getElementById("dlCertBtn"); var old = btn ? btn.textContent : "";
   if (btn){ btn.textContent = "Preparing…"; btn.disabled = true; }
@@ -351,14 +344,13 @@ async function downloadCert(){
     try { if (C.date) dateStr = new Date(C.date + "T12:00:00").toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }); } catch(e){}
     if (!dateStr){ var dm = document.body.innerText.match(/[A-Z][a-z]+ \d{1,2}, \d{4}/); dateStr = dm ? dm[0] : ""; }
     var im = document.body.innerText.match(/CAMB-C01-[A-Z0-9]{6}/); var certId = im ? im[0] : "";
-    if (document.fonts){ try { await Promise.all(['700 46px "Cormorant Garamond"', 'italic 700 50px "Cormorant Garamond"', '700 32px "Cormorant Garamond"', '600 22px "Cormorant Garamond"', '500 14px "Spectral"', '300 15px "Spectral"', '400 46px "Mrs Saint Delafield"'].map(function(f){ return document.fonts.load(f); })); await document.fonts.ready; } catch(e){} }
+    if (document.fonts){ try { await Promise.all(['700 46px "Cormorant Garamond"', 'italic 700 50px "Cormorant Garamond"', '700 32px "Cormorant Garamond"', '600 22px "Cormorant Garamond"', '500 14px "Spectral"', '300 15px "Spectral"', '400 56px "Mrs Saint Delafield"'].map(function(f){ return document.fonts.load(f); })); await document.fonts.ready; } catch(e){} }
     var logo = await loadCertLogo();
+    var qr = document.querySelector("#qrCode canvas") || document.querySelector("#qrCode img");
     var S = 2, W = 1240, H = 860;
     var cv = document.createElement("canvas"); cv.width = W * S; cv.height = H * S;
     var ctx = cv.getContext("2d"); ctx.scale(S, S); ctx.textBaseline = "alphabetic";
-    drawCert(ctx, W, H, logo, { name: name, org: org, date: dateStr, certId: certId });
-    var qc = document.querySelector("#qrCode canvas") || document.querySelector("#qrCode img");
-    if (qc){ try { ctx.drawImage(qc, 62, 690, 96, 96); ctx.fillStyle = "#5C6B5A"; ctx.font = '500 9px "Spectral"'; spaced(ctx, "SCAN TO VERIFY", 110, 800, 1.4); } catch(e){} }
+    drawCert(ctx, W, H, logo, { name: name, org: org, date: dateStr, certId: certId }, qr);
     var nm = (name || "certificate").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "");
     var url = cv.toDataURL("image/png");
     if (!triggerDownload(url, "Cambium-Academy-Intro-to-AI-" + nm + "-certificate.png")) window.open(url, "_blank");
