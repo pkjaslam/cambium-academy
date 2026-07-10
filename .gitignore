@@ -9,3 +9,7 @@ assets/AMELIA.png
 # OS noise
 Thumbs.db
 .DS_Store
+
+# Video production artifacts (masters, frames, re-stitch kit) — huge, never in the Pages repo
+courses/**/production/
+**/__pycache__/
