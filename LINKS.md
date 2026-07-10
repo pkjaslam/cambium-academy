@@ -1,10 +1,12 @@
 # Cambium Academy — Links
 
+
 Living index of every public link. When a new course goes live, copy a course block, fill it in, and flip its catalog card. Base URL: https://pkjaslam.github.io/cambium-academy/
 
 ## Front door
 
 - Catalog (share this): https://pkjaslam.github.io/cambium-academy/start/
+
 
 ## Courses
 
