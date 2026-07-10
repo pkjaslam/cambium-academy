@@ -11,15 +11,18 @@
   if (!window.AIRA_CHAT) { var cfg = document.createElement("script"); cfg.src = "aira-chat-config.js"; document.head.appendChild(cfg); }
   function ready(){ return window.AIRA_CHAT && typeof window.AIRA_CHAT.endpoint === "string" && window.AIRA_CHAT.endpoint.length > 8; }
 
-  var SYS = "You are Aira, the warm, encouraging AI teacher for Cambium Academy's course \"" + L.course + "\". " +
-    "The student is on: " + L.module + " — " + L.topic + ". " +
+  var SYS = "You are Aira, the warm, encouraging AI teacher for Cambium Academy course " + L.course + ". " +
+    "The student is on: " + L.module + ", topic: " + L.topic + ". " +
     "Key points of this lesson: " + ((L.points || []).join("; ") || "the lesson's main ideas") + ". " +
     "Teach like a kind, concise tutor. Keep replies under 120 words, plain language, beginner-friendly, and tied to this lesson. " +
     "Never invent facts, statistics, or citations; if you are unsure, say so and tell the student how to verify it.";
+  var VISUAL_ASK = "Create a simple, compact labeled diagram that visually explains this lesson topic for a beginner. " +
+    "Respond with ONLY one clean, COMPLETE inline SVG that opens with an svg tag using viewBox 0 0 460 300 and closes with a closing svg tag. " +
+    "Use at most 8 shapes and short text labels, no scripts, no external images. Colors: dark green 2C5F2D, moss 97BC62, gold D9B25C on a light background. Keep it small so it is never cut off.";
 
   var css = document.createElement("style");
   css.textContent =
-    "#aira-classroom{--f:#2C5F2D;--m:#97BC62;--g:#D9B25C;--ink:#1F2A20;--mut:#5C6B5A;--line:#DFE9D8;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#fff, #F6F8F4);border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 40px rgba(31,42,32,.10);overflow:hidden;max-width:760px}" +
+    "#aira-classroom{--f:#2C5F2D;--m:#97BC62;--g:#D9B25C;--ink:#1F2A20;--mut:#5C6B5A;--line:#DFE9D8;font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:linear-gradient(180deg,#fff,#F6F8F4);border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 40px rgba(31,42,32,.10);overflow:hidden;max-width:760px}" +
     "#aira-classroom .ac-hd{display:flex;gap:12px;align-items:center;background:linear-gradient(135deg,#1F3D24,#2C5F2D);color:#fff;padding:14px 18px}" +
     "#aira-classroom .ac-hd img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid var(--m)}" +
     "#aira-classroom .ac-hd b{font-family:'Sora',sans-serif;font-size:16px;display:block}" +
@@ -46,6 +49,16 @@
     "@media print{#aira-classroom{display:none}}";
   document.head.appendChild(css);
 
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>]/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;" }[c]; }); }
+  function fmt(t){ return esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/^\s*[-*]\s+/gm, "&#8226; ").replace(/\n/g, "<br>"); }
+  function sanitizeSvg(t){
+    var i = t.indexOf("<svg"), j = t.lastIndexOf("</svg>");
+    if (i < 0 || j < 0) return null;
+    var svg = t.slice(i, j + 6);
+    svg = svg.replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<foreignObject[\s\S]*?<\/foreignObject>/gi, "").replace(/\son\w+\s*=\s*"[^"]*"/gi, "").replace(/\son\w+\s*=\s*'[^']*'/gi, "");
+    return svg;
+  }
+
   host.innerHTML =
     '<div class="ac-hd"><img src="' + IMG + '" alt="Aira"><div><b>Aira · Your AI Classroom</b><span>AI TEACHING ASSISTANT · ALWAYS ON</span></div><span class="tag">AI</span></div>' +
     '<div class="ac-body">' +
@@ -64,24 +77,15 @@
 
   var out = document.getElementById("acOut"), row = document.getElementById("acRow"),
       input = document.getElementById("acIn"), send = document.getElementById("acSend"), chips = document.getElementById("acChips");
-  var busy = false, history = [];
+  var busy = false, history = [], svgTry = 0;
 
-  function esc(s){ return String(s == null ? "" : s).replace(/[&<>]/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;" }[c]; }); }
-  function fmt(t){ return esc(t).replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/^\s*[-*]\s+/gm, "&#8226; ").replace(/\n/g, "<br>"); }
-  function sanitizeSvg(t){
-    var i = t.indexOf("<svg"), j = t.lastIndexOf("</svg>");
-    if (i < 0 || j < 0) return null;
-    var svg = t.slice(i, j + 6);
-    svg = svg.replace(/<script[\s\S]*?<\/script>/gi, "").replace(/<foreignObject[\s\S]*?<\/foreignObject>/gi, "").replace(/\son\w+\s*=\s*"[^"]*"/gi, "").replace(/\son\w+\s*=\s*'[^']*'/gi, "").replace(/(href|xlink:href)\s*=\s*("|')\s*javascript:[^"']*\2/gi, "");
-    return svg;
-  }
   function setOut(html){ out.innerHTML = html; }
   function active(a){ Array.prototype.forEach.call(chips.querySelectorAll("button"), function(b){ b.classList.toggle("on", b.getAttribute("data-a") === a); }); }
 
   function call(userMsg, wantSvg, keepHistory){
     if (busy) return;
     if (!ready()){
-      setOut('<div class="ac-err">Aira\'s live AI connects once this course is deployed on the site. The buttons and layout are all here; her answers light up on the live page.</div>');
+      setOut('<div class="ac-err">Aira lives AI connects once this course is deployed on the site. The buttons and layout are all here; her answers light up on the live page.</div>');
       return;
     }
     busy = true; send.disabled = true;
@@ -93,7 +97,13 @@
       .then(function(j){
         busy = false; send.disabled = false;
         var reply = (j && j.reply) ? j.reply : (j && j.error ? j.error : "I lost my train of thought. Ask me again?");
-        if (wantSvg){ var svg = sanitizeSvg(reply); if (svg){ setOut('<div class="ac-svg">' + svg + '</div><div class="ac-cap">Aira drew this to explain ' + esc(L.topic) + '.</div>'); return; } }
+        if (wantSvg){
+          var svg = sanitizeSvg(reply);
+          if (svg){ setOut('<div class="ac-svg">' + svg + '</div><div class="ac-cap">Aira drew this to explain ' + esc(L.topic) + '.</div>'); return; }
+          if (svgTry < 2){ svgTry++; call(VISUAL_ASK, true, false); return; }
+          setOut('<div class="ac-ans">My diagram did not come out cleanly just now. Tap <b>Explain it visually</b> once more, or ask me to explain it in words.</div>');
+          return;
+        }
         setOut('<div class="ac-ans">' + fmt(reply) + '</div>');
         if (keepHistory){ history.push({ role: "user", content: userMsg }); history.push({ role: "assistant", content: reply }); if (history.length > 8) history = history.slice(-8); }
       })
@@ -109,8 +119,8 @@
     active(a);
     if (a === "ask"){ row.style.display = "flex"; input.focus(); setOut('<div class="ac-hello">Type your question below and I will answer it for this lesson.</div>'); return; }
     row.style.display = "none";
-    if (a === "example") call("Give one short, concrete worked example that helps a beginner understand this lesson's topic. Three to five sentences, plain language.", false, false);
-    else if (a === "visual") call("Create a simple labeled diagram that visually explains this lesson's topic for a beginner. Respond with ONLY one clean inline SVG (include a viewBox, about 460 by 300), using basic shapes, arrows and short text labels. No scripts, no external images. Use these colors: dark green #2C5F2D, moss #97BC62, gold #D9B25C, on a light background.", true, false);
+    if (a === "example") call("Give one short, concrete worked example that helps a beginner understand this lesson topic. Three to five sentences, plain language.", false, false);
+    else if (a === "visual"){ svgTry = 0; call(VISUAL_ASK, true, false); }
     else if (a === "summary") call("Summarize the key points of this lesson in four short bullet points a beginner can remember. Start each with a dash.", false, false);
     else if (a === "next"){
       var t = L.next || "You are in the lesson now. Read or watch it through, try the example and the visual above to lock it in, then move to the flashcards and the AI Lab before the quiz.";
