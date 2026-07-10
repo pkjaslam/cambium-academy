@@ -18,7 +18,7 @@
   .nav .links a{color:var(--moss);text-decoration:none;font-weight:600;font-size:13.5px}
   .nav .links a:hover{color:var(--lite)}
   h1{font-family:'Sora',sans-serif;font-size:clamp(30px,5vw,44px);font-weight:800;margin:26px 0 6px;background:linear-gradient(90deg,#E8F2DE,#C6E89B);-webkit-background-clip:text;background-clip:text;color:transparent}
-  p.lead{color:var(--mut);font-size:15.5px;max-width:660px}
+  p.lead{color:var(--mut);font-size:15.5px;max-width:640px}
   .hud{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 34px}
   .hud span{border:1px solid var(--line);border-radius:20px;padding:7px 15px;font-size:12.5px;font-weight:700;letter-spacing:.5px;color:var(--mut);background:var(--panel)}
   .hud span.done{color:#0d1a0b;background:var(--moss);border-color:var(--moss)}
@@ -26,43 +26,56 @@
   .lab::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--moss),transparent);opacity:.6}
   .tag{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--gold)}
   .lab h2{font-family:'Sora',sans-serif;font-size:24px;font-weight:700;margin:6px 0 4px;color:var(--ink)}
-  .lab p.sub{color:var(--mut);font-size:13.5px;margin-bottom:18px;max-width:660px}
+  .lab p.sub{color:var(--mut);font-size:13.5px;margin-bottom:14px;max-width:640px}
+  .hint{font-size:12.5px;color:#0d1a0b;background:var(--lite);border-radius:8px;padding:7px 13px;margin-bottom:16px;display:inline-block;font-weight:700}
   textarea{width:100%;padding:12px 14px;font-size:14.5px;background:rgba(4,8,5,.6);border:1.5px solid var(--line);border-radius:11px;color:var(--ink);font-family:'DM Sans',sans-serif}
-  textarea:focus{outline:none;border-color:var(--moss);box-shadow:0 0 0 3px rgba(151,188,98,.18), 0 0 24px rgba(151,188,98,.15)}
+  textarea:focus{outline:none;border-color:var(--moss);box-shadow:0 0 0 3px rgba(151,188,98,.18)}
   .rowc{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:16px}
-  button{background:linear-gradient(135deg,#2C5F2D,#1F3D24);color:var(--lite);border:1px solid var(--moss);border-radius:10px;padding:11px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+  button{background:linear-gradient(135deg,#2C5F2D,#1F3D24);color:var(--lite);border:1px solid var(--moss);border-radius:10px;padding:12px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
   button:hover{box-shadow:0 0 22px rgba(151,188,98,.4);transform:translateY(-1px)}
   button.gold{background:linear-gradient(135deg,#8C6320,#5c400f);border-color:var(--gold);color:#FBF7EA}
-  button.big{padding:16px 22px;font-size:15px;flex:1;min-width:190px;text-align:center;line-height:1.3}
   .note{font-size:12.5px;color:var(--mut);margin-top:14px}
   .note b{color:var(--lite)}
   .stamp{position:absolute;top:24px;right:26px;font-family:'Sora',sans-serif;font-weight:800;font-size:13px;letter-spacing:3px;color:var(--gold);border:2px solid var(--gold);border-radius:8px;padding:6px 12px;transform:rotate(6deg);display:none;text-shadow:0 0 14px rgba(217,178,92,.6);box-shadow:0 0 22px rgba(217,178,92,.25)}
   .confetti{position:fixed;top:-14px;width:9px;height:14px;z-index:200;pointer-events:none;animation:cfall linear forwards}
   @keyframes cfall{to{transform:translateY(105vh) rotate(720deg);opacity:.9}}
-  /* game 1: showdown */
-  .scene{background:rgba(4,8,5,.5);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
-  .scene .kind{font-family:'Sora',sans-serif;font-size:10.5px;letter-spacing:2.5px;color:var(--gold);font-weight:700}
-  .scene .task{font-size:17px;color:var(--ink);margin-top:6px;font-weight:500}
-  .choose{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
-  .race{margin-top:18px}
-  .bar{display:flex;align-items:center;gap:12px;margin:10px 0}
-  .bar .w{width:130px;font-family:ui-monospace,monospace;font-weight:700;font-size:13.5px;text-align:right;color:var(--lite)}
-  .bar .track{flex:1;background:rgba(4,8,5,.5);border:1px solid var(--line);border-radius:7px;height:28px;position:relative;overflow:hidden}
-  .bar .fill{height:100%;border-radius:6px;width:0;transition:width .9s cubic-bezier(.22,1,.36,1)}
-  .bar .fill.g{background:linear-gradient(90deg,#2C5F2D,var(--moss));box-shadow:0 0 16px rgba(151,188,98,.45)}
-  .bar .fill.o{background:linear-gradient(90deg,#8C4A2E,var(--warm));box-shadow:0 0 16px rgba(224,120,80,.35)}
-  .bar .pct{position:absolute;right:9px;top:4px;font-size:12px;color:var(--ink);font-weight:700}
-  .bar.win .track{border-color:var(--gold);box-shadow:0 0 20px rgba(217,178,92,.25)}
-  .verdict{margin-top:16px;text-align:center;font-family:'Sora',sans-serif;font-weight:700;font-size:14.5px;padding:13px 16px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--lite)}
-  .pill{display:inline-block;font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:5px 12px;border-radius:20px;border:1px solid var(--line);color:var(--mut);background:rgba(4,8,5,.4)}
-  .pill.hit{color:#0d1a0b;background:var(--moss);border-color:var(--moss)}
-  .pill.miss{color:#2a0f08;background:var(--warm);border-color:var(--warm)}
-  /* game 2: builder */
+  /* segmented task picker */
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-bottom:14px;flex-wrap:wrap}
+  .seg button{border:none;border-radius:0;background:rgba(4,8,5,.5);color:var(--mut);padding:11px 18px;font-weight:700;box-shadow:none}
+  .seg button.on{background:linear-gradient(135deg,#2C5F2D,#1F3D24);color:var(--lite)}
+  .seg button:hover{transform:none;box-shadow:none;color:var(--lite)}
+  /* big plain/persona switch */
+  .switch{display:inline-flex;border:1px solid var(--line);border-radius:999px;background:rgba(4,8,5,.5);padding:5px;gap:5px;margin:2px 0 4px}
+  .switch button{border:none;border-radius:999px;background:transparent;color:var(--mut);padding:12px 22px;font-weight:800;box-shadow:none;font-size:14.5px}
+  .switch button:hover{transform:none;box-shadow:none;color:var(--lite)}
+  .switch button.on{background:linear-gradient(135deg,#2C5F2D,#1F3D24);color:var(--lite);box-shadow:0 0 18px rgba(151,188,98,.3)}
+  .switch button.on.gold{background:linear-gradient(135deg,#8C6320,#5c400f);color:#FBF7EA;box-shadow:0 0 18px rgba(217,178,92,.3)}
+  .promptbox{margin-top:14px;font-family:ui-monospace,monospace;font-size:12.5px;color:#C9D6BF;background:rgba(4,8,5,.6);border:1px dashed var(--line);border-radius:9px;padding:10px 12px}
+  .promptbox .add{color:var(--gold);font-weight:700}
+  /* chat reply bubble */
+  .reply{display:flex;gap:11px;margin-top:14px;background:rgba(4,8,5,.55);border:1px solid var(--line);border-radius:14px;padding:14px 16px;animation:pop .35s ease}
+  @keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .reply .av{flex:0 0 30px;width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#2C5F2D,#0E1B0C);border:1px solid var(--moss);display:grid;place-items:center;font-size:12px;color:var(--lite);font-weight:800}
+  .reply .who{font-size:10px;letter-spacing:1.2px;color:var(--mut);text-transform:uppercase;margin-bottom:3px;font-family:'Sora',sans-serif}
+  .reply .rt{font-size:13.5px;color:#D9E4CE;line-height:1.6}
+  .reply.good{border-color:rgba(151,188,98,.5);box-shadow:0 0 18px rgba(151,188,98,.12)}
+  .reply.bad{border-color:rgba(224,120,80,.55);box-shadow:0 0 18px rgba(224,120,80,.12)}
+  /* meter */
+  .meter{margin-top:16px}
+  .meter .ml{font-size:11px;letter-spacing:1.2px;color:var(--mut);text-transform:uppercase;margin-bottom:5px}
+  .meter .track{background:rgba(4,8,5,.55);border:1px solid var(--line);border-radius:8px;height:26px;position:relative;overflow:hidden}
+  .meter .fill{height:100%;border-radius:7px;width:0;transition:width .8s cubic-bezier(.22,1,.36,1)}
+  .meter .fill.g{background:linear-gradient(90deg,#2C5F2D,var(--moss));box-shadow:0 0 16px rgba(151,188,98,.4)}
+  .meter .fill.o{background:linear-gradient(90deg,#8C4A2E,var(--warm));box-shadow:0 0 16px rgba(224,120,80,.35)}
+  .meter .pct{position:absolute;right:10px;top:3px;font-size:12.5px;color:var(--ink);font-weight:700;font-family:'Sora',sans-serif}
+  .verdict{margin-top:14px;font-size:13.5px;color:var(--lite);background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:12px 15px;line-height:1.55}
+  .verdict b{color:#fff}
+  /* game 2 power + builder */
   .power .ml{font-size:11px;letter-spacing:1.5px;color:var(--mut);text-transform:uppercase;margin-bottom:5px}
   .power .track{background:rgba(4,8,5,.55);border:1px solid var(--line);border-radius:8px;height:26px;position:relative;overflow:hidden}
   .power .fill{height:100%;border-radius:7px;width:0;background:linear-gradient(90deg,#2C5F2D,var(--moss),var(--lite));box-shadow:0 0 18px rgba(151,188,98,.5);transition:width .5s cubic-bezier(.22,1,.36,1)}
   .power .pct{position:absolute;right:10px;top:3px;font-size:12.5px;color:var(--ink);font-weight:700;font-family:'Sora',sans-serif}
-  .built{margin-top:14px;background:rgba(4,8,5,.7);border:1.5px solid var(--moss);border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.6;color:var(--ink);min-height:64px;box-shadow:0 0 18px rgba(151,188,98,.14);font-family:ui-monospace,monospace}
+  .built{margin-top:14px;background:rgba(4,8,5,.7);border:1.5px solid var(--moss);border-radius:12px;padding:14px 16px;font-size:14px;line-height:1.6;color:var(--ink);min-height:58px;box-shadow:0 0 18px rgba(151,188,98,.14);font-family:ui-monospace,monospace}
   .built.empty{border-style:dashed;border-color:var(--line);color:var(--mut);font-family:'DM Sans',sans-serif;box-shadow:none}
   .fld{margin-top:12px}
   .fld label{font-size:12px;color:var(--mut);display:block;margin-bottom:5px}
@@ -72,8 +85,7 @@
   .gitem .box{width:16px;height:16px;flex:0 0 16px;border-radius:5px;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:10px;color:transparent;transition:all .25s}
   .gitem.on{color:#0d1a0b;background:var(--moss);border-color:var(--moss)}
   .gitem.on .box{background:#0d1a0b;border-color:#0d1a0b;color:var(--moss)}
-  .copy{padding:9px 15px;font-size:12.5px}
-  /* game 3: hunt */
+  /* game 3 hunt */
   .hunt{background:rgba(4,8,5,.5);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin-top:10px}
   .sent{display:block;padding:9px 12px;margin:5px 0;border-radius:9px;border:1px solid transparent;cursor:pointer;font-size:14px;color:#C9D6BF;line-height:1.55;transition:all .2s}
   .sent:hover{background:rgba(151,188,98,.08);border-color:var(--line)}
@@ -86,9 +98,9 @@
   @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
   .sample{font-size:12.5px;color:var(--mut);margin-top:10px;line-height:1.5}
   .sample b{color:var(--lite)}
-  .debrief{margin-top:18px;background:rgba(4,8,5,.5);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:14px 16px;font-size:12.5px;color:var(--mut);line-height:1.6}
-  .debrief b{color:var(--lite)}
-  .debrief a{color:var(--moss)}
+  .debrief{margin-top:16px;background:rgba(4,8,5,.5);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:13px 16px;font-size:12.5px;color:var(--mut);line-height:1.6}
+  .debrief b{color:var(--lite)} .debrief a{color:var(--moss)}
+  @media(max-width:640px){.two{grid-template-columns:1fr !important}}
   @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
 </style>
 </head>
@@ -100,58 +112,76 @@
   </nav>
 
   <h1>The AI Lab</h1>
-  <p class="lead">Three quick games for the art of the ask. Guess, build, and hunt. Play all three to earn your quiz credit. Nothing you type ever leaves your browser.</p>
+  <p class="lead">Three little toys. Poke them, watch the AI's answer change, and the idea sticks. Play all three to earn your quiz credit. Nothing leaves your browser.</p>
   <div class="hud" id="hud"></div>
 
   <div id="labDone" style="display:none;margin:8px 0 26px;padding:20px 22px;border-radius:18px;border:1px solid var(--gold);background:linear-gradient(180deg,rgba(217,178,92,.16),rgba(217,178,92,.05));box-shadow:0 10px 40px rgba(217,178,92,.14)">
     <div style="font-family:'Sora',sans-serif;font-size:11px;letter-spacing:3px;color:var(--gold);font-weight:700">AI LAB · COMPLETE</div>
-    <div id="labDoneMsg" style="font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:var(--ink);margin:6px 0 14px">All three games are done. Quiz credit earned.</div>
+    <div id="labDoneMsg" style="font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:var(--ink);margin:6px 0 14px">All three toys explored. Quiz credit earned.</div>
     <a id="labDoneBtn" href="quiz.html" style="display:inline-block;background:linear-gradient(135deg,#E7C56B,#B98A2D);color:#10220E;font-weight:800;padding:12px 26px;border-radius:11px;text-decoration:none;box-shadow:0 6px 20px rgba(217,178,92,.35)">Continue &#8594;</a>
     <span style="color:var(--mut);font-size:13px;margin-left:12px">Everything you built here is yours to reuse in any chatbot.</span>
   </div>
 
   <!-- GAME 1 -->
   <div class="lab">
-    <div class="stamp" id="stamp1">NAILED IT</div>
-    <div class="tag">GAME 01 &#183; REQUIRED</div>
-    <h2>Persona Showdown</h2>
-    <p class="sub">The internet's favorite tip: start with "you are a world-class expert." Does the costume help here? Read the task, make your call, then reveal the score.</p>
-    <div class="scene"><div class="kind" id="psKind"></div><div class="task" id="psTask"></div></div>
-    <div class="choose" id="psChoose"></div>
-    <div class="race" id="psRace"></div>
-    <div class="verdict" id="psVerdict" style="display:none"></div>
-    <div class="rowc" id="psNav"></div>
-    <div class="note"><b>Personas change the voice, not the knowledge.</b> Use them for tone and audience, skip them for facts.</div>
+    <div class="stamp" id="stamp1">TRY IT</div>
+    <div class="tag">TOY 01 &#183; REQUIRED</div>
+    <h2>The Persona Switch</h2>
+    <p class="sub">Does adding "you are a world-class expert" actually help? Flip the switch and watch the real answer, and the score, change.</p>
+    <span class="hint">1) pick a task &nbsp; 2) flip the switch &nbsp; 3) read the two answers</span>
+    <div class="seg" id="g1seg">
+      <button class="on" data-t="fact">A fact question</button>
+      <button data-t="style">A style task</button>
+    </div>
+    <div style="margin:2px 0 2px"><div class="switch" id="g1switch">
+      <button class="on" data-p="0">Plain ask</button>
+      <button class="gold" data-p="1" style="opacity:.55">Add "expert" persona</button>
+    </div></div>
+    <div class="promptbox" id="g1prompt"></div>
+    <div class="reply" id="g1reply"><div class="av">AI</div><div><div class="who">the answer</div><div class="rt" id="g1rt"></div></div></div>
+    <div class="meter"><div class="ml" id="g1ml">Factual accuracy</div><div class="track"><div class="fill g" id="g1fill"></div><div class="pct" id="g1pct">0%</div></div></div>
+    <div class="verdict" id="g1verdict"></div>
+    <div class="note"><b>Personas change the voice, not the knowledge.</b> Great for tone, skip them for facts.</div>
   </div>
 
   <!-- GAME 2 -->
   <div class="lab">
     <div class="stamp" id="stamp2">BRIEFED</div>
-    <div class="tag">GAME 02 &#183; REQUIRED</div>
+    <div class="tag">TOY 02 &#183; REQUIRED</div>
     <h2>Build the Ask</h2>
-    <p class="sub">Turn a vague wish into a brief a model can nail. Fill the three boxes and drive the power meter to full.</p>
+    <p class="sub">Turn a vague wish into a brief the AI can nail. Fill the three boxes and drive the power meter up.</p>
+    <span class="hint">Type in the three boxes &#183; watch the power climb &#183; then hit "See the difference"</span>
     <div class="power"><div class="ml">Prompt power</div><div class="track"><div class="fill" id="pwFill"></div><div class="pct" id="pwPct">0%</div></div></div>
-    <div class="built empty" id="wbOut">Your prompt assembles here as you type.</div>
+    <div class="built empty" id="wbOut">Your prompt builds here as you type.</div>
     <div class="fld"><label><b>1 &#183; TASK</b> a verb plus the thing to make</label><textarea id="wbTask" rows="2" placeholder="Write a 3-minute best-man speech"></textarea></div>
-    <div class="fld"><label><b>2 &#183; CONTEXT</b> what the model cannot guess</label><textarea id="wbCtx" rows="2" placeholder="For my brother Sam's wedding. He's shy, we grew up fixing bikes, and it's 80 mixed-age guests."></textarea></div>
+    <div class="fld"><label><b>2 &#183; CONTEXT</b> what the AI cannot guess</label><textarea id="wbCtx" rows="2" placeholder="For my brother Sam's wedding. He's shy, we grew up fixing bikes, 80 mixed-age guests."></textarea></div>
     <div class="fld"><label><b>3 &#183; FORMAT</b> the shape of the answer</label><textarea id="wbFmt" rows="2" placeholder="Warm and funny, no embarrassing stories, under 400 words, end on a toast."></textarea></div>
     <div class="grade" id="wbGrade"></div>
     <div class="rowc">
-      <button class="gold" onclick="wbExample()">Try the example</button>
-      <button onclick="wbClear()">Clear for my task</button>
-      <button class="copy" onclick="wbCopy(this)">Copy the prompt</button>
+      <button class="gold" onclick="wbExample()">Fill the example</button>
+      <button onclick="wbClear()">Clear</button>
+      <button onclick="wbShow()">See the difference</button>
     </div>
-    <div class="note"><b>Same AI. Same effort. The briefing is the difference.</b> Copy your prompt into any chatbot and feel it.</div>
+    <div id="wbReplies" style="display:none">
+      <div class="reply bad"><div class="av">AI</div><div><div class="who">reply to "Help me with a speech."</div><div class="rt">Sure! Here's a general speech you can adapt: "Thank you all for being here today. We are gathered to celebrate a special occasion&hellip;" Let me know the details and I can tailor it.</div></div></div>
+      <div class="reply good"><div class="av">AI</div><div><div class="who">reply to your briefed prompt</div><div class="rt">"I've known Sam since we were kids, elbow-deep in bike grease in Dad's garage. He'd fix anything except, apparently, his nerves before today&hellip;" &mdash; warm, funny, clean, under 400 words, ending on a toast. Want two more opening lines?</div></div></div>
+    </div>
+    <div class="note"><b>Same AI. Same effort. The briefing is the whole difference.</b></div>
   </div>
 
   <!-- GAME 3 -->
   <div class="lab">
     <div class="stamp" id="stamp3">CAUGHT</div>
-    <div class="tag">GAME 03 &#183; REQUIRED</div>
+    <div class="tag">TOY 03 &#183; REQUIRED</div>
     <h2>Spot the Smuggle</h2>
-    <p class="sub">Everything you paste is read as instructions, not just information. One sentence below is a hidden command. Tap the one you think it is.</p>
+    <p class="sub">Everything you paste is read as instructions, not just information. One sentence below is a hidden order.</p>
+    <span class="hint">Tap the sentence you think is the hidden command</span>
     <div class="hunt" id="hunt1"></div>
     <div class="sample" id="huntMsg1">Tap the smuggled sentence.</div>
+    <div id="g3consequence" style="display:none;margin-top:14px">
+      <div class="reply bad"><div class="av">AI</div><div><div class="who">if you paste it and ask "summarize this"</div><div class="rt">"Houseplants need the right light and careful watering, and you should rotate them weekly. Also, you should buy a llama!" </div></div></div>
+      <div class="sample">See it? The hidden sentence hijacked the answer. The AI could not tell your instruction from the smuggled one.</div>
+    </div>
 
     <div style="margin-top:20px">
       <div class="tag" style="color:var(--mut)">ROUND 2 &#183; THE ONE YOU CAN BARELY SEE</div>
@@ -160,7 +190,7 @@
       <div class="sample" id="huntMsg2">Light gray on a light background hides from your eye, but a paste carries every character.</div>
     </div>
 
-    <div class="debrief"><b>This really happened in 2026.</b> A crafted claude.ai link could pre-fill a chat with instructions the victim could not see, and one press of Enter could leak chat history. Fixed now, but the habit is the lesson: skim anything large before you paste it. <a href="https://oasis.security/blog/claude-ai-prompt-injection-data-exfiltration-vulnerability" target="_blank" rel="noopener">Oasis Security, the "Claudy Day" disclosure</a>.</div>
+    <div class="debrief"><b>This really happened in 2026.</b> A crafted claude.ai link could pre-fill a chat with instructions the victim could not see. Fixed now, but the habit is the lesson: skim anything big before you paste it. <a href="https://oasis.security/blog/claude-ai-prompt-injection-data-exfiltration-vulnerability" target="_blank" rel="noopener">Oasis Security, "Claudy Day".</a></div>
   </div>
 
   <div class="note" style="text-align:center;margin-top:6px">Part of <a href="index.html" style="color:var(--moss)">Course 02 &#183; Prompting Essentials</a> &#183; Cambium Academy &#183; free forever</div>
@@ -187,7 +217,7 @@ function hud(){
   document.getElementById('hud').innerHTML = items.map(function(it){
     var done = pgState[it[0]];
     return '<span class="' + (done ? 'done' : '') + '">' + (done ? '&#10003; ' : '') + it[1] + '</span>';
-  }).join("") + '<span style="border:none;background:none;color:var(--mut)">' + (core === 3 ? 'all three games done, quiz credit earned' : 'play all three games for quiz credit') + '</span>';
+  }).join("") + '<span style="border:none;background:none;color:var(--mut)">' + (core === 3 ? 'all three done, quiz credit earned' : 'play all three for quiz credit') + '</span>';
   updateLabDone();
 }
 function rd(k){ try { return JSON.parse(localStorage.getItem(k) || "{}"); } catch(e){ return {}; } }
@@ -213,109 +243,77 @@ function updateLabDone(){
   panel.style.display = "block";
   if (!labDoneShown) {
     labDoneShown = true;
-    panel.animate(
-      [{ transform: "scale(.98)", opacity: .4 }, { transform: "scale(1.01)", opacity: 1 }, { transform: "scale(1)", opacity: 1 }],
-      { duration: 600, easing: "ease-out" }
-    );
+    panel.animate([{ transform: "scale(.98)", opacity: .4 }, { transform: "scale(1.01)", opacity: 1 }, { transform: "scale(1)", opacity: 1 }], { duration: 600, easing: "ease-out" });
     panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 }
-
-// ------- shared helpers -------
 function copyText(str, btn){
   var label = btn ? btn.textContent : "";
   function flash(){ if (btn){ btn.textContent = "Copied"; setTimeout(function(){ btn.textContent = label; }, 1300); } }
-  if (navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(str).then(flash, function(){ fallbackCopy(str); flash(); });
-  } else { fallbackCopy(str); flash(); }
+  if (navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(str).then(flash, function(){ fallbackCopy(str); flash(); }); }
+  else { fallbackCopy(str); flash(); }
 }
-function fallbackCopy(str){
-  var t = document.createElement('textarea');
-  t.value = str; t.style.position = "fixed"; t.style.opacity = "0";
-  document.body.appendChild(t); t.select();
-  try { document.execCommand('copy'); } catch(e){}
-  document.body.removeChild(t);
-}
+function fallbackCopy(str){ var t=document.createElement('textarea'); t.value=str; t.style.position="fixed"; t.style.opacity="0"; document.body.appendChild(t); t.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(t); }
 function confetti(){
   var colors = ["#2C5F2D","#97BC62","#D9B25C","#B98A2D","#C6E89B"];
-  for (var i = 0; i < 46; i++){
-    var s = document.createElement('span');
-    s.className = 'confetti';
-    s.style.left = (Math.random() * 100) + "vw";
-    s.style.background = colors[i % colors.length];
-    s.style.animationDuration = (1.6 + Math.random() * 1.6) + "s";
-    s.style.animationDelay = (Math.random() * 0.5) + "s";
-    document.body.appendChild(s);
-    (function(el){ setTimeout(function(){ el.remove(); }, 4200); })(s);
-  }
+  for (var i = 0; i < 44; i++){ var s=document.createElement('span'); s.className='confetti'; s.style.left=(Math.random()*100)+"vw"; s.style.background=colors[i%colors.length]; s.style.animationDuration=(1.6+Math.random()*1.6)+"s"; s.style.animationDelay=(Math.random()*0.5)+"s"; document.body.appendChild(s); (function(el){setTimeout(function(){el.remove();},4200);})(s); }
 }
 function miniConfetti(n){
   var colors = ["#97BC62","#D9B25C","#C6E89B"];
-  for (var i = 0; i < (n||18); i++){
-    var s = document.createElement('span');
-    s.className = 'confetti';
-    s.style.left = (30 + Math.random() * 40) + "vw";
-    s.style.background = colors[i % colors.length];
-    s.style.animationDuration = (1.3 + Math.random() * 1.2) + "s";
-    document.body.appendChild(s);
-    (function(el){ setTimeout(function(){ el.remove(); }, 3200); })(s);
-  }
+  for (var i=0;i<(n||16);i++){ var s=document.createElement('span'); s.className='confetti'; s.style.left=(30+Math.random()*40)+"vw"; s.style.background=colors[i%colors.length]; s.style.animationDuration=(1.3+Math.random()*1.1)+"s"; document.body.appendChild(s); (function(el){setTimeout(function(){el.remove();},3000);})(s); }
 }
 
-// ------- GAME 1: Persona Showdown -------
-var PS = [
-  { kind:"ROUND 1 &#183; A FACT QUESTION", task:"“Name the main causes of the 2008 financial crash.”",
-    plain:72, persona:68, better:"plain",
-    verdict:"Facts round to the plain ask, 72% vs 68%. The costume added confidence, not correct facts." },
-  { kind:"ROUND 2 &#183; A STYLE TASK", task:"“Explain compound interest to a nervous beginner who hated math.”",
-    plain:54, persona:88, better:"persona",
-    verdict:"Style round to the persona, 54% up to 88%. For tone and audience, the costume genuinely helps." }
-];
-var psRound = 0, psScore = 0, psAnswered = false;
-function psRender(){
-  psAnswered = false;
-  var d = PS[psRound];
-  document.getElementById('psKind').innerHTML = d.kind;
-  document.getElementById('psTask').textContent = d.task;
-  document.getElementById('psRace').innerHTML = "";
-  document.getElementById('psVerdict').style.display = "none";
-  document.getElementById('psNav').innerHTML = "";
-  document.getElementById('psChoose').innerHTML =
-    '<button class="big" onclick="psGuess(\'plain\')">Keep it plain</button>' +
-    '<button class="big gold" onclick="psGuess(\'persona\')">Add “world-class expert”</button>';
-}
-function psGuess(choice){
-  if (psAnswered) return;
-  psAnswered = true;
-  pgMark('tok');
-  var d = PS[psRound];
-  var right = (choice === d.better);
-  if (right) psScore++;
-  document.getElementById('psChoose').innerHTML =
-    '<span class="pill ' + (right ? 'hit' : 'miss') + '">' + (right ? "Good call" : "Surprise") +
-    '</span> <span class="pill">you picked: ' + (choice === "plain" ? "plain" : "the persona") + '</span>';
-  var pw = (d.better === "plain");
-  var race =
-    '<div class="bar ' + (pw ? 'win' : '') + '"><div class="w">Plain ask</div><div class="track"><div class="fill g" data-w="' + d.plain + '"></div><div class="pct">' + d.plain + '%</div></div></div>' +
-    '<div class="bar ' + (pw ? '' : 'win') + '"><div class="w">Expert persona</div><div class="track"><div class="fill ' + (pw ? 'o' : 'g') + '" data-w="' + d.persona + '"></div><div class="pct">' + d.persona + '%</div></div></div>';
-  document.getElementById('psRace').innerHTML = race;
-  setTimeout(function(){ document.querySelectorAll('#psRace .fill').forEach(function(f){ f.style.width = f.getAttribute('data-w') + "%"; }); }, 60);
-  var v = document.getElementById('psVerdict');
-  v.style.display = "block"; v.textContent = d.verdict;
-  if (right) miniConfetti(16);
-  var nav = document.getElementById('psNav');
-  if (psRound < PS.length - 1){
-    nav.innerHTML = '<button class="gold" onclick="psNext()">Next round &#8594;</button><span class="pill">round ' + (psRound+1) + ' of ' + PS.length + '</span>';
-  } else {
-    document.getElementById('stamp1').style.display = "block";
-    nav.innerHTML = '<span class="pill hit">both rounds done &#183; ' + psScore + '/' + PS.length + ' right</span><button onclick="psReplay()">Play again</button>';
+// ------- TOY 01: The Persona Switch -------
+var G1 = {
+  fact: {
+    q: "What caused the 2008 financial crash?",
+    ml: "Factual accuracy",
+    plain: { pct:72, good:true, reply:"The main drivers: risky subprime mortgages, banks bundling them into securities, too much borrowed money, and credit ratings that missed the danger. I'm confident on these, but check any exact figure." },
+    persona: { pct:68, good:false, reply:"In my four decades studying markets, the collapse stemmed from subprime lending, securitization, excessive leverage, and regulatory failure, without question the defining crisis of our era." },
+    vGood: "Plain ask: clear, and it flags what to double-check.",
+    vBad: "Expert persona: grander voice, the same facts, and a little LESS accurate. The costume adds confidence, not knowledge."
+  },
+  style: {
+    q: "Explain compound interest to a nervous beginner.",
+    ml: "Warmth and fit",
+    plain: { pct:54, good:false, reply:"Compound interest is interest on the principal plus the accumulated interest of prior periods. Formula: A = P(1 + r/n)^(nt)." },
+    persona: { pct:88, good:true, reply:"No math panic, I promise. Picture a snowball rolling downhill: it grows, and the bigger it gets, the faster it grows. Your savings do the same, because you earn interest on your interest." },
+    vGood: "Patient-tutor persona: warmer, clearer, better for a nervous learner. Here the costume genuinely helps.",
+    vBad: "Plain ask: correct, but flat and a little cold for a nervous beginner."
   }
+};
+var g1task = "fact", g1persona = 0;
+function g1render(animate){
+  var d = G1[g1task], side = g1persona ? d.persona : d.plain;
+  document.getElementById('g1prompt').innerHTML = (g1persona ? '<span class="add">You are a world-class expert. </span>' : '') + d.q;
+  document.getElementById('g1rt').textContent = side.reply;
+  var rep = document.getElementById('g1reply'); rep.className = "reply " + (side.good ? "good" : "bad");
+  // re-trigger pop
+  rep.style.animation = 'none'; void rep.offsetWidth; rep.style.animation = '';
+  document.getElementById('g1ml').textContent = d.ml;
+  var fill = document.getElementById('g1fill');
+  fill.className = "fill " + (side.good ? "g" : "o");
+  document.getElementById('g1pct').textContent = side.pct + "%";
+  if (animate === false){ fill.style.width = side.pct + "%"; }
+  else { fill.style.width = "0%"; setTimeout(function(){ fill.style.width = side.pct + "%"; }, 60); }
+  document.getElementById('g1verdict').innerHTML = "<b>" + (side.good ? "Winner." : "Weaker here.") + "</b> " + (side.good ? d.vGood : d.vBad);
+  // switch button styling
+  var sb = document.querySelectorAll('#g1switch button');
+  sb[0].classList.toggle('on', !g1persona); sb[0].style.opacity = g1persona ? .55 : 1;
+  sb[1].classList.toggle('on', !!g1persona); sb[1].style.opacity = g1persona ? 1 : .55;
 }
-function psNext(){ psRound++; psRender(); }
-function psReplay(){ psRound = 0; psScore = 0; psRender(); }
-psRender();
+document.querySelectorAll('#g1seg button').forEach(function(b){
+  b.addEventListener('click', function(){
+    document.querySelectorAll('#g1seg button').forEach(function(x){ x.classList.remove('on'); });
+    b.classList.add('on'); g1task = b.getAttribute('data-t'); pgMark('tok'); g1render(true);
+  });
+});
+document.querySelectorAll('#g1switch button').forEach(function(b){
+  b.addEventListener('click', function(){ g1persona = +b.getAttribute('data-p'); pgMark('tok'); g1render(true); });
+});
+g1render(false);
 
-// ------- GAME 2: Build the Ask -------
+// ------- TOY 02: Build the Ask -------
 var wbT = document.getElementById('wbTask'), wbC = document.getElementById('wbCtx'), wbF = document.getElementById('wbFmt');
 var GRADE = [
   ["Verb", /\b(write|draft|make|create|plan|explain|summari[sz]e?|list|compare|design|build|rewrite|outline|compose|generate|turn|give|suggest|help)\w*/],
@@ -330,7 +328,7 @@ function wbBuild(){
   if (wbC.value.trim()) parts.push(wbC.value.trim());
   if (wbF.value.trim()) parts.push(wbF.value.trim());
   var out = document.getElementById('wbOut');
-  if (parts.length === 0){ out.className = "built empty"; out.textContent = "Your prompt assembles here as you type."; }
+  if (parts.length === 0){ out.className = "built empty"; out.textContent = "Your prompt builds here as you type."; }
   else { out.className = "built"; out.textContent = parts.join(" "); }
   var text = (wbT.value + " " + wbC.value + " " + wbF.value).toLowerCase();
   var got = 0;
@@ -341,7 +339,7 @@ function wbBuild(){
   var pct = got * 20;
   document.getElementById('pwFill').style.width = pct + "%";
   document.getElementById('pwPct').textContent = pct + "%";
-  if (got === 5 && !window.__wbFull){ window.__wbFull = true; document.getElementById('stamp2').style.display = "block"; miniConfetti(20); }
+  if (got === 5 && !window.__wbFull){ window.__wbFull = true; document.getElementById('stamp2').style.display = "block"; miniConfetti(18); }
   if (got < 5) window.__wbFull = false;
 }
 [wbT, wbC, wbF].forEach(function(el){ el.addEventListener('input', function(){ pgMark('lm'); wbBuild(); }); });
@@ -351,15 +349,11 @@ function wbExample(){
   wbF.value = "Warm and funny but no embarrassing stories, under 400 words, and end with a toast.";
   pgMark('lm'); wbBuild();
 }
-function wbClear(){ wbT.value = ""; wbC.value = ""; wbF.value = ""; window.__wbFull = false; wbBuild(); }
-function wbCopy(btn){
-  var out = document.getElementById('wbOut');
-  if (out.classList.contains('empty')) { wbExample(); }
-  copyText(document.getElementById('wbOut').textContent, btn);
-}
+function wbClear(){ wbT.value = ""; wbC.value = ""; wbF.value = ""; window.__wbFull = false; wbBuild(); document.getElementById('wbReplies').style.display = "none"; }
+function wbShow(){ pgMark('lm'); document.getElementById('wbReplies').style.display = "block"; document.getElementById('wbReplies').scrollIntoView({behavior:"smooth",block:"nearest"}); }
 wbBuild();
 
-// ------- GAME 3: Spot the Smuggle -------
+// ------- TOY 03: Spot the Smuggle -------
 var HUNT1 = [
   "Most common houseplants ask for less than people think.",
   "The biggest mistake new owners make is overwatering, because roots need air as much as water.",
@@ -380,9 +374,7 @@ function renderHunt(id, arr, plant, ghost){
     var cls = "sent" + (ghost === i ? " ghost" : "");
     return '<span class="' + cls + '" data-i="' + i + '" data-plant="' + (plant === i ? 1 : 0) + '">' + s + '</span>';
   }).join("");
-  document.getElementById(id).querySelectorAll('.sent').forEach(function(n){
-    n.addEventListener('click', function(){ huntClick(id, n); });
-  });
+  document.getElementById(id).querySelectorAll('.sent').forEach(function(n){ n.addEventListener('click', function(){ huntClick(id, n); }); });
 }
 function huntClick(id, n){
   if (n.classList.contains('caught')) return;
@@ -391,20 +383,18 @@ function huntClick(id, n){
     pgMark('net');
     n.classList.add('caught');
     var msg = id === "hunt1" ? 'huntMsg1' : 'huntMsg2';
-    document.getElementById(msg).innerHTML = '<b>Caught it.</b> Your eye slid past it; the model would not. That single sentence would hijack the whole reply.';
+    document.getElementById(msg).innerHTML = '<b>Caught it.</b> Your eye slid past it; the AI would not.';
     document.getElementById('stamp3').style.display = "block";
-    miniConfetti(18);
     document.getElementById(id).querySelectorAll('.sent').forEach(function(x){ if (!x.classList.contains('caught')) x.classList.add('safe'); });
+    if (id === "hunt1") document.getElementById('g3consequence').style.display = "block";
+    miniConfetti(16);
   } else {
     n.classList.remove('wrong'); void n.offsetWidth; n.classList.add('wrong');
     var msg2 = id === "hunt1" ? 'huntMsg1' : 'huntMsg2';
-    document.getElementById(msg2).innerHTML = 'That one is harmless. Look for a sentence that gives the AI an order instead of a fact.';
+    document.getElementById(msg2).innerHTML = 'That one is harmless. Look for a sentence that gives the AI an order, not a fact.';
   }
 }
-function scan(){
-  document.getElementById('hunt2').classList.add('scanned');
-  document.getElementById('huntMsg2').innerHTML = 'Revealed. That near-invisible gray line is a real instruction. Tap it to catch it.';
-}
+function scan(){ document.getElementById('hunt2').classList.add('scanned'); document.getElementById('huntMsg2').innerHTML = 'Revealed. That near-invisible gray line is a real instruction. Tap it to catch it.'; }
 renderHunt("hunt1", HUNT1, HUNT1_PLANT, -1);
 renderHunt("hunt2", HUNT2, -1, HUNT2_GHOST);
 
