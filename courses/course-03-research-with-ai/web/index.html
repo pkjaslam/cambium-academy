@@ -88,7 +88,7 @@
     <p class="lead">The full 35-minute lecture, narrated by Aira, including the Riverbend case study followed end to end. Prefer reading? The <a href="slides.html" style="color:var(--forest)">70 slides</a> cover every word.</p>
     <div class="video-shell">
       <div class="ratio" id="videoBox">
-        <iframe id="lectureFrame" src="https://www.youtube.com/embed/vgZAYc14y4s?rel=0" title="Research with AI: The Complete 2026 Toolkit, Cambium Academy Course 03" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe id="lectureFrame" src="https://www.youtube.com/embed/vgZAYc14y4s?rel=0&amp;enablejsapi=1" title="Research with AI: The Complete 2026 Toolkit, Cambium Academy Course 03" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         <div class="placeholder" id="videoFallback" style="display:none">
           <div style="font-family:Cambria,Georgia,serif;font-size:24px;font-weight:700;color:#E8F2DE">The player will not load here</div>
           <div style="font-size:14.5px;max-width:520px;margin-top:8px">Some browsers, networks, and privacy extensions block embedded video. The full 35-minute lecture is one click away, and the slides are the complete lecture either way.</div>
@@ -245,19 +245,29 @@
 })();
 </script>
 <script>
-// Graceful degradation: if the embedded player cannot initialise (embedding disabled by the
-// uploader, corporate network, or a privacy extension), show a "watch on YouTube" card
-// instead of a black error box. Students never hit a dead end.
+// Graceful degradation, done honestly: use YouTube's IFrame API and degrade ONLY when the
+// player reports a real error (embedding disabled, video removed) or never boots at all
+// (blocked by a network or extension). A working player is never replaced.
 (function(){
   var f = document.getElementById("lectureFrame"), fb = document.getElementById("videoFallback");
   if (!f || !fb) return;
-  var alive = false;
-  window.addEventListener("message", function(e){
-    if (typeof e.origin === "string" && e.origin.indexOf("youtube.com") > -1) alive = true;
-  });
-  function degrade(){ if (!alive && f.style.display !== "none"){ f.style.display = "none"; fb.style.display = "flex"; } }
-  f.addEventListener("load", function(){ setTimeout(degrade, 4500); });
-  setTimeout(degrade, 10000);
+  var booted = false;
+  function degrade(){ if (booted) return; f.style.display = "none"; fb.style.display = "flex"; }
+  window.onYouTubeIframeAPIReady = function(){
+    try {
+      new YT.Player("lectureFrame", {
+        events: {
+          onReady: function(){ booted = true; },
+          onError: function(){ booted = false; degrade(); }
+        }
+      });
+    } catch(e){ /* leave the iframe alone; the watchdog below decides */ }
+  };
+  var tag = document.createElement("script");
+  tag.src = "https://www.youtube.com/iframe_api";
+  tag.onerror = degrade;                       // API blocked outright
+  document.head.appendChild(tag);
+  setTimeout(function(){ if (!booted) degrade(); }, 12000);   // never booted: assume blocked
 })();
 </script>
 <script src="progress.js"></script>
