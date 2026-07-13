@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Data Clinic · Research with AI · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--moss:#97BC62;--lite:#C6E89B;--gold:#D9B25C;--ink:#E8F2DE;--mut:#8FA684;--line:rgba(151,188,98,.22);--warm:#E07850}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);line-height:1.6;min-height:100vh;background:#050b06}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 55% 40% at 20% 0%,rgba(151,188,98,.13),transparent 60%),radial-gradient(ellipse 50% 38% at 85% 10%,rgba(217,178,92,.10),transparent 60%),linear-gradient(180deg,#0a150b,#040805)}
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px 90px}
+  .nav{display:flex;align-items:center;gap:12px;padding:18px 0;flex-wrap:wrap}
+  .nav img{width:38px;height:38px;border-radius:10px}
+  .nav a.brand{font-family:'Sora',sans-serif;font-weight:700;color:var(--lite);text-decoration:none;font-size:13px;letter-spacing:2px;display:flex;align-items:center;gap:10px}
+  .nav .links{margin-left:auto;display:flex;gap:15px;flex-wrap:wrap}
+  .nav .links a{color:var(--moss);text-decoration:none;font-weight:600;font-size:13.5px}
+  .hero{text-align:center;padding:30px 0 6px}
+  .over{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;letter-spacing:5px;color:var(--gold)}
+  h1{font-family:'Sora',sans-serif;font-size:clamp(38px,6vw,58px);font-weight:800;margin:10px 0 10px;background:linear-gradient(100deg,#F2F8EA,#C6E89B 60%,#E7C56B);-webkit-background-clip:text;background-clip:text;color:transparent}
+  p.lead{color:var(--mut);font-size:16px;max-width:660px;margin:0 auto}
+  .lab{background:linear-gradient(170deg,rgba(151,188,98,.10),rgba(151,188,98,.02) 55%);border:1px solid var(--line);border-radius:22px;padding:28px;margin:28px 0;backdrop-filter:blur(8px)}
+  .tag{font-family:'Sora',sans-serif;font-size:11px;font-weight:800;letter-spacing:3px;color:#0d1a0b;background:linear-gradient(135deg,#E7C56B,#B98A2D);display:inline-block;border-radius:8px;padding:5px 12px}
+  h2{font-family:'Sora',sans-serif;font-size:26px;font-weight:800;margin:12px 0 6px}
+  p.sub{color:var(--mut);font-size:14px;margin-bottom:16px}
+  .btn{display:inline-block;background:linear-gradient(180deg,#356B2F,#1F3D24);color:var(--lite);border:1px solid rgba(151,188,98,.65);border-radius:11px;padding:12px 20px;font-size:14px;font-weight:700;font-family:'Sora',sans-serif;text-decoration:none;cursor:pointer}
+  .btn.gold{background:linear-gradient(180deg,#E7C56B,#B98A2D);border-color:#E7C56B;color:#10220E}
+  .trap{background:rgba(4,8,5,.55);border:1.5px solid var(--line);border-radius:13px;padding:16px 18px;margin:10px 0}
+  .trap b{color:var(--lite);font-family:'Sora',sans-serif}
+  .trap .q{font-size:14px;margin-bottom:10px}
+  .trap input[type=text]{width:190px;background:rgba(4,8,5,.7);border:1.5px solid var(--line);border-radius:9px;color:var(--ink);padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:14px}
+  .trap input:focus{outline:none;border-color:var(--moss)}
+  .fb{display:none;margin-top:10px;font-size:13px;border-radius:9px;padding:10px 13px;line-height:1.55}
+  .fb.ok{display:block;background:rgba(151,188,98,.13);border:1px solid rgba(151,188,98,.5);color:#DDEEC9}
+  .fb.no{display:block;background:rgba(224,120,80,.11);border:1px solid rgba(224,120,80,.5);color:#F2D9CE}
+  code{font-family:ui-monospace,monospace;background:rgba(151,188,98,.10);border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:13px;color:var(--lite)}
+  .steps{counter-reset:s}
+  .steps li{margin:9px 0;font-size:14px;color:#DEEBD2}
+  .note{font-size:12.5px;color:var(--mut);margin-top:14px}
+  .note b{color:var(--lite)}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+  th{text-align:left;color:var(--gold);font-family:'Sora',sans-serif;font-size:12px;padding:8px;border-bottom:1px solid var(--line)}
+  td{padding:8px;border-bottom:1px solid rgba(151,188,98,.10);color:#DEEBD2;vertical-align:top}
+  .final{display:none;text-align:center;border:1px solid var(--gold);background:linear-gradient(180deg,rgba(217,178,92,.16),rgba(217,178,92,.04));border-radius:20px;padding:26px;margin:26px 0}
+  .confetti{position:fixed;top:-14px;width:9px;height:14px;z-index:200;pointer-events:none;animation:cfall linear forwards}
+  @keyframes cfall{to{transform:translateY(105vh) rotate(720deg);opacity:.9}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI">CAMBIUM AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="practical.html">Practical</a><a href="practice.html">Data Clinic</a><a href="pack.html">Pack</a><a href="playground.html">AI Lab</a><a href="../../../start/">All courses</a></div>
+  </nav>
+
+  <div class="hero">
+    <div class="over">◈ PRACTICE WITH KNOWN ANSWERS</div>
+    <h1>THE DATA CLINIC</h1>
+    <p class="lead">Module 6 said "bring your messiest CSV." Here is one, with six traps deliberately planted in it, and every answer known. Clean it with an AI assistant, then check yourself against the truth. This is where the safe loop stops being theory.</p>
+  </div>
+
+  <div class="lab">
+    <span class="tag">STEP 1 · TAKE THE DATA</span>
+    <h2>Riverbend stream temperatures (messy)</h2>
+    <p class="sub">Six catchments, thirty days of summer stream temperature, 15 m versus 30 m riparian buffers. The same Riverbend question from the lecture. The file is real, small, and hostile in exactly the ways real field data is hostile.</p>
+    <a class="btn gold" href="data/riverbend_temps_messy.csv" download>Download riverbend_temps_messy.csv</a>
+    <div class="note"><b>Your task:</b> hand it to your AI assistant with the safe loop from Module 6 (describe the data, require commented code, explain-it-back, tiny test), and produce a clean dataset plus the mean summer temperature by buffer width. Then come back and check your numbers below.</div>
+  </div>
+
+  <div class="lab">
+    <span class="tag">STEP 2 · THE SIX TRAPS</span>
+    <h2>What is hiding in this file</h2>
+    <p class="sub">Answer as you find them. Every check below has one right answer, computed from the cleaned data. An AI assistant that skips any of these will hand you a plausible, confident, wrong result.</p>
+
+    <div class="trap">
+      <div class="q"><b>Trap 1 · Unit mix.</b> Three readings at one site are recorded in Fahrenheit, not Celsius. Which site?</div>
+      <input type="text" id="t1" placeholder="e.g. RB-09" autocomplete="off">
+      <button class="btn" onclick="chk(1)">Check</button>
+      <div class="fb" id="f1"></div>
+    </div>
+
+    <div class="trap">
+      <div class="q"><b>Trap 2 · Sentinel missing values.</b> Missing readings are not blank; they are coded with a number that would poison every mean. What number?</div>
+      <input type="text" id="t2" placeholder="a number" autocomplete="off">
+      <button class="btn" onclick="chk(2)">Check</button>
+      <div class="fb" id="f2"></div>
+    </div>
+
+    <div class="trap">
+      <div class="q"><b>Trap 3 · Duplicates.</b> How many rows are exact duplicates that must be dropped?</div>
+      <input type="text" id="t3" placeholder="a count" autocomplete="off">
+      <button class="btn" onclick="chk(3)">Check</button>
+      <div class="fb" id="f3"></div>
+    </div>
+
+    <div class="trap">
+      <div class="q"><b>Trap 4 · Contradictory metadata.</b> One site's buffer width is mislabelled on two dates, contradicting the rest of its own rows. Which site?</div>
+      <input type="text" id="t4" placeholder="e.g. RB-09" autocomplete="off">
+      <button class="btn" onclick="chk(4)">Check</button>
+      <div class="fb" id="f4"></div>
+    </div>
+
+    <div class="trap">
+      <div class="q"><b>Trap 5 · The clean row count.</b> After fixing units, dropping sentinels and duplicates, how many rows remain?</div>
+      <input type="text" id="t5" placeholder="a count" autocomplete="off">
+      <button class="btn" onclick="chk(5)">Check</button>
+      <div class="fb" id="f5"></div>
+    </div>
+
+    <div class="trap">
+      <div class="q"><b>Trap 6 · The answer that matters.</b> Mean temperature at 15 m buffers minus mean at 30 m buffers, in degrees C, to one decimal place.</div>
+      <input type="text" id="t6" placeholder="e.g. 0.0" autocomplete="off">
+      <button class="btn" onclick="chk(6)">Check</button>
+      <div class="fb" id="f6"></div>
+    </div>
+  </div>
+
+  <div class="final" id="final">
+    <div style="font-family:'Sora',sans-serif;font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:800">CLINIC COMPLETE</div>
+    <div style="font-family:'Sora',sans-serif;font-size:28px;font-weight:800;margin:8px 0">All six traps caught</div>
+    <p style="color:var(--mut);font-size:14px;max-width:560px;margin:0 auto 14px">That is what the safe loop is for. Every trap here has burned a real analysis somewhere, and an assistant will walk past all six unless you make it explain and you make it test.</p>
+    <a class="btn gold" href="practical.html">Take The Practical &#8594;</a>
+  </div>
+
+  <div class="lab">
+    <span class="tag">STEP 3 · THE SYSTEMATIC REVIEW, IN MINIATURE</span>
+    <h2>A PRISMA-shaped workflow you can actually finish</h2>
+    <p class="sub">The most common first serious task for researchers using AI. Full PRISMA is a project; this is the honest miniature, and it is the shape reviewers expect.</p>
+    <ol class="steps">
+      <li><b>Question, written as criteria.</b> Population, exposure/intervention, comparator, outcome, study designs you will accept, years, languages. Write them down BEFORE searching, so the criteria cannot drift to fit what you find.</li>
+      <li><b>Search, recorded.</b> Run the same query in an academic agent (Elicit-class) and one database (Scopus, Web of Science, PubMed). <b>Save the exact query strings and dates.</b> A search you cannot reproduce is not a systematic search.</li>
+      <li><b>Screen in two passes.</b> Title/abstract, then full text. AI can pre-screen with your criteria, but <b>every exclusion at full-text stage gets a human-recorded reason.</b></li>
+      <li><b>Count everything.</b> Records identified, duplicates removed, screened, excluded (with reasons), included. This is the PRISMA flow diagram, and it is non-negotiable.</li>
+      <li><b>Extract into a table.</b> One row per study: design, n, setting, effect, and the quote that supports the effect. AI extraction is fine; <b>the quote makes it checkable.</b></li>
+      <li><b>Verify the load-bearing studies.</b> The 2 or 3 your conclusion rests on: 3-click each, and read them yourself, in full.</li>
+      <li><b>Disclose.</b> The AI tools used, at which stages, and how their output was verified. One paragraph in methods.</li>
+    </ol>
+    <table>
+      <tr><th>Where AI genuinely helps</th><th>Where it must not decide</th></tr>
+      <tr><td>De-duplication, pre-screening, extraction into tables, summarizing a study's design, drafting the flow-diagram text</td><td>Final inclusion/exclusion calls, quality/risk-of-bias judgments, the conclusion, and any claim about a study you have not read</td></tr>
+    </table>
+    <div class="note"><b>Reality check:</b> a well-run AI-assisted screen of a few hundred abstracts is an afternoon instead of a fortnight. The verification of the studies that matter still takes the same evening it always did, and that is exactly as it should be.</div>
+  </div>
+
+  <div class="note" style="text-align:center">Part of <a href="index.html" style="color:var(--moss)">Course 03 &#183; Research with AI</a> &#183; the dataset is synthetic, built for teaching, and the traps are drawn from real field-data failures. Nothing you type here leaves your browser.</div>
+</div>
+
+<script>
+var TRUTH = { 1:["rb-03","rb03"], 2:["-999"], 3:["1","one"], 4:["rb-06","rb06"], 5:["178"], 6:["1.4"] };
+var WHY = {
+ 1:"RB-03, days 7 to 9. They read around 63 F, which is about 17 C. Left in, they inflate that site's mean by dozens of degrees, and no assistant flags it unless you ask about units.",
+ 2:"-999. The classic sentinel. It looks like data, so mean() happily eats it and returns nonsense that still looks like a temperature.",
+ 3:"One exact duplicate row (RB-02, July 5). Small, invisible, and it silently weights one observation twice.",
+ 4:"RB-06, on July 20 and 21, is labelled 15 m although it is a 30 m site everywhere else. Metadata that contradicts itself is a data-quality question, not a rounding error: go back to the field sheet.",
+ 5:"178 rows survive: 181 raw, minus 2 sentinel readings, minus 1 duplicate.",
+ 6:"1.4 C. The 15 m buffers run about 17.5 C and the 30 m buffers about 16.1 C. Miss any trap above and this number moves, which is exactly why the number is not the finish line: the cleaning is."
+};
+var got = {};
+function chk(n){
+  var v = document.getElementById("t"+n).value.trim().toLowerCase().replace(/\s|°|c$/g,"");
+  var fb = document.getElementById("f"+n);
+  var ok = TRUTH[n].some(function(a){ return v === a || (n===6 && Math.abs(parseFloat(v)-1.4) < 0.06) || (n===5 && v==="178"); });
+  fb.className = "fb " + (ok ? "ok" : "no");
+  fb.innerHTML = (ok ? "<b>&#10003; Correct.</b> " : "<b>&#10007; Not yet.</b> ") + (ok ? WHY[n] : "Go back to the data. Ask your assistant to explain what it did with this column, line by line, and run it on ten rows you can read yourself.");
+  if (ok) { got[n] = 1; if (Object.keys(got).length === 6) { document.getElementById("final").style.display = "block"; confetti(28); try { localStorage.setItem("cambium-c03-clinic", JSON.stringify({ passed: true, date: new Date().toISOString().slice(0,10) })); } catch(e){} } }
+}
+function confetti(n){var col=['#97BC62','#D9B25C','#C6E89B','#E07850'];for(var c=0;c<n;c++){var el=document.createElement('div');el.className='confetti';el.style.left=Math.random()*100+'vw';el.style.background=col[Math.floor(Math.random()*col.length)];el.style.animationDuration=(2.2+Math.random()*2)+'s';document.body.appendChild(el);setTimeout(function(x){return function(){x.remove()}}(el),5000);}}
+</script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

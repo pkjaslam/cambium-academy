@@ -35,7 +35,7 @@
       "&certUrl=" + encodeURIComponent(CERTURL) +
       "&certId=" + encodeURIComponent(certId);
 
-    var shareText = "I just earned the Research with AI certificate from Cambium AI Institute. Free, hands-on, and it trains you to catch the fake citations AI invents. Join in: " + LANDER;
+    var shareText = "I just earned the Research with AI certificate from Cambium AI Institute: the complete 2026 research toolkit, from deep-research agents to AI-assisted analysis, writing, and disclosure. Free, hands-on, and the quiz stays locked until you actually study. Join in: " + LANDER;
     var enc = encodeURIComponent;
     var shares = [
       ["LinkedIn", "https://www.linkedin.com/feed/?shareActive=true&text=" + enc(shareText)],

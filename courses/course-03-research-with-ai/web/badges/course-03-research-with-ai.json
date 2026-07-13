@@ -3,18 +3,20 @@
   "type": "BadgeClass",
   "id": "https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/badges/course-03-research-with-ai.json",
   "name": "Research with AI, Cambium Academy Course 03",
-  "description": "Completed the full learning path of Cambium Academy Course 03: the lecture, all 24 flashcards, all three hands-on AI Lab games, and a 20-question quiz passed at 70% or better. Approximately 3 instructional hours. July 2026 curriculum snapshot with public sources.",
+  "description": "Completed the full learning path of Cambium Academy Course 03 (v2, the complete 2026 AI research toolkit): the 10-module lecture, all 24 flashcards, all five hands-on AI Lab games, and a 20-question quiz passed at 70% or better. Approximately 3 instructional hours. July 2026 curriculum snapshot with public sources.",
   "image": "https://pkjaslam.github.io/cambium-academy/assets/social-course03.png",
   "criteria": {
-    "narrative": "Read or watch the full lecture; clear all 24 flashcards (flip required before marking); win the Citation Hunt, Lateral Race, and Receipts-or-Vibes games in the AI Lab; then pass the 20-question quiz at 70% or better. The quiz stays locked until every prior step is complete. Certificates are issued once per quiz pass and carry a verification ID and QR."
+    "narrative": "Read or watch the full 10-module lecture; clear all 24 flashcards (flip required before marking); win all five AI Lab games (Citation Hunt, Lateral Race, Receipts-or-Vibes, Pick Your Instrument, Prompt Surgery); then pass the 20-question quiz at 70% or better. The quiz stays locked until every prior step is complete. Holders who also pass The Practical (an optional honors exam graded against the live Crossref registry) carry a FIELD-VERIFIED mark on their certificate."
   },
   "issuer": "https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/badges/issuer.json",
   "tags": [
     "AI",
     "research",
+    "deep research agents",
     "source verification",
+    "AI disclosure",
+    "reproducibility",
     "AI literacy",
-    "beginner",
     "Cambium Academy"
   ]
 }
