@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Lab · Research with AI · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--moss:#97BC62;--lite:#C6E89B;--gold:#D9B25C;--goldD:#B98A2D;--ink:#E8F2DE;--mut:#8FA684;--panel:rgba(151,188,98,.06);--line:rgba(151,188,98,.22);--warm:#E07850}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;background:radial-gradient(ellipse 90% 50% at 50% 0%, #10220E 0%, #071007 55%, #040805 100%);color:var(--ink);line-height:1.6;min-height:100vh}
+  .wrap{max-width:900px;margin:0 auto;padding:0 20px 80px}
+  .nav{display:flex;align-items:center;gap:12px;padding:16px 0;flex-wrap:wrap}
+  .nav img{width:40px;height:40px;border-radius:10px}
+  .nav a.brand{font-family:'Sora',sans-serif;font-weight:700;color:var(--lite);text-decoration:none;font-size:13px;letter-spacing:2px;display:flex;align-items:center;gap:10px}
+  .nav .links{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
+  .nav .links a{color:var(--moss);text-decoration:none;font-weight:600;font-size:13.5px}
+  .nav .links a:hover{color:var(--lite)}
+  h1{font-family:'Sora',sans-serif;font-size:clamp(30px,5vw,44px);font-weight:800;margin:26px 0 6px;background:linear-gradient(90deg,#E8F2DE,#C6E89B);-webkit-background-clip:text;background-clip:text;color:transparent}
+  p.lead{color:var(--mut);font-size:15.5px;max-width:640px}
+  .hud{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 34px}
+  .hud span{border:1px solid var(--line);border-radius:20px;padding:7px 15px;font-size:12.5px;font-weight:700;letter-spacing:.5px;color:var(--mut);background:var(--panel)}
+  .hud span.done{color:#0d1a0b;background:var(--moss);border-color:var(--moss)}
+  .lab{background:linear-gradient(180deg, rgba(151,188,98,.08), rgba(151,188,98,.02));border:1px solid var(--line);border-radius:20px;padding:26px 26px 30px;margin-bottom:30px;position:relative;overflow:hidden;backdrop-filter:blur(6px)}
+  .lab::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--moss),transparent);opacity:.6}
+  .tag{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--gold)}
+  .lab h2{font-family:'Sora',sans-serif;font-size:24px;font-weight:700;margin:6px 0 4px;color:var(--ink)}
+  .lab p.sub{color:var(--mut);font-size:13.5px;margin-bottom:14px;max-width:640px}
+  .hint{font-size:12.5px;color:#0d1a0b;background:var(--lite);border-radius:8px;padding:7px 13px;margin-bottom:16px;display:inline-block;font-weight:700}
+  .rowc{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:16px}
+  button{background:linear-gradient(135deg,#2C5F2D,#1F3D24);color:var(--lite);border:1px solid var(--moss);border-radius:10px;padding:12px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+  button:hover{box-shadow:0 0 22px rgba(151,188,98,.4);transform:translateY(-1px)}
+  button:disabled{opacity:.4;cursor:default;transform:none;box-shadow:none}
+  button.gold{background:linear-gradient(135deg,#8C6320,#5c400f);border-color:var(--gold);color:#FBF7EA}
+  button.warm{background:linear-gradient(135deg,#7a3418,#4a1f0e);border-color:var(--warm);color:#FBEDE6}
+  .note{font-size:12.5px;color:var(--mut);margin-top:14px}
+  .note b{color:var(--lite)}
+  .stamp{position:absolute;top:24px;right:26px;font-family:'Sora',sans-serif;font-weight:800;font-size:13px;letter-spacing:3px;color:var(--gold);border:2px solid var(--gold);border-radius:8px;padding:6px 12px;transform:rotate(6deg);display:none;text-shadow:0 0 14px rgba(217,178,92,.6);box-shadow:0 0 22px rgba(217,178,92,.25)}
+  .confetti{position:fixed;top:-14px;width:9px;height:14px;z-index:200;pointer-events:none;animation:cfall linear forwards}
+  @keyframes cfall{to{transform:translateY(105vh) rotate(720deg);opacity:.9}}
+  .scorebar{display:flex;gap:14px;align-items:center;flex-wrap:wrap;font-family:'Sora',sans-serif;font-size:13px;margin-bottom:14px}
+  .scorebar .pillv{border:1px solid var(--line);background:rgba(4,8,5,.5);border-radius:10px;padding:6px 14px;color:var(--lite);font-weight:700}
+  .scorebar .pillv b{color:var(--gold);font-size:16px}
+  .cite{background:rgba(4,8,5,.55);border:1.5px solid var(--line);border-radius:14px;padding:18px 20px;margin:10px 0;font-size:14px;line-height:1.65}
+  .cite .ctext{font-family:Georgia,'Times New Roman',serif;color:#EAF2E0}
+  .cite .ctext i{color:#CFE3BF}
+  .cite .doi{color:#9DB292;font-size:12.5px;margin-top:6px;letter-spacing:.3px}
+  .cite.right{border-color:var(--moss);box-shadow:0 0 18px rgba(151,188,98,.18)}
+  .cite.wrong{border-color:var(--warm);box-shadow:0 0 18px rgba(224,120,80,.22);animation:shake .35s}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+  .evidence{display:none;margin-top:12px;background:rgba(217,178,92,.08);border:1px dashed rgba(217,178,92,.5);border-radius:10px;padding:11px 14px;font-size:12.5px;color:#E6D9B8}
+  .evidence b{color:var(--gold)}
+  .verdictrow{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap;align-items:center}
+  .reveal{display:none;margin-top:12px;border-radius:10px;padding:12px 15px;font-size:13px;line-height:1.6}
+  .reveal.good{background:rgba(151,188,98,.12);border:1px solid rgba(151,188,98,.45);color:#DDEEC9}
+  .reveal.bad{background:rgba(224,120,80,.10);border:1px solid rgba(224,120,80,.45);color:#F2D9CE}
+  .timerbar{height:10px;background:rgba(151,188,98,.15);border-radius:6px;overflow:hidden;margin:8px 0 16px}
+  .timerbar i{display:block;height:100%;background:linear-gradient(90deg,var(--moss),var(--gold));transition:width .5s linear}
+  .timerbar.hot i{background:linear-gradient(90deg,var(--warm),#c94f28)}
+  .bigclock{font-family:'Sora',sans-serif;font-weight:800;font-size:30px;color:var(--lite)}
+  .bigclock.hot{color:var(--warm);text-shadow:0 0 18px rgba(224,120,80,.5)}
+  .claimbox{background:linear-gradient(135deg,rgba(217,178,92,.10),rgba(217,178,92,.03));border:1px solid rgba(217,178,92,.4);border-left:4px solid var(--gold);border-radius:12px;padding:14px 18px;font-family:Georgia,serif;font-size:15.5px;color:#F0E8D2;margin:10px 0 14px}
+  .choice{display:block;width:100%;text-align:left;background:rgba(4,8,5,.5);border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;margin:8px 0;font-size:13.5px;color:var(--ink);font-weight:500;box-shadow:none}
+  .choice:hover{border-color:var(--moss);transform:none}
+  .choice.right{border-color:var(--moss);background:rgba(151,188,98,.14)}
+  .choice.wrong{border-color:var(--warm);background:rgba(224,120,80,.10)}
+  .ab{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+  .abcard{background:rgba(4,8,5,.55);border:1.5px solid var(--line);border-radius:14px;padding:16px 18px;cursor:pointer;transition:all .2s;font-size:13.5px}
+  .abcard:hover{border-color:var(--moss);transform:translateY(-2px)}
+  .abcard.right{border-color:var(--moss);box-shadow:0 0 20px rgba(151,188,98,.25)}
+  .abcard.wrong{border-color:var(--warm);box-shadow:0 0 20px rgba(224,120,80,.25);animation:shake .35s}
+  .abcard .lbl{font-family:'Sora',sans-serif;font-size:11px;letter-spacing:2.5px;color:var(--gold);font-weight:700;margin-bottom:8px}
+  .abcard .atext{color:#DEEBD2;line-height:1.6}
+  .abcard .srcs{margin-top:10px;font-size:12px;color:#9DB292;border-top:1px dashed var(--line);padding-top:8px}
+  .streakfx{font-family:'Sora',sans-serif;color:var(--gold);font-weight:800;letter-spacing:1px;display:none;margin-left:6px}
+  .debrief{margin-top:16px;background:rgba(4,8,5,.5);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:13px 16px;font-size:12.5px;color:var(--mut);line-height:1.6}
+  .debrief b{color:var(--lite)} .debrief a{color:var(--moss)}
+  .progress-dots{display:flex;gap:6px;margin:4px 0 12px}
+  .progress-dots i{width:10px;height:10px;border-radius:50%;background:rgba(151,188,98,.2);border:1px solid var(--line)}
+  .progress-dots i.hit{background:var(--moss);border-color:var(--moss)}
+  .progress-dots i.miss{background:var(--warm);border-color:var(--warm)}
+  @media(max-width:640px){.ab{grid-template-columns:1fr}}
+  @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI">CAMBIUM AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="slides.html">Slides</a><a href="flashcards.html">Flashcards</a><a href="quiz.html">Quiz</a><a href="community.html">Community</a></div>
+  </nav>
+
+  <h1>The AI Lab</h1>
+  <p class="lead">Three games. Catch fabricated citations, race the clock at lateral reading, and pick receipts over vibes. Win all three to earn your quiz credit. Nothing leaves your browser.</p>
+  <div class="hud" id="hud"></div>
+
+  <div id="labDone" style="display:none;margin:8px 0 26px;padding:20px 22px;border-radius:18px;border:1px solid var(--gold);background:linear-gradient(180deg,rgba(217,178,92,.16),rgba(217,178,92,.05));box-shadow:0 10px 40px rgba(217,178,92,.14)">
+    <div style="font-family:'Sora',sans-serif;font-size:11px;letter-spacing:3px;color:var(--gold);font-weight:700">AI LAB · COMPLETE</div>
+    <div id="labDoneMsg" style="font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:var(--ink);margin:6px 0 14px">All three games won. Quiz credit earned.</div>
+    <a id="labDoneBtn" href="quiz.html" style="display:inline-block;background:linear-gradient(135deg,#E7C56B,#B98A2D);color:#10220E;font-weight:800;padding:12px 26px;border-radius:11px;text-decoration:none;box-shadow:0 6px 20px rgba(217,178,92,.35)">Continue &#8594;</a>
+    <span style="color:var(--mut);font-size:13px;margin-left:12px">Every check you practiced here works in any chatbot, today.</span>
+  </div>
+
+  <!-- GAME 1 · THE CITATION HUNT -->
+  <div class="lab">
+    <div class="stamp" id="stamp1">CAUGHT</div>
+    <div class="tag">GAME 01 &#183; REQUIRED</div>
+    <h2>The Citation Hunt</h2>
+    <p class="sub">Eight references. Some are real, famous papers. Some are fabrications engineered to pass a glance, exactly like the ones AI slips into reference lists. Call each one.</p>
+    <span class="hint">You get 3 evidence checks for the whole stack. Spend them like a pro: on the ones you are least sure about.</span>
+    <div class="scorebar">
+      <span class="pillv">Score <b id="g1score">0</b></span>
+      <span class="pillv">Card <b id="g1n">1</b>/8</span>
+      <span class="pillv">Checks left <b id="g1checks">3</b></span>
+      <span class="streakfx" id="g1streak">STREAK x2!</span>
+    </div>
+    <div class="progress-dots" id="g1dots"></div>
+    <div class="cite" id="g1card">
+      <div class="ctext" id="g1text"></div>
+      <div class="doi" id="g1doi"></div>
+      <div class="evidence" id="g1ev"></div>
+      <div class="reveal" id="g1reveal"></div>
+      <div class="verdictrow" id="g1verdict">
+        <button onclick="g1Answer(false)">&#10007; FABRICATED</button>
+        <button class="gold" onclick="g1Answer(true)">&#10003; REAL</button>
+        <button class="warm" id="g1checkBtn" onclick="g1Check()" style="margin-left:auto">&#128269; Run the 3-click check</button>
+      </div>
+      <div class="rowc" id="g1nextrow" style="display:none">
+        <button onclick="g1Next()">Next card &#8594;</button>
+      </div>
+    </div>
+    <div id="g1final" style="display:none"></div>
+    <div class="debrief"><b>What this trains:</b> the eyeball test fails on purpose-built fakes, so the game gives you what reality gives you: limited time, limited checks, and a stack of plausible-looking references. The real ones here are real, famous papers you can open tonight. The fabricated ones were invented for this game, the same way an AI invents them: right shape, no substance. <b>The rule: a citation you never opened is a citation you cannot trust.</b></div>
+  </div>
+
+  <!-- GAME 2 · THE LATERAL RACE -->
+  <div class="lab">
+    <div class="stamp" id="stamp2">VERIFIED</div>
+    <div class="tag">GAME 02 &#183; REQUIRED</div>
+    <h2>The Lateral Race</h2>
+    <p class="sub">Five claims, ninety seconds. For each, pick the move a professional fact-checker would make. Wrong moves burn 8 seconds. Verify all five before the clock dies.</p>
+    <span class="hint">Remember SIFT: Stop &#183; Investigate the source &#183; Find better coverage &#183; Trace to the original.</span>
+    <div id="g2start">
+      <div class="rowc"><button class="gold" onclick="g2Start()">&#9201; Start the race</button><span class="note" style="margin-top:0">Best played after slides module 3.</span></div>
+    </div>
+    <div id="g2game" style="display:none">
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <span class="bigclock" id="g2clock">90</span>
+        <div class="timerbar" style="flex:1;min-width:200px" id="g2barwrap"><i id="g2bar" style="width:100%"></i></div>
+        <span class="pillv" style="font-family:'Sora',sans-serif;border:1px solid var(--line);border-radius:10px;padding:6px 14px">Round <b id="g2n" style="color:var(--gold)">1</b>/5</span>
+      </div>
+      <div class="progress-dots" id="g2dots"></div>
+      <div class="claimbox" id="g2claim"></div>
+      <div id="g2choices"></div>
+      <div class="reveal" id="g2reveal"></div>
+      <div class="rowc" id="g2nextrow" style="display:none"><button onclick="g2Next()">Next claim &#8594;</button></div>
+    </div>
+    <div id="g2final" style="display:none"></div>
+    <div class="debrief"><b>What this trains:</b> the verification reflex. Reading down the page, re-asking the AI, and trusting the confident tone all feel productive, and all tell you nothing. The winning move is always lateral: leave the answer, open an independent tab, check the claim or the source there. With practice it really does take under a minute.</div>
+  </div>
+
+  <!-- GAME 3 · RECEIPTS OR VIBES -->
+  <div class="lab">
+    <div class="stamp" id="stamp3">GROUNDED</div>
+    <div class="tag">GAME 03 &#183; REQUIRED</div>
+    <h2>Receipts or Vibes</h2>
+    <p class="sub">Same question, two AI answers. One earned your trust, one is performing confidence. Click the answer a careful researcher would build on. Watch for the trap rounds.</p>
+    <span class="hint">Receipts means sources you can follow AND that actually support the claim. A link that exists but says something else is still vibes.</span>
+    <div class="scorebar">
+      <span class="pillv">Score <b id="g3score">0</b></span>
+      <span class="pillv">Round <b id="g3n">1</b>/6</span>
+      <span class="streakfx" id="g3streak">COMBO!</span>
+    </div>
+    <div class="progress-dots" id="g3dots"></div>
+    <div style="font-family:'Sora',sans-serif;font-size:14px;color:var(--lite);margin:6px 0" id="g3q"></div>
+    <div class="ab" id="g3ab"></div>
+    <div class="reveal" id="g3reveal"></div>
+    <div class="rowc" id="g3nextrow" style="display:none"><button onclick="g3Next()">Next round &#8594;</button></div>
+    <div id="g3final" style="display:none"></div>
+    <div class="debrief"><b>What this trains:</b> the receipts test. A grounded answer retrieves first, cites as it goes, and flags what it could not confirm. A vibes answer performs certainty. The tell is never the tone; it is whether you can follow every load-bearing claim to a source that really says it. The example answers here are scripted for the game, modeled on real 2026 tool behavior.</div>
+  </div>
+
+  <div class="note" style="text-align:center;margin-top:6px">Part of <a href="index.html" style="color:var(--moss)">Course 03 &#183; Research with AI</a> &#183; Cambium Academy &#183; free forever</div>
+</div>
+
+<script>
+// ------- course credit (same keys + unlock logic as the course path) -------
+var PGKEY = "cambium-c03-playground";
+var pgState = {};
+try { pgState = JSON.parse(localStorage.getItem(PGKEY) || "{}"); } catch(e) {}
+function pgMark(k){
+  if (pgState[k]) return;
+  pgState[k] = 1;
+  localStorage.setItem(PGKEY, JSON.stringify(pgState));
+  var stamp = { tok: "stamp1", lm: "stamp2", net: "stamp3" }[k];
+  if (stamp && document.getElementById(stamp)) document.getElementById(stamp).style.display = "block";
+  var core = (pgState.tok?1:0) + (pgState.lm?1:0) + (pgState.net?1:0);
+  if (core === 3 && !window.__celebrated){ window.__celebrated = true; confetti(46); }
+  hud();
+}
+function hud(){
+  var items = [["tok","01 Citation Hunt"],["lm","02 Lateral Race"],["net","03 Receipts"]];
+  var core = (pgState.tok?1:0) + (pgState.lm?1:0) + (pgState.net?1:0);
+  document.getElementById('hud').innerHTML = items.map(function(it){
+    var done = pgState[it[0]];
+    return '<span class="' + (done ? 'done' : '') + '">' + (done ? '&#10003; ' : '') + it[1] + '</span>';
+  }).join("") + '<span style="border:none;background:none;color:var(--mut)">' + (core === 3 ? 'all three won, quiz credit earned' : 'win all three for quiz credit') + '</span>';
+  updateLabDone();
+}
+function rd(k){ try { return JSON.parse(localStorage.getItem(k) || "{}"); } catch(e){ return {}; } }
+function updateLabDone(){
+  var core = (pgState.tok?1:0) + (pgState.lm?1:0) + (pgState.net?1:0);
+  var panel = document.getElementById('labDone');
+  if (!panel) return;
+  if (core < 3) { panel.style.display = "none"; return; }
+  var cards = Object.keys(rd("cambium-c03-cards")).length;
+  var lec = !!(rd("cambium-c03-slides").done) || !!(rd("cambium-c03-lecture").watched);
+  var btn = document.getElementById('labDoneBtn'), msg = document.getElementById('labDoneMsg');
+  if (cards < 24) {
+    btn.href = "flashcards.html"; btn.innerHTML = "Next: clear the flashcards &#8594;";
+    msg.textContent = "AI Lab won. One step left before the quiz: clear all 24 flashcards.";
+  } else if (!lec) {
+    btn.href = "index.html"; btn.innerHTML = "Next: finish the lecture &#8594;";
+    msg.textContent = "AI Lab won. Finish the lecture (read the slides or the transcript) and the quiz unlocks.";
+  } else {
+    btn.href = "quiz.html"; btn.innerHTML = "The quiz is unlocked &#8594; take it now";
+    msg.textContent = "All three games won. Quiz credit earned.";
+  }
+  panel.style.display = "block";
+}
+function confetti(n){
+  var colors = ["#97BC62","#D9B25C","#C6E89B","#E07850","#F0F5EC"];
+  for (var c = 0; c < (n || 30); c++){
+    var el = document.createElement("div");
+    el.className = "confetti";
+    el.style.left = Math.random() * 100 + "vw";
+    el.style.background = colors[Math.floor(Math.random() * colors.length)];
+    el.style.animationDuration = (2.2 + Math.random() * 2.2) + "s";
+    el.style.animationDelay = (Math.random() * .6) + "s";
+    document.body.appendChild(el);
+    setTimeout(function(x){ return function(){ x.remove(); }; }(el), 5200);
+  }
+}
+function dots(elId, total, results){
+  var h = "";
+  for (var d = 0; d < total; d++){
+    h += '<i class="' + (results[d] === true ? 'hit' : results[d] === false ? 'miss' : '') + '"></i>';
+  }
+  document.getElementById(elId).innerHTML = h;
+}
+
+// ================= GAME 1 · THE CITATION HUNT =================
+// Real entries are real, famous, verifiable papers. "real:false" entries were
+// invented for this game (that is the point), and the game says so on reveal.
+var G1 = [
+ {text:'Watson, J. D., &amp; Crick, F. H. C. (1953). Molecular structure of nucleic acids: A structure for deoxyribose nucleic acid. <i>Nature, 171,</i> 737&#8211;738.', doi:'doi:10.1038/171737a0', real:true,
+  ev:'<b>Click 1:</b> the DOI resolves to Nature, April 25, 1953. <b>Click 2:</b> authors, volume, pages all match. <b>Click 3:</b> it is the double-helix paper itself.',
+  why:'REAL, and famous: the DNA double-helix paper. It survives all three clicks.'},
+ {text:'Chen, L., &amp; Okafor, D. (2024). Cognitive load and decision fatigue in remote knowledge work: A longitudinal analysis. <i>Journal of Applied Psychology, 109</i>(4), 512&#8211;530.', doi:'doi:10.1037/apl0001943', real:false,
+  ev:'<b>Click 1:</b> the DOI returns "DOI not found." <b>Click 2:</b> an exact-title search in Scholar returns nothing. <b>Click 3:</b> the journal issue exists, but no such article is in it.',
+  why:'FABRICATED (for this game). Real journal, plausible authors, well-formed DOI, no such paper. This is exactly what AI-invented citations look like.'},
+ {text:'Kahneman, D., &amp; Tversky, A. (1979). Prospect theory: An analysis of decision under risk. <i>Econometrica, 47</i>(2), 263&#8211;291.', doi:'doi:10.2307/1914185', real:true,
+  ev:'<b>Click 1:</b> resolves to the paper on JSTOR. <b>Click 2:</b> journal, year, pages match. <b>Click 3:</b> one of the most-cited papers in economics.',
+  why:'REAL: the prospect theory paper that helped win a Nobel. Opens first try.'},
+ {text:'Harrison, M. K., &amp; Lindqvist, S. (2023). Microplastic transfer efficiency in freshwater trophic cascades. <i>Nature Ecology &amp; Evolution, 7</i>(11), 1843&#8211;1852.', doi:'doi:10.1038/s41559-023-02218-w', real:false,
+  ev:'<b>Click 1:</b> the DOI 404s. <b>Click 2:</b> Scholar finds real microplastics papers, none with this title or author pair. <b>Click 3:</b> the volume exists; this article does not.',
+  why:'FABRICATED (for this game). Niche topic, prestige journal, perfect formatting. Fakes cluster exactly here, where checking feels like overkill.'},
+ {text:'Nakamura, T., Ellis, R., &amp; Boateng, K. (2025). Large language models as literature review assistants: Accuracy and hallucination rates across disciplines. <i>Journal of Information Science, 51</i>(2), 214&#8211;233.', doi:'doi:10.1177/01655515251302847', real:false,
+  ev:'<b>Click 1:</b> DOI not found. <b>Click 2:</b> Scholar returns several real papers on LLM citation hallucination, but none is this one. <b>Click 3:</b> no such author trio anywhere on this topic.',
+  why:'FABRICATED (for this game), and deliberately cruel: a fake citation about fake citations. Plausibility is not evidence.'},
+ {text:'Anderson, P. W. (1972). More is different. <i>Science, 177</i>(4047), 393&#8211;396.', doi:'doi:10.1126/science.177.4047.393', real:true,
+  ev:'<b>Click 1:</b> resolves to Science, August 1972. <b>Click 2:</b> author, volume, pages match. <b>Click 3:</b> a legendary essay on emergence, cited tens of thousands of times.',
+  why:'REAL. It even sounds invented ("More is different"?), which is the lesson in reverse: sounding odd does not make a citation fake, and sounding right does not make it real. Open them.'},
+ {text:'Whitfield, A. R. (2022). The Hawthorne effect revisited: Meta-analytic evidence from 214 field studies. <i>Psychological Bulletin, 148</i>(5), 401&#8211;427.', doi:'doi:10.1037/bul0000361', real:false,
+  ev:'<b>Click 1:</b> the DOI resolves, but to a completely different article. <b>Click 2:</b> no Whitfield meta-analysis of the Hawthorne effect exists in Scholar. <b>Click 3:</b> a real-looking page count wrapped around nothing.',
+  why:'FABRICATED (for this game), with the nastiest trick: a DOI that resolves, to the wrong paper. Click 2 of the 3-click check exists precisely for this.'},
+ {text:'Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, &#321;., &amp; Polosukhin, I. (2017). Attention is all you need. <i>Advances in Neural Information Processing Systems 30.</i>', doi:'arXiv:1706.03762', real:true,
+  ev:'<b>Click 1:</b> the arXiv ID opens instantly. <b>Click 2:</b> authors and venue match. <b>Click 3:</b> the transformer paper, the architecture behind modern AI, including the tools this course is about.',
+  why:'REAL: the paper that started the modern AI era. Eight authors, a weird title, and completely genuine.'}
+];
+var g1i = 0, g1s = 0, g1streak = 0, g1checksLeft = 3, g1res = [], g1answered = false, g1order = [];
+function g1Shuffle(){ g1order = G1.map(function(_,ix){return ix;}); for (var a = g1order.length - 1; a > 0; a--){ var b = Math.floor(Math.random() * (a + 1)); var t = g1order[a]; g1order[a] = g1order[b]; g1order[b] = t; } }
+function g1Card(){ return G1[g1order[g1i]]; }
+function g1Render(){
+  var c = g1Card();
+  document.getElementById('g1text').innerHTML = c.text;
+  document.getElementById('g1doi').textContent = c.doi;
+  document.getElementById('g1n').textContent = g1i + 1;
+  document.getElementById('g1score').textContent = g1s;
+  document.getElementById('g1checks').textContent = g1checksLeft;
+  document.getElementById('g1ev').style.display = "none";
+  document.getElementById('g1reveal').style.display = "none";
+  document.getElementById('g1verdict').style.display = "flex";
+  document.getElementById('g1nextrow').style.display = "none";
+  document.getElementById('g1card').className = "cite";
+  document.getElementById('g1checkBtn').disabled = g1checksLeft <= 0;
+  document.getElementById('g1streak').style.display = "none";
+  g1answered = false;
+  dots('g1dots', 8, g1res);
+}
+function g1Check(){
+  if (g1checksLeft <= 0 || g1answered) return;
+  g1checksLeft--;
+  document.getElementById('g1checks').textContent = g1checksLeft;
+  var ev = document.getElementById('g1ev');
+  ev.innerHTML = '<b>3-CLICK CHECK (simulated):</b> ' + g1Card().ev;
+  ev.style.display = "block";
+  document.getElementById('g1checkBtn').disabled = g1checksLeft <= 0;
+}
+function g1Answer(saidReal){
+  if (g1answered) return;
+  g1answered = true;
+  var c = g1Card(), ok = (saidReal === c.real);
+  g1res[g1i] = ok;
+  var rev = document.getElementById('g1reveal');
+  if (ok){
+    g1streak++;
+    var bonus = g1streak >= 2 ? 5 : 0;
+    g1s += 10 + bonus;
+    if (g1streak >= 2){ var sfx = document.getElementById('g1streak'); sfx.textContent = "STREAK x" + g1streak + " +" + bonus; sfx.style.display = "inline"; }
+    rev.className = "reveal good";
+    rev.innerHTML = '<b>&#10003; Called it.</b> ' + c.why;
+    document.getElementById('g1card').className = "cite right";
+  } else {
+    g1streak = 0;
+    rev.className = "reveal bad";
+    rev.innerHTML = '<b>&#10007; It got you.</b> ' + c.why;
+    document.getElementById('g1card').className = "cite wrong";
+  }
+  rev.style.display = "block";
+  document.getElementById('g1score').textContent = g1s;
+  document.getElementById('g1verdict').style.display = "none";
+  document.getElementById('g1nextrow').style.display = "flex";
+  dots('g1dots', 8, g1res);
+}
+function g1Next(){
+  g1i++;
+  if (g1i >= 8){ g1Finish(); return; }
+  g1Render();
+}
+function g1Finish(){
+  var right = g1res.filter(Boolean).length, win = right >= 6;
+  var f = document.getElementById('g1final');
+  document.getElementById('g1card').style.display = "none";
+  f.style.display = "block";
+  f.innerHTML = '<div style="text-align:center;padding:22px 10px">' +
+    '<div style="font-family:\'Sora\',sans-serif;font-size:13px;letter-spacing:3px;color:var(--gold);font-weight:700">HUNT COMPLETE</div>' +
+    '<div style="font-family:\'Sora\',sans-serif;font-size:34px;font-weight:800;color:var(--lite);margin:8px 0">' + right + ' of 8 called right &#183; ' + g1s + ' pts</div>' +
+    '<div style="color:var(--mut);font-size:14px;max-width:560px;margin:0 auto 16px">' + (win ?
+      'Sharp eyes. You just did, by hand, what most people never do at all: refused to take a reference list at face value.' :
+      'The fakes won this round, which is exactly the lesson: they are built to. Six or more unmasks the stamp. Run it back.') + '</div>' +
+    '<button class="gold" onclick="g1Restart()">' + (win ? 'Play again' : 'Run it back &#8594;') + '</button></div>';
+  if (win){ pgMark('tok'); confetti(24); }
+}
+function g1Restart(){
+  g1i = 0; g1s = 0; g1streak = 0; g1checksLeft = 3; g1res = []; g1answered = false;
+  g1Shuffle();
+  document.getElementById('g1final').style.display = "none";
+  document.getElementById('g1card').style.display = "block";
+  g1Render();
+}
+
+// ================= GAME 2 · THE LATERAL RACE =================
+var G2 = [
+ {claim:'A chatbot tells you: "A Stanford study found that keeping houseplants improves memory by 40%."',
+  moves:[
+   ['Ask the same chatbot "are you sure about that study?"', false, 'The model grading its own homework tells you almost nothing. It will usually just double down politely.'],
+   ['New tab: search for the study and see if any independent, reliable source reports it', true, 'Find better coverage: if a real Stanford study said this, someone reputable wrote about it. If only the chatbot says it, you have your answer.'],
+   ['Re-read the chatbot\'s answer slowly, looking for mistakes', false, 'Reading DOWN. The answer cannot reveal its own fabrication; the evidence lives outside the page.']]},
+ {claim:'A slick, professional-looking site claims its supplement "reverses cellular aging, as seen on TV."',
+  moves:[
+   ['Judge the site by its design, badges, and About page', false, 'Anyone can buy a beautiful template and write their own About page. Self-description is not evidence.'],
+   ['Count the ads: many ads means untrustworthy', false, 'Ad load is a weak signal both ways: plenty of junk sites are clean, and plenty of real outlets run ads.'],
+   ['New tab: search what independent sources say about this company and this claim', true, 'Investigate the source, laterally. Thirty seconds outside the site tells you more than thirty minutes on it.']]},
+ {claim:'An AI answer cites "(Marsh &amp; Delgado, 2021, Journal of Nutrition)" for a bold health claim.',
+  moves:[
+   ['Trust it: it has authors, a year, and a real journal name', false, 'That is citation-SHAPED text. Every fabricated reference has exactly those parts; the shape is what the model learned.'],
+   ['Paste the title into Google Scholar and open what actually comes back', true, 'Trace it: does the paper exist, is it these authors and this journal, and does it say what the AI claims? Three clicks.'],
+   ['Ask the AI for more details about the paper', false, 'A model that invented a citation will happily invent an abstract for it too. You are asking the forger to notarize the forgery.']]},
+ {claim:'A shocking one-line quote from a famous scientist is going viral this morning.',
+  moves:[
+   ['It is everywhere, so it is probably legit: share it', false, 'Virality measures shareability, not truth. Misquotes travel faster than corrections.'],
+   ['Check the replies: if nobody debunked it, it is true', false, 'Absence of a debunk in the replies is not verification; most viewers never check either.'],
+   ['Trace it upstream: find where and when the quote was FIRST said, in context', true, 'Trace to the original. Real quotes have a first home: a paper, a talk, an interview. Fabricated ones evaporate on the way up.']]},
+ {claim:'A 20-source deep-research report concludes with one load-bearing statistic from 2024.',
+  moves:[
+   ['Twenty sources is plenty: trust the conclusion', false, 'Source COUNT is decoration. Studies keep finding invented or misread sources inside polished reports.'],
+   ['Open the specific source cited for that statistic and check it says exactly that', true, 'The load-bearing audit: the conclusion rests on this one number, so that citation gets the 3-click check first.'],
+   ['Run the same report again and see if it agrees with itself', false, 'A second draft by the same assistant is not an independent source. Consistency is not correctness.']]}
+];
+var g2i = 0, g2right = 0, g2res = [], g2t = 90, g2timer = null, g2lock = false;
+function g2Start(){
+  g2i = 0; g2right = 0; g2res = []; g2t = 90; g2lock = false;
+  document.getElementById('g2start').style.display = "none";
+  document.getElementById('g2final').style.display = "none";
+  document.getElementById('g2game').style.display = "block";
+  clearInterval(g2timer);
+  g2timer = setInterval(g2Tick, 1000);
+  g2Render();
+}
+function g2Tick(){
+  g2t--;
+  var clock = document.getElementById('g2clock'), wrapb = document.getElementById('g2barwrap');
+  clock.textContent = g2t;
+  document.getElementById('g2bar').style.width = Math.max(0, (g2t / 90) * 100) + "%";
+  if (g2t <= 20){ clock.className = "bigclock hot"; wrapb.className = "timerbar hot"; }
+  else { clock.className = "bigclock"; wrapb.className = "timerbar"; }
+  if (g2t <= 0){ clearInterval(g2timer); g2Finish(false); }
+}
+function g2Render(){
+  var r = G2[g2i];
+  document.getElementById('g2n').textContent = g2i + 1;
+  document.getElementById('g2claim').innerHTML = '&#8220;' + r.claim + '&#8221;';
+  var order = r.moves.map(function(_,ix){return ix;});
+  for (var a = order.length - 1; a > 0; a--){ var b = Math.floor(Math.random() * (a + 1)); var t = order[a]; order[a] = order[b]; order[b] = t; }
+  document.getElementById('g2choices').innerHTML = order.map(function(mi){
+    return '<button class="choice" onclick="g2Pick(this,' + mi + ')">' + r.moves[mi][0] + '</button>';
+  }).join("");
+  document.getElementById('g2reveal').style.display = "none";
+  document.getElementById('g2nextrow').style.display = "none";
+  g2lock = false;
+  dots('g2dots', 5, g2res);
+}
+function g2Pick(btn, mi){
+  if (g2lock) return;
+  g2lock = true;
+  var r = G2[g2i], ok = r.moves[mi][1];
+  g2res[g2i] = ok;
+  var rev = document.getElementById('g2reveal');
+  document.querySelectorAll('#g2choices .choice').forEach(function(b, bx){ b.disabled = true; });
+  btn.className = "choice " + (ok ? "right" : "wrong");
+  if (ok){
+    g2right++;
+    rev.className = "reveal good";
+    rev.innerHTML = '<b>&#10003; The fact-checker\'s move.</b> ' + r.moves[mi][2];
+  } else {
+    g2t = Math.max(1, g2t - 8);
+    document.getElementById('g2clock').textContent = g2t;
+    rev.className = "reveal bad";
+    rev.innerHTML = '<b>&#10007; &#8722;8 seconds.</b> ' + r.moves[mi][2] + ' <span style="color:#DDEEC9">The lateral move: ' + r.moves.filter(function(m){return m[1];})[0][0].toLowerCase() + '.</span>';
+  }
+  rev.style.display = "block";
+  document.getElementById('g2nextrow').style.display = "flex";
+  dots('g2dots', 5, g2res);
+}
+function g2Next(){
+  g2i++;
+  if (g2i >= 5){ g2Finish(true); return; }
+  g2Render();
+}
+function g2Finish(made){
+  clearInterval(g2timer);
+  var win = made && g2right >= 4 && g2t > 0;
+  document.getElementById('g2game').style.display = "none";
+  var f = document.getElementById('g2final');
+  f.style.display = "block";
+  f.innerHTML = '<div style="text-align:center;padding:22px 10px">' +
+    '<div style="font-family:\'Sora\',sans-serif;font-size:13px;letter-spacing:3px;color:var(--gold);font-weight:700">' + (made ? 'RACE COMPLETE' : 'TIME!') + '</div>' +
+    '<div style="font-family:\'Sora\',sans-serif;font-size:34px;font-weight:800;color:var(--lite);margin:8px 0">' + g2right + ' of 5 verified' + (made && g2t > 0 ? ' &#183; ' + g2t + 's left' : '') + '</div>' +
+    '<div style="color:var(--mut);font-size:14px;max-width:560px;margin:0 auto 16px">' + (win ?
+      'That reflex, leave the page and check across the web, is the whole skill. You just proved it fits inside a minute.' :
+      'The clock is the point: lateral reading has to become a reflex, not a project. Four of five before the buzzer earns the stamp.') + '</div>' +
+    '<button class="gold" onclick="g2Start()">' + (win ? 'Race again' : 'Rematch &#8594;') + '</button></div>';
+  if (win){ pgMark('lm'); confetti(24); }
+}
+
+// ================= GAME 3 · RECEIPTS OR VIBES =================
+// Answer pairs are scripted for the game, modeled on real 2026 tool behavior.
+var G3 = [
+ {q:'What share of published papers contained fabricated references by early 2026?',
+  right:{lbl:'ANSWER A', text:'A 2026 Lancet analysis that scanned over 2 million papers and 97 million citations found a fabricated reference in about 1 in 277 papers, up roughly 6x from 2023.', srcs:'Sources: The Lancet (2026) &#183; STAT News, May 7, 2026 &#8594; both open, both say this'},
+  wrong:{lbl:'ANSWER B', text:'Fake references are now everywhere; most experts agree roughly 1 in 50 papers contains one, and the real number is probably higher.', srcs:'No sources given &#183; "most experts agree" is doing all the work'},
+  why:'A cites a named, dated study you can open; B waves at anonymous experts and rounds the number up for drama. Receipts beat vibes.'},
+ {q:'Is coffee linked to living longer?',
+  right:{lbl:'ANSWER A', text:'Large cohort studies report moderate coffee drinking is associated with somewhat lower mortality, but they are observational, so they show correlation, not proof of cause.', srcs:'Sources: two named cohort studies, linked &#183; caveat stated plainly'},
+  wrong:{lbl:'ANSWER B', text:'Absolutely. Science has proven coffee drinkers live up to 10 years longer on average. Drink up!', srcs:'No sources &#183; "science has proven" + a suspiciously round number'},
+  why:'The grounded answer links its studies AND admits what they cannot show. Honest uncertainty is a feature of receipts, not a weakness.'},
+ {q:'How much does the Mediterranean diet reduce cardiovascular risk?',
+  right:{lbl:'ANSWER A', text:'The PREDIMED randomized trial (NEJM) reported about a 30% relative reduction in major cardiovascular events versus a control diet, in high-risk adults.', srcs:'Source: PREDIMED, New England Journal of Medicine &#8594; the paper really reports ~30% relative risk reduction'},
+  wrong:{lbl:'ANSWER B', text:'The landmark PREDIMED trial (NEJM) proved the Mediterranean diet slashes heart disease by 80%.', srcs:'Source: PREDIMED, New England Journal of Medicine &#8594; the citation is real, but the paper does not say 80%'},
+  why:'TRAP ROUND. Both cite the same real trial. One reports what it found; one inflates it. A receipt that exists but does not SAY IT is still vibes. That is click 3 of the 3-click check.'},
+ {q:'Who has the most Grand Slam singles titles in tennis?',
+  right:{lbl:'ANSWER A', text:'As of my last check, here is the leader with the count, the official record page to confirm, and a note that this number changes as majors are played.', srcs:'Source: official tournament records, linked &#183; dated "as of" answer'},
+  wrong:{lbl:'ANSWER B', text:'That is definitely [player], everyone knows that. It has been settled for years.', srcs:'No source, no date &#183; on a record that actively changes'},
+  why:'For anything that changes over time, an undated answer from memory is nearly worthless. The grounded answer shows its date and its record page.'},
+ {q:'What are the health effects of intermittent fasting?',
+  right:{lbl:'ANSWER A', text:'Reviews find modest short-term weight loss, roughly comparable to ordinary calorie restriction; long-term evidence is thinner. Here are the two reviews that conclusion rests on.', srcs:'Sources: 2 review papers, both clickable, both support the claim'},
+  wrong:{lbl:'ANSWER B', text:'Intermittent fasting rewires metabolism and prevents disease, as documented extensively [1][2][5][7][9][12].', srcs:'Twelve bracketed footnotes &#183; none of them clickable or findable'},
+  why:'TRAP ROUND. A wall of citation numbers LOOKS rigorous, but a receipt you cannot follow is not a receipt. Two openable sources beat twelve decorative ones.'},
+ {q:'Does teaching to a student\'s "learning style" (visual, auditory...) improve results?',
+  right:{lbl:'ANSWER A', text:'Despite the idea\'s popularity, the major review found no solid evidence that matching teaching to styles improves outcomes (Pashler et al., 2008, Psychological Science in the Public Interest).', srcs:'Source: real, named review, linked &#8594; it really reached this conclusion'},
+  wrong:{lbl:'ANSWER B', text:'Yes, everyone has a learning style, and teaching to it dramatically improves grades. This is well established in education research.', srcs:'No sources &#183; "well established" covering for a popular myth'},
+  why:'The confident answer repeats a myth many people WANT to be true. The grounded one cites the real review that debunked it. Receipts protect you from comfortable wrongness.'}
+];
+var g3i = 0, g3s = 0, g3combo = 0, g3res = [], g3lock = false, g3sides = [];
+function g3Render(){
+  var r = G3[g3i];
+  g3sides[g3i] = Math.random() < 0.5;
+  var leftIsRight = g3sides[g3i];
+  var L = leftIsRight ? r.right : r.wrong, R = leftIsRight ? r.wrong : r.right;
+  document.getElementById('g3q').innerHTML = 'Q' + (g3i + 1) + ' &#183; ' + r.q;
+  document.getElementById('g3n').textContent = g3i + 1;
+  document.getElementById('g3ab').innerHTML =
+    '<div class="abcard" onclick="g3Pick(this,' + (leftIsRight ? 'true' : 'false') + ')"><div class="lbl">' + (leftIsRight ? r.right.lbl : r.wrong.lbl) + '</div><div class="atext">' + L.text + '</div><div class="srcs">' + L.srcs + '</div></div>' +
+    '<div class="abcard" onclick="g3Pick(this,' + (leftIsRight ? 'false' : 'true') + ')"><div class="lbl">' + (leftIsRight ? r.wrong.lbl : r.right.lbl) + '</div><div class="atext">' + R.text + '</div><div class="srcs">' + R.srcs + '</div></div>';
+  document.getElementById('g3reveal').style.display = "none";
+  document.getElementById('g3nextrow').style.display = "none";
+  document.getElementById('g3streak').style.display = "none";
+  g3lock = false;
+  dots('g3dots', 6, g3res);
+}
+function g3Pick(card, pickedRight){
+  if (g3lock) return;
+  g3lock = true;
+  var r = G3[g3i], ok = pickedRight;
+  g3res[g3i] = ok;
+  document.querySelectorAll('#g3ab .abcard').forEach(function(c){ c.style.pointerEvents = "none"; });
+  card.className = "abcard " + (ok ? "right" : "wrong");
+  var rev = document.getElementById('g3reveal');
+  if (ok){
+    g3combo++;
+    var bonus = g3combo >= 2 ? 5 : 0;
+    g3s += 10 + bonus;
+    if (g3combo >= 2){ var sfx = document.getElementById('g3streak'); sfx.textContent = "COMBO x" + g3combo + " +" + bonus; sfx.style.display = "inline"; }
+    rev.className = "reveal good";
+    rev.innerHTML = '<b>&#10003; Grounded.</b> ' + r.why;
+  } else {
+    g3combo = 0;
+    rev.className = "reveal bad";
+    rev.innerHTML = '<b>&#10007; The vibes got you.</b> ' + r.why;
+  }
+  document.getElementById('g3score').textContent = g3s;
+  rev.style.display = "block";
+  document.getElementById('g3nextrow').style.display = "flex";
+  dots('g3dots', 6, g3res);
+}
+function g3Next(){
+  g3i++;
+  if (g3i >= 6){ g3Finish(); return; }
+  g3Render();
+}
+function g3Finish(){
+  var right = g3res.filter(Boolean).length, win = right >= 5;
+  document.getElementById('g3q').style.display = "none";
+  document.getElementById('g3ab').style.display = "none";
+  document.getElementById('g3reveal').style.display = "none";
+  document.getElementById('g3nextrow').style.display = "none";
+  var f = document.getElementById('g3final');
+  f.style.display = "block";
+  f.innerHTML = '<div style="text-align:center;padding:22px 10px">' +
+    '<div style="font-family:\'Sora\',sans-serif;font-size:13px;letter-spacing:3px;color:var(--gold);font-weight:700">ROUNDS COMPLETE</div>' +
+    '<div style="font-family:\'Sora\',sans-serif;font-size:34px;font-weight:800;color:var(--lite);margin:8px 0">' + right + ' of 6 &#183; ' + g3s + ' pts</div>' +
+    '<div style="color:var(--mut);font-size:14px;max-width:560px;margin:0 auto 16px">' + (win ?
+      'You picked receipts over vibes even when the vibes flattered you. That is the researcher\'s instinct, installed.' :
+      'The traps got you, and they were designed to: existing receipts that say something else, and citation walls with nothing behind them. Five of six earns the stamp.') + '</div>' +
+    '<button class="gold" onclick="g3Restart()">' + (win ? 'Play again' : 'Run it back &#8594;') + '</button></div>';
+  if (win){ pgMark('net'); confetti(24); }
+}
+function g3Restart(){
+  g3i = 0; g3s = 0; g3combo = 0; g3res = []; g3lock = false;
+  document.getElementById('g3final').style.display = "none";
+  document.getElementById('g3q').style.display = "block";
+  document.getElementById('g3ab').style.display = "grid";
+  g3Render();
+}
+
+// ------- init -------
+Object.keys(pgState).forEach(function(k){
+  var stamp = { tok: "stamp1", lm: "stamp2", net: "stamp3" }[k];
+  if (stamp && document.getElementById(stamp)) document.getElementById(stamp).style.display = "block";
+});
+g1Shuffle(); g1Render(); g3Render(); hud();
+</script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

@@ -38,14 +38,26 @@ Living index of every public link. When a new course goes live, copy a course bl
 - Career guide: https://pkjaslam.github.io/cambium-academy/courses/course-02-prompting-essentials/web/career.html
 - Transcript: https://pkjaslam.github.io/cambium-academy/courses/course-02-prompting-essentials/web/transcript.html
 
-### Course 03 — Research with AI · PLANNED
+### Course 03 — Research with AI · LIVE
 
-- Add links here when it goes live.
+- Course page: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/index.html
+- Slides: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/slides.html
+- AI Classroom (new): https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/classroom.html
+- Flashcards: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/flashcards.html
+- AI Lab: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/playground.html
+- Quiz: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/quiz.html
+- Certificate: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/certificate.html
+- Community: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/community.html
+- Capstone: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/capstone.html
+- Career guide: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/career.html
+- Transcript: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/transcript.html
+- Lecture video: premieres soon (film assembling from Aira's presenter beats)
 
 ## Share images (link-preview cards)
 
 - Academy card (for /start/): https://pkjaslam.github.io/cambium-academy/assets/social-academy.png
 - Course 02 card: https://pkjaslam.github.io/cambium-academy/assets/social-course02.png
+- Course 03 card: https://pkjaslam.github.io/cambium-academy/assets/social-course03.png
 - Intro to AI card (Course 01): https://pkjaslam.github.io/cambium-academy/assets/social-preview.png
 
 ## Channels
@@ -62,4 +74,4 @@ Living index of every public link. When a new course goes live, copy a course bl
 4. Flip the `/start/` catalog card from "coming soon" to LIVE and link it in.
 5. Update this file, then push.
 
-_Last updated: 2026-07-10 (Course 02 live)._
+_Last updated: 2026-07-12 (Course 03 live)._

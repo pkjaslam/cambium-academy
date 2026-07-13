@@ -21,7 +21,7 @@ for cfg in registry-config.js aira-chat-config.js; do
 done
 
 say "== 4. no Course-1 residue (unless intentional) =="
-res=$(grep -rniE "course-01|intro-to-ai|cambium-c01|CAMB-C01|jRpYchejlTg|social-preview|cheat sheet|four move|which model I used" "$C"/web/*.html 2>/dev/null | grep -vi "course-02")
+res=$(grep -rniE "course-01|intro-to-ai|cambium-c01|CAMB-C01|jRpYchejlTg|social-preview|cheat sheet|four prompt move|which model I used" "$C"/web/*.html 2>/dev/null | grep -vi "$SLUG")
 [ -z "$res" ] && good "clean" || { bad "Course-1 residue:"; echo "$res"; }
 
 say "== 5. localStorage keys are $TAG-scoped =="

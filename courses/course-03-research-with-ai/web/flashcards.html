@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcards · Research with AI · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link rel="stylesheet" href="polish.css">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--mossdeep:#6E9648;--tint:#F0F5EC;--ink:#1F2A20;--muted:#5C6B5A;--line:#DFE9D8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#F6F8F4;line-height:1.55;min-height:100vh}
+  .wrap{max-width:720px;margin:0 auto;padding:0 18px 50px}
+  .nav{display:flex;align-items:center;gap:12px;padding:12px 0;flex-wrap:wrap}
+  .nav img{width:36px;height:36px}
+  .nav a.brand{font-weight:700;color:var(--dark);text-decoration:none;font-size:14px;display:flex;align-items:center;gap:9px}
+  .nav .links{margin-left:auto;display:flex;gap:14px}
+  .nav .links a{color:var(--forest);text-decoration:none;font-weight:600;font-size:13.5px}
+  h1{font-family:Cambria,Georgia,serif;font-size:28px;margin:8px 0 4px}
+  p.lead{color:var(--muted);font-size:14.5px;margin-bottom:18px}
+  .stats{display:flex;gap:10px;margin-bottom:14px;font-size:13px;flex-wrap:wrap}
+  .pill{background:#fff;border:1px solid var(--line);border-radius:20px;padding:5px 14px;color:var(--muted)}
+  .pill b{color:var(--forest)}
+  .card{perspective:1200px;cursor:pointer;height:290px;margin-bottom:14px}
+  .inner{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+  .card.flipped .inner{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px;border:1px solid var(--line)}
+  .front{background:#fff}
+  .front .term{font-family:Cambria,Georgia,serif;font-size:32px;font-weight:700;color:var(--dark)}
+  .front .tap{position:absolute;bottom:14px;font-size:12px;color:var(--muted)}
+  .back{background:var(--dark);color:#fff;transform:rotateY(180deg)}
+  .back .def{font-size:17px;line-height:1.65;color:#E8F2DE;max-width:560px}
+  .mod{position:absolute;top:14px;left:0;right:0;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--mossdeep)}
+  .back .mod{color:var(--moss)}
+  .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  button{border:0;border-radius:9px;padding:12px 22px;font-size:14.5px;font-weight:700;cursor:pointer}
+  .know{background:var(--forest);color:#fff}
+  .again{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+  .subtle{background:none;border:0;color:var(--muted);font-weight:600;font-size:13px;text-decoration:underline;cursor:pointer;padding:8px}
+  .done{background:#fff;border:2px solid var(--forest);border-radius:16px;padding:30px;text-align:center;display:none}
+  .done h2{font-family:Cambria,Georgia,serif;color:var(--forest);font-size:26px;margin-bottom:8px}
+  .done p{color:var(--muted);font-size:14.5px;margin-bottom:14px}
+  .row2{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  a.abtn{background:var(--forest);color:#fff;border-radius:9px;padding:12px 22px;font-size:14.5px;font-weight:700;text-decoration:none}
+  .cardFx{position:absolute;inset:0;border-radius:16px;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;z-index:6}
+  .cardFx .chk{width:104px;height:104px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:58px;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .cardFx .lbl{position:absolute;bottom:34px;font-size:15px;font-weight:700;letter-spacing:.3px}
+  .cardFx.ok{animation:fxok .55s ease forwards}
+  .cardFx.no{animation:fxno .42s ease forwards}
+  @keyframes fxok{0%{opacity:0;transform:scale(.7)}22%{opacity:1;transform:scale(1)}78%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.06)}}
+  @keyframes fxno{0%{opacity:0}30%{opacity:1}100%{opacity:0}}
+  #known,#left{display:inline-block}
+  .pulse{animation:pulseC .5s ease}
+  @keyframes pulseC{0%{transform:scale(1)}40%{transform:scale(1.4);color:#1E7d34}100%{transform:scale(1)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI logo">Cambium AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="slides.html">Slides</a><a href="quiz.html">Quiz</a><a href="community.html">Community</a></div>
+  </nav>
+
+  <h1>Flashcards</h1>
+  <p class="lead">24 core ideas from the course. Tap a card to flip it. Be honest with the buttons; cards you miss come back around until they stick. Your progress stays in this browser.</p>
+
+  <div class="stats">
+    <span class="pill">Remaining this round: <b id="left">24</b></span>
+    <span class="pill">Known: <b id="known">0</b> / 24</span>
+    <button class="subtle" onclick="resetAll()">Reset progress</button>
+  </div>
+
+  <div class="card" id="card" onclick="flipCard()">
+    <div class="inner">
+      <div class="face front"><div class="mod" id="modF"></div><div class="term" id="term"></div><div class="tap">tap to flip</div></div>
+      <div class="face back"><div class="mod" id="modB"></div><div class="def" id="def"></div></div>
+    </div>
+    <div class="cardFx" id="cardFx"></div>
+  </div>
+
+  <div class="actions" id="actions">
+    <button class="again" id="btnAgain" onclick="mark(false)" disabled style="opacity:.4">Show me again</button>
+    <button class="know" id="btnKnow" onclick="mark(true)" disabled style="opacity:.4">Got it</button>
+  </div>
+  <p id="flipHint" style="text-align:center;font-size:13px;color:var(--muted);margin-top:10px">Flip the card and read the answer first; then be honest with the buttons.</p>
+
+  <div class="done" id="done">
+    <h2>Deck cleared.</h2>
+    <p id="doneMsg">Every card marked known.</p>
+    <div class="row2">
+      <a class="abtn" href="playground.html" id="doneNext">Next: the AI Lab</a>
+      <button class="again" onclick="resetAll()">Study again</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const CARDS = [
+["M1","The 2026 trust problem, in one number","Fabricated references in published papers rose about 6x in three years: from 1 in 2,828 papers (2023) to 1 in 277 (early 2026), per a Lancet analysis of 2M+ papers and 97M citations."],
+["M1","AI's most dangerous research habit","It never says \"I could not find it.\" When the real answer is missing, it fills the gap with something that LOOKS right, in the same confident tone."],
+["M1","Is speed the problem with AI research?","No. Trust is. The same tool that finds real sources in seconds also invents fake ones in seconds, formatted identically."],
+["M1","The four skills this course trains","FIND (tools with receipts), VERIFY (lateral reading), CITE (open everything that matters), JUDGE (let cost decide how hard you check)."],
+["M2","Memory answer vs receipt answer","A plain chatbot reconstructs an answer from training memory, no links. A search-grounded tool retrieves live pages first, then answers with clickable sources."],
+["M2","The receipts test for any AI tool","Can you click through to where each claim came from? If not, treat the answer as a guess, however confident it sounds."],
+["M2","Tools that show receipts (July 2026)","Perplexity, ChatGPT with search, Gemini Deep Research. Names rotate monthly; the click-through test never changes."],
+["M2","The one sentence that changes AI behavior","\"Answer with sources I can click, and if you cannot find a real source for a claim, say so instead of guessing.\""],
+["M3","Lateral reading","Leave the page. Open a new tab. Check the claim and the source against INDEPENDENT sources. The professional fact-checkers' move, and it is faster than reading down."],
+["M3","SIFT stands for...","Stop · Investigate the source · Find better coverage · Trace claims to the original. Four moves, in order. (Mike Caulfield)"],
+["M3","The CJR test result","Eight AI search tools were wrong on MORE THAN 60% of news-citation queries, and the wrong answers sounded exactly as confident as the right ones."],
+["M3","The 60-second check","Take the one claim your decision rests on. New tab. Find one independent source that confirms it BEFORE you build on it."],
+["M4","How often does AI fabricate citations (2026)?","Frontier models: 18 to 28% on literature-review tasks. Even the best models sit around 3 to 19% depending on the task. Nowhere near zero."],
+["M4","Why AI invents citations","It learned what a citation LOOKS like: authors + year + journal + DOI. When unsure, it completes the pattern instead of admitting the gap. Plausible text is the goal, and the problem."],
+["M4","Anatomy of a fabricated citation","Plausible real authors, real-sounding journal, well-formed DOI, right year. Engineered by statistics to survive a glance, which is why glancing is worthless."],
+["M4","The one rule written in stone","A citation you never opened is a citation you cannot trust. No exceptions for confident tone."],
+["M4","The 3-click check","Click 1: does it exist? (Scholar / the DOI). Click 2: is it what it claims? (authors, venue, year). Click 3: does it actually say what the AI said it says? (the abstract)."],
+["M5","What a deep-research agent does","Runs dozens of searches, opens dozens of pages, cross-references, and returns a long cited report in minutes. Real, and spectacular."],
+["M5","Deep research's blind spot","Polish hides holes. 2026 studies keep finding unsupported claims and invented or misattributed sources INSIDE otherwise-good reports."],
+["M5","How to treat a deep-research report","As a first draft with leads from a fast assistant who occasionally pads the bibliography. Never as a finished, audited answer."],
+["M5","The load-bearing habit","Find the 2 or 3 sources the report's conclusion actually rests on, and run the 3-click check on those first. If one fails, distrust everything."],
+["M6","When to just trust the answer","Low stakes: trust freely. Medium: check the one load-bearing claim. High stakes (money, health, grades, law, reputation, anything published): full protocol."],
+["M6","Disclosure, the two universal rules","Never present an unverified AI claim as your own checked work, and never send what you have not read. Beyond that, know the rules of the room."],
+["M6","The research skill that keeps its value","Judgment: knowing what to check and being willing to. Rates and tools change monthly; receipts, lateral reading, and opened citations work on every model, forever."]
+];
+
+const KEY = "cambium-c03-cards";
+let known = {};
+try { known = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e) { known = {}; }
+let queue = [];
+
+function buildQueue(){
+  queue = CARDS.map((c,i)=>i).filter(i=>!known[i]);
+  for (let i = queue.length-1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [queue[i],queue[j]] = [queue[j],queue[i]]; }
+}
+let seenBack = false;
+function setActions(on){
+  ["btnAgain", "btnKnow"].forEach(id => {
+    const b = document.getElementById(id);
+    b.disabled = !on;
+    b.style.opacity = on ? "1" : ".4";
+  });
+  const h = document.getElementById('flipHint');
+  if (h) h.style.visibility = on ? "hidden" : "visible";
+}
+function flipCard(){
+  document.getElementById('card').classList.toggle('flipped');
+  if (!seenBack) { seenBack = true; setActions(true); }
+}
+function refresh(){
+  document.getElementById('known').textContent = Object.keys(known).length;
+  document.getElementById('left').textContent = queue.length;
+  const doneEl = document.getElementById('done'), cardEl = document.getElementById('card'), act = document.getElementById('actions');
+  if (!queue.length) {
+    doneEl.style.display = "block"; cardEl.style.display = "none"; act.style.display = "none";
+    try {
+      const rd = k => { try { return JSON.parse(localStorage.getItem(k) || "{}"); } catch(e){ return {}; } };
+      const pg = rd("cambium-c03-playground");
+      const labs = ["tok","lm","net"].filter(k => pg[k]).length;
+      const lec = !!(rd("cambium-c03-slides").done) || !!(rd("cambium-c03-lecture").watched);
+      const nb = document.getElementById('doneNext'), msg = document.getElementById('doneMsg');
+      if (labs < 3) { nb.href = "playground.html"; nb.textContent = "Next on your path: the AI Lab"; msg.textContent = "Every card marked known. One step left before the quiz: explore the three stations in the AI Lab."; }
+      else if (!lec) { nb.href = "index.html"; nb.textContent = "Finish the lecture"; msg.textContent = "Every card marked known. Finish the lecture (watch the video or read the slides) and the quiz unlocks."; }
+      else { nb.href = "quiz.html"; nb.textContent = "Take the quiz"; msg.textContent = "Every card marked known. Your path is complete and the quiz is unlocked. Twenty questions, fourteen to pass."; }
+    } catch(e){}
+    return;
+  }
+  doneEl.style.display = "none"; cardEl.style.display = "block"; act.style.display = "flex";
+  const c = CARDS[queue[0]];
+  cardEl.classList.remove('flipped');
+  seenBack = false;
+  setActions(false);
+  document.getElementById('modF').textContent = "Module " + c[0].slice(1);
+  document.getElementById('modB').textContent = c[1];
+  document.getElementById('term').textContent = c[1];
+  document.getElementById('def').textContent = c[2];
+}
+function flashFeedback(gotIt){
+  const fx = document.getElementById('cardFx');
+  if (!fx) return;
+  fx.className = 'cardFx';
+  if (gotIt){
+    fx.style.background = 'rgba(44,95,45,.93)';
+    fx.innerHTML = '<div class="chk" style="background:#3E8E41">&#10003;</div><div class="lbl" style="color:#EAF3E6">Got it &#183; counted</div>';
+    void fx.offsetWidth; fx.classList.add('ok');
+    const k = document.getElementById('known');
+    if (k){ k.classList.remove('pulse'); void k.offsetWidth; k.classList.add('pulse'); }
+  } else {
+    fx.style.background = 'rgba(224,178,74,.92)';
+    fx.innerHTML = '<div class="chk" style="background:#C9962E">&#8635;</div><div class="lbl" style="color:#3B2E0B">No worries &#183; this one comes back</div>';
+    void fx.offsetWidth; fx.classList.add('no');
+  }
+}
+function mark(gotIt){
+  if (!seenBack) return;
+  const i = queue.shift();
+  if (gotIt) { known[i] = 1; localStorage.setItem(KEY, JSON.stringify(known)); }
+  else {
+    queue.push(i);
+    // Remember what keeps slipping, so Aira's Classroom can offer a targeted drill.
+    try {
+      const MK = "cambium-c03-cardmiss";
+      const mm = JSON.parse(localStorage.getItem(MK) || "{}");
+      const e = mm[i] || { m: CARDS[i][0], f: CARDS[i][1], n: 0 };
+      e.n++; mm[i] = e;
+      localStorage.setItem(MK, JSON.stringify(mm));
+    } catch(e) {}
+  }
+  flashFeedback(gotIt);
+  setActions(false);
+  setTimeout(refresh, gotIt ? 560 : 440);
+}
+function resetAll(){
+  known = {}; localStorage.removeItem(KEY); buildQueue(); refresh();
+}
+buildQueue(); refresh();
+</script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

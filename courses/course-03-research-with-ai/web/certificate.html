@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Certificate · Research with AI · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script src="./support.js"></script>
+<template id="__bundler_thumbnail" data-bg-color="#1B2818">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect x="330" y="160" width="540" height="480" fill="#FBF7EA"></rect>
+    <rect x="348" y="178" width="504" height="444" fill="none" stroke="#1F3D24" stroke-width="14"></rect>
+    <rect x="376" y="206" width="448" height="388" fill="none" stroke="#B98A2D" stroke-width="3"></rect>
+    <circle cx="600" cy="330" r="52" fill="none" stroke="#2C5F2D" stroke-width="6"></circle>
+    <circle cx="600" cy="330" r="34" fill="none" stroke="#2C5F2D" stroke-width="4"></circle>
+    <circle cx="600" cy="330" r="14" fill="#B98A2D"></circle>
+    <rect x="470" y="430" width="260" height="10" rx="5" fill="#1F3D24"></rect>
+    <rect x="500" y="462" width="200" height="8" rx="4" fill="#B98A2D"></rect>
+    <rect x="520" y="510" width="160" height="7" rx="3.5" fill="#5C6B5A"></rect>
+  </svg>
+</template>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;family=Herr+Von+Muellerhoff&amp;family=Mrs+Saint+Delafield&amp;family=Spectral:wght@300;400;500&amp;display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #22301F; }
+  a { color: #B98A2D; text-decoration: none; }
+  a:hover { color: #D9B25C; }
+  @media print {
+    body { background: #fff; }
+    @page { size: 1240px 860px; margin: 0; }
+  }
+</style>
+</helmet>
+
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(ellipse at 50% 30%, #2C4228 0%, #1B2818 70%)">
+
+  <div style="width:1240px;height:860px;position:relative;background:linear-gradient(160deg,#FFFDF6 0%,#FBF7EA 55%,#F6F0DE 100%);box-shadow:0 30px 80px rgba(0,0,0,.5), 0 4px 16px rgba(0,0,0,.3);flex-shrink:0">
+
+    <!-- deep forest border band -->
+    <div style="position:absolute;inset:0;border:26px solid #1F3D24;pointer-events:none"></div>
+    <div style="position:absolute;inset:7px;border:1px solid rgba(217,178,92,.9);pointer-events:none"></div>
+    <div style="position:absolute;inset:22px;border:1px solid rgba(217,178,92,.55);pointer-events:none"></div>
+    <div style="position:absolute;inset:32px;border:1.5px solid #B98A2D;pointer-events:none"></div>
+    <div style="position:absolute;inset:37px;border:1px solid rgba(44,95,45,.3);pointer-events:none"></div>
+
+    <!-- corner ornaments -->
+    <sc-for list="{{ corners }}" as="c" hint-placeholder-count="4">
+      <svg width="88" height="88" viewBox="0 0 88 88" fill="none" style="{{ c.style }}">
+        <path d="M18 86 L18 34 Q18 18 34 18 L86 18" stroke="#B98A2D" stroke-width="2.5" fill="none"></path>
+        <path d="M28 86 L28 42 Q28 28 42 28 L86 28" stroke="rgba(185,138,45,.5)" stroke-width="1.2" fill="none"></path>
+        <circle cx="18" cy="18" r="4.5" fill="none" stroke="#B98A2D" stroke-width="1.5"></circle>
+        <circle cx="18" cy="18" r="1.6" fill="#B98A2D"></circle>
+        <path d="M18 34 Q13 26 18 18 Q23 26 18 34 Z" fill="#2C5F2D" opacity=".85"></path>
+      </svg>
+    </sc-for>
+
+    <!-- AI neural-network side motifs -->
+    <svg width="170" height="360" viewBox="0 0 170 360" fill="none" style="position:absolute;left:44px;top:50%;transform:translateY(-50%);pointer-events:none;opacity:.5">
+      <path d="M20 30 L70 80 L40 150 L90 200 L55 270 L100 330" stroke="#B98A2D" stroke-width="1" fill="none"></path>
+      <path d="M70 80 L120 60 M40 150 L110 130 M90 200 L140 180 M55 270 L125 250" stroke="#B98A2D" stroke-width="1" fill="none" opacity=".7"></path>
+      <circle cx="20" cy="30" r="3" fill="#B98A2D"></circle>
+      <circle cx="70" cy="80" r="4" fill="#FBF7EA" stroke="#B98A2D" stroke-width="1.2"></circle>
+      <circle cx="120" cy="60" r="2.5" fill="#B98A2D"></circle>
+      <circle cx="40" cy="150" r="3" fill="#B98A2D"></circle>
+      <circle cx="110" cy="130" r="2.5" fill="#2C5F2D"></circle>
+      <circle cx="90" cy="200" r="4" fill="#FBF7EA" stroke="#B98A2D" stroke-width="1.2"></circle>
+      <circle cx="140" cy="180" r="2.5" fill="#B98A2D"></circle>
+      <circle cx="55" cy="270" r="3" fill="#2C5F2D"></circle>
+      <circle cx="125" cy="250" r="2.5" fill="#B98A2D"></circle>
+      <circle cx="100" cy="330" r="3" fill="#B98A2D"></circle>
+    </svg>
+    <svg width="170" height="360" viewBox="0 0 170 360" fill="none" style="position:absolute;right:44px;top:50%;transform:translateY(-50%) scaleX(-1);pointer-events:none;opacity:.5">
+      <path d="M20 30 L70 80 L40 150 L90 200 L55 270 L100 330" stroke="#B98A2D" stroke-width="1" fill="none"></path>
+      <path d="M70 80 L120 60 M40 150 L110 130 M90 200 L140 180 M55 270 L125 250" stroke="#B98A2D" stroke-width="1" fill="none" opacity=".7"></path>
+      <circle cx="20" cy="30" r="3" fill="#B98A2D"></circle>
+      <circle cx="70" cy="80" r="4" fill="#FBF7EA" stroke="#B98A2D" stroke-width="1.2"></circle>
+      <circle cx="120" cy="60" r="2.5" fill="#B98A2D"></circle>
+      <circle cx="40" cy="150" r="3" fill="#B98A2D"></circle>
+      <circle cx="110" cy="130" r="2.5" fill="#2C5F2D"></circle>
+      <circle cx="90" cy="200" r="4" fill="#FBF7EA" stroke="#B98A2D" stroke-width="1.2"></circle>
+      <circle cx="140" cy="180" r="2.5" fill="#B98A2D"></circle>
+      <circle cx="55" cy="270" r="3" fill="#2C5F2D"></circle>
+      <circle cx="125" cy="250" r="2.5" fill="#B98A2D"></circle>
+      <circle cx="100" cy="330" r="3" fill="#B98A2D"></circle>
+    </svg>
+
+    <!-- faint watermark -->
+    <img src="assets/logo.png" alt="" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);width:520px;opacity:.045;pointer-events:none;filter:grayscale(30%)">
+
+    <!-- content -->
+    <div id="qrBox" style="display:none;position:absolute;left:52px;bottom:52px;text-align:center;z-index:3">
+      <div id="qrCode" style="background:#fff;padding:5px;border:1px solid #B98A2D;display:inline-block"></div>
+      <div style="font-family:'Spectral',serif;font-size:8px;letter-spacing:1.5px;color:#5C6B5A;margin-top:3px">SCAN TO VERIFY</div>
+    </div>
+    <div style="position:absolute;inset:38px;display:flex;flex-direction:column;align-items:center;text-align:center;padding:18px 84px 22px;overflow:hidden">
+
+      <img src="assets/logo.png" alt="Cambium AI Research Institution" style="width:94px;height:auto;margin-bottom:8px;filter:drop-shadow(0 2px 6px rgba(31,42,32,.18))">
+
+      <div style="font-family:'Spectral',serif;font-size:14px;font-weight:500;letter-spacing:7px;text-transform:uppercase;color:#2C5F2D">Cambium AI Research Institution</div>
+
+      <div style="display:flex;align-items:center;gap:16px;margin-top:16px;width:520px">
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,transparent,#B98A2D)"></div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:700;letter-spacing:7px;text-transform:uppercase;white-space:nowrap;background:linear-gradient(180deg,#7A5417 0%,#E7C86E 40%,#B98A2D 58%,#9A6F22 80%,#6E4E17 100%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent">Certificate</div>
+        <div style="flex:1;height:1px;background:linear-gradient(90deg,#B98A2D,transparent)"></div>
+      </div>
+      <div style="font-family:'Spectral',serif;font-size:13px;letter-spacing:6px;text-transform:uppercase;color:#B98A2D;margin-top:4px">of Completion</div>
+
+      <div style="font-family:'Spectral',serif;font-size:14px;font-weight:300;letter-spacing:3px;text-transform:uppercase;color:#5C6B5A;margin-top:15px">This is to certify that</div>
+
+      <div id="learnerLine" style="font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:700;font-size:50px;line-height:1.1;color:#1F3D24;margin-top:8px;letter-spacing:.03em;word-spacing:.12em">{{ learnerName }}</div>
+      <svg width="380" height="14" viewBox="0 0 380 14" fill="none" style="margin-top:2px">
+        <path d="M4 8 Q190 2 376 8" stroke="#B98A2D" stroke-width="1.5" fill="none"></path>
+        <path d="M190 8 Q184 3 190 1 Q196 3 190 8 Q184 13 190 13.5 Q196 13 190 8 Z" fill="#B98A2D" opacity=".0"></path>
+        <circle cx="190" cy="5" r="2.4" fill="#B98A2D"></circle>
+      </svg>
+      <div id="orgLine" style="display:none;font-family:'Spectral',serif;font-size:13px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:#5C6B5A;margin-top:6px"></div>
+
+      <div style="font-family:'Spectral',serif;font-size:15px;font-weight:300;color:#5C6B5A;margin-top:20px;max-width:640px;line-height:1.65">has fulfilled all requirements of the programme</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:#1F3D24;margin-top:6px;letter-spacing:.5px">Research with AI</div>
+      <div style="font-family:'Spectral',serif;font-size:12px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:#B98A2D;margin-top:8px">Executive Programme &#183; Course 03</div>
+      <div style="font-family:'Spectral',serif;font-size:14px;font-weight:300;color:#5C6B5A;margin-top:8px;max-width:740px;line-height:1.5">Find real sources, verify them fast, and catch the fakes</div>
+
+      <!-- earned competencies crest (Course 03 mark of substance) -->
+      <div style="display:flex;gap:14px;margin-top:17px">
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:8px 17px;border:1px solid #B98A2D;border-radius:16px;background:rgba(185,138,45,.07);font-family:'Spectral',serif;font-size:12px;font-weight:600;letter-spacing:1.5px;color:#1F3D24"><span style="width:6px;height:6px;background:#B98A2D;transform:rotate(45deg)"></span>ASK WELL</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:8px 17px;border:1px solid #B98A2D;border-radius:16px;background:rgba(185,138,45,.07);font-family:'Spectral',serif;font-size:12px;font-weight:600;letter-spacing:1.5px;color:#1F3D24"><span style="width:6px;height:6px;background:#B98A2D;transform:rotate(45deg)"></span>STEER WELL</span>
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:8px 17px;border:1px solid #B98A2D;border-radius:16px;background:rgba(185,138,45,.07);font-family:'Spectral',serif;font-size:12px;font-weight:600;letter-spacing:1.5px;color:#1F3D24"><span style="width:6px;height:6px;background:#B98A2D;transform:rotate(45deg)"></span>TRUST WELL</span>
+      </div>
+
+      <!-- bottom row -->
+      <div style="margin-top:auto;width:100%;display:flex;align-items:flex-end;justify-content:space-between;gap:40px">
+
+        <!-- date -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;max-width:280px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#1F2A20;padding-bottom:6px;border-bottom:1px solid #B98A2D;min-width:200px">{{ completionDate }}</div>
+          <div style="font-family:'Spectral',serif;font-size:11.5px;letter-spacing:3px;text-transform:uppercase;color:#5C6B5A">Date of Completion</div>
+        </div>
+
+        <!-- ink stamp -->
+        <div style="position:relative;width:160px;height:160px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transform:rotate(-7deg)">
+          <svg width="160" height="160" viewBox="0 0 160 160" style="position:absolute;inset:0;filter:url(#inkRough)">
+            <defs>
+              <filter id="inkRough" x="-10%" y="-10%" width="120%" height="120%">
+                <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="noise"></feTurbulence>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.4"></feDisplacementMap>
+                <feComponentTransfer><feFuncA type="linear" slope="0.92"></feFuncA></feComponentTransfer>
+              </filter>
+              <mask id="inkFade">
+                <rect width="160" height="160" fill="white"></rect>
+                <circle cx="46" cy="118" r="26" fill="rgba(0,0,0,.35)"></circle>
+                <circle cx="120" cy="38" r="20" fill="rgba(0,0,0,.25)"></circle>
+              </mask>
+            </defs>
+            <g mask="url(#inkFade)">
+              <circle cx="80" cy="80" r="76" fill="none" stroke="#1C1C1C" stroke-width="3"></circle>
+              <circle cx="80" cy="80" r="69" fill="none" stroke="#1C1C1C" stroke-width="1"></circle>
+              <circle cx="80" cy="80" r="49" fill="none" stroke="#1C1C1C" stroke-width="1.5"></circle>
+              <path id="stampTop" d="M80 21 a59 59 0 0 1 0 118" fill="none"></path>
+              <path id="stampBottom" d="M23.5 92 a59 59 0 0 0 113 0" fill="none"></path>
+              <text style="font-family:'Spectral',serif;font-size:11.5px;font-weight:600;letter-spacing:3.5px;fill:#1C1C1C">
+                <textPath href="#stampTop" startOffset="8%">CAMBIUM AI</textPath>
+              </text>
+              <text style="font-family:'Spectral',serif;font-size:9px;font-weight:500;letter-spacing:2.5px;fill:#1C1C1C">
+                <textPath href="#stampBottom" startOffset="12%">RESEARCH INSTITUTION</textPath>
+              </text>
+              <circle cx="21" cy="80" r="2.2" fill="#1C1C1C"></circle>
+              <circle cx="139" cy="80" r="2.2" fill="#1C1C1C"></circle>
+              <text x="80" y="145" text-anchor="middle" style="font-family:'Spectral',serif;font-size:7.5px;letter-spacing:2px;fill:#1C1C1C">&#10022; CERTIFIED &#10022;</text>
+            </g>
+          </svg>
+          <img src="assets/logo.png" alt="Stamp" style="width:66px;height:auto;position:relative;filter:grayscale(100%) contrast(1.25) brightness(.55);opacity:.82;mix-blend-mode:multiply"></img>
+        </div>
+
+        <!-- signature -->
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;max-width:280px">
+          <div style="display:flex;flex-direction:column;align-items:center;transform:rotate(-3.5deg);padding-bottom:2px">
+            <div style="font-family:'Mrs Saint Delafield','Herr Von Muellerhoff',cursive;font-size:52px;line-height:.72;color:#182B1D;letter-spacing:.5px;text-shadow:.4px .5px .3px rgba(24,43,29,.28);white-space:nowrap">Jaslam Poolakkal</div>
+            <svg width="232" height="14" viewBox="0 0 232 14" style="margin-top:-7px" aria-hidden="true">
+              <path d="M8 9 C 54 1.5, 116 13, 163 6 S 214 3.5, 222 8" stroke="#182B1D" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".82"></path>
+              <path d="M170 10.5 C 186 12.5, 202 11.5, 212 10" stroke="#182B1D" stroke-width=".9" fill="none" stroke-linecap="round" opacity=".45"></path>
+              <circle cx="226" cy="7.6" r="1.4" fill="#182B1D" opacity=".8"></circle>
+            </svg>
+          </div>
+          <div style="border-top:1px solid #B98A2D;padding-top:6px;min-width:220px;text-align:center">
+            <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;color:#1F2A20;letter-spacing:.5px">Dr. Jaslam Poolakkal, PhD</div>
+            <div style="font-family:'Spectral',serif;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#5C6B5A;margin-top:2px">Director of AI Initiatives</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:5px;font-family:'Spectral',serif;font-size:11px;letter-spacing:2px;color:#8A9784">CERTIFICATE ID &#183; <span style="color:#B98A2D;font-weight:500">{{ certId }}</span></div>
+      <div id="credLine" style="margin-top:3px;font-family:'Spectral',serif;font-size:8px;letter-spacing:1px;color:#8A9784">Verifiable digital credential &#183; match this ID at the Academy verify page &#183; &#8776;3 instructional hours &#183; Produced with Claude Fable 5 (Anthropic) under the direction and review of the Course Director</div>
+
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1320, &quot;height&quot;: 940 },
+  &quot;learnerName&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;Your Name&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Certificate&quot; },
+  &quot;completionDate&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;July 8, 2026&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Certificate&quot; }
+}">
+class Component extends DCLogic {
+  renderVals() {
+    const name = this.props.learnerName ?? "Your Name";
+    const date = this.props.completionDate ?? "July 8, 2026";
+    let h = 5381;
+    const s = (name + "|" + date).toLowerCase();
+    for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
+    const certId = "CAMB-C03-" + h.toString(36).toUpperCase().padStart(6, "0").slice(-6);
+    const base = "position:absolute;pointer-events:none;";
+    return {
+      learnerName: name,
+      completionDate: date,
+      certId,
+      corners: [
+        { style: base + "left:36px;top:36px;transform:rotate(180deg)" },
+        { style: base + "right:36px;top:36px;transform:rotate(-90deg)" },
+        { style: base + "left:36px;bottom:36px;transform:rotate(90deg)" },
+        { style: base + "right:36px;bottom:36px" }
+      ]
+    };
+  }
+}
+</script>
+
+<div id="certCtl" style="position:fixed;top:14px;left:14px;right:14px;z-index:99;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-family:Arial,sans-serif">
+  <a href="index.html" style="background:rgba(255,255,255,.94);color:#1F3D24;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:700;text-decoration:none">&#8592; Course</a>
+  <span id="certNameCtl" style="display:none;gap:6px">
+    <input id="certNameInput" placeholder="Your full name" maxlength="60" style="padding:9px 11px;font-size:13px;border:1.5px solid #DFE9D8;border-radius:8px;width:200px">
+    <button onclick="applyCertName()" style="background:#2C5F2D;color:#fff;border:0;border-radius:8px;padding:9px 14px;font-size:13px;font-weight:700;cursor:pointer">Apply</button>
+  </span>
+  <button id="dlCertBtn" onclick="downloadCert()" style="background:#2C5F2D;color:#fff;border:0;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer">&#8681; Download certificate</button>
+  <a href="verify.html" style="background:rgba(255,255,255,.7);color:#1F3D24;border-radius:8px;padding:9px 12px;font-size:13px;font-weight:600;text-decoration:none">Verify</a>
+</div>
+<style>
+/* Stop mobile Chrome/Safari from auto-inflating text ("font boosting") inside the
+   zoomed-down certificate. Without this, portrait (small zoom) blows the text up and
+   it overflows the fixed frame, while landscape (larger zoom) looks fine. 100% keeps
+   pinch-to-zoom working for accessibility. */
+html,body{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+#certSheet,#certSheet *{-webkit-text-size-adjust:100% !important;text-size-adjust:100% !important}
+/* On phones, pin the (now compact) certificate near the top instead of vertically
+   centering it in a full-screen-height area, so the "Make it count" actions sit right
+   under it and are visible without a long scroll. Toggled by fitCert(). */
+.certFlexFitMobile{min-height:0 !important;align-items:flex-start !important;padding-top:62px !important;padding-bottom:22px !important}
+@media print{
+  #certCtl,#extrasbar,#amWrap,#micTab{display:none !important}
+  html,body{margin:0 !important;padding:0 !important;background:#fff !important;height:auto !important;overflow:visible !important}
+  /* neutralise the dark page wrapper so only the certificate prints */
+  [style*="radial-gradient"]{background:#fff !important;padding:0 !important;min-height:0 !important;display:block !important}
+  #certSheet{margin:0 auto !important;box-shadow:none !important;zoom:1 !important;transform:none !important;page-break-inside:avoid;page-break-after:avoid}
+  /* make the printed page exactly certificate-sized: one clean page, no scaling, any device */
+  @page{size:1240px 860px;margin:0}
+}
+</style>
+<script>
+// Certificate download as a high-quality PNG, drawn directly on a canvas so it is
+// pixel-perfect and identical on phone and laptop (no print dialog, saves to gallery).
+var CERT_LOGO = null, CERT_LOGO_GRAY = null;
+// Pure black-and-white version of the logo for the stamp centre, matching the on-screen
+// stamp (CSS filter grayscale(100%) contrast(1.25) brightness(.55), multiply). Done with
+// manual pixel math so it is identical on every browser (canvas `filter` is unsupported
+// on some mobile Safari builds, which is why the phone download used to show it in green).
+function grayLogo(img){
+  if (CERT_LOGO_GRAY) return CERT_LOGO_GRAY;
+  try {
+    var w = img.naturalWidth || img.width || 120, h = img.naturalHeight || img.height || 120;
+    var c = document.createElement("canvas"); c.width = w; c.height = h;
+    var x = c.getContext("2d"); x.drawImage(img, 0, 0, w, h);
+    var d = x.getImageData(0, 0, w, h), a = d.data;
+    for (var i = 0; i < a.length; i += 4){
+      var g = 0.299 * a[i] + 0.587 * a[i+1] + 0.114 * a[i+2]; // grayscale
+      g = (g - 128) * 1.25 + 128;                              // contrast 1.25
+      g = g * 0.55;                                            // brightness .55
+      a[i] = a[i+1] = a[i+2] = g < 0 ? 0 : g > 255 ? 255 : g;
+    }
+    x.putImageData(d, 0, 0); CERT_LOGO_GRAY = c; return c;
+  } catch(e){ return img; }
+}
+function loadCertLogo(){
+  return new Promise(function(res){
+    if (CERT_LOGO) return res(CERT_LOGO);
+    var img = new Image();
+    img.onload = function(){ CERT_LOGO = img; res(img); };
+    img.onerror = function(){ res(null); };
+    img.src = "assets/logo.png";
+  });
+}
+function spaced(ctx, text, cx, y, spacing){
+  var widths = [], total = 0, i;
+  for (i = 0; i < text.length; i++){ var w = ctx.measureText(text[i]).width; widths.push(w); total += w + (i < text.length - 1 ? spacing : 0); }
+  var x = cx - total / 2, prev = ctx.textAlign; ctx.textAlign = "left";
+  for (i = 0; i < text.length; i++){ ctx.fillText(text[i], x, y); x += widths[i] + spacing; }
+  ctx.textAlign = prev;
+}
+function wrapLines(ctx, text, maxW){
+  var words = text.split(" "), lines = [], line = "", i;
+  for (i = 0; i < words.length; i++){ var t = line ? line + " " + words[i] : words[i]; if (ctx.measureText(t).width > maxW && line){ lines.push(line); line = words[i]; } else line = t; }
+  if (line) lines.push(line); return lines;
+}
+function arcTextC(ctx, text, r, a0deg, a1deg, size, color, bottom){
+  ctx.save(); ctx.fillStyle = color; ctx.font = '600 ' + size + 'px "Spectral"'; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  var a0 = a0deg * Math.PI / 180, a1 = a1deg * Math.PI / 180, per = (a1 - a0) / Math.max(1, text.length - 1);
+  for (var i = 0; i < text.length; i++){ var a = a0 + per * i; ctx.save(); ctx.translate(r * Math.cos(a), r * Math.sin(a)); ctx.rotate(a + (bottom ? -Math.PI / 2 : Math.PI / 2)); ctx.fillText(text[i], 0, 0); ctx.restore(); }
+  ctx.restore();
+}
+function neural(ctx,x,y,mir){ ctx.save();ctx.translate(x,y);if(mir)ctx.scale(-1,1);ctx.strokeStyle="#B98A2D";ctx.globalAlpha=.5;ctx.lineWidth=1;var p=[[20,30],[70,80],[40,150],[90,200],[55,270],[100,330]];ctx.beginPath();ctx.moveTo(p[0][0],p[0][1]);for(var i=1;i<p.length;i++)ctx.lineTo(p[i][0],p[i][1]);ctx.stroke();var b=[[70,80,120,60],[40,150,110,130],[90,200,140,180],[55,270,125,250]];ctx.globalAlpha=.35;b.forEach(function(q){ctx.beginPath();ctx.moveTo(q[0],q[1]);ctx.lineTo(q[2],q[3]);ctx.stroke();});ctx.globalAlpha=.5;[[20,30,3,"#B98A2D"],[70,80,4,"#FBF7EA"],[120,60,2.5,"#B98A2D"],[40,150,3,"#B98A2D"],[110,130,2.5,"#2C5F2D"],[90,200,4,"#FBF7EA"],[140,180,2.5,"#B98A2D"],[55,270,3,"#2C5F2D"],[125,250,2.5,"#B98A2D"],[100,330,3,"#B98A2D"]].forEach(function(n){ctx.beginPath();ctx.arc(n[0],n[1],n[2],0,7);ctx.fillStyle=n[3];ctx.fill();if(n[3]=="#FBF7EA"){ctx.strokeStyle="#B98A2D";ctx.lineWidth=1.2;ctx.stroke();}});ctx.restore(); }
+function corner(ctx,x,y,rx,ry){ ctx.save();ctx.translate(x,y);ctx.scale(rx,ry);ctx.strokeStyle="#B98A2D";ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(0,68);ctx.lineTo(0,16);ctx.quadraticCurveTo(0,0,16,0);ctx.lineTo(68,0);ctx.stroke();ctx.lineWidth=1.2;ctx.strokeStyle="rgba(185,138,45,.5)";ctx.beginPath();ctx.moveTo(10,68);ctx.lineTo(10,24);ctx.quadraticCurveTo(10,10,24,10);ctx.lineTo(68,10);ctx.stroke();ctx.beginPath();ctx.arc(0,0,4.5,0,7);ctx.strokeStyle="#B98A2D";ctx.lineWidth=1.5;ctx.stroke();ctx.beginPath();ctx.arc(0,0,1.6,0,7);ctx.fillStyle="#B98A2D";ctx.fill();ctx.restore(); }
+function drawStamp(ctx,x,y,logo){ ctx.save();ctx.translate(x,y);ctx.rotate(-0.14);ctx.strokeStyle="#1C1C1C";ctx.fillStyle="#1C1C1C";ctx.globalAlpha=.88;
+  for(var ring=0;ring<3;ring++){var rr=[74,67,47][ring];ctx.lineWidth=[3,1,1.5][ring];for(var a=0;a<360;a+=6){if(((a*7+ring*13)%29)<5)continue;ctx.beginPath();ctx.arc(0,0,rr,a*Math.PI/180,(a+6)*Math.PI/180);ctx.stroke();}}
+  arcTextC(ctx,"CAMBIUM AI",57,-164,-16,12,"#1C1C1C",false);arcTextC(ctx,"RESEARCH INSTITUTION",57,168,12,9.5,"#1C1C1C",true);
+  ctx.textAlign="center";ctx.textBaseline="alphabetic";ctx.font='600 8px "Spectral"';spaced(ctx,"CERTIFIED",0,40,2);
+  for(var s=0;s<36;s++){var aa=(s*97%360)*Math.PI/180,r2=40+(s*53%38);ctx.globalAlpha=.28;ctx.beginPath();ctx.arc(r2*Math.cos(aa),r2*Math.sin(aa),.9,0,7);ctx.fill();}
+  ctx.globalAlpha=1;if(logo){var gl=grayLogo(logo);ctx.save();ctx.globalCompositeOperation="multiply";ctx.globalAlpha=.82;ctx.drawImage(gl,-30,-32,60,60);ctx.restore();}
+  ctx.restore(); }
+function roundRectP(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+// A fine engine-turned (guilloche) rosette: premium security-print flourish, kept very faint.
+function guilloche(ctx,cx,cy,R,petals,rings){ctx.save();ctx.globalAlpha=.11;ctx.strokeStyle="#B98A2D";ctx.lineWidth=.6;for(var k=0;k<rings;k++){var rr=R*(0.5+0.5*k/(rings-1));ctx.beginPath();for(var a=0;a<=360;a+=2){var rad=a*Math.PI/180;var r=rr+(R*0.09)*Math.sin(petals*rad+k*0.7);var x=cx+r*Math.cos(rad),y=cy+r*Math.sin(rad);a===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.closePath();ctx.stroke();}ctx.restore();}
+// The earned competencies, shown as three gold crest pills. This is Course 03's mark of
+// substance: the ask / steer / trust spine of the course, on the credential itself.
+function certSkills(ctx,cx,y){var skills=["FIND WELL","VERIFY WELL","CITE WELL"];ctx.font='600 12px "Spectral"';var padX=18,ph=32,gap=16;var ws=skills.map(function(t){return ctx.measureText(t).width+padX*2+16;});var total=ws.reduce(function(a,b){return a+b;},0)+gap*2;var sx=cx-total/2;var prev=ctx.textAlign;skills.forEach(function(t,idx){var w=ws[idx];roundRectP(ctx,sx,y,w,ph,ph/2);ctx.fillStyle="rgba(185,138,45,.07)";ctx.fill();ctx.strokeStyle="#B98A2D";ctx.lineWidth=1;ctx.stroke();ctx.fillStyle="#B98A2D";ctx.save();ctx.translate(sx+padX-1,y+ph/2);ctx.rotate(Math.PI/4);ctx.fillRect(-3,-3,6,6);ctx.restore();ctx.fillStyle="#1F3D24";ctx.textAlign="left";ctx.textBaseline="middle";ctx.fillText(t,sx+padX+11,y+ph/2+1);sx+=w+gap;});ctx.textAlign=prev;ctx.textBaseline="alphabetic";}
+function drawCert(ctx, W, H, logo, d, qr){
+  var cx = W / 2, i;
+  ctx.fillStyle = "#1F3D24"; ctx.fillRect(0, 0, W, H);
+  var bg = ctx.createLinearGradient(26, 26, W - 26, H - 26); bg.addColorStop(0, "#FFFDF6"); bg.addColorStop(0.55, "#FBF7EA"); bg.addColorStop(1, "#F6F0DE");
+  ctx.fillStyle = bg; ctx.fillRect(26, 26, W - 52, H - 52);
+  function fr(ins, c, lw){ ctx.strokeStyle = c; ctx.lineWidth = lw; ctx.strokeRect(ins, ins, W - 2 * ins, H - 2 * ins); }
+  fr(7, "rgba(217,178,92,.9)", 1); fr(22, "rgba(217,178,92,.55)", 1); fr(32, "#B98A2D", 1.5); fr(37, "rgba(44,95,45,.3)", 1);
+  corner(ctx, 44, 44, 1, 1); corner(ctx, W - 44, 44, -1, 1); corner(ctx, 44, H - 44, 1, -1); corner(ctx, W - 44, H - 44, -1, -1);
+  neural(ctx, 44, H / 2 - 180, false); neural(ctx, W - 44 - 170, H / 2 - 180, true);
+  guilloche(ctx, cx, H / 2 - 30, 300, 7, 5);
+  if (logo){ ctx.save(); ctx.globalAlpha = 0.05; ctx.drawImage(logo, cx - 260, H / 2 - 250, 520, 520 * logo.height / logo.width); ctx.restore(); }
+  ctx.textAlign = "center"; if (logo) ctx.drawImage(logo, cx - 47, 52, 94, 94 * logo.height / logo.width);
+  ctx.fillStyle = "#2C5F2D"; ctx.font = '500 14px "Spectral"'; spaced(ctx, "CAMBIUM AI RESEARCH INSTITUTION", cx, 182, 7);
+  var ty = 244, g = ctx.createLinearGradient(0, ty - 42, 0, ty + 8); g.addColorStop(0, "#7A5417"); g.addColorStop(0.4, "#E7C86E"); g.addColorStop(0.58, "#B98A2D"); g.addColorStop(0.8, "#9A6F22"); g.addColorStop(1, "#6E4E17");
+  ctx.font = '700 46px "Cormorant Garamond"'; var tw = 0; for (i = 0; i < 11; i++) tw += ctx.measureText("CERTIFICATE"[i]).width + 7;
+  ctx.fillStyle = g; spaced(ctx, "CERTIFICATE", cx, ty, 7);
+  ctx.strokeStyle = "#C6A24E"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx - tw / 2 - 84, ty - 14); ctx.lineTo(cx - tw / 2 - 30, ty - 14); ctx.moveTo(cx + tw / 2 + 30, ty - 14); ctx.lineTo(cx + tw / 2 + 84, ty - 14); ctx.stroke();
+  ctx.fillStyle = "#B98A2D"; [-1, 1].forEach(function(s){ ctx.save(); ctx.translate(cx + s * (tw / 2 + 26), ty - 14); ctx.rotate(Math.PI / 4); ctx.fillRect(-3, -3, 6, 6); ctx.restore(); });
+  ctx.fillStyle = "#B98A2D"; ctx.font = '500 13px "Spectral"'; spaced(ctx, "OF COMPLETION", cx, 266, 6);
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 14px "Spectral"'; spaced(ctx, "THIS IS TO CERTIFY THAT", cx, 300, 3);
+  var ns = d.name.length > 28 ? Math.max(30, Math.round(50 * 28 / d.name.length)) : 50;
+  ctx.fillStyle = "#1F3D24"; ctx.font = 'italic 700 ' + ns + 'px "Cormorant Garamond"'; ctx.fillText(d.name, cx, 346);
+  ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(cx - 190, 364); ctx.quadraticCurveTo(cx, 357, cx + 190, 364); ctx.stroke();
+  ctx.fillStyle = "#B98A2D"; ctx.beginPath(); ctx.arc(cx, 361, 2.4, 0, 7); ctx.fill();
+  var y = 396;
+  if (d.org){ ctx.fillStyle = "#5C6B5A"; ctx.font = '500 13px "Spectral"'; spaced(ctx, d.org.toUpperCase(), cx, y, 2); y += 24; }
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 15px "Spectral"'; ctx.fillText("has fulfilled all requirements of the programme", cx, y + 10);
+  ctx.fillStyle = "#1F3D24"; ctx.font = '700 32px "Cormorant Garamond"'; ctx.fillText("Research with AI", cx, y + 50);
+  ctx.fillStyle = "#B98A2D"; ctx.font = '500 12px "Spectral"'; spaced(ctx, "EXECUTIVE PROGRAMME · COURSE 02", cx, y + 72, 4);
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 14px "Spectral"';
+  var lines = wrapLines(ctx, "Find real sources, verify them fast, and catch the fakes", 620);
+  for (i = 0; i < lines.length; i++) ctx.fillText(lines[i], cx, y + 100 + i * 22);
+  certSkills(ctx, cx, y + 122);
+  var by = 650;
+  ctx.fillStyle = "#1F2A20"; ctx.font = '600 22px "Cormorant Garamond"'; ctx.fillText(d.date || "", 250, by);
+  ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(150, by + 9); ctx.lineTo(350, by + 9); ctx.stroke();
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '400 11px "Spectral"'; spaced(ctx, "DATE OF COMPLETION", 250, by + 27, 2.5);
+  ctx.fillStyle = "#182B1D"; ctx.font = '400 56px "Mrs Saint Delafield"'; ctx.save(); ctx.translate(cx + 295, by - 2); ctx.rotate(-0.05); ctx.textAlign = "center"; ctx.fillText("Jaslam Poolakkal", 0, 0); ctx.restore();
+  ctx.textAlign = "center"; ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx + 193, by + 22); ctx.lineTo(cx + 397, by + 22); ctx.stroke();
+  ctx.fillStyle = "#1F2A20"; ctx.font = '700 17px "Cormorant Garamond"'; ctx.fillText("Dr. Jaslam Poolakkal, PhD", cx + 295, by + 42);
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '500 11px "Spectral"'; spaced(ctx, "DIRECTOR OF AI INITIATIVES", cx + 295, by + 58, 2.5);
+  drawStamp(ctx, cx, by + 2, logo);
+  ctx.fillStyle = "#8A9784"; ctx.font = '500 11px "Spectral"'; spaced(ctx, "CERTIFICATE ID · " + d.certId, cx, 768, 2);
+  ctx.fillStyle = "#8A9784"; ctx.font = '400 9px "Spectral"';
+  ctx.fillText("Verifiable digital credential · scan the QR or match this ID at the Academy verify page · ≈3 instructional hours · Produced with Claude Fable 5 (Anthropic) under the direction and review of the Course Director", cx, 796);
+  if (qr){ var qz = 94; ctx.fillStyle = "#fff"; ctx.fillRect(60, 686, qz + 8, qz + 8); ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1; ctx.strokeRect(60, 686, qz + 8, qz + 8); ctx.drawImage(qr, 64, 690, qz, qz); ctx.fillStyle = "#5C6B5A"; ctx.font = '500 9px "Spectral"'; ctx.textAlign = "center"; spaced(ctx, "SCAN TO VERIFY", 108, 800, 1.4); }
+}
+// Draws the exact certificate (1:1 with the print/PDF) onto a canvas and downloads
+// a high-res PNG. Reliable everywhere and saves to the phone gallery.
+// SYNCHRONOUS on purpose. Any await before the download consumes the tap's
+// user-activation and mobile Chrome then silently blocks the download/share
+// ("Preparing… then nothing"). Fonts + logo are preloaded at render (preloadCertAssets)
+// so we never need to await here. This mirrors the badge download, which works.
+function downloadCert(){
+  var btn = document.getElementById("dlCertBtn"); var old = btn ? btn.textContent : "";
+  try {
+    var C = window.__CERT || {};
+    var ln = document.getElementById("learnerLine");
+    var name = C.name || (ln ? ln.textContent.trim() : "Your Name");
+    var org = C.org || "";
+    var dateStr = "";
+    try { if (C.date) dateStr = new Date(C.date + "T12:00:00").toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }); } catch(e){}
+    if (!dateStr){ var dm = document.body.innerText.match(/[A-Z][a-z]+ \d{1,2}, \d{4}/); dateStr = dm ? dm[0] : ""; }
+    var im = document.body.innerText.match(/CAMB-C03-[A-Z0-9]{6}/); var certId = im ? im[0] : "";
+    if (document.fonts && document.fonts.load){ try { ['700 46px "Cormorant Garamond"', 'italic 700 50px "Cormorant Garamond"', '700 32px "Cormorant Garamond"', '600 22px "Cormorant Garamond"', '500 14px "Spectral"', '300 15px "Spectral"', '400 56px "Mrs Saint Delafield"'].forEach(function(f){ document.fonts.load(f); }); } catch(e){} }
+    var logo = CERT_LOGO || (window.__certLogoImg && window.__certLogoImg.complete ? window.__certLogoImg : null);
+    var qr = document.querySelector("#qrCode canvas") || document.querySelector("#qrCode img");
+    var S = 2, W = 1240, H = 860;
+    var cv = document.createElement("canvas"); cv.width = W * S; cv.height = H * S;
+    var ctx = cv.getContext("2d"); ctx.scale(S, S); ctx.textBaseline = "alphabetic";
+    drawCert(ctx, W, H, logo, { name: name, org: org, date: dateStr, certId: certId }, qr);
+    var nm = (name || "certificate").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    saveCanvasPng(cv, "Cambium-Academy-Research-with-AI-" + nm + "-certificate.png");
+    if (btn){ btn.textContent = "Saved ✓"; setTimeout(function(){ btn.textContent = old; btn.disabled = false; }, 2500); }
+  } catch(err){
+    if (btn){ btn.textContent = old; btn.disabled = false; }
+    alert("Sorry, the certificate image could not be generated. Please reload and try again.");
+  }
+}
+// Cross-device save. Mobile: hand the OS a real image file (share sheet -> Save to
+// Photos), which works where a big data-URL download is blocked (mobile Chrome).
+// Desktop: a normal blob download. Data-URL is the last-ditch fallback.
+function saveCanvasPng(cv, filename){
+  // Build the blob SYNCHRONOUSLY (toDataURL -> bytes -> Blob). Async cv.toBlob would
+  // yield the event loop and drop the tap's activation on mobile; this keeps it.
+  var blob = null;
+  try {
+    var dataUrl = cv.toDataURL("image/png");
+    var b64 = dataUrl.split(",")[1], bin = atob(b64), n = bin.length, u8 = new Uint8Array(n);
+    while (n--) u8[n] = bin.charCodeAt(n);
+    blob = new Blob([u8], { type: "image/png" });
+  } catch(e){ blob = null; }
+  if (!blob){ var u = cv.toDataURL("image/png"); if (!triggerDownload(u, filename)) window.open(u, "_blank"); return; }
+  var url = URL.createObjectURL(blob);
+  function blobDownload(){ if (!triggerDownload(url, filename)) window.open(url, "_blank"); setTimeout(function(){ URL.revokeObjectURL(url); }, 30000); }
+  var isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent || "");
+  var file = null; try { file = new File([blob], filename, { type: "image/png" }); } catch(e){}
+  // Mobile: hand the OS the real file (share sheet -> Save to Photos / Files), which
+  // works where a big data-URL download is blocked. Called synchronously inside the tap.
+  if (isMobile && file && navigator.canShare && navigator.canShare({ files: [file] })) {
+    try {
+      navigator.share({ files: [file], title: "Cambium Academy certificate" })
+        .then(function(){ setTimeout(function(){ URL.revokeObjectURL(url); }, 30000); })
+        .catch(function(){ blobDownload(); });
+      return;
+    } catch(e){}
+  }
+  // Desktop + fallback: a normal blob download (no size limit, unlike a data: URL).
+  blobDownload();
+}
+function triggerDownload(url, filename){
+  try {
+    var a = document.createElement("a");
+    a.href = url; a.download = filename; a.rel = "noopener";
+    document.body.appendChild(a); a.click(); a.remove();
+    return true;
+  } catch(e){ return false; }
+}
+// Pixel-exact save: prints the REAL certificate. Print CSS makes it one clean
+// certificate-sized page. On phones, choose "Save as PDF" as the destination.
+function saveCertPdf(){
+  var s = document.getElementById("certSheet") || document.querySelector('[style*="1240px"]');
+  if (s){ s.id = "certSheet"; if (window.__unfitCert) window.__unfitCert(); else s.style.zoom = ""; }
+  var seen; try { seen = sessionStorage.getItem("certPdfHint"); } catch(e){ seen = "1"; }
+  if (!seen){
+    try { sessionStorage.setItem("certPdfHint", "1"); } catch(e){}
+    var t = document.createElement("div");
+    t.style.cssText = "position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:100;background:#1F3D24;color:#fff;font-family:Arial,sans-serif;font-size:13px;padding:10px 16px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:90vw;text-align:center";
+    t.textContent = "In the dialog, choose “Save as PDF” (or your printer). Opening it now…";
+    document.body.appendChild(t);
+    setTimeout(function(){ t.remove(); window.print(); }, 1400);
+  } else {
+    window.print();
+  }
+}
+function tidyName(n){
+  n = n.trim().replace(/\s+/g, " ");
+  if (n === n.toUpperCase()) n = n.toLowerCase();
+  n = n.replace(/(^|[\s.\-'])([a-z])/g, function(m, a, b){ return a + b.toUpperCase(); });
+  return n;
+}
+(function(){
+  function q(k){ return new URLSearchParams(location.search).get(k); }
+  function fmt(d){ var dt = d ? new Date(d + "T12:00:00") : new Date(); return dt.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }); }
+  function rd(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch(e){ return null; } }
+  var urlName = q("name"), urlOrg = q("org") || "", urlDate = q("date"), urlScore = q("score") || "";
+  var qz = rd("cambium-c03-quiz") || {};
+  var saved = rd("cambium-c03-cert") || {};
+  var name = null, org = "", dateIso = "", score = "", mode = null;
+
+  // ONE CERTIFICATE PER BROWSER, permanently. A stored certificate always wins;
+  // no link, score, or re-graded quiz can mint a second name here. A new
+  // certificate is issued only when this browser has no certificate yet AND
+  // holds a real, unconsumed quiz pass of its own.
+  if (saved.issued && saved.name) {
+    name = saved.name; org = saved.org || ""; dateIso = saved.date || ""; score = saved.score || "";
+    mode = (urlName && tidyName(urlName).toLowerCase() !== String(saved.name).toLowerCase()) ? "mismatch" : "reprint";
+  } else if (urlName && parseInt(urlScore || "0", 10) >= 14 && qz.passed === true) {
+    name = tidyName(urlName); org = urlOrg; dateIso = urlDate || ""; score = urlScore;
+    mode = "issue";
+  }
+
+  if (name) {
+    window.__CERT = { name: name, org: org, date: dateIso, score: score };
+    var sc = document.querySelector('script[type="text/x-dc"]');
+    if (sc) {
+      try {
+        var props = JSON.parse(sc.getAttribute("data-props"));
+        props.learnerName["default"] = name;
+        props.completionDate["default"] = fmt(dateIso);
+        sc.setAttribute("data-props", JSON.stringify(props));
+      } catch(e) {}
+    }
+    if (mode === "issue") {
+      try {
+        localStorage.setItem("cambium-c03-cert", JSON.stringify({ issued: true, name: name, org: org, date: dateIso, score: score }));
+        // Consume the pass: a new name now requires passing the quiz again.
+        localStorage.setItem("cambium-c03-quiz", JSON.stringify({ best: qz.best || parseInt(score, 10), passed: false, consumedBy: name, date: qz.date || dateIso }));
+      } catch(e) {}
+    }
+    document.title = "Certificate · " + name + " · Cambium Academy";
+    document.addEventListener("DOMContentLoaded", function(){
+      setTimeout(function(){
+        var cert = document.querySelector('[style*="1240px"]');
+        if (cert) cert.id = "certSheet";
+        // Fit the fixed 1240px certificate to the screen (phones, small windows).
+        // Uses transform:scale inside a size-matched wrapper. transform is supported on
+        // EVERY browser; the old `zoom` was ignored on some mobile browsers, leaving the
+        // card at full width so it overflowed in portrait. The wrapper is sized to the
+        // scaled dimensions so it stays centered with no overflow and no empty gap.
+        function fitCert(){
+          var s = document.getElementById("certSheet");
+          if (!s) return;
+          s.style.zoom = ""; // clear any legacy value
+          var wrap = (s.parentNode && s.parentNode.classList && s.parentNode.classList.contains("certScaler")) ? s.parentNode : null;
+          if (!wrap){
+            wrap = document.createElement("div");
+            wrap.className = "certScaler";
+            s.parentNode.insertBefore(wrap, s);
+            wrap.appendChild(s);
+          }
+          var avail = document.documentElement.clientWidth - 16;
+          var scale = avail < 1240 ? Math.max(0.24, avail / 1240) : 1;
+          var flexWrap = wrap.parentNode;
+          if (scale >= 1){
+            s.style.transform = ""; s.style.transformOrigin = "";
+            wrap.style.width = ""; wrap.style.height = ""; wrap.style.overflow = ""; wrap.style.margin = "";
+            if (flexWrap && flexWrap.classList) flexWrap.classList.remove("certFlexFitMobile");
+          } else {
+            s.style.transformOrigin = "top left";
+            s.style.transform = "scale(" + scale + ")";
+            wrap.style.width = Math.round(1240 * scale) + "px";
+            wrap.style.height = Math.round(860 * scale) + "px";
+            wrap.style.overflow = "hidden";
+            wrap.style.margin = "0 auto";
+            if (flexWrap && flexWrap.classList) flexWrap.classList.add("certFlexFitMobile");
+          }
+        }
+        function unfitCert(){ // full-size, unwrapped, for print/PDF
+          var s = document.getElementById("certSheet");
+          if (!s) return;
+          s.style.zoom = ""; s.style.transform = ""; s.style.transformOrigin = "";
+          var w = s.parentNode;
+          if (w && w.classList && w.classList.contains("certScaler")){ w.style.width = ""; w.style.height = ""; w.style.overflow = ""; w.style.margin = ""; if (w.parentNode && w.parentNode.classList) w.parentNode.classList.remove("certFlexFitMobile"); }
+        }
+        fitCert();
+        window.__fitCert = fitCert;
+        window.__unfitCert = unfitCert;
+        window.addEventListener("resize", fitCert);
+        window.addEventListener("orientationchange", function(){ setTimeout(fitCert, 60); });
+        window.addEventListener("beforeprint", unfitCert);
+        window.addEventListener("afterprint", fitCert);
+        var line = document.getElementById("learnerLine");
+        if (line && name.length > 26) line.style.fontSize = Math.max(30, Math.round(50 * 26 / name.length)) + "px";
+        var ol = document.getElementById("orgLine");
+        if (ol && org) { ol.textContent = org; ol.style.display = "block"; }
+        var m = (document.body.innerText || "").match(/CAMB-C03-[A-Z0-9]{6}/);
+        if (m && window.QRCode) {
+          try {
+            var vurl = "https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/verify.html?name=" + encodeURIComponent(name) + "&date=" + encodeURIComponent(dateIso) + "&id=" + encodeURIComponent(m[0]);
+            document.getElementById("qrCode").style.padding = "8px";
+            new QRCode(document.getElementById("qrCode"), { text: vurl, width: 108, height: 108, correctLevel: QRCode.CorrectLevel.L });
+            document.getElementById("qrBox").style.display = "block";
+            var cl = document.getElementById("credLine");
+            if (cl) cl.textContent = "Verifiable digital credential · scan the QR or match this ID at the Academy verify page · ≈3 instructional hours · Produced with Claude Fable 5 (Anthropic) under the direction and review of the Course Director";
+          } catch(e) {}
+        }
+        // Preload the exact fonts + logo the downloaded PNG needs, so downloadCert()
+        // can run fully synchronously (no await) and the tap's activation survives,
+        // this is what makes the file actually download/share on mobile Chrome.
+        (function preloadCertAssets(){
+          try {
+            if (document.fonts && document.fonts.load){
+              ['700 46px "Cormorant Garamond"','italic 700 50px "Cormorant Garamond"','700 32px "Cormorant Garamond"','600 22px "Cormorant Garamond"','500 14px "Spectral"','300 15px "Spectral"','400 56px "Mrs Saint Delafield"'].forEach(function(f){ try{ document.fonts.load(f); }catch(e){} });
+            }
+          } catch(e){}
+          try { loadCertLogo().then(function(img){ if (img) window.__certLogoImg = img; }); } catch(e){}
+        })();
+        var noteTxt = mode === "reprint"
+          ? "Welcome back. This is your earned certificate, print or save it again anytime."
+          : (mode === "mismatch"
+            ? "This browser's certificate belongs to " + name + ". Each quiz pass issues exactly one certificate; a different name needs a fresh quiz pass."
+            : "");
+        if (noteTxt) {
+          var note = document.createElement("div");
+          note.style.cssText = "position:fixed;bottom:14px;left:14px;z-index:98;background:rgba(255,253,246,.97);border:1px solid #B98A2D;border-radius:10px;padding:9px 14px;font-family:Arial,sans-serif;font-size:12.5px;color:#1F2A20;max-width:min(430px,86vw)";
+          note.textContent = noteTxt;
+          document.body.appendChild(note);
+          setTimeout(function(){ note.remove(); }, 9000);
+        }
+      }, 350);
+    });
+    return;
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    if (qz.passed) {
+      var c = document.getElementById("certNameCtl");
+      if (c) c.style.display = "inline-flex";
+      return;
+    }
+    var lock = document.createElement("div");
+    lock.style.cssText = "position:fixed;top:70px;left:50%;transform:translateX(-50%);z-index:98;background:#FFFDF6;border:2px solid #B98A2D;border-radius:12px;padding:16px 22px;max-width:min(480px,90vw);font-family:Arial,sans-serif;font-size:14px;color:#1F2A20;box-shadow:0 12px 34px rgba(0,0,0,.35);text-align:center";
+    lock.innerHTML = '<b style="color:#2C5F2D">Certificates are earned, not printed.</b><br>Pass the 20-question quiz (70% or better) and this page unlocks with your name on it. Each pass issues exactly one certificate.<br><a href="quiz.html" style="display:inline-block;margin-top:10px;background:#2C5F2D;color:#fff;border-radius:8px;padding:10px 20px;font-weight:700;text-decoration:none">Take the quiz</a>';
+    document.body.appendChild(lock);
+  });
+})();
+function applyCertName(){
+  var v = document.getElementById("certNameInput").value.trim();
+  if (!v) return;
+  var qz = {};
+  try { qz = JSON.parse(localStorage.getItem("cambium-c03-quiz") || "{}"); } catch(e) {}
+  if (!qz.passed) { alert("Pass the quiz first; each pass issues one certificate."); return; }
+  var t = new Date();
+  var d = t.getFullYear() + "-" + String(t.getMonth()+1).padStart(2,"0") + "-" + String(t.getDate()).padStart(2,"0");
+  location.search = "?name=" + encodeURIComponent(v) + "&date=" + d + "&score=" + (qz.best || 14);
+}
+</script>
+<script src="cert-extras.js"></script>
+
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

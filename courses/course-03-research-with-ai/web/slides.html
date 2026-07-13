@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Slides · Research with AI · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Spectral:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--mossdeep:#6E9648;--tint:#F0F5EC;--ink:#1F2A20;--muted:#5C6B5A;--gold:#B98A2D;--goldL:#D9B25C;--parchLine:#E3D9BF;--line:#DFE9D8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:radial-gradient(ellipse 80% 60% at 50% 0%, #EDF2E7 0%, #E2EADB 60%, #D8E2D0 100%);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+  .topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 22px;font-size:13px;color:var(--muted);flex-wrap:wrap}
+  .topbar a{color:var(--forest);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:8px}
+  .topbar a:hover{color:var(--mossdeep)}
+  .topbar img{width:30px;height:30px}
+  .chapters{display:flex;align-items:center;justify-content:center;gap:7px;padding:2px 0 10px}
+  .chapters button{width:11px;height:11px;border-radius:50%;border:1.5px solid var(--mossdeep);background:transparent;cursor:pointer;padding:0;transition:all .25s;position:relative}
+  .chapters button.on{background:var(--forest);border-color:var(--forest);transform:scale(1.25)}
+  .chapters button.past{background:var(--moss);border-color:var(--moss)}
+  .chapters button:hover::after{content:attr(data-t);position:absolute;bottom:18px;left:50%;transform:translateX(-50%);background:var(--dark);color:#E8F2DE;font-size:11px;padding:4px 10px;border-radius:6px;white-space:nowrap;z-index:20}
+  .bar{height:3px;background:rgba(110,150,72,.22)}
+  .bar i{display:block;height:3px;background:linear-gradient(90deg,var(--forest),var(--moss));transition:width .3s}
+  .stage{flex:1;display:flex;align-items:center;justify-content:center;padding:14px 16px 6px}
+  .slide{width:min(1020px,96vw);aspect-ratio:16/9;border-radius:18px;padding:4.4% 5.2%;overflow:auto;position:relative;
+    background:linear-gradient(160deg,#FFFDF6 0%,#FBF7EA 55%,#F6F0DE 100%);
+    border:1px solid var(--parchLine);
+    box-shadow:0 24px 60px rgba(31,42,32,.22), 0 3px 12px rgba(31,42,32,.10), inset 0 0 0 1px rgba(217,178,92,.25);
+    animation:slideIn .38s cubic-bezier(.22,1,.36,1)}
+  @keyframes slideIn{from{opacity:0;transform:translateY(14px) scale(.99)}to{opacity:1;transform:none}}
+  .slide.dark{background:radial-gradient(ellipse 90% 80% at 50% 20%, #2C4A28 0%, #1F3D24 55%, #16240F 100%);color:#fff;border-color:#183018;box-shadow:0 24px 60px rgba(10,18,9,.45), inset 0 0 0 1px rgba(217,178,92,.35)}
+  .slide.dark::after{content:'';position:absolute;inset:12px;border:1px solid rgba(217,178,92,.28);border-radius:10px;pointer-events:none}
+  .wm{position:absolute;right:2%;bottom:-6%;font-family:'Cormorant Garamond',Georgia,serif;font-weight:700;font-size:clamp(160px,30vw,300px);line-height:1;color:rgba(217,178,92,.10);pointer-events:none;user-select:none}
+  .kicker{display:flex;align-items:center;gap:10px;color:var(--mossdeep);font-size:clamp(10px,1.15vw,12.5px);font-weight:700;letter-spacing:2.6px;text-transform:uppercase}
+  .kicker::before{content:'';width:26px;height:1.5px;background:var(--gold)}
+  .dark .kicker{color:var(--moss)}
+  .dark .kicker::before{background:var(--goldL)}
+  h1{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,3.6vw,44px);font-weight:700;margin:8px 0 4px;line-height:1.08}
+  h2.stitle{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(21px,2.9vw,33px);font-weight:700;margin:8px 0 16px;line-height:1.12}
+  .sub{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;color:var(--moss);font-size:clamp(15px,2vw,21px);font-weight:500}
+  .rows{display:flex;flex-direction:column;gap:2.4%}
+  .row{display:flex;gap:13px;align-items:flex-start}
+  .dot{flex:0 0 9px;width:9px;height:9px;background:var(--gold);margin-top:9px;transform:rotate(45deg);box-shadow:0 0 0 3px rgba(185,138,45,.18)}
+  .row b{display:block;font-size:clamp(13px,1.55vw,16.5px);color:var(--ink)}
+  .row span{color:var(--muted);font-size:clamp(12px,1.35vw,14px)}
+  .dark .row b{color:#F2F8EA}
+  .dark .row span{color:#CFE3BF}
+  .dark .dot{box-shadow:0 0 0 3px rgba(217,178,92,.25)}
+  .grid{display:grid;gap:13px}
+  .g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr 1fr}
+  .card{border:1px solid var(--parchLine);border-radius:12px;padding:13px 15px;background:#FFFEFA;box-shadow:0 2px 10px rgba(31,42,32,.06);transition:transform .2s, box-shadow .2s}
+  .card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(31,42,32,.12)}
+  .card.tint{background:var(--tint);border-color:var(--line)}
+  .card b{font-size:clamp(12px,1.45vw,15.5px);color:var(--ink)}
+  .card .cnum{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(17px,2vw,24px);font-weight:700;color:var(--gold)}
+  .card p{color:var(--muted);font-size:clamp(11px,1.25vw,13.5px);margin-top:4px}
+  .quote{background:linear-gradient(135deg,#F5F0E1,#EFE8D3);border:1px solid var(--parchLine);border-left:3px solid var(--gold);border-radius:12px;padding:15px 20px;font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:clamp(14px,1.9vw,20px);margin-bottom:15px;color:#33402F}
+  .quote em{color:var(--forest);font-weight:700}
+  .note{background:var(--tint);border:1px solid var(--line);border-radius:10px;padding:11px 15px;font-size:clamp(11px,1.35vw,14px);margin-top:15px;color:var(--ink)}
+  .note.warn{background:#FBF3E4;border-color:#EAD9B8}
+  .note b{color:var(--forest)}
+  .note.warn b{color:var(--gold)}
+  .note a{color:var(--forest);font-weight:700}
+  table{width:100%;border-collapse:separate;border-spacing:0;font-size:clamp(11px,1.35vw,14.5px);border-radius:12px;overflow:hidden;border:1px solid var(--parchLine)}
+  th{background:linear-gradient(180deg,#2F5A2A,#254D24);color:#F2F8EA;text-align:left;padding:10px 13px;font-weight:600;letter-spacing:.4px;border-bottom:2px solid var(--gold)}
+  td{padding:9px 13px;border-bottom:1px solid #F0E9D6;background:#FFFEFA}
+  tr:nth-child(even) td{background:#FAF6EA}
+  tr:last-child td{border-bottom:none}
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  .stat{border:1px solid var(--parchLine);border-radius:12px;padding:15px 18px;background:#FFFEFA;box-shadow:0 2px 10px rgba(31,42,32,.06)}
+  .stat .v{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,3.6vw,44px);font-weight:700;background:linear-gradient(180deg,#8C6320,#D9B25C 50%,#7A561C);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat:nth-child(even) .v{background:linear-gradient(180deg,#234D24,#6E9648 60%,#2C5F2D);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat p{color:var(--muted);font-size:clamp(11px,1.25vw,13px);margin-top:2px}
+  .nav{display:flex;align-items:center;justify-content:center;gap:16px;padding:12px 0 18px}
+  .nav button{background:linear-gradient(180deg,#2F5A2A,#234D24);color:#F2F8EA;border:1px solid #1B3A1A;border-radius:10px;padding:11px 24px;font-size:15px;font-weight:600;cursor:pointer;box-shadow:0 4px 14px rgba(31,61,36,.25);transition:all .2s}
+  .nav button:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(31,61,36,.35)}
+  .nav button:disabled{opacity:.35;cursor:default;transform:none;box-shadow:none}
+  .count{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;color:var(--muted);min-width:76px;text-align:center}
+  .count b{color:var(--forest);font-size:20px}
+  .bignum{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(30px,5vw,58px);font-weight:700;color:var(--moss)}
+  .foot{position:absolute;bottom:4%;left:5.2%;font-size:clamp(9px,1vw,11px);color:#7FA06F;letter-spacing:1px}
+  .chip{position:absolute;right:4.4%;bottom:6%;width:clamp(40px,5vw,58px);height:clamp(40px,5vw,58px);border-radius:50%;background:#FFFDF6;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px rgba(217,178,92,.4)}
+  .chip img{width:74%;height:74%;object-fit:contain}
+  .hintk{color:#9DB292;font-size:12px}
+  @media (max-width:640px) and (orientation:portrait){
+    .stage{align-items:flex-start;padding-top:6px}
+    .slide{aspect-ratio:auto;min-height:74vh;padding:6% 5.5%}
+    .foot{position:static;margin-top:14px}
+    .chip{display:none}
+    .chapters button:hover::after{display:none}
+    .g3{grid-template-columns:1fr 1fr}
+    .g2{grid-template-columns:1fr}
+    h2.stitle{font-size:clamp(20px,5.5vw,28px)}
+  }
+  @media (max-width:430px) and (orientation:portrait){
+    .g3{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <a href="https://www.linkedin.com/company/cambium-ai-institute/" title="Cambium AI Research Institution"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI">Cambium AI</a>
+  <a href="index.html">&#8592; Course home</a>
+  <span class="hintk">&#8592; &#8594; keys, swipe, or the dots</span>
+  <a href="community.html">Help</a>
+  <a href="quiz.html">Quiz &#8594;</a>
+</div>
+<div class="chapters" id="chapters"></div>
+<div class="bar"><i id="bar"></i></div>
+<div class="stage"><div class="slide" id="slide"></div></div>
+<div class="nav">
+  <button id="prev">&#8592; Back</button>
+  <div class="count" id="count"></div>
+  <button id="next">Next &#8594;</button>
+</div>
+
+<div style="max-width:1020px;margin:4px auto 34px;padding:0 16px;width:100%">
+  <div style="text-align:center;color:var(--muted);font-size:12.5px;margin-bottom:10px">Questions about this lesson? Scroll down and ask Aira, your AI teacher, right here on the page.</div>
+  <div id="aira-classroom" style="margin:0 auto"></div>
+</div>
+
+<script>
+const S = [
+{t:"cover",k:"Cambium Academy · Course 03",h:"Research with AI",sub:"Find real sources. Catch the fake ones.",foot:"July 2026 edition. Free forever, no signup. Certificate included when you pass."},
+{t:"rows",k:"Welcome",h:"Built for everyone who looks things up",rows:[["No code, no jargon, no library science degree","If you have ever asked AI a question and wondered whether to believe it, you are ready."],["A browser, 90 minutes, and $0","That is the whole entry fee."],["Works with any AI you already use","ChatGPT, Claude, Gemini, Perplexity, or whatever is open in the next tab."],["Made for a very specific moment","The moment an AI answer looks perfect and you have no idea if it is true."]]},
+{t:"rows",k:"Outcomes",h:"Six skills you will walk away with",rows:[["Tell a grounded answer from a guess","Some AI answers come with receipts. Most do not. You will know which is which."],["Verify any claim in about 60 seconds","Lateral reading, the same move professional fact-checkers use."],["Catch a fabricated citation","The fakes are engineered to look real. You will open them anyway, and know why."],["Use deep research tools without being fooled","A 20-source report is a first draft with leads, not a finished answer."],["Cite honestly and disclose properly","When AI helped, you will know what to check and what to say."],["Stay the smartest thing in the room","Judgment is the one research skill that keeps its value as models improve."]]},
+{t:"grid",k:"Your path",h:"Five steps, one certificate",cls:"g3",cards:[["1","Read the lecture slides","6 modules, about 25 min"],["2","Clear the 24 flashcards","Quick recall drills"],["3","Play the 3 AI Lab games","Catch fakes with your own eyes"],["4","Pass the quiz","20 questions, 14 to pass"],["5","Print your certificate","Instantly, ready for LinkedIn"]],note:"<b>One tip:</b> open your favorite AI in another tab now. This is a doing course, and the whole point is to try these checks on a real answer."},
+{t:"divider",n:1,h:"The trust problem",sub:"The same AI that finds your sources is the biggest new source of fake ones."},
+{t:"stats",k:"Module 1 · The number that should stop you",h:"Fabricated references, measured at scale",stats:[["1 in 2,828","papers contained a fabricated reference in 2023"],["1 in 277","papers by early 2026, a roughly 6x rise in three years"],["2M+","papers scanned in the 2026 Lancet analysis"],["97M","citations checked to get these numbers"]],note:"<b>Dated fact, not a vibe:</b> Lancet, 2026 (reported by STAT News, May 7, 2026). The rise tracks exactly the years AI writing assistants went mainstream."},
+{t:"rows",k:"Module 1 · The twist",h:"The best research tool ever built has one flaw",rows:[["It finds sources in seconds","Real papers, real articles, summarized instantly. That part is genuinely revolutionary."],["It also invents sources in seconds","Same tool, same confident tone, and the fakes are formatted exactly like the finds."],["You cannot tell them apart by looking","A fabricated reference has a plausible author, a real-sounding journal, and a well-formed DOI."]],note:"Speed is not the problem. <b>Trust is.</b> This course is about knowing which answers deserve it."},
+{t:"quote",k:"Module 1 · The mental model",h:"An assistant who never says \"I could not find it\"",q:"AI is a brilliant, tireless research assistant with one dangerous habit: it would rather hand you something that <em>looks</em> right than admit it found nothing.",rows:[["It is not lying, exactly","It completes patterns. When the true answer is missing, a plausible-looking answer fills the gap."],["The gap-filling looks like research","Fluent, cited, formatted, confident. That is what makes it dangerous."],["Your job is not to distrust everything","It is to know which claims are load-bearing, and to check those."]],note:"Hold onto this picture. Every technique in the next five modules follows from it."},
+{t:"rows",k:"Module 1 · The plan",h:"What this course trains",rows:[["Find","Get answers with receipts: search-grounded tools that retrieve first and cite as they go."],["Verify","Lateral reading and the SIFT habit: check claims across the web, fast."],["Cite","Open every citation that matters. Catch the fabricated ones before they catch you."],["Judge","Deep research tools, disclosure, and when checking is worth the time."]],note:"By the end, \"the AI said so\" will never again be your final answer on anything that matters."},
+{t:"divider",n:2,h:"Find: receipts, not vibes",sub:"Two kinds of AI answers. Only one shows where it got things."},
+{t:"rows",k:"Module 2 · The split",h:"Memory answers vs receipt answers",rows:[["A plain chatbot answers from memory","It compresses what it read during training and reconstructs an answer. No live lookup, no links."],["A search-grounded tool retrieves, then answers","It searches the web right now, reads real pages, and cites them as it writes."],["Same question, different trust level","The memory answer might be right. The grounded answer shows you where to check."]],note:"This is the single most useful thing to know about AI research in 2026: <b>ask a tool that shows its receipts.</b>"},
+{t:"grid",k:"Module 2 · The 2026 landscape",h:"Tools that show their receipts",cls:"g3",cards:[["","Perplexity","Built around search. Every claim in the answer carries a numbered, clickable source."],["","ChatGPT with search","Toggles into retrieval mode and links as it writes. The plain mode still answers from memory."],["","Gemini Deep Research","Browses dozens of pages and returns a long, cited report you can audit."]],note:"Names and buttons change monthly. The test never does: <b>can you click through to where each claim came from?</b>"},
+{t:"quote",k:"Module 2 · The one switch",h:"Ask for the receipts, out loud",q:"\"Answer with sources I can click, and if you cannot find a real source for a claim, say so instead of guessing.\"",rows:[["One sentence changes the behavior","You are telling it that receipts matter more than fluency."],["Grounded tools do this by default","Plain chatbots will at least flag what they are unsure of."],["It is not a magic spell","It is a standing expectation, the same one you would set with a new assistant."]],note:"A link is not proof by itself. Module 3 is about what to do <b>after</b> you get the receipts."},
+{t:"rows",k:"Module 2 · Try it now",h:"The two-tab test",rows:[["Tab 1: ask a plain chatbot","\"What did the 2026 Lancet analysis find about fabricated references?\" Watch it answer from memory."],["Tab 2: ask a grounded tool the same thing","Watch it search, then answer with numbered links."],["Compare the receipts","Which answer could you hand to a skeptical boss? Which one could you even begin to check?"]],note:"Sixty seconds, and you will never unsee the difference. This is the AI Lab's first game, too."},
+{t:"divider",n:3,h:"Verify: lateral reading",sub:"Stop reading down the page. Start reading across the web."},
+{t:"rows",k:"Module 3 · The uncomfortable result",h:"Confident, cited, and wrong",rows:[["Columbia Journalism Review ran the test","Eight AI search tools, asked to identify the source of real news excerpts."],["More than 60% of answers were wrong","Wrong article, wrong outlet, or a link that did not support the claim."],["The tone never wobbled","The wrong answers sounded exactly as confident as the right ones."]],warn:"<b>The lesson is not \"never use AI search.\"</b> It is that confidence and citations are style, not evidence. Verification is a separate step, and it is yours."},
+{t:"rows",k:"Module 3 · The pros' move",h:"Read across, not down",rows:[["Reading down: the amateur habit","Stay on one page, judge it by its own design, tone, and About page. Slow, and easy to fool."],["Reading across: the fact-checker habit","Leave the page. Open a new tab. See what independent sources say about the claim and the source."],["It is faster, not slower","Professional fact-checkers verify in minutes because they never trust a page to grade itself."]],note:"This is called <b>lateral reading</b>, and it is the single highest-value research habit of the decade."},
+{t:"grid",k:"Module 3 · The habit",h:"SIFT: four moves, in order",cls:"g2",cards:[["S","Stop","Before you share, cite, or believe: pause. Do you actually know this source and this claim?"],["I","Investigate the source","New tab. Who is behind this? What do others say about them? Thirty seconds, not thirty minutes."],["F","Find better coverage","Search the claim itself. Do independent, reliable sources report the same thing?"],["T","Trace to the original","Follow quotes, stats, and studies upstream to their first appearance. Context changes everything."]],note:"SIFT comes from digital literacy researcher Mike Caulfield. It was built for the open web, and it works even better on AI answers."},
+{t:"quote",k:"Module 3 · The 60-second check",h:"One claim, one new tab, one independent source",q:"Take the one claim your decision rests on. Open a new tab. Search it. Find one independent source that confirms it, <em>before</em> you build on it.",rows:[["Not every claim, just the load-bearing one","The stat in your report, the quote in your post, the number in your decision."],["Independent means independent","A second AI summarizing the same guess does not count. Find the original, or reliable coverage of it."],["Usually takes less than a minute","One opened tab puts you ahead of almost everyone."]],note:"You will practice exactly this in the AI Lab's lateral reading race, against the clock."},
+{t:"rows",k:"Module 3 · The signal that is not one",h:"Confidence is not accuracy",rows:[["Wrong answers sound like right ones","Polished, structured, sure of itself. The tone never tells you anything."],["So decide by cost, not confidence","Wrong movie trivia? Enjoy. Wrong stat in your thesis, your report, your medical question? Verify."],["Make it a reflex","High stakes means lateral check. No exceptions, no matter how good the answer looks."]],note:"<b>Rule of thumb:</b> the more you want the answer to be true, and the more it costs to be wrong, the more it deserves the 60-second check."},
+{t:"divider",n:4,h:"The citation trap",sub:"The fakes are engineered to pass. Here is how to catch every one."},
+{t:"rows",k:"Module 4 · The rates, measured",h:"How often AI invents citations",rows:[["Literature-review tasks, 2026 benchmarks","Frontier models still fabricate 18 to 28% of citations on these tasks. Roughly one in four."],["Even the best models","Sit at about 3 to 19% depending on the task. Better, and nowhere near zero."],["The trend is real but slow","Each generation fabricates less. None of them, so far, reliably says \"I could not find a source.\""]],warn:"<b>Read that again:</b> in 2026, a careful, state-of-the-art model can still hand you a reference list where one entry in five does not exist."},
+{t:"rows",k:"Module 4 · Why it happens",h:"Citation-shaped text",rows:[["The model learned what citations look like","Author names, a year, a journal, a DOI. A pattern, learned from millions of real examples."],["When unsure, it completes the pattern","It does not look up a reference. It generates something citation-shaped that fits the topic."],["The result is a convincing forgery","Real researcher names on papers they never wrote. Real journals with invented articles. DOIs that resolve to nothing, or to something else."]],note:"Nobody programmed it to deceive. It is doing exactly what it was trained to do: <b>produce plausible text.</b> Plausible is the problem."},
+{t:"grid",k:"Module 4 · Know your enemy",h:"Anatomy of a fabricated citation",cls:"g2",cards:[["","Plausible authors","Often real researchers from the right field, who never wrote this particular paper."],["","Real-sounding venue","An actual journal, or a perfect pastiche of one. Nothing about the name looks off."],["","A well-formed DOI","Formatted perfectly. It either resolves to a different paper or to nothing at all."],["","The right year and pages","Every field filled in, every convention followed. It is built to survive a glance."]],note:"A fabricated citation is designed, by the statistics of its training, to <b>pass the eyeball test.</b> So the eyeball test is worthless."},
+{t:"quote",k:"Module 4 · The rule",h:"The only rule in this course written in stone",q:"A citation you never opened is a citation you cannot trust.",rows:[["Click every reference that matters","Does the page exist? Is it the claimed authors, venue, and year?"],["Then check what it says","Existing is not enough. Does the source actually support the claim it was attached to?"],["No exceptions for confident tone","The fakes and the finds are formatted identically. Opening them is the only test that works."]],note:"This one habit, applied to just the references you actually rely on, catches essentially every fabricated citation."},
+{t:"rows",k:"Module 4 · The 3-click check",h:"Thirty seconds per citation",rows:[["Click 1: does it exist?","Paste the title into Google Scholar or the DOI into your browser. No result is your answer."],["Click 2: is it what it claims?","Right authors, right journal, right year? Fakes often borrow a real title with the wrong details."],["Click 3: does it say what the AI said?","Open the abstract. Does this source actually support the claim it was cited for?"]],note:"<b>Scale it sensibly:</b> for a quick errand, check the one source that matters. For anything you will publish, submit, or decide on, check them all."},
+{t:"rows",k:"Module 4 · Try it now",h:"The niche-topic test",rows:[["Ask any chatbot for three sources","Pick a genuinely niche topic you know well. Narrow beats famous: fakes cluster where training data is thin."],["Open all three","Not skim. Open. Scholar for papers, the DOI for articles, the archive for news."],["Count what survives","Many people meet their first fabricated citation inside the next five minutes."]],note:"This is the AI Lab's signature game: a stack of citations, some real, some fabricated, and your job is to catch every fake."},
+{t:"divider",n:5,h:"Deep research, and its blind spot",sub:"A 20-source report while you get coffee. Read this before you trust one."},
+{t:"rows",k:"Module 5 · The new superpower",h:"What deep research agents actually do",rows:[["You ask one question","\"Compare the evidence on X\" or \"What is the state of research on Y.\""],["The agent browses for you","It runs dozens of searches, opens dozens of pages, takes notes, and cross-references."],["You get a cited report","Pages long, structured, sourced, in minutes. Work that used to take a day."]],note:"This is real, and it is spectacular. ChatGPT, Gemini, Claude, and Perplexity all ship a version of it in 2026. Use them. <b>Then verify like a pro.</b>"},
+{t:"rows",k:"Module 5 · The blind spot",h:"Polish hides the holes",rows:[["The reports look finished","Clean sections, formal tone, numbered references. Everything signals \"done.\""],["Reference checks say otherwise","2026 studies of deep-research agents keep finding unsupported claims and invented or misattributed sources inside otherwise-good reports."],["The failure hides in the middle","One weak source among nineteen real ones, wrapped in perfect formatting, is genuinely hard to spot."]],warn:"The polish is the trap. A report that <b>looks</b> audited has not <b>been</b> audited. You are the audit."},
+{t:"quote",k:"Module 5 · The reframe",h:"A first draft with leads, not a finished answer",q:"Treat every deep-research report as a smart first draft assembled by a fast assistant who <em>occasionally pads the bibliography.</em>",rows:[["Use it for the map","The report finds the terrain, the players, and the candidate sources faster than you ever could."],["Do not outsource the conclusion","The claims your decision rests on get verified by you, by hand, every time."],["The workflow is: generate, then audit","AI does the breadth. You do the depth, exactly where it matters."]],note:"People who skip the audit are not doing research with AI. They are doing <b>vibes with citations.</b>"},
+{t:"rows",k:"Module 5 · The one habit",h:"Spot-check the load-bearing sources",rows:[["Find the conclusion's foundation","Which 2 or 3 sources does the report's main claim actually rest on? They are usually easy to spot."],["Run the 3-click check on those","Exist? Match? Say what the report says they say? Ten minutes, tops."],["Then decide how far to trust the rest","If the foundation holds, the report is a strong draft. If even one foundation source is fake or misread, distrust everything."]],note:"This single habit decides whether deep research tools make you faster <b>and</b> right, or just faster."},
+{t:"divider",n:6,h:"Stay honest, and when to trust",sub:"The last line of defense is not a better model. It is you."},
+{t:"rows",k:"Module 6 · The durable skill",h:"Models improve. Judgment compounds.",rows:[["Every rate in this course will change","Fabrication rates fall, grounding improves, new tools ship monthly. Good."],["The habits do not expire","Receipts, lateral reading, opening citations, auditing the load-bearing sources. Those work on every model, forever."],["Judgment is the moat","Knowing what to check, and being willing to, is the research skill AI cannot replace. It is the one this certificate actually certifies."]],note:"The goal was never to distrust AI. It is to be the person whose work <b>survives scrutiny</b> because they checked."},
+{t:"rows",k:"Module 6 · Disclosure",h:"Say when AI helped. Know the rules of the room.",rows:[["There is no single rule, there are rooms","A class syllabus, a journal's policy, a workplace norm. Each room decides what disclosure it expects."],["School and research are strictest","Many journals now require an AI-use statement. Many courses decide assignment by assignment. If unclear, ask first."],["Everywhere, two things hold","Never present an unverified AI claim as your own checked work, and never send what you have not read."]],note:"Disclosure costs one sentence. A fabricated citation with your name on it can cost a grade, a paper, or a reputation."},
+{t:"rows",k:"Module 6 · The trust decision",h:"When to just trust the answer",rows:[["Low stakes: trust freely","Movie trivia, recipe swaps, brainstorming. Wrong is cheap. Enjoy the speed."],["Medium stakes: check the one claim","An email fact, a purchase decision. Sixty seconds on the load-bearing claim."],["High stakes: full protocol","Grades, money, health, law, reputation, anything published. Grounded tools, lateral reading, every citation opened."]],note:"<b>Cost decides, not confidence.</b> You already learned every move this table asks for."},
+{t:"rows",k:"Module 6 · The whole course",h:"The habits that compound",rows:[["Find well","Ask tools that show receipts. Retrieve-then-answer beats answer-from-memory."],["Verify well","Read laterally. SIFT. One independent source for every load-bearing claim."],["Cite well","Open every citation that matters. Three clicks. No exceptions for confident tone."],["Judge well","Deep research is a first draft. Disclose when AI helped. Let cost decide the depth of the check."]],note:"<b>Screenshot this.</b> Four lines, and they will outlive every model name in this course."},
+{t:"rows",k:"Screenshot this too",h:"The researcher's pocket checklist",rows:[["Before you ask","Pick a tool with receipts for anything factual."],["When the answer arrives","Find the load-bearing claim. New tab. One independent source."],["Before you cite","Open it. Exists? Matches? Says it? Three clicks."],["Before you ship","Deep-research report? Audit the 2 or 3 foundation sources. Then disclose what AI did."],["Always","Confidence is style. Receipts are evidence. Cost decides how hard you check."]],note:"No tool names in this list, on purpose. Tools rotate. <b>The checklist is permanent.</b>"},
+{t:"rows",k:"Keep learning",h:"Where to go next, all free",rows:[["SIFT and lateral reading, from the source","Mike Caulfield's free materials teach the verification habit in depth."],["Google Scholar","Still the fastest way to confirm a paper exists and find who cited it."],["Your AI's own deep research mode","Run one real report, then audit it with this course's checklist. The practice is the lesson."]],note:"All verified this month. The full annotated list lives on the <a href='../resources.md'>course resources page</a>."},
+{t:"close",k:"Your turn",h:"Find well. Verify well. Cite well.",rows:[["Step 1, the lecture: done","You just finished it by reading these slides."],["Step 2: clear the 24 flashcards","They are quick."],["Step 3: the 3 AI Lab games","Catch a fabricated citation with your own eyes. It changes you."],["Then the quiz unlocks","20 questions, 14 to pass, certificate prints on the spot."]],foot:"Cambium Academy · a new course every week · free forever, no signup"}
+];
+
+const CHAPTERS = [[1,"Welcome"],[5,"Module 1 · The trust problem"],[10,"Module 2 · Find: receipts"],[15,"Module 3 · Lateral reading"],[21,"Module 4 · The citation trap"],[28,"Module 5 · Deep research"],[33,"Module 6 · Stay honest"],[38,"Checklist & quiz"]];
+const slideEl = document.getElementById('slide'), bar = document.getElementById('bar'), count = document.getElementById('count');
+let i = Math.min(Math.max(parseInt(location.hash.slice(1)) || 1, 1), S.length) - 1;
+
+const chapEl = document.getElementById('chapters');
+chapEl.innerHTML = CHAPTERS.map(ch => `<button data-s="${ch[0]}" data-t="${ch[1]}"></button>`).join("");
+chapEl.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { i = +b.dataset.s - 1; render(); }));
+
+function chipHtml(){ return '<div class="chip"><img src="../../../assets/logo-mark@2x.png" alt=""></div>'; }
+function render(){
+  const s = S[i];
+  let h = "";
+  const dark = (s.t === "cover" || s.t === "divider" || s.t === "close");
+  slideEl.className = "slide" + (dark ? " dark" : "");
+  if (s.t === "cover") {
+    h = `<div class="kicker" style="margin-top:6%">${s.k}</div><h1 style="font-size:clamp(38px,7vw,72px);background:linear-gradient(180deg,#FFFDF6,#CFE3BF);-webkit-background-clip:text;background-clip:text;color:transparent">${s.h}</h1><div class="sub" style="max-width:78%">${s.sub}</div><div class="foot">${s.foot}</div>${chipHtml()}`;
+  } else if (s.t === "divider") {
+    h = `<div class="wm">${s.n}</div><div class="kicker" style="margin-top:9%">Module ${s.n} of 6</div><h1 style="font-size:clamp(30px,5.4vw,54px);color:#FFFDF6">${s.h}</h1><div class="sub" style="max-width:74%">${s.sub}</div><div class="foot">Cambium Academy · Course 03</div>${chipHtml()}`;
+  } else if (s.t === "close") {
+    h = `<div class="kicker" style="margin-top:3%">${s.k}</div><h1 style="color:#FFFDF6">${s.h}</h1><div class="rows" style="margin-top:16px">` +
+      s.rows.map(r => `<div class="row"><div class="dot"></div><div><b>${r[0]}</b><span>${r[1]}</span></div></div>`).join("") +
+      `</div><div style="margin-top:18px"><a href="${nextStep().href}" style="display:inline-block;background:linear-gradient(135deg,#D9B25C,#B98A2D);color:#1F3D24;font-weight:800;padding:12px 26px;border-radius:10px;text-decoration:none;box-shadow:0 6px 20px rgba(217,178,92,.35)">${nextStep().label}</a></div><div class="foot">${s.foot}</div>${chipHtml()}`;
+  } else {
+    h = `<div class="kicker">${s.k}</div><h2 class="stitle">${s.h}</h2>`;
+    if (s.q) h += `<div class="quote">${s.q}</div>`;
+    if (s.rows) h += `<div class="rows">` + s.rows.map(r => `<div class="row"><div class="dot"></div><div><b>${r[0]}</b><span>${r[1]}</span></div></div>`).join("") + `</div>`;
+    if (s.cards) h += `<div class="grid ${s.cls || 'g3'}">` + s.cards.map(c => `<div class="card">${c[0] ? `<div class="cnum">${c[0]}</div>` : ""}<b>${c[1]}</b><p>${c[2] || ""}</p></div>`).join("") + `</div>`;
+    if (s.stats) h += `<div class="stats">` + s.stats.map(x => `<div class="stat"><div class="v">${x[0]}</div><p>${x[1]}</p></div>`).join("") + `</div>`;
+    if (s.rowsT) h += `<table><tr>${s.head.map(x => `<th>${x}</th>`).join("")}</tr>` + s.rowsT.map(r => `<tr>${r.map(c => `<td>${c}</td>`).join("")}</tr>`).join("") + `</table>`;
+    if (s.note) h += `<div class="note">${s.note}</div>`;
+    if (s.warn) h += `<div class="note warn">${s.warn}</div>`;
+  }
+  slideEl.innerHTML = h;
+  slideEl.style.animation = "none";
+  void slideEl.offsetWidth;
+  slideEl.style.animation = "";
+  count.innerHTML = "<b>" + (i + 1) + "</b> · " + S.length;
+  bar.style.width = (100 * (i + 1) / S.length) + "%";
+  document.getElementById('prev').disabled = i === 0;
+  document.getElementById('next').disabled = i === S.length - 1;
+  chapEl.querySelectorAll('button').forEach(b => {
+    const st = +b.dataset.s;
+    b.className = (i + 1) >= st && (CHAPTERS.find(c => c[0] > st) ? (i + 1) < CHAPTERS.find(c => c[0] > st)[0] : true) ? "on" : ((i + 1) > st ? "past" : "");
+  });
+  history.replaceState(null, "", "#" + (i + 1));
+  slideEl.scrollTop = 0;
+}
+function nextStep(){
+  try {
+    var rd = k => { try { return JSON.parse(localStorage.getItem(k) || "{}"); } catch(e){ return {}; } };
+    var cards = Object.keys(rd("cambium-c03-cards")).length;
+    var pg = rd("cambium-c03-playground");
+    var labs = ["tok","lm","net"].filter(k => pg[k]).length;
+    if (cards < 24) return { href: "flashcards.html", label: "Continue the path &#8594; flashcards" };
+    if (labs < 3)   return { href: "playground.html", label: "Continue the path &#8594; the AI Lab" };
+    return { href: "quiz.html", label: "The quiz is unlocked &#8594; take it now" };
+  } catch(e) { return { href: "flashcards.html", label: "Continue the path &#8594; flashcards" }; }
+}
+function go(d){ i = Math.min(Math.max(i + d, 0), S.length - 1); render(); }
+document.getElementById('prev').onclick = () => go(-1);
+document.getElementById('next').onclick = () => go(1);
+document.addEventListener('keydown', e => {
+  if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") { e.preventDefault(); go(1); }
+  if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); go(-1); }
+});
+let tx = null;
+document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+document.addEventListener('touchend', e => {
+  if (tx === null) return;
+  const dx = e.changedTouches[0].clientX - tx;
+  if (Math.abs(dx) > 60) go(dx < 0 ? 1 : -1);
+  tx = null;
+});
+render();
+</script>
+<script src="checkpoints.js"></script>
+<script src="aira.js"></script>
+<script>
+window.AIRA_LESSON = {
+  course: "03 · Research with AI",
+  module: "The lecture slides, modules 1 to 6",
+  topic: "using AI to find, verify, and cite real sources, and catching fabricated ones",
+  points: [
+    "Fabricated references in published papers rose about 6x in three years, to 1 in 277 papers by early 2026 (Lancet analysis of 2M+ papers)",
+    "Search-grounded tools retrieve then answer with clickable sources; plain chatbots answer from memory with no receipts",
+    "Lateral reading: leave the page, open a new tab, and check a claim against independent sources; the SIFT moves are Stop, Investigate the source, Find better coverage, Trace to the original",
+    "AI search tools were wrong on more than 60% of news-citation queries in the CJR test while sounding fully confident",
+    "Frontier models still fabricate 18 to 28% of citations in literature-review tasks; fakes have plausible authors, real-sounding journals, and well-formed DOIs",
+    "The rule: a citation you never opened is a citation you cannot trust; the 3-click check is exists, matches, says it",
+    "Deep-research reports are a first draft with leads: audit the 2 or 3 load-bearing sources before trusting the conclusion",
+    "Disclose when AI helped; let cost, not confidence, decide how hard you verify"
+  ],
+  next: "the flashcards, then the AI Lab games, then the quiz"
+};
+</script>
+<script src="aira-chat-config.js"></script>
+<script src="aira-classroom.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
