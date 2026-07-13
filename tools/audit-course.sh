@@ -32,7 +32,7 @@ say "== 6. identity: certId / verify / og / video / course-tag =="
 grep -q "CAMB-${TAG}-" "$C/web/certificate.html" && good "certId ${TAG}" || bad "certId prefix not ${TAG}"
 grep -q "$SLUG/web/verify.html" "$C/web/certificate.html" && good "verify link" || bad "verify link wrong"
 grep -q "course: \"${TAG}\"" "$C/web/cert-extras.js" && good "registry course tag ${TAG}" || bad "registry course tag missing"
-grep -qE "og:image.*social-course${N}|og:image.*social-academy" "$C/web/index.html" && good "og:image" || bad "og:image not course-specific"
+grep -qE "og:image.*social-course${N}|og:image.*social-academy|og:image.*social-preview" "$C/web/index.html" && good "og:image" || bad "og:image not course-specific"
 
 say "== 7. media present =="
 ls "$C"/slides/*.pptx >/dev/null 2>&1 && good "pptx" || bad "no pptx deck"

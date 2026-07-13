@@ -5,19 +5,19 @@
     8:  { m: "Module 1 checkpoint", qs: [
       ["Which is the newest, innermost member of the AI family tree?", ["Machine learning","Generative AI","Deep learning"], 1],
       ["Before chatbots, had you already been using AI daily?", ["Yes, spam filters, cameras, maps and more","No, chatbots were the first real AI"], 0] ] },
-    14: { m: "Module 2 checkpoint", qs: [
+    15: { m: "Module 2 checkpoint", qs: [
       ["At its core, a language model...", ["searches a database of answers","follows grammar rules written by linguists","predicts the next token, again and again"], 2],
       ["When a chat outgrows the context window...", ["the earliest content silently falls out","the model crashes","it starts charging money"], 0] ] },
     19: { m: "Module 3 checkpoint", qs: [
       ["Which steps turn a raw autocomplete into a polite assistant?", ["More pretraining data","Fine-tuning plus human feedback","A bigger context window"], 1],
       ["AI hallucinates because...", ["it gets tired","plausible is not the same as true","its internet connection drops"], 1] ] },
-    26: { m: "Module 4 checkpoint", qs: [
+    25: { m: "Module 4 checkpoint", qs: [
       ["Open weights means...", ["the model is free on the maker's website","you can download and run the model yourself","the training data is public"], 1],
       ["Which trio is closed-weights?", ["GPT, Claude, Gemini","Llama, DeepSeek, Qwen","Mistral, Gemma, Phi"], 0] ] },
     30: { m: "Module 5 checkpoint", qs: [
       ["Sensitive data. Best habit?", ["Paste it into any free chatbot","Run an open model locally, or use a plan with training off","Email it to yourself first"], 1],
       ["The right question is not which model is best, but...", ["which is newest","which is best for this job","which has the most users"], 1] ] },
-    34: { m: "Module 6 checkpoint", qs: [
+    37: { m: "Module 6 checkpoint", qs: [
       ["The four prompt moves are role, context, task, and...", ["format","length","politeness"], 0],
       ["The one rule to carry out the door:", ["The newest model is always best","Never use AI for real work","Trust, but verify"], 2] ] }
   };
