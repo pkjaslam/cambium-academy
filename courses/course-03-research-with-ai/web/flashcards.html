@@ -96,30 +96,30 @@
 
 <script>
 const CARDS = [
-["M1","The 2026 trust problem, in one number","Fabricated references in published papers rose about 6x in three years: from 1 in 2,828 papers (2023) to 1 in 277 (early 2026), per a Lancet analysis of 2M+ papers and 97M citations."],
-["M1","AI's most dangerous research habit","It never says \"I could not find it.\" When the real answer is missing, it fills the gap with something that LOOKS right, in the same confident tone."],
-["M1","Is speed the problem with AI research?","No. Trust is. The same tool that finds real sources in seconds also invents fake ones in seconds, formatted identically."],
-["M1","The four skills this course trains","FIND (tools with receipts), VERIFY (lateral reading), CITE (open everything that matters), JUDGE (let cost decide how hard you check)."],
-["M2","Memory answer vs receipt answer","A plain chatbot reconstructs an answer from training memory, no links. A search-grounded tool retrieves live pages first, then answers with clickable sources."],
-["M2","The receipts test for any AI tool","Can you click through to where each claim came from? If not, treat the answer as a guess, however confident it sounds."],
-["M2","Tools that show receipts (July 2026)","Perplexity, ChatGPT with search, Gemini Deep Research. Names rotate monthly; the click-through test never changes."],
-["M2","The one sentence that changes AI behavior","\"Answer with sources I can click, and if you cannot find a real source for a claim, say so instead of guessing.\""],
-["M3","Lateral reading","Leave the page. Open a new tab. Check the claim and the source against INDEPENDENT sources. The professional fact-checkers' move, and it is faster than reading down."],
-["M3","SIFT stands for...","Stop · Investigate the source · Find better coverage · Trace claims to the original. Four moves, in order. (Mike Caulfield)"],
-["M3","The CJR test result","Eight AI search tools were wrong on MORE THAN 60% of news-citation queries, and the wrong answers sounded exactly as confident as the right ones."],
-["M3","The 60-second check","Take the one claim your decision rests on. New tab. Find one independent source that confirms it BEFORE you build on it."],
-["M4","How often does AI fabricate citations (2026)?","Frontier models: 18 to 28% on literature-review tasks. Even the best models sit around 3 to 19% depending on the task. Nowhere near zero."],
-["M4","Why AI invents citations","It learned what a citation LOOKS like: authors + year + journal + DOI. When unsure, it completes the pattern instead of admitting the gap. Plausible text is the goal, and the problem."],
-["M4","Anatomy of a fabricated citation","Plausible real authors, real-sounding journal, well-formed DOI, right year. Engineered by statistics to survive a glance, which is why glancing is worthless."],
+["M1","The twin rule of the 2026 research stack","AI supplies SPEED. You supply TRUST. Tools rotate monthly; judgment compounds forever."],
+["M1","What Kosmos-class autonomous agents prove","~1,500 papers and ~42,000 lines of code in a run, with ~80% of findings holding up: months of work in a day, and YOU are the audit."],
+["M2","The researcher's prompt recipe","Context (what it cannot guess) + exact deliverable + format + DEMANDED UNCERTAINTY: \"flag what you are not sure of and what I must verify.\""],
+["M2","What personas actually change","Tone and style, not truth. For facts and statistics: plain ask, full context, demanded uncertainty. Save roles for voice."],
+["M3","The literature pipeline, in order of effort","1 search-grounded Q&A (receipts) · 2 citation maps · 3 deep-research agents · 4 standing alerts."],
+["M3","Why Elicit and Undermind beat generalist agents on literature","They search closed, VERIFIED paper databases, so citations resolve by construction. Generalists win on breadth beyond papers."],
+["M3","How to treat any deep-research report","As a first draft with leads. Find the 2-3 load-bearing sources the conclusion rests on and 3-click them before anything is built on it."],
+["M4","The 2026 trust numbers","Fabricated references: 1 in 277 papers (up ~6x in 3 years, Lancet). AI search: wrong on 60%+ of citation queries (CJR). Frontier models: 18-28% fabricated citations on literature tasks."],
 ["M4","The one rule written in stone","A citation you never opened is a citation you cannot trust. No exceptions for confident tone."],
-["M4","The 3-click check","Click 1: does it exist? (Scholar / the DOI). Click 2: is it what it claims? (authors, venue, year). Click 3: does it actually say what the AI said it says? (the abstract)."],
-["M5","What a deep-research agent does","Runs dozens of searches, opens dozens of pages, cross-references, and returns a long cited report in minutes. Real, and spectacular."],
-["M5","Deep research's blind spot","Polish hides holes. 2026 studies keep finding unsupported claims and invented or misattributed sources INSIDE otherwise-good reports."],
-["M5","How to treat a deep-research report","As a first draft with leads from a fast assistant who occasionally pads the bibliography. Never as a finished, audited answer."],
-["M5","The load-bearing habit","Find the 2 or 3 sources the report's conclusion actually rests on, and run the 3-click check on those first. If one fails, distrust everything."],
-["M6","When to just trust the answer","Low stakes: trust freely. Medium: check the one load-bearing claim. High stakes (money, health, grades, law, reputation, anything published): full protocol."],
-["M6","Disclosure, the two universal rules","Never present an unverified AI claim as your own checked work, and never send what you have not read. Beyond that, know the rules of the room."],
-["M6","The research skill that keeps its value","Judgment: knowing what to check and being willing to. Rates and tools change monthly; receipts, lateral reading, and opened citations work on every model, forever."]
+["M4","The 3-click check","1 Exists? (Scholar / the DOI) · 2 Matches? (authors, venue, year) · 3 Says it? (the abstract supports the claim)."],
+["M5","The cheapest AI hour in your project","BEFORE data exists: power and sample size, test selection with assumptions, confound hunting, pre-registration drafting. Design errors are silent and permanent."],
+["M5","The methods-consulting rule","Show the math or it did not happen: demand the formula and assumptions, cross-check with a second tool, human sign-off for high stakes."],
+["M6","The safe analysis loop","Describe data+goal+constraints → commented code → EXPLAIN-IT-BACK (every line before running) → TINY TEST (10 hand-checked rows) → keep the transcript as your log."],
+["M6","What makes 2026 coding assistants different","They see context: Posit Assistant reads your dataframe, code, AND rendered plot at once, across R and Python. Agentic assistants navigate whole repos."],
+["M7","The two vision rules","Every extracted number gets spot-verified against the source. Every identification (micrograph, map, specimen) is a HYPOTHESIS for an expert, never a result."],
+["M7","Source-grounded library assistants (NotebookLM class)","Upload your papers; answers cite YOUR corpus, audio overviews take interruptions. Grounding CONTAINS errors inside a checkable corpus; it does not eliminate them."],
+["M7","The qualitative lane","Whisper-class transcription turns interview hours into minutes; AI proposes thematic codes, the human adjudicates, and the audit trail makes it a methodology."],
+["M8","The July 2026 policy split","Science: disclose ALL AI use. Nature: copy-editing exempt, AI images banned. Elsevier: dedicated declaration. NIH: reviewers barred from AI, AI-substantially-written proposals rejectable."],
+["M8","Pre-review yourself","\"Attack this manuscript as a skeptical reviewer: clarity, methods, stats, overclaims.\" Tireless, shameless, private, and ~21% of ICLR reviews were flagged AI-written, so machines already read you."],
+["M8","The confidentiality red line","Never upload someone ELSE'S unpublished manuscript or grant to an AI tool. Reviewing is confidential; NIH bars it explicitly."],
+["M9","The two nevers of references","Never hand-type a citation, and never trust an AI-typed one. Import from the source of record (Crossref/DOI via Zotero); final gate: every DOI resolves."],
+["M9","Reproducibility became a prompt","\"Document this script, pin the environment, turn the session into a script, write the README.\" AI drafts, you correct, a stranger can rerun."],
+["M10","The disclosure gap","~70% of journals have AI policies; ~0.1% of papers disclose AI use. Disclosure costs a sentence; discovery costs a reputation. Be early."],
+["M10","The sensitive-data line","If it could not go in an email to a stranger, it never touches a cloud chatbot. Local models and institution-hosted deployments exist exactly for this."]
 ];
 
 const KEY = "cambium-c03-cards";
@@ -157,7 +157,7 @@ function refresh(){
       const labs = ["tok","lm","net"].filter(k => pg[k]).length;
       const lec = !!(rd("cambium-c03-slides").done) || !!(rd("cambium-c03-lecture").watched);
       const nb = document.getElementById('doneNext'), msg = document.getElementById('doneMsg');
-      if (labs < 3) { nb.href = "playground.html"; nb.textContent = "Next on your path: the AI Lab"; msg.textContent = "Every card marked known. One step left before the quiz: explore the three stations in the AI Lab."; }
+      if (labs < 5) { nb.href = "playground.html"; nb.textContent = "Next on your path: the AI Lab"; msg.textContent = "Every card marked known. One step left before the quiz: win the five games in the AI Lab."; }
       else if (!lec) { nb.href = "index.html"; nb.textContent = "Finish the lecture"; msg.textContent = "Every card marked known. Finish the lecture (watch the video or read the slides) and the quiz unlocks."; }
       else { nb.href = "quiz.html"; nb.textContent = "Take the quiz"; msg.textContent = "Every card marked known. Your path is complete and the quiz is unlocked. Twenty questions, fourteen to pass."; }
     } catch(e){}

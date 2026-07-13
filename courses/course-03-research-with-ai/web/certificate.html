@@ -125,7 +125,7 @@
       <div style="font-family:'Spectral',serif;font-size:15px;font-weight:300;color:#5C6B5A;margin-top:20px;max-width:640px;line-height:1.65">has fulfilled all requirements of the programme</div>
       <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:#1F3D24;margin-top:6px;letter-spacing:.5px">Research with AI</div>
       <div style="font-family:'Spectral',serif;font-size:12px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:#B98A2D;margin-top:8px">Executive Programme &#183; Course 03</div>
-      <div style="font-family:'Spectral',serif;font-size:14px;font-weight:300;color:#5C6B5A;margin-top:8px;max-width:740px;line-height:1.5">Find real sources, verify them fast, and catch the fakes</div>
+      <div style="font-family:'Spectral',serif;font-size:14px;font-weight:300;color:#5C6B5A;margin-top:8px;max-width:740px;line-height:1.5">The complete 2026 AI research toolkit, used honestly</div>
 
       <!-- earned competencies crest (Course 03 mark of substance) -->
       <div style="display:flex;gap:14px;margin-top:17px">
@@ -327,7 +327,7 @@ function roundRectP(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x
 function guilloche(ctx,cx,cy,R,petals,rings){ctx.save();ctx.globalAlpha=.11;ctx.strokeStyle="#B98A2D";ctx.lineWidth=.6;for(var k=0;k<rings;k++){var rr=R*(0.5+0.5*k/(rings-1));ctx.beginPath();for(var a=0;a<=360;a+=2){var rad=a*Math.PI/180;var r=rr+(R*0.09)*Math.sin(petals*rad+k*0.7);var x=cx+r*Math.cos(rad),y=cy+r*Math.sin(rad);a===0?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.closePath();ctx.stroke();}ctx.restore();}
 // The earned competencies, shown as three gold crest pills. This is Course 03's mark of
 // substance: the ask / steer / trust spine of the course, on the credential itself.
-function certSkills(ctx,cx,y){var skills=["FIND WELL","VERIFY WELL","CITE WELL"];ctx.font='600 12px "Spectral"';var padX=18,ph=32,gap=16;var ws=skills.map(function(t){return ctx.measureText(t).width+padX*2+16;});var total=ws.reduce(function(a,b){return a+b;},0)+gap*2;var sx=cx-total/2;var prev=ctx.textAlign;skills.forEach(function(t,idx){var w=ws[idx];roundRectP(ctx,sx,y,w,ph,ph/2);ctx.fillStyle="rgba(185,138,45,.07)";ctx.fill();ctx.strokeStyle="#B98A2D";ctx.lineWidth=1;ctx.stroke();ctx.fillStyle="#B98A2D";ctx.save();ctx.translate(sx+padX-1,y+ph/2);ctx.rotate(Math.PI/4);ctx.fillRect(-3,-3,6,6);ctx.restore();ctx.fillStyle="#1F3D24";ctx.textAlign="left";ctx.textBaseline="middle";ctx.fillText(t,sx+padX+11,y+ph/2+1);sx+=w+gap;});ctx.textAlign=prev;ctx.textBaseline="alphabetic";}
+function certSkills(ctx,cx,y){var skills=["FIND WELL","VERIFY WELL","CITE WELL","DISCLOSE WELL"];ctx.font='600 12px "Spectral"';var padX=18,ph=32,gap=16;var ws=skills.map(function(t){return ctx.measureText(t).width+padX*2+16;});var total=ws.reduce(function(a,b){return a+b;},0)+gap*2;var sx=cx-total/2;var prev=ctx.textAlign;skills.forEach(function(t,idx){var w=ws[idx];roundRectP(ctx,sx,y,w,ph,ph/2);ctx.fillStyle="rgba(185,138,45,.07)";ctx.fill();ctx.strokeStyle="#B98A2D";ctx.lineWidth=1;ctx.stroke();ctx.fillStyle="#B98A2D";ctx.save();ctx.translate(sx+padX-1,y+ph/2);ctx.rotate(Math.PI/4);ctx.fillRect(-3,-3,6,6);ctx.restore();ctx.fillStyle="#1F3D24";ctx.textAlign="left";ctx.textBaseline="middle";ctx.fillText(t,sx+padX+11,y+ph/2+1);sx+=w+gap;});ctx.textAlign=prev;ctx.textBaseline="alphabetic";}
 function drawCert(ctx, W, H, logo, d, qr){
   var cx = W / 2, i;
   ctx.fillStyle = "#1F3D24"; ctx.fillRect(0, 0, W, H);
@@ -358,7 +358,7 @@ function drawCert(ctx, W, H, logo, d, qr){
   ctx.fillStyle = "#1F3D24"; ctx.font = '700 32px "Cormorant Garamond"'; ctx.fillText("Research with AI", cx, y + 50);
   ctx.fillStyle = "#B98A2D"; ctx.font = '500 12px "Spectral"'; spaced(ctx, "EXECUTIVE PROGRAMME · COURSE 02", cx, y + 72, 4);
   ctx.fillStyle = "#5C6B5A"; ctx.font = '300 14px "Spectral"';
-  var lines = wrapLines(ctx, "Find real sources, verify them fast, and catch the fakes", 620);
+  var lines = wrapLines(ctx, "The complete 2026 AI research toolkit, used honestly", 620);
   for (i = 0; i < lines.length; i++) ctx.fillText(lines[i], cx, y + 100 + i * 22);
   certSkills(ctx, cx, y + 122);
   var by = 650;

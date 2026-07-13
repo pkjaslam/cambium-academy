@@ -92,12 +92,12 @@
   </nav>
 
   <h1>The AI Lab</h1>
-  <p class="lead">Three games. Catch fabricated citations, race the clock at lateral reading, and pick receipts over vibes. Win all three to earn your quiz credit. Nothing leaves your browser.</p>
+  <p class="lead">Five games. Catch fabricated citations, race the clock, pick receipts over vibes, match tasks to instruments, and rebuild broken prompts. Win all five to earn your quiz credit. Nothing leaves your browser.</p>
   <div class="hud" id="hud"></div>
 
   <div id="labDone" style="display:none;margin:8px 0 26px;padding:20px 22px;border-radius:18px;border:1px solid var(--gold);background:linear-gradient(180deg,rgba(217,178,92,.16),rgba(217,178,92,.05));box-shadow:0 10px 40px rgba(217,178,92,.14)">
     <div style="font-family:'Sora',sans-serif;font-size:11px;letter-spacing:3px;color:var(--gold);font-weight:700">AI LAB · COMPLETE</div>
-    <div id="labDoneMsg" style="font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:var(--ink);margin:6px 0 14px">All three games won. Quiz credit earned.</div>
+    <div id="labDoneMsg" style="font-family:'Sora',sans-serif;font-size:20px;font-weight:700;color:var(--ink);margin:6px 0 14px">All five games won. Quiz credit earned.</div>
     <a id="labDoneBtn" href="quiz.html" style="display:inline-block;background:linear-gradient(135deg,#E7C56B,#B98A2D);color:#10220E;font-weight:800;padding:12px 26px;border-radius:11px;text-decoration:none;box-shadow:0 6px 20px rgba(217,178,92,.35)">Continue &#8594;</a>
     <span style="color:var(--mut);font-size:13px;margin-left:12px">Every check you practiced here works in any chatbot, today.</span>
   </div>
@@ -181,6 +181,47 @@
     <div class="debrief"><b>What this trains:</b> the receipts test. A grounded answer retrieves first, cites as it goes, and flags what it could not confirm. A vibes answer performs certainty. The tell is never the tone; it is whether you can follow every load-bearing claim to a source that really says it. The example answers here are scripted for the game, modeled on real 2026 tool behavior.</div>
   </div>
 
+  <!-- GAME 4 · PICK YOUR INSTRUMENT -->
+  <div class="lab">
+    <div class="stamp" id="stamp4">MATCHED</div>
+    <div class="tag">GAME 04 &#183; REQUIRED</div>
+    <h2>Pick Your Instrument</h2>
+    <p class="sub">Ten real research tasks. Six instrument classes from Module 1. Match them fast, build a streak, and the rack becomes reflex.</p>
+    <span class="hint">Discover &#183; Design &#183; Analyze &#183; See + Hear &#183; Write &#183; Reproduce + Disclose</span>
+    <div class="scorebar">
+      <span class="pillv">Score <b id="g4score">0</b></span>
+      <span class="pillv">Task <b id="g4n">1</b>/10</span>
+      <span class="streakfx" id="g4streak">STREAK!</span>
+    </div>
+    <div class="progress-dots" id="g4dots"></div>
+    <div class="claimbox" id="g4task"></div>
+    <div id="g4choices"></div>
+    <div class="reveal" id="g4reveal"></div>
+    <div class="rowc" id="g4nextrow" style="display:none"><button onclick="g4Next()">Next task &#8594;</button></div>
+    <div id="g4final" style="display:none"></div>
+    <div class="debrief"><b>What this trains:</b> the Module 1 instrument map as muscle memory. Most researchers reach for one chatbot for everything; the skill is knowing WHICH instrument each job wants, before touching any of them. Eight of ten earns the stamp.</div>
+  </div>
+
+  <!-- GAME 5 · PROMPT SURGERY -->
+  <div class="lab">
+    <div class="stamp" id="stamp5">REBUILT</div>
+    <div class="tag">GAME 05 &#183; REQUIRED</div>
+    <h2>Prompt Surgery</h2>
+    <p class="sub">Four weak research prompts on the table. For each, pick the single highest-leverage fix, then see the rebuilt prompt a pro would send.</p>
+    <span class="hint">Remember the recipe: context &#183; exact deliverable &#183; format &#183; demanded uncertainty.</span>
+    <div class="scorebar">
+      <span class="pillv">Fixed <b id="g5score">0</b></span>
+      <span class="pillv">Case <b id="g5n">1</b>/4</span>
+    </div>
+    <div class="progress-dots" id="g5dots"></div>
+    <div class="claimbox" id="g5weak"></div>
+    <div id="g5choices"></div>
+    <div class="reveal" id="g5reveal"></div>
+    <div class="rowc" id="g5nextrow" style="display:none"><button onclick="g5Next()">Next case &#8594;</button></div>
+    <div id="g5final" style="display:none"></div>
+    <div class="debrief"><b>What this trains:</b> Module 2's recipe under pressure. Every weak prompt here fails for a nameable reason, and the best fix is almost never a persona. Three of four earns the stamp.</div>
+  </div>
+
   <div class="note" style="text-align:center;margin-top:6px">Part of <a href="index.html" style="color:var(--moss)">Course 03 &#183; Research with AI</a> &#183; Cambium Academy &#183; free forever</div>
 </div>
 
@@ -193,29 +234,29 @@ function pgMark(k){
   if (pgState[k]) return;
   pgState[k] = 1;
   localStorage.setItem(PGKEY, JSON.stringify(pgState));
-  var stamp = { tok: "stamp1", lm: "stamp2", net: "stamp3" }[k];
+  var stamp = { tok: "stamp1", lm: "stamp2", net: "stamp3", ins: "stamp4", ps: "stamp5" }[k];
   if (stamp && document.getElementById(stamp)) document.getElementById(stamp).style.display = "block";
-  var core = (pgState.tok?1:0) + (pgState.lm?1:0) + (pgState.net?1:0);
-  if (core === 3 && !window.__celebrated){ window.__celebrated = true; confetti(46); }
+  var core = (pgState.tok?1:0) + (pgState.lm?1:0) + (pgState.net?1:0) + (pgState.ins?1:0) + (pgState.ps?1:0);
+  if (core === 5 && !window.__celebrated){ window.__celebrated = true; confetti(46); }
   hud();
 }
 function hud(){
-  var items = [["tok","01 Citation Hunt"],["lm","02 Lateral Race"],["net","03 Receipts"]];
-  var core = (pgState.tok?1:0) + (pgState.lm?1:0) + (pgState.net?1:0);
+  var items = [["tok","01 Citation Hunt"],["lm","02 Lateral Race"],["net","03 Receipts"],["ins","04 Instruments"],["ps","05 Surgery"]];
+  var core = (pgState.tok?1:0) + (pgState.lm?1:0) + (pgState.net?1:0) + (pgState.ins?1:0) + (pgState.ps?1:0);
   document.getElementById('hud').innerHTML = items.map(function(it){
     var done = pgState[it[0]];
     return '<span class="' + (done ? 'done' : '') + '">' + (done ? '&#10003; ' : '') + it[1] + '</span>';
-  }).join("") + '<span style="border:none;background:none;color:var(--mut)">' + (core === 3 ? 'all three won, quiz credit earned' : 'win all three for quiz credit') + '</span>';
+  }).join("") + '<span style="border:none;background:none;color:var(--mut)">' + (core === 5 ? 'all five won, quiz credit earned' : 'win all five for quiz credit') + '</span>';
   updateLabDone();
 }
 function rd(k){ try { return JSON.parse(localStorage.getItem(k) || "{}"); } catch(e){ return {}; } }
 function updateLabDone(){
-  var core = (pgState.tok?1:0) + (pgState.lm?1:0) + (pgState.net?1:0);
+  var core = (pgState.tok?1:0) + (pgState.lm?1:0) + (pgState.net?1:0) + (pgState.ins?1:0) + (pgState.ps?1:0);
   var panel = document.getElementById('labDone');
   if (!panel) return;
-  if (core < 3) { panel.style.display = "none"; return; }
+  if (core < 5) { panel.style.display = "none"; return; }
   var cards = Object.keys(rd("cambium-c03-cards")).length;
-  var lec = !!(rd("cambium-c03-slides").done) || !!(rd("cambium-c03-lecture").watched);
+  var lec = ((rd("cambium-c03-slides").seen||0) >= 60) || !!(rd("cambium-c03-lecture").watched);
   var btn = document.getElementById('labDoneBtn'), msg = document.getElementById('labDoneMsg');
   if (cards < 24) {
     btn.href = "flashcards.html"; btn.innerHTML = "Next: clear the flashcards &#8594;";
@@ -225,7 +266,7 @@ function updateLabDone(){
     msg.textContent = "AI Lab won. Finish the lecture (read the slides or the transcript) and the quiz unlocks.";
   } else {
     btn.href = "quiz.html"; btn.innerHTML = "The quiz is unlocked &#8594; take it now";
-    msg.textContent = "All three games won. Quiz credit earned.";
+    msg.textContent = "All five games won. Quiz credit earned.";
   }
   panel.style.display = "block";
 }
@@ -565,9 +606,158 @@ function g3Restart(){
   g3Render();
 }
 
+
+// ================= GAME 4 · PICK YOUR INSTRUMENT =================
+var G4CLASSES=["Discover","Design","Analyze","See + Hear","Write","Reproduce + Disclose"];
+var G4=[
+ ["Find everything published since 2023 on your niche question, synthesized with citations",0,"Deep-research agents and academic specialists (Module 3). Send the agent, then audit the load-bearing sources."],
+ ["Is n = 40 enough for this two-group field design?",1,"Design before data (Module 5): power consulting with the math shown, cross-checked, before a season is committed."],
+ ["Clean this messy CSV and produce one labeled figure",2,"Your AI data analyst (Module 6), inside the safe loop: explain-it-back, tiny test, keep the transcript."],
+ ["First-pass read of 200 camera-trap images for target species",3,"Machine eyes (Module 7): triage at speed, every identification a hypothesis for the expert."],
+ ["Tighten this 400-word abstract to 150 without losing claims",4,"Writing help (Module 8): revision passes are the legitimate power tool. Check the venue's disclosure rule."],
+ ["Make this analysis rerunnable by a stranger in one year",5,"Reproducibility (Module 9): document, pin, script, README. AI drafts, you correct."],
+ ["Get a quick cited answer you can click through and check",0,"Search-grounded Q&A, gear 1 of the discovery pipeline (Module 3). Receipts, not vibes."],
+ ["Propose first-pass themes across 40 interview transcripts",2,"The qualitative lane of Module 6: AI proposes, you adjudicate, the audit trail makes it methodology."],
+ ["Confirm what your target journal requires you to declare about AI use",5,"Disclosure (Modules 8 and 10): the venue's ACTUAL policy page, checked at submission, every time."],
+ ["Turn your paper library into a discussion you can interrupt with questions on the commute",3,"Source-grounded library assistants (Module 7): audio overviews over YOUR corpus, citations included."]
+];
+var g4i=0,g4s=0,g4streak=0,g4res=[],g4lock=false;
+function g4Render(){
+  var r=G4[g4i];
+  document.getElementById('g4task').innerHTML='&#8220;'+r[0]+'&#8221;';
+  document.getElementById('g4n').textContent=g4i+1;
+  document.getElementById('g4choices').innerHTML=G4CLASSES.map(function(c,ci){
+    return '<button class="choice" onclick="g4Pick(this,'+ci+')">'+c+'</button>';
+  }).join("");
+  document.getElementById('g4reveal').style.display="none";
+  document.getElementById('g4nextrow').style.display="none";
+  document.getElementById('g4streak').style.display="none";
+  g4lock=false;
+  dots('g4dots',10,g4res);
+}
+function g4Pick(btn,ci){
+  if(g4lock)return; g4lock=true;
+  var r=G4[g4i],ok=(ci===r[1]);
+  g4res[g4i]=ok;
+  document.querySelectorAll('#g4choices .choice').forEach(function(b){b.disabled=true;});
+  btn.className="choice "+(ok?"right":"wrong");
+  var rev=document.getElementById('g4reveal');
+  if(ok){ g4streak++; var bonus=g4streak>=2?5:0; g4s+=10+bonus;
+    if(g4streak>=2){var sfx=document.getElementById('g4streak');sfx.textContent="STREAK x"+g4streak+" +"+bonus;sfx.style.display="inline";}
+    rev.className="reveal good"; rev.innerHTML='<b>&#10003; '+G4CLASSES[r[1]]+'.</b> '+r[2];
+  } else { g4streak=0; rev.className="reveal bad"; rev.innerHTML='<b>&#10007; This one wants '+G4CLASSES[r[1]]+'.</b> '+r[2]; }
+  document.getElementById('g4score').textContent=g4s;
+  rev.style.display="block";
+  document.getElementById('g4nextrow').style.display="flex";
+  dots('g4dots',10,g4res);
+}
+function g4Next(){ g4i++; if(g4i>=10){g4Finish();return;} g4Render(); }
+function g4Finish(){
+  var right=g4res.filter(Boolean).length,win=right>=8;
+  document.getElementById('g4task').style.display="none";
+  document.getElementById('g4choices').style.display="none";
+  document.getElementById('g4reveal').style.display="none";
+  document.getElementById('g4nextrow').style.display="none";
+  var f=document.getElementById('g4final'); f.style.display="block";
+  f.innerHTML='<div style="text-align:center;padding:22px 10px">'+
+    '<div style="font-family:\'Sora\',sans-serif;font-size:13px;letter-spacing:3px;color:var(--gold);font-weight:700">RACK COMPLETE</div>'+
+    '<div style="font-family:\'Sora\',sans-serif;font-size:34px;font-weight:800;color:var(--lite);margin:8px 0">'+right+' of 10 &#183; '+g4s+' pts</div>'+
+    '<div style="color:var(--mut);font-size:14px;max-width:560px;margin:0 auto 16px">'+(win?
+      'The rack is reflex now. Knowing WHICH instrument each job wants is the skill that outlives every tool name.':
+      'Close. Eight of ten unmasks the stamp, and the reveals just taught you the map. Run it back.')+'</div>'+
+    '<button class="gold" onclick="g4Restart()">'+(win?'Play again':'Run it back &#8594;')+'</button></div>';
+  if(win){ pgMark('ins'); confetti(24); }
+}
+function g4Restart(){ g4i=0;g4s=0;g4streak=0;g4res=[];g4lock=false;
+  document.getElementById('g4final').style.display="none";
+  document.getElementById('g4task').style.display="block";
+  document.getElementById('g4choices').style.display="block";
+  g4Render(); }
+
+// ================= GAME 5 · PROMPT SURGERY =================
+var G5=[
+ {weak:"tell me about statistical tests",
+  fixes:[["Add an expert persona: \"you are a world-class statistician\"",false,"Personas change tone, not truth. The prompt still has no job and no context."],
+   ["Give it the job and the data: \"Recommend a test for THIS design (two groups, n=40, skewed outcome), state assumptions, show why\"",true,"Context plus exact deliverable turns a lecture request into a consult."],
+   ["Make it shorter: \"stats tests?\"",false,"Shorter is not the problem. Missing job and context is."],
+   ["Add politeness and urgency",false,"The model does not grade manners. It completes the briefing you give it."]],
+  after:"\"I have a two-group field design, n=40, right-skewed outcome, unequal variances likely. Recommend the appropriate test, state every assumption, show the reasoning, and flag what I should verify.\""},
+ {weak:"is this significant? p=0.049",
+  fixes:[["Ask it to round the p-value",false,"That is the opposite of rigor."],
+   ["Ask \"is p=0.049 good?\" in three different chats and vote",false,"Three vibes do not make a verification. Same question, same gap."],
+   ["Demand the full picture: effect size, assumptions, what would change the conclusion, and what to verify",true,"Significance without effect size, assumptions, and robustness is a coin balanced on its edge."],
+   ["Add \"you are a Nobel laureate statistician\"",false,"Costume, not contents."]],
+  after:"\"p=0.049, n=40, two-group comparison. Report the effect size and CI, list the assumptions this p-value depends on, say how fragile the conclusion is to each, and what a skeptical reviewer would check first.\""},
+ {weak:"write my methods section",
+  fixes:[["Let it invent plausible defaults and edit later",false,"Module 4 taught you exactly how convincing invented specifics look."],
+   ["Provide the actual design, then: \"draft methods in journal style, flag every detail you had to assume\"",true,"Real context in, and the flag-your-assumptions demand turns silent gaps into visible ones."],
+   ["Ask for it twice and merge",false,"Two drafts hallucinating different defaults merge into confident mush."],
+   ["Request extra-formal academic tone",false,"Tone was never the problem. Missing facts were."]],
+  after:"\"Here is the design: [species/site/n/measures/protocol]. Draft a methods section in [journal] style using ONLY these details, mark every place you needed information I did not give as [MISSING], and list what a reviewer will ask for.\""},
+ {weak:"summarize these 12 papers (titles pasted)",
+  fixes:[["Paste titles into a chatbot and trust the summaries",false,"From titles alone it will reconstruct from memory: confident summaries of papers it never read."],
+   ["Ask for longer summaries",false,"Longer hallucinations are not better hallucinations."],
+   ["Ground it: upload the PDFs to a source-grounded tool and require a citation per claim",true,"Grounding contains errors inside a corpus you can check. Receipts per claim make the checking fast."],
+   ["Add \"be accurate\" to the prompt",false,"Accuracy is not a switch. It is an architecture: retrieval beats recall."]],
+  after:"Upload the 12 PDFs to a source-grounded assistant, then: \"Summarize each paper's core claim and evidence with a page-cited quote per claim; then synthesize agreements and conflicts across the set, citing per statement.\""}
+];
+var g5i=0,g5s=0,g5res=[],g5lock=false;
+function g5Render(){
+  var r=G5[g5i];
+  document.getElementById('g5weak').innerHTML='Weak prompt: &#8220;<i>'+r.weak+'</i>&#8221;';
+  document.getElementById('g5n').textContent=g5i+1;
+  var order=r.fixes.map(function(_,ix){return ix;});
+  for(var a=order.length-1;a>0;a--){var b=Math.floor(Math.random()*(a+1));var t=order[a];order[a]=order[b];order[b]=t;}
+  document.getElementById('g5choices').innerHTML=order.map(function(fi){
+    return '<button class="choice" onclick="g5Pick(this,'+fi+')">'+r.fixes[fi][0]+'</button>';
+  }).join("");
+  document.getElementById('g5reveal').style.display="none";
+  document.getElementById('g5nextrow').style.display="none";
+  g5lock=false;
+  dots('g5dots',4,g5res);
+}
+function g5Pick(btn,fi){
+  if(g5lock)return; g5lock=true;
+  var r=G5[g5i],ok=r.fixes[fi][1];
+  g5res[g5i]=ok;
+  document.querySelectorAll('#g5choices .choice').forEach(function(b){b.disabled=true;});
+  btn.className="choice "+(ok?"right":"wrong");
+  var rev=document.getElementById('g5reveal');
+  if(ok){ g5s++; rev.className="reveal good";
+    rev.innerHTML='<b>&#10003; Highest-leverage fix.</b> '+r.fixes[fi][2]+'<br><br><b>The rebuilt prompt:</b> <i>'+r.after+'</i>';
+  } else { rev.className="reveal bad";
+    rev.innerHTML='<b>&#10007; '+r.fixes[fi][2]+'</b><br><br><b>The fix that works:</b> '+r.fixes.filter(function(f){return f[1];})[0][0]+'<br><br><b>The rebuilt prompt:</b> <i>'+r.after+'</i>'; }
+  document.getElementById('g5score').textContent=g5s;
+  rev.style.display="block";
+  document.getElementById('g5nextrow').style.display="flex";
+  dots('g5dots',4,g5res);
+}
+function g5Next(){ g5i++; if(g5i>=4){g5Finish();return;} g5Render(); }
+function g5Finish(){
+  var right=g5res.filter(Boolean).length,win=right>=3;
+  document.getElementById('g5weak').style.display="none";
+  document.getElementById('g5choices').style.display="none";
+  document.getElementById('g5reveal').style.display="none";
+  document.getElementById('g5nextrow').style.display="none";
+  var f=document.getElementById('g5final'); f.style.display="block";
+  f.innerHTML='<div style="text-align:center;padding:22px 10px">'+
+    '<div style="font-family:\'Sora\',sans-serif;font-size:13px;letter-spacing:3px;color:var(--gold);font-weight:700">SURGERY COMPLETE</div>'+
+    '<div style="font-family:\'Sora\',sans-serif;font-size:34px;font-weight:800;color:var(--lite);margin:8px 0">'+right+' of 4 rebuilt</div>'+
+    '<div style="color:var(--mut);font-size:14px;max-width:560px;margin:0 auto 16px">'+(win?
+      'You now fix prompts by diagnosis, not superstition. Context, deliverable, format, demanded uncertainty: the recipe holds.':
+      'The reveals showed the pattern: the best fix is almost never a persona. Three of four earns the stamp.')+'</div>'+
+    '<button class="gold" onclick="g5Restart()">'+(win?'Operate again':'Run it back &#8594;')+'</button></div>';
+  if(win){ pgMark('ps'); confetti(24); }
+}
+function g5Restart(){ g5i=0;g5s=0;g5res=[];g5lock=false;
+  document.getElementById('g5final').style.display="none";
+  document.getElementById('g5weak').style.display="block";
+  document.getElementById('g5choices').style.display="block";
+  g5Render(); }
+
 // ------- init -------
 Object.keys(pgState).forEach(function(k){
-  var stamp = { tok: "stamp1", lm: "stamp2", net: "stamp3" }[k];
+  var stamp = { tok: "stamp1", lm: "stamp2", net: "stamp3", ins: "stamp4", ps: "stamp5" }[k];
   if (stamp && document.getElementById(stamp)) document.getElementById(stamp).style.display = "block";
 });
 g1Shuffle(); g1Render(); g3Render(); hud();

@@ -3,23 +3,35 @@
 (function(){
   var CP = {
     8:  { m: "Module 1 checkpoint", qs: [
-      ["By early 2026, roughly how many published papers contained a fabricated reference?", ["1 in 10,000","1 in 277","1 in 5"], 1],
-      ["When an AI can't find the real answer, its most dangerous habit is to...", ["crash","refuse to answer","fill the gap with something that looks right"], 2] ] },
-    13: { m: "Module 2 checkpoint", qs: [
-      ["What makes a search-grounded tool different from a plain chatbot?", ["It retrieves real pages first, then answers with clickable sources","It has a bigger memory","It is always correct"], 0],
-      ["The receipts test for any AI research tool:", ["Does it answer fast?","Can you click through to where each claim came from?","Does it sound confident?"], 1] ] },
-    19: { m: "Module 3 checkpoint", qs: [
-      ["Lateral reading means...", ["reading the whole page carefully, top to bottom","leaving the page and checking the claim against independent sources","asking the AI if it is sure"], 1],
-      ["In the CJR test of eight AI search tools, the wrong answers...", ["sounded just as confident as the right ones","admitted uncertainty","refused to cite sources"], 0] ] },
-    26: { m: "Module 4 checkpoint", qs: [
-      ["A fabricated citation typically has...", ["obvious spelling errors","a missing DOI","plausible authors, a real-sounding journal, and a well-formed DOI"], 2],
-      ["The one rule written in stone:", ["Trust citations from big-name models","A citation you never opened is a citation you cannot trust","Only check citations in medicine"], 1] ] },
+      ["The twin rule of the 2026 research stack:", ["AI supplies trust, you supply speed","AI supplies speed, you supply trust","AI supplies both, you supervise"], 1],
+      ["Kosmos-class autonomous agents matter because they show...", ["AI research is now error-free","months of work in a day, with roughly one finding in five wrong","AI can replace peer review"], 1] ] },
+    14: { m: "Module 2 checkpoint", qs: [
+      ["The researcher's upgrade to every factual prompt:", ["a world-class expert persona","demanded uncertainty: flag what to verify and the assumptions made","asking twice and comparing"], 1],
+      ["Personas (\"act as a statistician\") reliably change...", ["accuracy","tone and style, not truth","the model's training data"], 1] ] },
+    21: { m: "Module 3 checkpoint", qs: [
+      ["For a literature review, the best FIRST agent is...", ["a generalist deep-research agent","an academic specialist like Elicit that searches verified paper databases","whichever is fastest"], 1],
+      ["An agent's 20-source report should be treated as...", ["a finished, audited answer","a first draft with leads: audit the 2-3 load-bearing sources","unusable"], 1] ] },
+    27: { m: "Module 4 checkpoint", qs: [
+      ["By early 2026, fabricated references appeared in about...", ["1 in 10,000 papers","1 in 277 papers","1 in 5 papers"], 1],
+      ["The one rule written in stone:", ["trust citations from big-name models","a citation you never opened is a citation you cannot trust","only check citations in your own field"], 1] ] },
     31: { m: "Module 5 checkpoint", qs: [
-      ["A deep-research report should be treated as...", ["a finished, audited answer","a first draft with leads","marketing material"], 1],
-      ["The one habit that decides whether you can trust the report:", ["counting its sources","checking its grammar","verifying the 2 or 3 load-bearing sources by hand"], 2] ] },
+      ["The cheapest, highest-leverage AI hour in a project is...", ["polishing the abstract","before data exists: design, power, and confound consulting","after rejection"], 1],
+      ["A power calculation from AI is usable when...", ["it sounds confident","the formula and assumptions are shown and a second tool agrees","it matches your hopes"], 1] ] },
     36: { m: "Module 6 checkpoint", qs: [
-      ["What should decide how hard you verify an answer?", ["The confidence of the tone","The cost of being wrong","The length of the answer"], 1],
-      ["When AI helped with work you hand in or publish...", ["keep it quiet","disclose it the way the room expects, and verify before your name goes on it","mention it only if asked twice"], 1] ] }
+      ["The two loop steps that catch silent analysis errors:", ["persona + politeness","explain-it-back and the tiny hand-checked test","running it twice"], 1],
+      ["AI-assisted qualitative coding is legitimate when...", ["the AI codes everything unsupervised","AI proposes, the human adjudicates, and the trail is kept","themes look reasonable"], 1] ] },
+    42: { m: "Module 7 checkpoint", qs: [
+      ["A vision model identifying a structure on a micrograph is...", ["a result for the paper","a hypothesis for the expert to check","proof if confidence is high"], 1],
+      ["Source-grounded library assistants matter because errors...", ["disappear entirely","stay inside a corpus you own, with citations to check","become someone else's problem"], 1] ] },
+    47: { m: "Module 8 checkpoint", qs: [
+      ["Journal AI policies in 2026 are...", ["basically identical","concretely different: Science, Nature, Elsevier, NIH each have their own rules","unenforceable, so ignorable"], 1],
+      ["Uploading someone else's unpublished manuscript to an AI tool is...", ["fine if credited","a confidentiality violation; NIH bars reviewers from it","standard practice"], 1] ] },
+    52: { m: "Module 9 checkpoint", qs: [
+      ["The two nevers of reference integrity:", ["never cite preprints, never cite books","never hand-type a citation, never trust an AI-typed one","never use Zotero, never use BibTeX"], 1],
+      ["Reproducibility in 2026 became...", ["impossible at scale","a prompt: ask AI to document, pin, script, and README, then correct it","a paid service only"], 1] ] },
+    56: { m: "Module 10 checkpoint", qs: [
+      ["About 70% of journals have AI policies; papers actually disclosing AI use measure about...", ["50%","10%","0.1%"], 2],
+      ["Data that could not go in an email to a stranger...", ["can go in a chatbot if deleted after","never touches a cloud chatbot: use local or institution-hosted models","is fine in incognito mode"], 1] ] }
   };
   var SEENKEY = "cambium-c03-checkpoints", PROGKEY = "cambium-c03-slides";
   var seen = {};
@@ -28,7 +40,7 @@
     var prev = {};
     try { prev = JSON.parse(localStorage.getItem(PROGKEY) || "{}"); } catch(e){}
     var reached = Math.max(prev.seen || 0, (typeof i === "number" ? i : 0) + 1);
-    localStorage.setItem(PROGKEY, JSON.stringify({ seen: reached, total: 40, done: reached >= 40 }));
+    localStorage.setItem(PROGKEY, JSON.stringify({ seen: reached, total: 60, done: reached >= 60 }));
   }
   var overlay = document.createElement("div");
   overlay.style.cssText = "display:none;position:fixed;inset:0;background:rgba(31,61,36,.72);z-index:50;align-items:center;justify-content:center;padding:16px";

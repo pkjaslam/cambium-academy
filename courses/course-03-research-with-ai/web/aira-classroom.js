@@ -1,10 +1,10 @@
-// Aira · AI Classroom v2 — the persistent, ADAPTIVE in-lesson AI teaching assistant for Cambium Academy.
+// Aira · AI Classroom v2: the persistent, ADAPTIVE in-lesson AI teaching assistant for Cambium Academy.
 // Embeds into <div id="aira-classroom"></div>. Reads the lesson context from window.AIRA_LESSON
 // and answers/examples/visuals/summaries about THAT lesson via the Aira Cloudflare worker
 // (window.AIRA_CHAT.endpoint).
-// v2 upgrades: (1) student-aware — reads this course's saved progress (slides, flashcards,
+// v2 upgrades: (1) student-aware: reads this course's saved progress (slides, flashcards,
 // missed cards, lab games, quiz) from THIS browser and personalizes greetings, next steps,
-// and drills; (2) richer code-drawn visuals — flow, concept map, comparison table, and
+// and drills; (2) richer code-drawn visuals: flow, concept map, comparison table, and
 // before/after, chosen by Aira per question; (3) spoken replies via the browser's own voice
 // (clearly labeled); (4) chat memory across course pages and a small answer cache to stretch
 // the free quota. Privacy: questions go only to Aira's service; progress, memory, and the
@@ -27,7 +27,7 @@
   store.set = store.set && typeof store.set === "object" ? store.set : { voice: 0 };
   function saveStore(){ try { localStorage.setItem(SKEY, JSON.stringify(store)); } catch(e){} }
 
-  var LABNAMES = { tok: "the Citation Hunt", lm: "the Lateral Race", net: "Receipts or Vibes" };
+  var LABNAMES = { tok: "the Citation Hunt", lm: "the Lateral Race", net: "Receipts or Vibes", ins: "Pick Your Instrument", ps: "Prompt Surgery" };
   function courseState(){
     var cards = rd("cambium-c03-cards") || {};
     var miss = rd("cambium-c03-cardmiss") || {};
@@ -39,16 +39,17 @@
     var learner = rd("cambium-c03-learner") || {};
     var missList = Object.keys(miss).map(function(k){ return miss[k]; }).filter(function(e){ return e && e.f && e.n; });
     missList.sort(function(a, b){ return b.n - a.n; });
-    var labsLeft = ["tok","lm","net"].filter(function(k){ return !pg[k]; }).map(function(k){ return LABNAMES[k]; });
+    var labsLeft = ["tok","lm","net","ins","ps"].filter(function(k){ return !pg[k]; }).map(function(k){ return LABNAMES[k]; });
     var s = {
       name: (cert.name || learner.name || "").split(" ")[0] || "",
       slidesSeen: slides.seen || 0,
-      lectureDone: (slides.seen || 0) >= 40 || !!lecture.watched,
+      lectureDone: (slides.seen || 0) >= 60 || !!lecture.watched,
       cardsKnown: Object.keys(cards).length,
       missTop: missList.slice(0, 3),
-      labsDone: 3 - labsLeft.length,
+      labsDone: 5 - labsLeft.length,
       labsLeft: labsLeft,
       quizBest: quiz.best || 0,
+      quizMiss: quiz.missTopics || {},
       quizPassed: !!quiz.passed,
       certIssued: !!cert.issued
     };
@@ -57,9 +58,9 @@
   }
   function nextStepText(s){
     if (s.certIssued) return "You have finished this course, certificate and all. Try the capstone to make it real, or drill anything that still feels soft. I am proud of you.";
-    if (!s.lectureDone) return "Finish the lecture first: " + (s.slidesSeen > 0 ? "you are " + s.slidesSeen + " of 40 slides in, keep going." : "start the slides above, about 25 minutes.");
+    if (!s.lectureDone) return "Finish the lecture first: " + (s.slidesSeen > 0 ? "you are " + s.slidesSeen + " of 60 slides in, keep going." : "start the slides above, about 45 minutes.");
     if (s.cardsKnown < 24) return "The lecture is done. Next: the flashcards, " + s.cardsKnown + " of 24 marked known so far" + (s.missTop.length ? ", and I can drill the ones you keep missing" : "") + ".";
-    if (s.labsDone < 3) return "Lecture and flashcards done. Next: win " + s.labsLeft.join(" and ") + " in the AI Lab.";
+    if (s.labsDone < 5) return "Lecture and flashcards done. Next: win " + s.labsLeft.join(", ") + " in the AI Lab.";
     if (!s.quizPassed) return "Your whole path is complete, so the quiz is unlocked. Twenty questions, fourteen to pass" + (s.quizBest ? ", and your best so far is " + s.quizBest + " of 20" : "") + ". Go get your certificate.";
     return "Quiz passed with " + s.quizBest + " of 20. Print your certificate on the certificate page, then the capstone if you want the full experience.";
   }
@@ -67,11 +68,13 @@
     if (!s.anything) return "";
     var bits = [];
     if (s.name) bits.push("name " + s.name);
-    bits.push("slides " + Math.min(s.slidesSeen, 40) + "/40" + (s.lectureDone ? " (lecture done)" : ""));
+    bits.push("slides " + Math.min(s.slidesSeen, 60) + "/60" + (s.lectureDone ? " (lecture done)" : ""));
     bits.push("flashcards " + s.cardsKnown + "/24 known");
     if (s.missTop.length) bits.push("keeps missing: " + s.missTop.map(function(e){ return '"' + e.f + '" (' + e.m + ')'; }).join(", "));
-    bits.push("AI Lab " + s.labsDone + "/3 games won" + (s.labsLeft.length ? " (left: " + s.labsLeft.join(", ") + ")" : ""));
+    bits.push("AI Lab " + s.labsDone + "/5 games won" + (s.labsLeft.length ? " (left: " + s.labsLeft.join(", ") + ")" : ""));
     if (s.quizBest) bits.push("quiz best " + s.quizBest + "/20" + (s.quizPassed ? " passed" : ""));
+    var qmk = Object.keys(s.quizMiss || {}).sort(function(x,y){ return s.quizMiss[y]-s.quizMiss[x]; });
+    if (qmk.length) bits.push("quiz misses concentrated in module " + qmk.slice(0,2).map(function(k){ return k.replace("M",""); }).join(" and "));
     return "Student progress snapshot (read from their device, this course only): " + bits.join("; ") + ".";
   }
   var ST = courseState();
@@ -270,13 +273,13 @@
     else if (s.quizPassed) bits.push("quiz passed, go print that certificate");
     else {
       if (s.lectureDone) bits.push("lecture done");
-      else if (s.slidesSeen > 0) bits.push("you are " + s.slidesSeen + " of 40 slides in");
+      else if (s.slidesSeen > 0) bits.push("you are " + s.slidesSeen + " of 60 slides in");
       if (s.cardsKnown > 0) bits.push(s.cardsKnown + " of 24 cards known");
-      if (s.labsDone > 0) bits.push(s.labsDone + " of 3 Lab games won");
+      if (s.labsDone > 0) bits.push(s.labsDone + " of 5 Lab games won");
       if (s.quizBest > 0 && !s.quizPassed) bits.push("quiz best " + s.quizBest + "/20, so close");
     }
     var g = hi + " welcome back to <b>" + esc(L.topic) + "</b>. I can see where you are: " + bits.join(", ") + ".";
-    if (s.missTop.length) g += " I also noticed the flashcards you keep missing" + (s.missTop[0] ? ", like “" + esc(s.missTop[0].f) + "”" : "") + " — tap <b>Drill what I keep missing</b> and I will coach you through exactly those.";
+    if (s.missTop.length) g += " I also noticed the flashcards you keep missing" + (s.missTop[0] ? ", like “" + esc(s.missTop[0].f) + "”" : "") + ": tap <b>Drill what I keep missing</b> and I will coach you through exactly those.";
     else g += " Ask me anything, or tap a button below.";
     return g;
   }
@@ -293,7 +296,7 @@
         '<button data-a="example">Give me an example</button>' +
         '<button data-a="visual">Explain it visually</button>' +
         '<button data-a="summary">Summarize the key points</button>' +
-        (ST.missTop.length ? '<button data-a="drill" class="gold">Drill what I keep missing</button>' : '') +
+        ((ST.missTop.length || Object.keys(ST.quizMiss||{}).length) ? '<button data-a="drill" class="gold">Drill what I keep missing</button>' : '') +
         '<button data-a="next">What should I do next?</button>' +
       '</div>' +
       '<div class="ac-out" id="acOut"><span class="ac-hello">' + greeting() + '</span></div>' +
@@ -375,15 +378,19 @@
   chips.addEventListener("click", function(e){
     var a = e.target.getAttribute("data-a"); if (!a) return;
     active(a);
-    if (a === "ask"){ row.style.display = "flex"; input.focus(); setOut('<div class="ac-hello">Type your question below and I will answer it for this lesson' + (history.length ? " — I remember what we discussed on other pages too" : "") + '.</div>'); return; }
+    if (a === "ask"){ row.style.display = "flex"; input.focus(); setOut('<div class="ac-hello">Type your question below and I will answer it for this lesson' + (history.length ? ", and I remember what we discussed on other pages too" : "") + '.</div>'); return; }
     row.style.display = "none";
     if (a === "example") call("Give one short, concrete worked example that helps a beginner understand this lesson topic. Three to five sentences, plain language.", { cacheAs: "example" });
     else if (a === "visual"){ svgTry = 0; call(VISUAL_ASK, { wantSvg: true, cacheAs: "visual" }); }
     else if (a === "summary") call("Summarize the key points of this lesson in four short bullet points a beginner can remember. Start each with a dash.", { cacheAs: "summary" });
     else if (a === "drill"){
       row.style.display = "flex"; input.focus();
-      var list = ST.missTop.map(function(m){ return '"' + m.f + '" (module ' + m.m.replace('M','') + ')'; }).join("; ");
-      call("I keep missing these flashcards: " + list + ". Coach me: ask me ONE short, friendly check question about the FIRST idea and wait for my answer. After I reply, tell me if I got it, teach the gap in one or two sentences, then move to the next idea. One question at a time.", { keepHistory: true, noCache: true });
+      var parts = [];
+      if (ST.missTop.length) parts.push("flashcards I keep missing: " + ST.missTop.map(function(m){ return '"' + m.f + '" (module ' + m.m.replace('M','') + ')'; }).join("; "));
+      var qm2 = Object.keys(ST.quizMiss || {}).sort(function(x,y){ return ST.quizMiss[y]-ST.quizMiss[x]; }).slice(0,2);
+      if (qm2.length) parts.push("my quiz misses were concentrated in module " + qm2.map(function(k){ return k.replace("M",""); }).join(" and "));
+      if (!parts.length) parts.push("nothing recorded yet, quiz me on the course essentials");
+      call("My weak spots: " + parts.join(". Also, ") + ". Coach me: ask ONE short, friendly check question about my weakest spot and wait for my answer. After I reply, tell me if I got it, teach the gap in one or two sentences, then move on. One question at a time.", { keepHistory: true, noCache: true });
     }
     else if (a === "next"){
       var t = nextStepText(courseState());

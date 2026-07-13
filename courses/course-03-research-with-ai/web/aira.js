@@ -11,9 +11,9 @@
   var PAGES = {
     "index.html": { k: "page-index", t: "This is the course home. Watch the lecture or read the slides, and keep an eye on your progress bar right on this page. When you are ready, I will walk you to the quiz." },
     "slides.html": { k: "page-slides", t: "These are the full course slides. Use the arrow keys or swipe. I will pop a two-question check after each module so nothing slips past you." },
-    "quiz.html": { k: "page-quiz", t: "The quiz unlocks after the lecture, all twenty-four flashcards, and the three AI Lab stations. Then it is twenty questions, fourteen to pass. Ask me what is left and I will tell you." },
+    "quiz.html": { k: "page-quiz", t: "The quiz unlocks after the lecture, all twenty-four flashcards, and the five AI Lab games. Then it is twenty questions, fourteen to pass. Ask me what is left and I will tell you." },
     "flashcards.html": { k: "page-flashcards", t: "Flip a card, then be honest with the buttons. Cards you miss come back around until they stick. Clearing all twenty-four is a required step on your path to the quiz." },
-    "playground.html": { k: "page-playground", t: "My favorite room. Watch text become tokens, play the next-word game that I myself am built on, and train a tiny model with your own hands. All three labs count toward unlocking the quiz." },
+    "playground.html": { k: "page-playground", t: "My favorite room. Hunt fabricated citations, race the verification clock, pick receipts over vibes, match tasks to instruments, and rebuild broken prompts. All five games count toward unlocking the quiz." },
     "community.html": { k: "page-community", t: "This is where humans help humans. Ask questions on the Q&A board, show off in the project gallery, and you can always ask me anything from here." },
     "capstone.html": { k: "page-capstone", t: "The capstone is where the course becomes real: one genuine task from your life, done with AI, verified and written up. Do this one; future you says thanks." },
     "career.html": { k: "page-career", t: "Let us make this course count. Copy the resume lines, add the certificate to LinkedIn, and rehearse interviews with me until you sound like yourself on a good day." },
@@ -24,20 +24,20 @@
   function read(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch(e){ return null; } }
   function advise(){
     var s = read("cambium-c03-slides") || {}, seen = s.seen || 0;
-    var lecture = seen >= 40 || !!(read("cambium-c03-lecture") || {}).watched;
+    var lecture = seen >= 60 || !!(read("cambium-c03-lecture") || {}).watched;
     var cards = Object.keys(read("cambium-c03-cards") || {}).length;
     var pg = read("cambium-c03-playground") || {};
-    var pgN = (pg.tok?1:0) + (pg.lm?1:0) + (pg.net?1:0);
+    var pgN = (pg.tok?1:0) + (pg.lm?1:0) + (pg.net?1:0) + (pg.ins?1:0) + (pg.ps?1:0);
     var quiz = read("cambium-c03-quiz") || {}, cert = read("cambium-c03-cert") || {};
     if (cert.issued) return { k: "next-certdone", t: "You have finished Course 03, Research with AI, certificate and all. Post it on the graduate wall, try the capstone if you have not, and I will see you next week for the next Cambium Academy course.", href: "community.html", label: "Visit the community" };
     if (quiz.passed) return { k: "next-quizpassed", t: "You passed the quiz with " + (quiz.best || "a good score") + " out of 20. Claim your certificate; you earned it.", href: "certificate.html", label: "Get my certificate" };
-    if (lecture && cards >= 24 && pgN >= 3) return { k: "next-quizready", t: "Lecture, flashcards, and all three labs: done. The quiz is unlocked" + (quiz.best ? ", and your best so far is " + quiz.best + " out of 20; fourteen passes." : ". Twenty questions, fourteen to pass. You are ready."), href: "quiz.html", label: "Start the quiz" };
+    if (lecture && cards >= 24 && pgN >= 5) return { k: "next-quizready", t: "Lecture, flashcards, and all five games: done. The quiz is unlocked" + (quiz.best ? ", and your best so far is " + quiz.best + " out of 20; fourteen passes." : ". Twenty questions, fourteen to pass. You are ready."), href: "quiz.html", label: "Start the quiz" };
     if (!lecture) {
-      if (seen > 0) return { k: "next-slides-continue", t: "Step 1 of your path: the lecture. You are " + seen + " slides in, out of 40. Keep going; the next module is shorter than you think.", href: "slides.html#" + Math.min(seen + 1, 40), label: "Continue the slides" };
+      if (seen > 0) return { k: "next-slides-continue", t: "Step 1 of your path: the lecture. You are " + seen + " slides in, out of 60. Keep going; the next module is shorter than you think.", href: "slides.html#" + Math.min(seen + 1, 60), label: "Continue the slides" };
       return { k: "next-slides-start", t: "Welcome. Your path has three study steps before the quiz: the lecture, the flashcards, and the AI Lab. Start with the slides, or watch the video and mark it watched on the course home.", href: "slides.html", label: "Start the lecture" };
     }
     if (cards < 24) return { k: "next-cards", t: "Lecture done. Step 2: the flashcards. You know " + cards + " of 24; clear the whole deck and the ideas will stick for the quiz.", href: "flashcards.html", label: "Open flashcards" };
-    return { k: "next-playground", t: "Almost there. Step 3: the playground. You have explored " + pgN + " of 3 labs. Type in the token box, let the predictor write, and press auto-train; each one counts.", href: "playground.html", label: "Open the playground" };
+    return { k: "next-playground", t: "Almost there. Step 3: the AI Lab. You have won " + pgN + " of 5 games. Each stamp counts toward the quiz.", href: "playground.html", label: "Open the AI Lab" };
   }
 
   var css = document.createElement("style");

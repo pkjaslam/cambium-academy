@@ -83,66 +83,26 @@
 
 <script>
 const Q = [
-["By early 2026, roughly how many published papers contained at least one fabricated reference, according to the Lancet analysis of 2M+ papers?",
- ["About 1 in 10,000","About 1 in 2,828","About 1 in 277","About 1 in 5"],2,
- "1 in 2,828 was the 2023 rate. By early 2026 it had risen roughly 6x to 1 in 277, tracking exactly the years AI writing assistants went mainstream."],
-["When an AI cannot find the real answer to a research question, its most dangerous habit is to:",
- ["Crash or time out","Fill the gap with something that looks right, in the same confident tone","Refuse to answer anything else","Switch to a different language"],1,
- "Models complete patterns. A missing answer gets replaced by a plausible-looking one, which is far more dangerous than an honest \"I could not find it.\""],
-["The core problem this course solves is best described as:",
- ["AI is too slow for serious research","AI answers are too short","The same tool that finds real sources also invents fake ones, and they look identical","AI refuses to cite anything"],2,
- "Speed is not the problem; trust is. Finds and fakes come formatted identically, so you need a method, not a vibe."],
-["What makes a search-grounded tool different from a plain chatbot?",
- ["It retrieves real pages first, then answers with clickable sources","It has read more books","It always uses a bigger model","It answers more politely"],0,
- "Retrieve-then-answer versus answer-from-memory is THE split. The grounded answer can be checked; the memory answer can only be believed."],
-["The receipts test for any AI research tool is:",
- ["Does it answer in under five seconds?","Does it sound confident?","Is it made by a big company?","Can you click through to where each claim came from?"],3,
- "One question sorts every tool, whatever it is called this month: can you follow each claim to its source?"],
-["The one sentence worth adding to any factual AI request:",
- ["\"Be as creative as possible.\"","\"Answer with sources I can click, and if you cannot find a real source, say so instead of guessing.\"","\"You are a world-class expert.\"","\"Answer as fast as you can.\""],1,
- "It sets the standing expectation that receipts matter more than fluency, and invites the honest \"I could not find it.\""],
-["Lateral reading means:",
- ["Reading every paragraph of a page, carefully, in order","Asking the same AI to double-check its own answer","Leaving the page and checking the claim against independent sources in new tabs","Reading only the headline and the conclusion"],2,
- "Amateurs read down the page and judge it by its own design. Fact-checkers leave the page and let the rest of the web judge it. It is faster AND more reliable."],
-["SIFT stands for:",
- ["Stop, Investigate the source, Find better coverage, Trace to the original","Search, Identify, Filter, Trust","Skim, Infer, Formulate, Test","Source, Index, Fact, Truth"],0,
- "Four moves, in order, from digital literacy researcher Mike Caulfield. Built for the open web, and even more useful on AI answers."],
-["When Columbia Journalism Review tested eight AI search tools on news-citation queries, the tools:",
- ["Were right about 95% of the time","Refused to answer most questions","Admitted uncertainty on the hard ones","Were wrong on more than 60% of queries while sounding fully confident"],3,
- "The killer detail is the tone: the wrong answers sounded exactly like the right ones. Confidence is style, not evidence."],
-["On literature-review tasks in 2026, frontier AI models fabricate roughly what share of citations?",
- ["Under 1%","18 to 28%","Exactly 50%","Over 90%"],1,
- "Roughly one reference in four or five on these tasks, and even the best models sit around 3 to 19% depending on the task. Better every year, and nowhere near zero."],
-["AI fabricates citations mainly because:",
- ["It was programmed to deceive users","Its internet connection fails mid-answer","It learned the citation PATTERN, and completes it when unsure instead of admitting the gap","Publishers pay for fake citations"],2,
- "Nobody built it to lie. It produces citation-shaped text: real-looking authors, journal, year, and DOI, assembled by pattern instead of looked up."],
-["Why does the eyeball test fail on fabricated citations?",
- ["Because fakes contain obvious typos if you look closely","Because most people need glasses","Because fakes are only in foreign languages","Because fakes are engineered to pass a glance: plausible authors, real-sounding venues, well-formed DOIs"],3,
- "Everything about a fabricated citation is statistically designed to look normal. Opening it is the only test that works."],
-["The one rule in this course written in stone:",
- ["Never use AI for research","A citation you never opened is a citation you cannot trust","Only trust citations from papers after 2020","Always ask two AIs and compare"],1,
- "Open every citation that matters: does it exist, is it what it claims, and does it say what the AI said it says?"],
-["The 3-click check on a citation is:",
- ["Exists? Matches? Says it?","Copy, paste, submit","Like, share, subscribe","Title, abstract, price"],0,
- "Click 1: does it exist (Scholar or the DOI)? Click 2: right authors, venue, year? Click 3: does the abstract actually support the claim it was cited for?"],
-["A deep-research agent in 2026 is best described as:",
- ["A human librarian on a video call","A plagiarism detector","An AI that runs dozens of searches and returns a long, cited report in minutes","A paywalled academic database"],2,
- "You ask one question, it browses for you and writes a structured, sourced report. Real and spectacular, with one blind spot."],
-["The blind spot of deep-research reports is that:",
- ["They are always too short","They cost too much for most people","They only cover topics from before 2020","Their polish hides holes: invented or misattributed sources can sit inside otherwise-good reports"],3,
- "A report that LOOKS audited has not BEEN audited. One weak source among nineteen real ones is genuinely hard to spot, and studies keep finding exactly that."],
-["The right way to use a deep-research report is:",
- ["Treat it as a first draft with leads, and hand-verify the 2 or 3 load-bearing sources","Forward it unread, since the AI already checked everything","Ignore it and start from scratch","Only read the conclusion"],0,
- "AI does the breadth, you do the depth exactly where it matters. Skip the audit and you are doing vibes with citations."],
-["What should decide how hard you verify an AI answer?",
- ["How confident the answer sounds","The cost of being wrong","How long the answer is","Which company made the model"],1,
- "Movie trivia can be wrong for free. Money, health, grades, law, and anything published deserve the full protocol. Cost decides, never confidence."],
-["When AI helped with work you hand in or publish, the two universal rules are:",
- ["Delete the chat history, and deny everything","Cite the AI as first author, and thank it","Use at least three different models, and average them","Never present unverified AI claims as your checked work, and never send what you have not read"],3,
- "Beyond those two, disclosure has rooms: a syllabus, a journal policy, a workplace norm. Know the rules of the room, and when unclear, ask."],
-["The research skill that KEEPS its value as AI models improve is:",
- ["Memorizing which model is best each month","Typing speed","Judgment: knowing what to check and being willing to","Owning the most subscriptions"],2,
- "Every rate in this course will change. The habits (receipts, lateral reading, opened citations, load-bearing audits) work on every model, forever."]
+["The sentence that governs working with every AI research instrument:",["AI supplies speed, you supply trust","Newer models remove the need for checking","Verification is the journal's job","AI supplies trust, you supply speed"],0,"Speed is now nearly free; trust never is. Every module's check exists because of this line.","M1"],
+["Kosmos-class autonomous research agents are best described as:",["Marketing with no real capability","Months of literature-and-analysis work in a day, with roughly one finding in five not holding up","Tools only usable by programmers","Error-free replacements for research teams"],1,"Its own makers estimate ~80% of findings hold up. Spectacular AND one-in-five wrong: that is why you are the audit.","M1"],
+["The researcher's upgrade to any factual or analytical prompt:",["A politeness preamble","Asking the same thing twice","Demanded uncertainty: flag what you are unsure of, the assumptions made, and what I must verify","An expert persona"],2,"It converts a confident narrator into an honest assistant, and it costs one standing sentence.","M2"],
+["In testing, expert personas (\"you are a world-class statistician\") reliably improve:",["Mathematical reasoning","Citation accuracy","Factual accuracy","Tone and style only"],3,"Roles shape the costume, not the contents. For facts: plain ask, full context, demanded uncertainty.","M2"],
+["For a literature review, the strongest opening move is:",["An academic specialist agent (Elicit-class) searching verified paper databases","Reading the top three Google results","Asking a plain chatbot from memory","A generalist deep-research agent, for breadth"],0,"Specialists search closed corpora of published research, so their citations resolve by construction. Generalists come second, for breadth beyond papers.","M3"],
+["A 20-source agent research report should enter your work as:",["Unusable noise","A first draft with leads, after auditing the 2-3 load-bearing sources","A citation for your methods section","A finished, audited answer"],1,"The polish signals audited; nothing was audited. The load-bearing audit is the one habit that makes agents safe.","M3"],
+["By early 2026, fabricated references appeared in published papers at a rate of about:",["1 in 10,000","1 in 2,828","1 in 277","1 in 5"],2,"A ~6x rise in three years (Lancet analysis of 2M+ papers), tracking exactly the mainstreaming of AI writing assistants.","M4"],
+["The eyeball test fails on fabricated citations because:",["Most readers need glasses","Journals hide reference lists","Fakes contain obvious typos","The fakes are citation-SHAPED: plausible authors, real journals, well-formed DOIs, engineered by training to pass a glance"],3,"Models complete the citation pattern when unsure. Opening the citation is the only test that works: exists, matches, says it.","M4"],
+["The one rule this course carves in stone:",["A citation you never opened is a citation you cannot trust","Check only citations older than 2020","Never use AI for research","Trust citations from frontier models only"],0,"Three clicks per citation that matters. The Citation Hunt game exists to make it a reflex.","M4"],
+["The highest-leverage, lowest-cost hour of AI in a research project is:",["Polishing the abstract","Before data exists: design, power, test choice, and confound consulting","Formatting references","Writing the cover letter"],1,"Design errors are silent and permanent; no analysis rescues a broken design.","M5"],
+["An AI-produced power calculation is safe to use when:",["It sounds confident","It matches what you hoped","The formula and assumptions are shown, a second tool agrees, and a human signs off for high stakes","It comes from the newest model"],2,"Show the math or it did not happen. \"The AI chose the test\" is not a methods section.","M5"],
+["The two steps of the safe analysis loop that catch silent errors:",["Running the code twice","Using two different languages","Persona and politeness","Explain-it-back (every line) and the tiny hand-checked test"],3,"Plausible-but-wrong tests, hallucinated arguments, and silent unit errors all die at those two steps.","M6"],
+["AI-assisted qualitative coding becomes a defensible methodology when:",["AI proposes, the human adjudicates, and an audit trail of decisions is kept","The transcripts were AI-transcribed too","The AI codes everything alone","Themes look reasonable on a skim"],0,"Interpretive authority stays human, and the trail is what reviewers can inspect.","M6"],
+["A vision model identifies a structure on your micrograph. That identification is:",["A result you can publish","A hypothesis for an expert to check","Proof, if model confidence is high","Worthless"],1,"Machine eyes are triage. Benchmarks still show fine-grained misidentification that experts catch.","M7"],
+["Source-grounded library assistants (the NotebookLM class) matter because:",["They eliminate hallucination completely","They are free","Their errors are contained inside a corpus you own, with citations you can open","They write your paper for you"],2,"Containment, not elimination: checking means opening the cited page in your own uploads.","M7"],
+["Which disclosure statement is TRUE as of July 2026:",["Elsevier forbids all AI assistance","NIH encourages reviewers to use AI","All journals share one AI policy","Science requires disclosure of all AI use, while Nature exempts pure copy-editing and bans AI images"],3,"The policies now differ concretely, which is why \"check the venue's actual rule at submission\" is the habit.","M8"],
+["Feeding a manuscript you are REVIEWING into an AI tool is:",["A confidentiality violation, and NIH explicitly bars reviewers from it","Required for consistency","Fine if you cite the tool","Standard practice"],0,"Others' unpublished work is confidential. Your own drafts are yours to pre-review as hard as you like.","M8"],
+["The two nevers of reference integrity:",["Never cite preprints; never cite books","Never hand-type a citation; never trust an AI-typed one","Never use reference managers; never export BibTeX","Never cite before 2000; never cite yourself"],1,"Records come from the source of record (Crossref/DOI via your manager), and the final gate is that every DOI resolves.","M9"],
+["Roughly 70% of journals now have AI policies. The share of recent papers actually disclosing AI use measured about:",["A quarter","One in ten","0.1%","Half"],2,"That gap closes on the disclosers' terms. Disclosure costs a sentence; discovery costs a reputation.","M10"],
+["Data that could not go in an email to a stranger:",["Is fine in incognito mode","Can be pasted if anonymized by the AI itself","Can go in a chatbot if you delete the chat","Never touches a cloud chatbot: use local or institution-hosted models"],3,"Confidential, pre-publication, and human-subjects data have a hard line. Local models exist exactly for this lane.","M10"]
 ];
 
 const quizEl = document.getElementById('quiz');
@@ -184,7 +144,12 @@ document.getElementById('grade').onclick = function(){
   if (pass) window.__score = score;
   try {
     const prev = JSON.parse(localStorage.getItem('cambium-c03-quiz') || '{}');
-    const rec = { best: Math.max(prev.best || 0, score), passed: !!(prev.passed || pass), date: new Date().toISOString().slice(0,10) };
+    const missTopics = {};
+    Q.forEach((q, qi) => {
+      const pick = document.querySelector('input[name="q' + qi + '"]:checked');
+      if (!pick || +pick.value !== q[2]) { const m = q[4] || "M?"; missTopics[m] = (missTopics[m] || 0) + 1; }
+    });
+    const rec = { best: Math.max(prev.best || 0, score), passed: !!(prev.passed || pass), date: new Date().toISOString().slice(0,10), missTopics: missTopics };
     if (prev.consumedBy) { rec.consumedBy = prev.consumedBy; rec.passed = false; }
     localStorage.setItem('cambium-c03-quiz', JSON.stringify(rec));
   } catch(e) {}
@@ -196,14 +161,14 @@ document.getElementById('grade').onclick = function(){
 (function(){
   function rd(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch(e){ return null; } }
   var seen = (rd("cambium-c03-slides") || {}).seen || 0;
-  var lecture = seen >= 40 || !!(rd("cambium-c03-lecture") || {}).watched;
+  var lecture = seen >= 60 || !!(rd("cambium-c03-lecture") || {}).watched;
   var cards = Object.keys(rd("cambium-c03-cards") || {}).length;
   var pg = rd("cambium-c03-playground") || {};
-  var pgN = (pg.tok?1:0) + (pg.lm?1:0) + (pg.net?1:0);
+  var pgN = (pg.tok?1:0) + (pg.lm?1:0) + (pg.net?1:0) + (pg.ins?1:0) + (pg.ps?1:0);
   var steps = [
-    { ok: lecture, label: "The lecture", detail: lecture ? "done" : (seen > 0 ? seen + " of 40 slides read" : "read the slides or watch the video"), href: "slides.html" },
+    { ok: lecture, label: "The lecture", detail: lecture ? "done" : (seen > 0 ? seen + " of 60 slides read" : "read the slides or watch the video"), href: "slides.html" },
     { ok: cards >= 24, label: "All 24 flashcards", detail: cards >= 24 ? "done" : cards + " of 24 known so far", href: "flashcards.html" },
-    { ok: pgN >= 3, label: "All 3 playground labs", detail: pgN >= 3 ? "done" : pgN + " of 3 explored", href: "playground.html" }
+    { ok: pgN >= 5, label: "All 5 AI Lab games", detail: pgN >= 5 ? "done" : pgN + " of 5 won", href: "playground.html" }
   ];
   if (steps.every(function(s){ return s.ok; })) return;
   document.getElementById('quiz').style.display = "none";

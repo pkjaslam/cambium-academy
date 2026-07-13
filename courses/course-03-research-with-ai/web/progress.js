@@ -1,23 +1,23 @@
 // Course progress tracker for the home page, ordered by the required learning path:
-// lecture -> flashcards -> playground -> quiz (locked until the three are done) -> certificate.
+// lecture -> flashcards -> AI Lab (5 games) -> quiz (locked until all are done) -> certificate.
 (function(){
   function read(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch(e){ return null; } }
   function render(){
     var slides = read("cambium-c03-slides") || {};
     var seen = slides.seen || 0;
     var watched = !!(read("cambium-c03-lecture") || {}).watched;
-    var lectureDone = watched || seen >= 40;
+    var lectureDone = watched || seen >= 60;
     var cards = Object.keys(read("cambium-c03-cards") || {}).length;
     var pg = read("cambium-c03-playground") || {};
-    var pgN = (pg.tok?1:0) + (pg.lm?1:0) + (pg.net?1:0);
+    var pgN = (pg.tok?1:0) + (pg.lm?1:0) + (pg.net?1:0) + (pg.ins?1:0) + (pg.ps?1:0);
     var quiz = read("cambium-c03-quiz") || {};
     var cert = read("cambium-c03-cert") || {};
-    var unlocked = lectureDone && cards >= 24 && pgN >= 3;
+    var unlocked = lectureDone && cards >= 24 && pgN >= 5;
 
     var steps = [
-      { label: "1 · Lecture", detail: lectureDone ? (watched && seen < 40 ? "watched the video" : "done") : (seen > 0 ? seen + " of 40 slides" : "slides or video"), pct: lectureDone ? 100 : Math.min(99, Math.round(100 * seen / 40)), href: "slides.html" },
+      { label: "1 · Lecture", detail: lectureDone ? (watched && seen < 60 ? "watched the video" : "done") : (seen > 0 ? seen + " of 60 slides" : "slides or video"), pct: lectureDone ? 100 : Math.min(99, Math.round(100 * seen / 60)), href: "slides.html" },
       { label: "2 · Flashcards", detail: cards + " of 24 known", pct: Math.min(100, Math.round(100 * cards / 24)), href: "flashcards.html" },
-      { label: "3 · Playground", detail: pgN + " of 3 labs explored", pct: Math.round(100 * pgN / 3), href: "playground.html" },
+      { label: "3 · AI Lab", detail: pgN + " of 5 games won", pct: Math.round(100 * pgN / 5), href: "playground.html" },
       { label: "4 · Quiz", detail: quiz.passed ? "passed, " + quiz.best + "/20" : (unlocked ? (quiz.best ? "best " + quiz.best + "/20, pass is 14" : "unlocked, go for it") : "locked until steps 1 to 3 are done"), pct: quiz.passed ? 100 : (unlocked ? Math.min(99, Math.round(100 * (quiz.best || 0) / 14)) : 0), href: "quiz.html" },
       { label: "5 · Certificate", detail: cert.issued ? "issued" : "after the quiz", pct: cert.issued ? 100 : 0, href: "certificate.html" }
     ];
