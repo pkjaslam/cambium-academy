@@ -2,12 +2,14 @@
 // keeps every API key server-side and never lets Aira hit a daily wall: if one free
 // provider is out of quota or down, the next answers, in order:
 //
-//   1. Gemini        (GEMINI_API_KEY,  https://aistudio.google.com -> Get API key)
-//   2. Groq          (GROQ_API_KEY,    https://console.groq.com/keys)
-//   3. GitHub Models (GH_MODELS_TOKEN, https://github.com/settings/tokens - a fine-grained
-//                     PAT; GitHub Models access, read-only, no repo scopes needed)
-//   4. Cohere        (COHERE_API_KEY,  https://dashboard.cohere.com/api-keys)
-//   5. NVIDIA        (NVIDIA_API_KEY,  https://build.nvidia.com - free credits)
+//   1. Gemini 2.5 Flash   (GEMINI_API_KEY, https://aistudio.google.com -> Get API key)
+//   2. Groq Llama 70B      (GROQ_API_KEY, https://console.groq.com/keys - ~1,000 req/day free)
+//   3. Groq Llama 8B       (same GROQ_API_KEY - ~14,400 req/day free, the volume workhorse)
+//   4. Workers AI          (NO KEY NEEDED - runs on Cloudflare itself; add the AI binding
+//                           in the worker settings; ~10,000 free neurons/day)
+//   5. GitHub Models       (GH_MODELS_TOKEN, fine-grained PAT with GitHub Models read access)
+//   6. Cohere              (COHERE_API_KEY, https://dashboard.cohere.com/api-keys)
+//   7. NVIDIA              (NVIDIA_API_KEY, https://build.nvidia.com - free credits)
 //
 // Every provider speaks the OpenAI chat-completions dialect, so one code path serves all.
 // Providers with no key configured are skipped silently. Deploy: see AIRA_CHAT_SETUP.md.
@@ -48,9 +50,14 @@ function providers(env) {
     { name: "gemini", key: env.GEMINI_API_KEY || env.MR_API_KEY,
       url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
       model: env.GEMINI_MODEL || "gemini-2.5-flash" },
-    { name: "groq", key: env.GROQ_API_KEY,
+    { name: "groq-70b", key: env.GROQ_API_KEY,
       url: "https://api.groq.com/openai/v1/chat/completions",
       model: env.GROQ_MODEL || "llama-3.3-70b-versatile" },
+    { name: "groq-8b", key: env.GROQ_API_KEY,
+      url: "https://api.groq.com/openai/v1/chat/completions",
+      model: env.GROQ_MODEL_HIVOL || "llama-3.1-8b-instant" },
+    { name: "workers-ai", binding: env.AI,
+      model: env.CF_MODEL || "@cf/meta/llama-3.1-8b-instruct" },
     { name: "github", key: env.GH_MODELS_TOKEN,
       url: "https://models.github.ai/inference/chat/completions",
       model: env.GH_MODEL || "openai/gpt-4o-mini" },
@@ -60,10 +67,19 @@ function providers(env) {
     { name: "nvidia", key: env.NVIDIA_API_KEY,
       url: "https://integrate.api.nvidia.com/v1/chat/completions",
       model: env.NVIDIA_MODEL || "meta/llama-3.1-8b-instruct" }
-  ].filter(p => p.key && String(p.key).length > 4);
+  ].filter(p => p.binding || (p.key && String(p.key).length > 4));
 }
 
 async function tryProvider(p, messages) {
+  if (p.binding) {
+    try {
+      const out = await p.binding.run(p.model, { messages, max_tokens: 500, temperature: 0.6 });
+      const reply = (out && (out.response || (out.result && out.result.response)) || "").trim();
+      return reply ? { reply, usage: null } : { fail: "empty reply" };
+    } catch (e) {
+      return { fail: "workers-ai error" };
+    }
+  }
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 20000);
   try {

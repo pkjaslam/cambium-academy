@@ -10,6 +10,7 @@ Project memory auto-loads the rest (Higgsfield pipeline, mount-truncation gotcha
 ## Where the Academy stands
 - **Course 01 — Intro to AI:** LIVE.
 - **Course 02 — Prompting Essentials:** LIVE. (2026-07-12: repaired truncated tails of `capstone.html` + `career.html` — the mount had cut both mid-beacon during the 07-10 session.)
+- **/start/ front door: REPAIRED 2026-07-12.** `start/index.html` had shipped TRUNCATED on 07-10 (file ended mid-FAQ inside the dc-logic script; no </script></body></html>). Live console showed `[dc-runtime] logic class eval FAILED for Root` and the cinematic hero logic was silently dead. Minimal repair: closed the structures after the last complete FAQ entry (no invented content; any FAQ entries beyond the four complete ones are lost). Logic parses again; heals live on next push. A full repo truncation sweep (every .html closes, every .js parses, every .json valid) now comes back clean.
 - **Course 03 — Research with AI:** WEB COURSE COMPLETE, built 2026-07-12, audit PASSED. Awaiting the Director's push, then the lecture film.
 
 ## Course 3 — done (2026-07-12 session)
@@ -21,11 +22,11 @@ Project memory auto-loads the rest (Higgsfield pipeline, mount-truncation gotcha
 - Configs byte-identical to Course 1. Every file dd-copied + cmp-verified. Full audit: PASSED.
 - Staged classroom fixes (code-drawn diagram, at-capacity message) are included in the shipped `aira-classroom.js`.
 - **AI Classroom v2 (2026-07-12, same session):** student-aware (reads slides/cards/misses/labs/quiz/cert from localStorage; personalized greeting, computed next-step, "Drill what I keep missing" chip fed by new `cambium-c03-cardmiss` tracking in flashcards.html), richer code-drawn visuals (Aira picks flow / concept map / comparison table / before-after via a JSON contract, safe fallbacks), spoken replies (browser speechSynthesis, per-reply button + persisted header toggle, honestly labeled), cross-page chat memory + 40-entry answer cache with 7-day TTL in `cambium-c03-classroom` (stretches the free quota). 30 automated checks pass; audit re-run PASSED.
-- **Multi-provider worker v2 WRITTEN, NOT DEPLOYED:** `courses/course-03-research-with-ai/proxy/aira-worker.js` + `AIRA_CHAT_SETUP.md` (Gemini → Groq → GitHub Models → Cohere → NVIDIA, same endpoint + contract, old MR_API_KEY honored). Director pastes into the Cloudflare dashboard and adds whichever secrets exist. This closes the deferred fallback-router item.
+- **Multi-provider worker v2.1 DEPLOYED LIVE (2026-07-12, with the Director driving approvals):** chain Gemini → Groq 70B → Groq 8B → Workers AI (keyless binding `AI`, added) → GitHub Models → Cohere → NVIDIA. Version 01deb562 on aira-chat.pkjaslamagrico.workers.dev; `GROQ_API_KEY` secret configured; end-to-end verified from the live site (`provider: gemini`, academy-wide prompt active, old MR_API_KEY honored). Source: `courses/course-03-research-with-ai/proxy/`. Capacity now ~15,000+ answers/day. NVIDIA rung ALSO LIVE (NVIDIA_API_KEY secret added 2026-07-12; free dev tier, integrate.api.nvidia.com). Director decided to KEEP the Groq key despite session transit (offered rotation, declined; same stance for the NVIDIA key). Optional remaining rungs: GH_MODELS_TOKEN, COHERE_API_KEY. The deferred fallback-router item is CLOSED.
 
 ## Next steps, in order
 1. **Push:** Director runs `push_academy.bat` (sandbox has no GitHub creds). Then live-check: /start/ card, course page, share image resolves, quiz gate, classroom answers + personalized greeting.
-2. **Deploy worker v2:** paste `proxy/aira-worker.js` into the aira-chat worker in the Cloudflare dashboard, add secrets (see `proxy/AIRA_CHAT_SETUP.md`), curl-test the fallback.
+2. Optional: add GH_MODELS_TOKEN / COHERE_API_KEY rungs; rotate Groq/NVIDIA keys anytime if wanted.
 3. **Assemble the lecture film** from `production/beats/` (5 Aira beats: welcome, lateral, fakecitation, deepresearch, closing) + slide visuals + B-roll, like Course 2's film. Transcript timings re-sync after. Upload unlisted → review → public; regenerate YouTube chapters; swap the index.html placeholder for the embed (the placeholder block is clearly marked in the video section).
 4. **After film:** update LINKS.md video line, social post, and the `cambium-c03-lecture` flow stays as-is (button already counts).
 
