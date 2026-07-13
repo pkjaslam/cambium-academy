@@ -350,21 +350,21 @@ function drawCert(ctx, W, H, logo, d, qr){
   ctx.strokeStyle = "#C6A24E"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(cx - tw / 2 - 84, ty - 14); ctx.lineTo(cx - tw / 2 - 30, ty - 14); ctx.moveTo(cx + tw / 2 + 30, ty - 14); ctx.lineTo(cx + tw / 2 + 84, ty - 14); ctx.stroke();
   ctx.fillStyle = "#B98A2D"; [-1, 1].forEach(function(s){ ctx.save(); ctx.translate(cx + s * (tw / 2 + 26), ty - 14); ctx.rotate(Math.PI / 4); ctx.fillRect(-3, -3, 6, 6); ctx.restore(); });
   ctx.fillStyle = "#B98A2D"; ctx.font = '500 13px "Spectral"'; spaced(ctx, "OF COMPLETION", cx, 266, 6);
-  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 14px "Spectral"'; spaced(ctx, "THIS IS TO CERTIFY THAT", cx, 300, 3);
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 14px "Spectral"'; spaced(ctx, "THIS IS TO CERTIFY THAT", cx, 292, 3);
   var ns = d.name.length > 28 ? Math.max(30, Math.round(50 * 28 / d.name.length)) : 50;
-  ctx.fillStyle = "#1F3D24"; ctx.font = 'italic 700 ' + ns + 'px "Cormorant Garamond"'; ctx.fillText(d.name, cx, 346);
-  ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(cx - 190, 364); ctx.quadraticCurveTo(cx, 357, cx + 190, 364); ctx.stroke();
-  ctx.fillStyle = "#B98A2D"; ctx.beginPath(); ctx.arc(cx, 361, 2.4, 0, 7); ctx.fill();
-  var y = 396;
-  if (d.org){ ctx.fillStyle = "#5C6B5A"; ctx.font = '500 13px "Spectral"'; spaced(ctx, d.org.toUpperCase(), cx, y, 2); y += 24; }
-  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 15px "Spectral"'; ctx.fillText("has fulfilled all requirements of the programme", cx, y + 10);
-  ctx.fillStyle = "#1F3D24"; ctx.font = '700 32px "Cormorant Garamond"'; ctx.fillText("Research with AI", cx, y + 50);
-  ctx.fillStyle = "#B98A2D"; ctx.font = '500 12px "Spectral"'; spaced(ctx, "EXECUTIVE PROGRAMME · COURSE 03", cx, y + 72, 4);
+  ctx.fillStyle = "#1F3D24"; ctx.font = 'italic 700 ' + ns + 'px "Cormorant Garamond"'; ctx.fillText(d.name, cx, 336);
+  ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(cx - 190, 352); ctx.quadraticCurveTo(cx, 345, cx + 190, 352); ctx.stroke();
+  ctx.fillStyle = "#B98A2D"; ctx.beginPath(); ctx.arc(cx, 349, 2.4, 0, 7); ctx.fill();
+  var y = 380;
+  if (d.org){ ctx.fillStyle = "#5C6B5A"; ctx.font = '500 13px "Spectral"'; spaced(ctx, d.org.toUpperCase(), cx, y, 2); y += 22; }
+  if (d.score){ var _sc = parseInt(d.score, 10); if (_sc){ ctx.fillStyle = "#B98A2D"; ctx.font = '600 11px "Spectral"'; spaced(ctx, (_sc >= 18 ? "◆ PASSED WITH DISTINCTION ◆ SCORE " : "◆ EXAMINATION PASSED ◆ SCORE ") + _sc + " OF 20", cx, y + 2, 3.5); y += 24; } }
+  ctx.fillStyle = "#5C6B5A"; ctx.font = '300 15px "Spectral"'; ctx.fillText("has fulfilled all requirements of the programme", cx, y + 8);
+  ctx.fillStyle = "#1F3D24"; ctx.font = '700 32px "Cormorant Garamond"'; ctx.fillText("Research with AI", cx, y + 46);
+  ctx.fillStyle = "#B98A2D"; ctx.font = '500 12px "Spectral"'; spaced(ctx, "EXECUTIVE PROGRAMME · COURSE 03", cx, y + 68, 4);
   ctx.fillStyle = "#5C6B5A"; ctx.font = '300 14px "Spectral"';
   var lines = wrapLines(ctx, "The complete 2026 AI research toolkit, used honestly", 620);
-  for (i = 0; i < lines.length; i++) ctx.fillText(lines[i], cx, y + 100 + i * 22);
-  certSkills(ctx, cx, y + 122);
-  if (d.score){ var _sc = parseInt(d.score, 10); if (_sc){ ctx.fillStyle = "#B98A2D"; ctx.font = '600 11px "Spectral"'; spaced(ctx, (_sc >= 18 ? "◆ PASSED WITH DISTINCTION ◆ SCORE " : "◆ EXAMINATION PASSED ◆ SCORE ") + _sc + " OF 20", cx, y + 190, 3.5); } }
+  for (i = 0; i < lines.length; i++) ctx.fillText(lines[i], cx, y + 94 + i * 20);
+  certSkills(ctx, cx, y + 114);
   ctx.save(); ctx.beginPath(); ctx.rect(96, 40, W - 192, 13); ctx.clip();
   ctx.fillStyle = "rgba(185,138,45,.5)"; ctx.font = '400 6.5px "Spectral"';
   var _mp = "A CITATION YOU NEVER OPENED IS A CITATION YOU CANNOT TRUST ◆ FIND WELL ◆ VERIFY WELL ◆ CITE WELL ◆ DISCLOSE WELL ◆ ";
