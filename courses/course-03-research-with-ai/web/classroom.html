@@ -71,24 +71,28 @@
   <div id="aira-classroom"></div>
 
   <div class="note">
-    This is a preview of Course 03's signature feature. The full course is coming soon.<br>
-    <span class="demo">Aira's live answers turn on when this page is deployed on the site</span>
+    Course 03's signature feature: Aira teaches on every lesson page, and this is her full classroom.<br>
+    <span class="demo">She knows your course progress on this device, drills what you keep missing, and answers about any module. <a href="index.html" style="color:#2C5F2D;font-weight:700">Course home</a> · <a href="slides.html" style="color:#2C5F2D;font-weight:700">Slides</a> · <a href="../../../start/" style="color:#2C5F2D;font-weight:700">All courses</a></span>
   </div>
 </div>
 
 <script>
   window.AIRA_LESSON = {
-    course: "Research with AI",
-    module: "Module 1 · Finding sources with AI",
-    topic: "finding real, citable sources with AI and spotting fabricated ones",
-    points: [
-      "Prefer search-grounded tools (Perplexity, Gemini Deep Research) that cite as they answer, over a plain chatbot answering from memory",
-      "Open and check every citation, because AI can fabricate plausible-looking references",
-      "Ask for primary sources and direct links, not summaries of summaries",
-      "Cross-check key facts in a second independent source, a habit called lateral reading"
-    ],
-    next: "Great start. Try 'Give me an example' and 'Explain it visually' above to lock this in, then the flashcards and the AI Lab will open before the quiz. The full Course 03 path is open: slides, flashcards, the AI Lab, then the quiz."
-  };
+  course: "03 · Research with AI (v2)",
+  module: "The AI Classroom · course-wide tutor",
+  topic: "the complete 2026 AI research toolkit: discovery agents, study design, analysis, multimodal, writing, reproducibility, responsible use",
+  points: [
+    "Twin rule: AI supplies speed, you supply trust; Kosmos-class agents run ~1,500 papers with ~80% of findings holding up, so the audit is yours",
+    "Prompting: context + exact deliverable + format + demanded uncertainty; personas change tone, not truth",
+    "Discovery pipeline: grounded Q&A, citation maps (Connected Papers, ResearchRabbit, Litmaps), deep-research agents (Elicit/Undermind beat generalists on literature), alerts; agent reports = first drafts with leads",
+    "Trust: 1 in 277 papers has a fabricated reference (Lancet 2026); AI search wrong on 60%+ of citation queries (CJR); models fabricate 18-28% of citations; rule: a citation you never opened is a citation you cannot trust; 3 clicks: exists, matches, says it",
+    "Design before data: power, tests, confounds with the math shown; analysis safe loop: explain-it-back + tiny test; qualitative: AI proposes codes, human adjudicates",
+    "Multimodal: spot-check extracted numbers, identifications are hypotheses; source-grounded library tools (NotebookLM class) contain errors in your corpus",
+    "Writing: pre-review yourself; policies differ (Science: disclose all; Nature: copy-edit exempt; Elsevier: declaration; NIH: reviewers barred); never upload others' unpublished work",
+    "Reproducibility is a prompt; references only from the source of record; DOIs must resolve; ~70% of journals have AI policies, ~0.1% of papers disclose; sensitive data never in cloud chatbots; capstone: your personal stack"
+  ],
+  next: "the flashcards, then the five AI Lab games, then the quiz"
+};
 </script>
 <script src="aira-chat-config.js"></script>
 <script src="aira-classroom.js"></script>

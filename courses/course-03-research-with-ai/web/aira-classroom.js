@@ -84,8 +84,7 @@
     "The student is on: " + L.module + ", topic: " + L.topic + ". " +
     "Key points of this lesson: " + ((L.points || []).join("; ") || "the lesson main ideas") + ". " +
     (snapshotLine(ST) ? snapshotLine(ST) + " Use this to personalize, gently and specifically, without repeating the whole list back. " : "") +
-    "Teach like a kind, concise tutor. Keep replies under 120 words, plain language, beginner-friendly, and tied to this lesson. " +
-    "Never invent facts, statistics, or citations; if you are unsure, say so and tell the student how to verify it.";
+    "Teach like a kind, concise tutor: under 120 words, plain language, tied to this lesson. Never invent facts, stats, or citations; if unsure, say so and say how to verify.";
   }
   var VISUAL_ASK = "Design one small visual that best explains this lesson topic for a beginner, choosing the best-fitting type. " +
     "Reply with ONLY a JSON object, no prose, no markdown, no code fences. Choose exactly one of these shapes: " +
@@ -346,8 +345,9 @@
     }
     busy = true; send.disabled = true;
     setOut('<div class="ac-think">Aira is thinking&#8230;</div>');
-    var msgs = [{ role: "user", content: SYS() + "\n\nStudent request: " + userMsg }];
-    if (opts.keepHistory && history.length) msgs = history.concat([{ role: "user", content: SYS() + "\n\nStudent request: " + userMsg }]).slice(-7);
+    var ctx = [{ role: "user", content: SYS() }, { role: "assistant", content: "Understood. I am Aira, ready to help with exactly this lesson and this student." }];
+    var msgs = ctx.concat([{ role: "user", content: userMsg }]);
+    if (opts.keepHistory && history.length) msgs = ctx.concat(history.slice(-3)).concat([{ role: "user", content: userMsg }]);
     fetch(window.AIRA_CHAT.endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: msgs }) })
       .then(function(r){ return r.json(); })
       .then(function(j){

@@ -34,6 +34,7 @@ The Director judged v1 too narrow (trust/citations only). `CURRICULUM.md` is now
 4. **Director: review the film, upload to YouTube** (unlisted → review → public, paste YOUTUBE_DESCRIPTION.txt, upload the SRT), then swap the index.html placeholder for the embed (placeholder block is clearly marked), update LINKS.md video line, re-sync transcript timings to the film if desired. The `cambium-c03-lecture` flow stays as-is.
 
 ## Hard-won gotchas (do not relearn these)
+- **The Aira worker slices EACH message to 2,400 chars.** Never send lesson context + request as one message: v2's bigger AIRA_LESSON pushed SYS alone to 2,404 chars, silently amputating every request (classroom answered with friendly greetings that quoted the lesson back). Fixed 2026-07-13: aira-classroom.js sends [user: context, assistant: ack, user: request] as separate messages, and AIRA_LESSON was compacted. Live-verified: visual ask returns diagram JSON, example ask returns worked examples.
 - **The D: mount silently truncates writes.** Author big in /tmp, dd bs=4M to repo, then cmp. It truncated two C02 pages last session; found + repaired this session.
 - **/tmp files can persist across sessions read-only (owner nobody).** Never reuse old /tmp filenames; a stale root-owned file once nearly overwrote a repo tool. Use unique names, verify content before dd.
 - **Aira's worker is on Gemini's free tier (~1,500 req/day)** and hits a daily cap; multi-provider fallback router (Gemini → Groq → GitHub Models → Cohere → NVIDIA) is deferred; the Director asked to be reminded.
