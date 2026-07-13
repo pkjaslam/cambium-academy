@@ -149,7 +149,9 @@
   function parseSteps(t){
     var o = jsonIn(t);
     if (o && o.steps && o.steps.length) return o.steps.map(String);
-    var lines = String(t).split(/\n+/).map(function(x){ return x.replace(/^\s*(\d+[.)]|[-*•])\s*/, "").trim(); }).filter(function(x){ return x.length > 1 && x.length < 90; });
+    var lines = String(t).split(/\n+/).filter(function(x){ return /^\s*(\d+[.)]|[-*•])\s+/.test(x); })
+      .map(function(x){ return x.replace(/^\s*(\d+[.)]|[-*•])\s*/, "").trim(); })
+      .filter(function(x){ return x.length > 1 && x.length < 90; });
     return lines.length >= 2 ? lines.slice(0, 5) : null;
   }
   function wrapText(t, max){ var w = String(t).split(/\s+/), lines = [], cur = ""; for (var i=0;i<w.length;i++){ if ((cur + " " + w[i]).trim().length <= max) cur = (cur + " " + w[i]).trim(); else { if (cur) lines.push(cur); cur = w[i]; } } if (cur) lines.push(cur); return lines.slice(0, 2); }
