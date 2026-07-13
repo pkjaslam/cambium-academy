@@ -174,7 +174,7 @@ async function gradeB(){
       {role:'assistant',content:'Understood. Send the student answer.'},
       {role:'user',content:'Student picked: '+chosen.join(' and ')+'. Rationale: "'+why.replace(/"/g,"'")+'"'}
     ]})});
-    var j=await r.json();var m=String(j.reply||'').match(/\{[\s\S]*\}/);var g=m?JSON.parse(m[0]):null;
+    var j=await r.json();var g=parseGrade(j.reply);
     if(!g) throw new Error('no json');
     bPassed=!!g.pass;
     vd.className='verdict '+(bPassed?'good':'bad');
@@ -182,10 +182,22 @@ async function gradeB(){
   }catch(e){
     bPassed=correct;
     vd.className='verdict '+(bPassed?'good':'bad');
-    vd.innerHTML='<b>Aira is offline, so the answer key graded you:</b> the load-bearing pair is <b>S2 + S5</b>: the conclusion is a causal-effectiveness claim, and only the width experiment and the BACI fish study evidence it. S1/S3/S4 are adoption, history, and opinion: context, not evidence.'+(bPassed?' You picked correctly.':' Adjust your picks and resubmit.');
+    vd.innerHTML='<b>Aira could not grade this one, so the answer key did:</b> the load-bearing pair is <b>S2 + S5</b>: the conclusion is a causal-effectiveness claim, and only the width experiment and the BACI fish study evidence it. S1/S3/S4 are adoption, history, and opinion: context, not evidence.'+(bPassed?' You picked correctly.':' Adjust your picks and resubmit.');
   }
   st.textContent='';btn.disabled=false;btn.textContent='RESUBMIT AUDIT';
   save();
+}
+function parseGrade(txt){
+  var t=String(txt||'').replace(/```json/gi,'').replace(/```/g,'').trim();
+  var m=t.match(/\{[\s\S]*\}/);
+  if(m){ try{ return JSON.parse(m[0]); }catch(e){} }
+  // Reply cut short by the model's token cap: recover the verdict if the fields are there.
+  var pm=t.match(/"pass"\s*:\s*(true|false)/i);
+  if(!pm) return null;
+  var fm=t.match(/"feedback"\s*:\s*"([^"]*)/i);
+  var fb=fm?fm[1].trim():'';
+  if(fb.length<12) fb=(pm[1].toLowerCase()==='true')?'Correct: you kept the sources that actually carry the causal claim.':'Not yet: look again at which sources evidence the causal claim.';
+  return { pass: pm[1].toLowerCase()==='true', feedback: fb };
 }
 function confetti(n){var col=['#97BC62','#D9B25C','#C6E89B','#E07850','#F0F5EC'];for(var c=0;c<(n||24);c++){var el=document.createElement('div');el.className='confetti';el.style.left=Math.random()*100+'vw';el.style.background=col[Math.floor(Math.random()*col.length)];el.style.animationDuration=(2.2+Math.random()*2)+'s';document.body.appendChild(el);setTimeout(function(x){return function(){x.remove()}}(el),5000);}}
 // restore

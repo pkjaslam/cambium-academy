@@ -73,7 +73,7 @@ function providers(env) {
 async function tryProvider(p, messages) {
   if (p.binding) {
     try {
-      const out = await p.binding.run(p.model, { messages, max_tokens: 500, temperature: 0.6 });
+      const out = await p.binding.run(p.model, { messages, max_tokens: 1400, temperature: 0.6 });
       const reply = (out && (out.response || (out.result && out.result.response)) || "").trim();
       return reply ? { reply, usage: null } : { fail: "empty reply" };
     } catch (e) {
@@ -87,13 +87,21 @@ async function tryProvider(p, messages) {
       method: "POST",
       signal: ctrl.signal,
       headers: { "Authorization": "Bearer " + p.key, "Content-Type": "application/json" },
-      body: JSON.stringify({ model: p.model, messages, max_tokens: 500, temperature: 0.6 })
+      body: JSON.stringify(Object.assign(
+        { model: p.model, messages, max_tokens: 1400, temperature: 0.6 },
+        // Gemini 2.5 counts hidden thinking tokens against max_tokens. Turn thinking off so the
+        // whole budget goes to the visible answer, otherwise structured JSON replies get cut off.
+        p.name === "gemini" ? { reasoning_effort: "none" } : {}
+      ))
     });
     clearTimeout(timer);
     if (!r.ok) return { fail: "status " + r.status };
     const data = await r.json();
-    const reply = data.choices && data.choices[0] && data.choices[0].message ? (data.choices[0].message.content || "").trim() : "";
+    const choice = data.choices && data.choices[0];
+    const reply = choice && choice.message ? (choice.message.content || "").trim() : "";
     if (!reply) return { fail: "empty reply" };
+    // Truncated by the token cap: an unusable half-answer. Fail over instead of shipping it.
+    if (choice.finish_reason === "length" && reply.length < 80) return { fail: "truncated reply" };
     return { reply, usage: data.usage || null };
   } catch (e) {
     clearTimeout(timer);
