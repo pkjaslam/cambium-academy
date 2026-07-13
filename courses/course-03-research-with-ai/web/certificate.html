@@ -41,7 +41,7 @@
 
 <div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(ellipse at 50% 30%, #2C4228 0%, #1B2818 70%)">
 
-  <div style="width:1240px;height:860px;position:relative;background:linear-gradient(160deg,#FFFDF6 0%,#FBF7EA 55%,#F6F0DE 100%);box-shadow:0 30px 80px rgba(0,0,0,.5), 0 4px 16px rgba(0,0,0,.3);flex-shrink:0">
+  <div style="width:1240px;height:860px;position:relative;background:linear-gradient(160deg,#FDFEF8 0%,#F5F8EC 55%,#EAF0DC 100%);box-shadow:0 30px 80px rgba(0,0,0,.5), 0 4px 16px rgba(0,0,0,.3);flex-shrink:0">
 
     <!-- deep forest border band -->
     <div style="position:absolute;inset:0;border:26px solid #1F3D24;pointer-events:none"></div>
@@ -95,7 +95,7 @@
     <img src="assets/logo.png" alt="" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);width:520px;opacity:.045;pointer-events:none;filter:grayscale(30%)">
 
     <!-- content -->
-    <div style="position:absolute;left:7%;right:7%;bottom:118px;overflow:hidden;white-space:nowrap;text-align:center;font-family:'Spectral',serif;font-size:6.5px;letter-spacing:2.2px;color:rgba(185,138,45,.5);pointer-events:none">A CITATION YOU NEVER OPENED IS A CITATION YOU CANNOT TRUST &#9670; FIND WELL &#9670; VERIFY WELL &#9670; CITE WELL &#9670; DISCLOSE WELL &#9670; A CITATION YOU NEVER OPENED IS A CITATION YOU CANNOT TRUST &#9670; FIND WELL &#9670; VERIFY WELL &#9670; CITE WELL &#9670; DISCLOSE WELL &#9670; A CITATION YOU NEVER OPENED IS A CITATION YOU CANNOT TRUST &#9670; FIND WELL &#9670; VERIFY WELL &#9670; CITE WELL &#9670; DISCLOSE WELL &#9670;</div>
+    <div style="position:absolute;left:8%;right:8%;top:13px;overflow:hidden;white-space:nowrap;text-align:center;font-family:'Spectral',serif;font-size:6.5px;letter-spacing:2.2px;color:rgba(185,138,45,.5);pointer-events:none">A CITATION YOU NEVER OPENED IS A CITATION YOU CANNOT TRUST &#9670; FIND WELL &#9670; VERIFY WELL &#9670; CITE WELL &#9670; DISCLOSE WELL &#9670; A CITATION YOU NEVER OPENED IS A CITATION YOU CANNOT TRUST &#9670; FIND WELL &#9670; VERIFY WELL &#9670; CITE WELL &#9670; DISCLOSE WELL &#9670; A CITATION YOU NEVER OPENED IS A CITATION YOU CANNOT TRUST &#9670; FIND WELL &#9670; VERIFY WELL &#9670; CITE WELL &#9670; DISCLOSE WELL &#9670;</div>
     <div id="qrBox" style="display:none;position:absolute;left:52px;bottom:52px;text-align:center;z-index:3">
       <div id="qrCode" style="background:#fff;padding:5px;border:1px solid #B98A2D;display:inline-block"></div>
       <div style="font-family:'Spectral',serif;font-size:8px;letter-spacing:1.5px;color:#5C6B5A;margin-top:3px">SCAN TO VERIFY</div>
@@ -333,8 +333,8 @@ function guilloche(ctx,cx,cy,R,petals,rings){ctx.save();ctx.globalAlpha=.11;ctx.
 function certSkills(ctx,cx,y){var skills=["FIND WELL","VERIFY WELL","CITE WELL","DISCLOSE WELL"];ctx.font='600 12px "Spectral"';var padX=18,ph=32,gap=16;var ws=skills.map(function(t){return ctx.measureText(t).width+padX*2+16;});var total=ws.reduce(function(a,b){return a+b;},0)+gap*2;var sx=cx-total/2;var prev=ctx.textAlign;skills.forEach(function(t,idx){var w=ws[idx];roundRectP(ctx,sx,y,w,ph,ph/2);ctx.fillStyle="rgba(185,138,45,.07)";ctx.fill();ctx.strokeStyle="#B98A2D";ctx.lineWidth=1;ctx.stroke();ctx.fillStyle="#B98A2D";ctx.save();ctx.translate(sx+padX-1,y+ph/2);ctx.rotate(Math.PI/4);ctx.fillRect(-3,-3,6,6);ctx.restore();ctx.fillStyle="#1F3D24";ctx.textAlign="left";ctx.textBaseline="middle";ctx.fillText(t,sx+padX+11,y+ph/2+1);sx+=w+gap;});ctx.textAlign=prev;ctx.textBaseline="alphabetic";}
 function drawCert(ctx, W, H, logo, d, qr){
   var cx = W / 2, i;
-  ctx.fillStyle = "#1F3D24"; ctx.fillRect(0, 0, W, H);
-  var bg = ctx.createLinearGradient(26, 26, W - 26, H - 26); bg.addColorStop(0, "#FFFDF6"); bg.addColorStop(0.55, "#FBF7EA"); bg.addColorStop(1, "#F6F0DE");
+  ctx.fillStyle = "#152E1A"; ctx.fillRect(0, 0, W, H);
+  var bg = ctx.createLinearGradient(26, 26, W - 26, H - 26); bg.addColorStop(0, "#FDFEF8"); bg.addColorStop(0.55, "#F5F8EC"); bg.addColorStop(1, "#EAF0DC");
   ctx.fillStyle = bg; ctx.fillRect(26, 26, W - 52, H - 52);
   function fr(ins, c, lw){ ctx.strokeStyle = c; ctx.lineWidth = lw; ctx.strokeRect(ins, ins, W - 2 * ins, H - 2 * ins); }
   fr(7, "rgba(217,178,92,.9)", 1); fr(22, "rgba(217,178,92,.55)", 1); fr(32, "#B98A2D", 1.5); fr(37, "rgba(44,95,45,.3)", 1);
@@ -365,10 +365,10 @@ function drawCert(ctx, W, H, logo, d, qr){
   for (i = 0; i < lines.length; i++) ctx.fillText(lines[i], cx, y + 100 + i * 22);
   certSkills(ctx, cx, y + 122);
   if (d.score){ var _sc = parseInt(d.score, 10); if (_sc){ ctx.fillStyle = "#B98A2D"; ctx.font = '600 11px "Spectral"'; spaced(ctx, (_sc >= 18 ? "◆ PASSED WITH DISTINCTION ◆ SCORE " : "◆ EXAMINATION PASSED ◆ SCORE ") + _sc + " OF 20", cx, y + 190, 3.5); } }
-  ctx.save(); ctx.beginPath(); ctx.rect(90, 726, W - 180, 14); ctx.clip();
-  ctx.fillStyle = "rgba(185,138,45,.55)"; ctx.font = '400 6.5px "Spectral"';
+  ctx.save(); ctx.beginPath(); ctx.rect(96, 40, W - 192, 13); ctx.clip();
+  ctx.fillStyle = "rgba(185,138,45,.5)"; ctx.font = '400 6.5px "Spectral"';
   var _mp = "A CITATION YOU NEVER OPENED IS A CITATION YOU CANNOT TRUST ◆ FIND WELL ◆ VERIFY WELL ◆ CITE WELL ◆ DISCLOSE WELL ◆ ";
-  spaced(ctx, (_mp + _mp + _mp).slice(0, 460), cx, 736, 2.2); ctx.restore();
+  spaced(ctx, (_mp + _mp + _mp).slice(0, 460), cx, 50, 2.2); ctx.restore();
   var by = 650;
   ctx.fillStyle = "#1F2A20"; ctx.font = '600 22px "Cormorant Garamond"'; ctx.fillText(d.date || "", 250, by);
   ctx.strokeStyle = "#B98A2D"; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(150, by + 9); ctx.lineTo(350, by + 9); ctx.stroke();
@@ -463,7 +463,7 @@ function saveCertPdf(){
   if (!seen){
     try { sessionStorage.setItem("certPdfHint", "1"); } catch(e){}
     var t = document.createElement("div");
-    t.style.cssText = "position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:100;background:#1F3D24;color:#fff;font-family:Arial,sans-serif;font-size:13px;padding:10px 16px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:90vw;text-align:center";
+    t.style.cssText = "position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:100;background:#152E1A;color:#fff;font-family:Arial,sans-serif;font-size:13px;padding:10px 16px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.3);max-width:90vw;text-align:center";
     t.textContent = "In the dialog, choose “Save as PDF” (or your printer). Opening it now…";
     document.body.appendChild(t);
     setTimeout(function(){ t.remove(); window.print(); }, 1400);
