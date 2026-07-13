@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Practical · Research with AI · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--moss:#97BC62;--lite:#C6E89B;--gold:#D9B25C;--ink:#E8F2DE;--mut:#8FA684;--line:rgba(151,188,98,.22);--warm:#E07850}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);line-height:1.6;min-height:100vh;background:#050b06}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;background:radial-gradient(ellipse 55% 40% at 20% 0%,rgba(217,178,92,.12),transparent 60%),radial-gradient(ellipse 50% 38% at 85% 10%,rgba(151,188,98,.12),transparent 60%),linear-gradient(180deg,#0a150b,#040805)}
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px 90px}
+  .nav{display:flex;align-items:center;gap:12px;padding:18px 0;flex-wrap:wrap}
+  .nav img{width:38px;height:38px;border-radius:10px}
+  .nav a.brand{font-family:'Sora',sans-serif;font-weight:700;color:var(--lite);text-decoration:none;font-size:13px;letter-spacing:2px;display:flex;align-items:center;gap:10px}
+  .nav .links{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
+  .nav .links a{color:var(--moss);text-decoration:none;font-weight:600;font-size:13.5px}
+  .hero{text-align:center;padding:30px 0 6px}
+  .hero .over{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;letter-spacing:5px;color:var(--gold)}
+  h1{font-family:'Sora',sans-serif;font-size:clamp(38px,6vw,60px);font-weight:800;margin:10px 0 10px;background:linear-gradient(100deg,#F2F8EA,#E7C56B);-webkit-background-clip:text;background-clip:text;color:transparent}
+  p.lead{color:var(--mut);font-size:16px;max-width:640px;margin:0 auto 8px}
+  .honors{display:inline-block;margin-top:10px;font-family:'Sora',sans-serif;font-size:11px;font-weight:800;letter-spacing:2.5px;color:var(--gold);border:1.5px solid var(--gold);border-radius:9px;padding:6px 13px}
+  .lab{background:linear-gradient(170deg,rgba(151,188,98,.10),rgba(151,188,98,.02) 55%);border:1px solid var(--line);border-radius:22px;padding:28px;margin:30px 0;position:relative;backdrop-filter:blur(8px)}
+  .tag{font-family:'Sora',sans-serif;font-size:11px;font-weight:800;letter-spacing:3px;color:#0d1a0b;background:linear-gradient(135deg,#E7C56B,#B98A2D);display:inline-block;border-radius:8px;padding:5px 12px}
+  h2{font-family:'Sora',sans-serif;font-size:26px;font-weight:800;margin:12px 0 6px}
+  p.sub{color:var(--mut);font-size:14px;margin-bottom:16px}
+  .cite{background:rgba(4,8,5,.6);border:1.5px solid var(--line);border-radius:14px;padding:18px 20px;margin:12px 0}
+  .cite .ctext{font-family:Georgia,serif;color:#EAF2E0;font-size:15px;line-height:1.6}
+  .cite .doi{color:#9DB292;font-size:12.5px;margin-top:6px}
+  .cite .doi a{color:var(--moss)}
+  .vrow{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;align-items:center}
+  button{background:linear-gradient(180deg,#356B2F,#1F3D24);color:var(--lite);border:1px solid rgba(151,188,98,.65);border-radius:11px;padding:11px 18px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;transition:all .15s}
+  button:hover{transform:translateY(-1px);box-shadow:0 0 22px rgba(151,188,98,.35)}
+  button:disabled{opacity:.4;cursor:default;transform:none;box-shadow:none}
+  button.gold{background:linear-gradient(180deg,#E7C56B,#B98A2D);border-color:#E7C56B;color:#10220E}
+  button.pick.on{background:linear-gradient(180deg,#E7C56B,#B98A2D);border-color:#E7C56B;color:#10220E}
+  .verdict{display:none;margin-top:10px;border-radius:10px;padding:11px 14px;font-size:13px}
+  .verdict.good{display:block;background:rgba(151,188,98,.13);border:1px solid rgba(151,188,98,.5);color:#DDEEC9}
+  .verdict.bad{display:block;background:rgba(224,120,80,.11);border:1px solid rgba(224,120,80,.5);color:#F2D9CE}
+  .report{background:rgba(4,8,5,.55);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:12px;padding:18px 20px;font-size:14px;line-height:1.7;color:#DEEBD2}
+  .report .src{color:var(--gold);font-weight:700}
+  .srcpick{display:flex;flex-direction:column;gap:8px;margin:14px 0}
+  .srcpick label{display:flex;gap:10px;align-items:flex-start;background:rgba(4,8,5,.5);border:1.5px solid var(--line);border-radius:11px;padding:11px 14px;font-size:13px;cursor:pointer}
+  .srcpick label:hover{border-color:var(--moss)}
+  .srcpick input{margin-top:3px;accent-color:#97BC62}
+  textarea{width:100%;background:rgba(4,8,5,.6);border:1.5px solid var(--line);border-radius:11px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;padding:12px 14px;min-height:84px}
+  textarea:focus{outline:none;border-color:var(--moss)}
+  .note{font-size:12.5px;color:var(--mut);margin-top:12px}
+  .note b{color:var(--lite)}
+  .final{display:none;text-align:center;border:1px solid var(--gold);background:linear-gradient(180deg,rgba(217,178,92,.16),rgba(217,178,92,.04));border-radius:20px;padding:26px;margin:30px 0}
+  .confetti{position:fixed;top:-14px;width:9px;height:14px;z-index:200;pointer-events:none;animation:cfall linear forwards}
+  @keyframes cfall{to{transform:translateY(105vh) rotate(720deg);opacity:.9}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI">CAMBIUM AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="playground.html">AI Lab</a><a href="quiz.html">Quiz</a><a href="certificate.html">Certificate</a><a href="pack.html">Pack</a><a href="../../../start/">All courses</a></div>
+  </nav>
+
+  <div class="hero">
+    <div class="over">◈ OPTIONAL HONORS EXAM · GRADED AGAINST THE REAL REGISTRY</div>
+    <h1>THE PRACTICAL</h1>
+    <p class="lead">The quiz proved you know it. This proves you can do it. Verify five citations against the live Crossref registry, then audit an agent report like a professional. Pass both and your certificate carries <b style="color:var(--gold)">FIELD-VERIFIED</b>.</p>
+    <span class="honors">DOES NOT GATE THE QUIZ · PURE HONORS</span>
+  </div>
+
+  <!-- PART A -->
+  <div class="lab">
+    <span class="tag">PART A · THE REGISTRY TEST</span>
+    <h2>Five citations. The registry decides.</h2>
+    <p class="sub">Call each one REAL or FABRICATED. When you grade, this page queries the live Crossref DOI registry, the same registry behind every real citation on earth, and shows you exactly what it found. You need 4 of 5. Open links in new tabs and investigate first; that is the whole point.</p>
+    <div id="partA"></div>
+    <div class="vrow"><button class="gold" id="gradeA" onclick="gradeA()">GRADE PART A AGAINST CROSSREF</button><span class="note" id="aStatus"></span></div>
+  </div>
+
+  <!-- PART B -->
+  <div class="lab">
+    <span class="tag">PART B · THE AUDIT</span>
+    <h2>Audit this agent report</h2>
+    <p class="sub">A deep-research agent produced this summary. Its conclusion rests on exactly TWO of the five sources. Pick the two load-bearing sources, explain your reasoning in a sentence or two, and Aira grades your audit.</p>
+    <div class="report">
+      "Riparian buffer strips are widely recommended in managed forests. A regional survey of forestry practices found buffers are now standard in 78% of operations <span class="src">[S1]</span>. A 12-catchment paired experiment measured that buffers narrower than 15 m allowed mean summer stream temperatures to rise 2.1&#176;C, while buffers of 30 m kept warming under 0.4&#176;C <span class="src">[S2]</span>. Historical context on buffer policy dates to the 1970s <span class="src">[S3]</span>. Public support for stream protection remains high in landowner surveys <span class="src">[S4]</span>. A five-year before-after-control-impact study attributed cold-water fish persistence primarily to buffer-mediated temperature stability <span class="src">[S5]</span>. <b>Conclusion: buffers of at least 30 m are necessary to protect cold-water fish habitat from harvest-related warming.</b>"
+    </div>
+    <div class="srcpick" id="srcpick">
+      <label><input type="checkbox" value="S1"><span><b>S1</b> · regional survey: 78% of operations use buffers</span></label>
+      <label><input type="checkbox" value="S2"><span><b>S2</b> · 12-catchment experiment: 2.1&#176;C vs 0.4&#176;C by buffer width</span></label>
+      <label><input type="checkbox" value="S3"><span><b>S3</b> · historical policy context since the 1970s</span></label>
+      <label><input type="checkbox" value="S4"><span><b>S4</b> · landowner opinion survey on stream protection</span></label>
+      <label><input type="checkbox" value="S5"><span><b>S5</b> · 5-year BACI study: fish persistence via temperature stability</span></label>
+    </div>
+    <textarea id="rationale" maxlength="600" placeholder="Why these two? (one or two sentences, minimum 80 characters)"></textarea>
+    <div class="vrow"><button class="gold" id="gradeB" onclick="gradeB()">SUBMIT AUDIT TO AIRA</button><span class="note" id="bStatus"></span></div>
+    <div class="verdict" id="bVerdict"></div>
+  </div>
+
+  <div class="final" id="final">
+    <div style="font-family:'Sora',sans-serif;font-size:12px;letter-spacing:3px;color:var(--gold);font-weight:800">THE PRACTICAL · PASSED</div>
+    <div style="font-family:'Sora',sans-serif;font-size:30px;font-weight:800;margin:8px 0">FIELD-VERIFIED</div>
+    <p style="color:var(--mut);font-size:14px;max-width:560px;margin:0 auto 16px">You verified against the real registry and audited like a professional. Your certificate now carries the FIELD-VERIFIED mark. Reprint or re-download it to see it.</p>
+    <a href="certificate.html" style="display:inline-block;background:linear-gradient(135deg,#E7C56B,#B98A2D);color:#10220E;font-weight:800;font-family:'Sora',sans-serif;padding:12px 26px;border-radius:11px;text-decoration:none">Open my certificate &#8594;</a>
+  </div>
+
+  <div class="note" style="text-align:center">Part of <a href="index.html" style="color:var(--moss)">Course 03 &#183; Research with AI</a> &#183; the registry check calls api.crossref.org directly from your browser; nothing else leaves this page except your Part B rationale to Aira's service.</div>
+</div>
+
+<script>
+var CITES=[
+ {t:'Watson, J. D., &amp; Crick, F. H. C. (1953). Molecular structure of nucleic acids: A structure for deoxyribose nucleic acid. <i>Nature, 171,</i> 737&#8211;738.', doi:'10.1038/171737a0', real:true},
+ {t:'Chen, L., &amp; Okafor, D. (2024). Cognitive load and decision fatigue in remote knowledge work: A longitudinal analysis. <i>Journal of Applied Psychology, 109</i>(4), 512&#8211;530.', doi:'10.1037/apl0001943', real:false},
+ {t:'Kahneman, D., &amp; Tversky, A. (1979). Prospect theory: An analysis of decision under risk. <i>Econometrica, 47</i>(2), 263&#8211;291.', doi:'10.2307/1914185', real:true},
+ {t:'Harrison, M. K., &amp; Lindqvist, S. (2023). Microplastic transfer efficiency in freshwater trophic cascades. <i>Nature Ecology &amp; Evolution, 7</i>(11), 1843&#8211;1852.', doi:'10.1038/s41559-023-02218-w', real:false},
+ {t:'Anderson, P. W. (1972). More is different. <i>Science, 177</i>(4047), 393&#8211;396.', doi:'10.1126/science.177.4047.393', real:true}
+];
+var picks=[null,null,null,null,null];
+var host=document.getElementById('partA');
+host.innerHTML=CITES.map(function(c,i){
+  return '<div class="cite" id="c'+i+'"><div class="ctext">'+c.t+'</div>'+
+    '<div class="doi">doi:<a href="https://doi.org/'+c.doi+'" target="_blank" rel="noopener">'+c.doi+'</a> &#183; <a href="https://scholar.google.com/scholar?q='+encodeURIComponent(c.doi)+'" target="_blank" rel="noopener">Scholar</a></div>'+
+    '<div class="vrow"><button class="pick" onclick="pick('+i+',true,this)">&#10003; REAL</button><button class="pick" onclick="pick('+i+',false,this)">&#10007; FABRICATED</button></div>'+
+    '<div class="verdict" id="v'+i+'"></div></div>';
+}).join('');
+function pick(i,val,btn){
+  picks[i]=val;
+  var row=btn.parentElement;
+  Array.prototype.forEach.call(row.querySelectorAll('.pick'),function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+}
+var aPassed=false,bPassed=false;
+function rd(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}}
+function save(){
+  localStorage.setItem('cambium-c03-practical',JSON.stringify({passed:aPassed&&bPassed,a:aPassed,b:bPassed,date:new Date().toISOString().slice(0,10)}));
+  if(aPassed&&bPassed){document.getElementById('final').style.display='block';confetti(30);}
+}
+async function gradeA(){
+  if(picks.some(function(p){return p===null})){document.getElementById('aStatus').textContent='Call all five first.';return;}
+  var btn=document.getElementById('gradeA');btn.disabled=true;
+  document.getElementById('aStatus').textContent='Querying the Crossref registry live...';
+  var right=0;
+  for(var i=0;i<CITES.length;i++){
+    var c=CITES[i],truth=null,title='';
+    try{
+      var r=await fetch('https://api.crossref.org/works/'+encodeURIComponent(c.doi));
+      truth=(r.status===200);
+      if(truth){var j=await r.json();title=(j.message.title||[''])[0];}
+    }catch(e){truth=c.real;title='(registry unreachable; using course record)';}
+    var ok=(picks[i]===truth);if(ok)right++;
+    var v=document.getElementById('v'+i);
+    v.className='verdict '+(ok?'good':'bad');
+    v.innerHTML=(ok?'<b>&#10003; Correct.</b> ':'<b>&#10007; The registry disagrees.</b> ')+
+      (truth?('Crossref resolves this DOI: &#8220;'+title.slice(0,90)+'&#8221; &#8212; it is REAL.').replace('&#8212;','&#183;'):'Crossref returns NOT FOUND for this DOI. It is FABRICATED (invented for this course, exactly the way AI invents them).');
+  }
+  aPassed=(right>=4);
+  document.getElementById('aStatus').innerHTML=aPassed?('<b style="color:var(--lite)">PART A PASSED · '+right+'/5 against the live registry</b>'):('<b style="color:var(--warm)">'+right+'/5 · need 4. Investigate the misses and regrade.</b>');
+  btn.disabled=false;btn.textContent='REGRADE PART A';
+  save();
+}
+async function gradeB(){
+  var chosen=Array.prototype.filter.call(document.querySelectorAll('#srcpick input'),function(i){return i.checked}).map(function(i){return i.value});
+  var why=document.getElementById('rationale').value.trim();
+  var st=document.getElementById('bStatus'),vd=document.getElementById('bVerdict');
+  if(chosen.length!==2){st.textContent='Pick exactly two sources.';return;}
+  if(why.length<80){st.textContent='Rationale needs at least 80 characters ('+why.length+' so far).';return;}
+  var btn=document.getElementById('gradeB');btn.disabled=true;st.textContent='Aira is grading your audit...';
+  var correct=chosen.indexOf('S2')>-1&&chosen.indexOf('S5')>-1;
+  var SYS='You are Aira, grading one answer in a research-skills exam. The exam question: a report concludes that 30 m riparian buffers are necessary to protect cold-water fish from harvest-related warming, citing S1 (practice-adoption survey), S2 (12-catchment buffer-width temperature experiment), S3 (policy history), S4 (public-opinion survey), S5 (5-year BACI fish-persistence study). The load-bearing sources for that conclusion are S2 and S5, because the conclusion is a causal-effectiveness claim about temperature and fish, which only those two evidence. S1, S3, S4 are context. Grade the student: did they pick S2+S5, and does their rationale show they understand WHY (evidence type matches the claim)? Reply ONLY JSON: {"pass":true/false,"feedback":"2 short sentences, warm, specific"}';
+  try{
+    if(!window.AIRA_CHAT) throw new Error('no cfg');
+    var r=await fetch(window.AIRA_CHAT.endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:[
+      {role:'user',content:SYS},
+      {role:'assistant',content:'Understood. Send the student answer.'},
+      {role:'user',content:'Student picked: '+chosen.join(' and ')+'. Rationale: "'+why.replace(/"/g,"'")+'"'}
+    ]})});
+    var j=await r.json();var m=String(j.reply||'').match(/\{[\s\S]*\}/);var g=m?JSON.parse(m[0]):null;
+    if(!g) throw new Error('no json');
+    bPassed=!!g.pass;
+    vd.className='verdict '+(bPassed?'good':'bad');
+    vd.innerHTML='<b>Aira:</b> '+g.feedback+(bPassed?'':' <br><b>Try again:</b> which sources evidence the CAUSAL temperature-and-fish claim, rather than context about adoption, history, or opinion?');
+  }catch(e){
+    bPassed=correct;
+    vd.className='verdict '+(bPassed?'good':'bad');
+    vd.innerHTML='<b>Aira is offline, so the answer key graded you:</b> the load-bearing pair is <b>S2 + S5</b>: the conclusion is a causal-effectiveness claim, and only the width experiment and the BACI fish study evidence it. S1/S3/S4 are adoption, history, and opinion: context, not evidence.'+(bPassed?' You picked correctly.':' Adjust your picks and resubmit.');
+  }
+  st.textContent='';btn.disabled=false;btn.textContent='RESUBMIT AUDIT';
+  save();
+}
+function confetti(n){var col=['#97BC62','#D9B25C','#C6E89B','#E07850','#F0F5EC'];for(var c=0;c<(n||24);c++){var el=document.createElement('div');el.className='confetti';el.style.left=Math.random()*100+'vw';el.style.background=col[Math.floor(Math.random()*col.length)];el.style.animationDuration=(2.2+Math.random()*2)+'s';document.body.appendChild(el);setTimeout(function(x){return function(){x.remove()}}(el),5000);}}
+// restore
+(function(){var p=rd('cambium-c03-practical');if(p&&p.passed){document.getElementById('final').style.display='block';}})();
+</script>
+<script src="aira-chat-config.js"></script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

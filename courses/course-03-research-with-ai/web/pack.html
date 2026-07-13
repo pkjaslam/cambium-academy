@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Researcher's Pack · Research with AI · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--mossdeep:#6E9648;--tint:#F0F5EC;--ink:#1F2A20;--muted:#5C6B5A;--gold:#B98A2D;--line:#DFE9D8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',-apple-system,sans-serif;color:var(--ink);background:#fff;line-height:1.6}
+  .wrap{max-width:900px;margin:0 auto;padding:0 22px 80px}
+  .nav{display:flex;align-items:center;gap:12px;padding:16px 0;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+  .nav a.brand{font-family:'Sora',sans-serif;font-weight:700;color:var(--forest);text-decoration:none;font-size:13px;letter-spacing:2px;display:flex;align-items:center;gap:10px}
+  .nav img{width:34px;height:34px}
+  .nav .links{margin-left:auto;display:flex;gap:15px;flex-wrap:wrap}
+  .nav .links a{color:var(--forest);text-decoration:none;font-weight:600;font-size:13.5px}
+  header{padding:36px 0 18px}
+  .over{font-family:'Sora',sans-serif;font-size:11px;font-weight:800;letter-spacing:4px;color:var(--gold)}
+  h1{font-family:'Sora',sans-serif;font-size:clamp(34px,5vw,48px);font-weight:800;margin:8px 0 10px;color:var(--dark)}
+  .lead{color:var(--muted);font-size:16.5px;max-width:660px}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 8px}
+  .btn{display:inline-block;background:var(--forest);color:#fff;border:0;border-radius:10px;padding:12px 20px;font-family:'Sora',sans-serif;font-weight:700;font-size:14px;cursor:pointer;text-decoration:none}
+  .btn.ghost{background:#fff;color:var(--forest);border:1.5px solid var(--forest)}
+  section{margin-top:34px}
+  h2{font-family:'Sora',sans-serif;font-size:23px;font-weight:800;color:var(--dark);margin-bottom:4px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:14px}
+  .card{border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:12px;background:#FCFDFA;position:relative}
+  .card h3{font-family:'Sora',sans-serif;font-size:15.5px;color:var(--forest);margin-bottom:8px}
+  .snip{font-family:'DM Sans',monospace;font-size:13.5px;background:#F4F8EF;border:1px dashed var(--line);border-radius:9px;padding:12px 14px;color:#22301F;white-space:pre-wrap;line-height:1.55}
+  .copy{position:absolute;top:16px;right:16px;background:var(--tint);color:var(--forest);border:1px solid var(--line);border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif}
+  .copy:hover{background:#E2EDD5}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+  th{background:var(--dark);color:#F2F8EA;text-align:left;padding:9px 12px;font-family:'Sora',sans-serif;font-size:12.5px}
+  td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:top}
+  tr:nth-child(even) td{background:#FAFCF7}
+  .tree{border-left:3px solid var(--gold);padding-left:16px;margin:10px 0}
+  .tree div{margin:6px 0;font-size:14px}
+  .tree b{color:var(--forest)}
+  footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;text-align:center}
+  @media print{
+    .nav,.actions,.copy,footer,.noprint{display:none !important}
+    body{font-size:11px} .wrap{max-width:none;padding:0}
+    h1{font-size:26px} h2{font-size:16px} .card{break-inside:avoid;padding:10px 12px}
+    .snip{font-size:10px;background:#F7F9F4}
+    section{margin-top:14px} header{padding:6px 0}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI">CAMBIUM AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="slides.html">Slides</a><a href="practical.html">The Practical</a><a href="capstone.html">Capstone</a><a href="pack.html">Pack</a><a href="../../../start/">All courses</a></div>
+  </nav>
+
+  <header>
+    <div class="over">◈ COURSE 03 · TAKE THIS WITH YOU</div>
+    <h1>The Researcher's Pack</h1>
+    <p class="lead">Everything from the course you will actually reuse: the prompts, the disclosure statements per venue, the checks, and your personal stack template. Copy any block with one click, or print the whole pack as a two-page reference.</p>
+    <div class="actions">
+      <button class="btn" onclick="window.print()">Print / Save as PDF</button>
+      <a class="btn ghost" href="practical.html">Take The Practical &#8594;</a>
+    </div>
+  </header>
+
+  <section>
+    <h2>1 · The prompts that earn their keep</h2>
+    <div class="sub">Paste these verbatim. They work in any chatbot.</div>
+
+    <div class="card"><button class="copy" onclick="cp(this)">Copy</button>
+      <h3>The standing uncertainty sentence (use on every factual ask)</h3>
+      <div class="snip">Flag what you are not sure of, state the assumptions you just made, and tell me what I should verify before relying on this.</div>
+    </div>
+
+    <div class="card"><button class="copy" onclick="cp(this)">Copy</button>
+      <h3>Reviewer 2, on demand (before you submit)</h3>
+      <div class="snip">Attack this manuscript as a skeptical reviewer in my field: clarity, methods gaps, statistical red flags, overclaimed conclusions, and missing limitations. Be specific and merciless. For each problem, say what evidence or revision would fix it.</div>
+    </div>
+
+    <div class="card"><button class="copy" onclick="cp(this)">Copy</button>
+      <h3>The methods consult (before data exists)</h3>
+      <div class="snip">Here is my study: [design, groups, n, outcome, constraints]. Recommend the appropriate analysis, state every assumption it depends on, show the sample-size math in full, list the three most likely fatal design flaws, and say what a hostile reviewer would propose instead. Flag anything I must verify with a statistician.</div>
+    </div>
+
+    <div class="card"><button class="copy" onclick="cp(this)">Copy</button>
+      <h3>The safe analysis loop (coding assistants)</h3>
+      <div class="snip">Data: [what each column means, units, what one row represents]. Goal: [the analysis and the plot I need]. Constraints: [language, packages, must-nots].
+Rules: comment every block; explain each line before I run it; start with a tiny test on 10 rows I can hand-check; then scale. If a choice is statistically debatable, say so and give the alternative.</div>
+    </div>
+
+    <div class="card"><button class="copy" onclick="cp(this)">Copy</button>
+      <h3>The agent-report audit (after any deep research run)</h3>
+      <div class="snip">List the 2 or 3 sources this report's main conclusion actually rests on, quote the exact sentence each one supports, and give the DOI or direct link for each. Then tell me, for each: does it exist, does it match the description, and does it say what the report claims?</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>2 · Disclosure statements, per venue</h2>
+    <div class="sub">Adapt the bracketed parts. Always check your venue's live policy page at submission; these follow the July 2026 rules taught in Module 8.</div>
+
+    <div class="card"><button class="copy" onclick="cp(this)">Copy</button>
+      <h3>Science-style (all AI use disclosed, in acknowledgments)</h3>
+      <div class="snip">The authors used [tool and version] to [specific tasks: e.g. draft revision, language editing, code generation for Figure 2]. All AI-assisted output was reviewed and verified by the authors, who take full responsibility for the content of this manuscript.</div>
+    </div>
+
+    <div class="card"><button class="copy" onclick="cp(this)">Copy</button>
+      <h3>Nature-portfolio-style (methods-level, substantive use; copy-editing exempt)</h3>
+      <div class="snip">[Tool and version] was used during [analysis / code development / literature screening], as described in Methods. No AI-generated images were used. The authors verified all outputs and are accountable for the accuracy and integrity of the work.</div>
+    </div>
+
+    <div class="card"><button class="copy" onclick="cp(this)">Copy</button>
+      <h3>Elsevier-style (dedicated declaration)</h3>
+      <div class="snip">Declaration of generative AI and AI-assisted technologies in the writing process: During the preparation of this work the author(s) used [tool] in order to [reason]. After using this tool, the author(s) reviewed and edited the content as needed and take full responsibility for the content of the publication.</div>
+    </div>
+
+    <div class="card"><button class="copy" onclick="cp(this)">Copy</button>
+      <h3>Grants / NIH-aware (proposals)</h3>
+      <div class="snip">AI-assisted tools were used only for [language editing / formatting / literature triage]. The scientific premise, aims, design, and interpretation are the investigators' own. No confidential or unpublished third-party material was submitted to any AI system. [Note: NIH bars reviewers from entering applications into AI tools, and proposals substantially written by AI may be rejected.]</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>3 · The checks, on one page</h2>
+
+    <div class="card">
+      <h3>The 3-click citation check</h3>
+      <table>
+        <tr><th>Click</th><th>Question</th><th>How</th><th>If it fails</th></tr>
+        <tr><td>1</td><td>Does it exist?</td><td>Paste the DOI at doi.org, or the title into Google Scholar / Crossref</td><td>Fabricated. Delete it.</td></tr>
+        <tr><td>2</td><td>Is it what it claims?</td><td>Check authors, venue, year against the record</td><td>Misattributed. Fix or delete.</td></tr>
+        <tr><td>3</td><td>Does it say it?</td><td>Open the abstract; find the sentence that supports the claim</td><td>Overstated. Rewrite the claim.</td></tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Data sensitivity: what may touch a cloud chatbot?</h3>
+      <div class="tree">
+        <div><b>Is it published or fully public?</b> Yes &#8594; cloud tools are fine.</div>
+        <div><b>Is it pre-publication (yours)?</b> Use a tool with training opt-out; never paste co-authors' or reviewers' confidential material.</div>
+        <div><b>Is it someone else's unpublished work (a manuscript or grant you are reviewing)?</b> Never. NIH bars this outright.</div>
+        <div><b>Human subjects, identifiable, or IRB-governed?</b> Never in a consumer chatbot. Use a local model, an institution-hosted deployment, or fully de-identified/synthetic stand-in data, and follow your IRB.</div>
+        <div><b>Rule of thumb:</b> if it could not go in an email to a stranger, it does not go in a cloud chatbot.</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Verification by stakes</h3>
+      <table>
+        <tr><th>Stakes</th><th>What you do</th></tr>
+        <tr><td>Low (trivia, brainstorming)</td><td>Trust freely. Enjoy the speed.</td></tr>
+        <tr><td>Medium (an email fact, a purchase)</td><td>Sixty seconds: verify the one load-bearing claim laterally.</td></tr>
+        <tr><td>High (grades, money, health, law, anything published)</td><td>Full protocol: grounded tools, lateral reading, every citation 3-clicked, disclosure written.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>4 · Your personal stack (fill this in)</h2>
+    <div class="sub">The capstone deliverable. Tools rotate; the shape does not.</div>
+    <div class="card">
+      <table>
+        <tr><th>Job</th><th>My instrument</th><th>Free tier?</th></tr>
+        <tr><td>Discover (literature)</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>Map a field</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>Design + statistics consult</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>Analyze (code)</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>See (figures, images, notes)</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>My library, talking back</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>Write + pre-review</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+        <tr><td>References + reproducibility</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+      </table>
+      <div style="margin-top:12px;font-size:13.5px"><b>My red lines:</b> ______________________________________________</div>
+      <div style="margin-top:8px;font-size:13.5px"><b>My venue's AI policy says:</b> ______________________________________________</div>
+    </div>
+  </section>
+
+  <footer>
+    Cambium Academy &#183; Course 03 &#183; Research with AI &#183; free forever. Facts are a July 2026 snapshot; the habits do not expire.<br>
+    <span class="noprint">Sources and full detail: the <a href="slides.html" style="color:var(--forest)">course slides</a> and <a href="../resources.md" style="color:var(--forest)">resources page</a>.</span>
+  </footer>
+</div>
+<script>
+function cp(btn){
+  var t = btn.parentElement.querySelector('.snip').innerText;
+  navigator.clipboard.writeText(t).then(function(){
+    var o = btn.textContent; btn.textContent = 'Copied'; setTimeout(function(){ btn.textContent = o; }, 1400);
+  });
+}
+</script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

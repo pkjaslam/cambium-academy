@@ -123,6 +123,7 @@
       </svg>
       <div id="orgLine" style="display:none;font-family:'Spectral',serif;font-size:13px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:#5C6B5A;margin-top:6px"></div>
       <div id="honorsLine" style="display:none;font-family:'Spectral',serif;font-size:11.5px;font-weight:600;letter-spacing:3.5px;text-transform:uppercase;color:#B98A2D;margin-top:9px">&#9670; PASSED WITH DISTINCTION &#9670;</div>
+      <div id="fieldMark" style="display:none;margin-top:8px;font-family:'Spectral',serif;font-size:10.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#2C5F2D;border:1.5px solid #2C5F2D;border-radius:20px;padding:5px 15px;background:rgba(44,95,45,.06)">&#9670; Field-Verified &#183; Registry-Checked &#9670;</div>
 
       <div style="font-family:'Spectral',serif;font-size:15px;font-weight:300;color:#5C6B5A;margin-top:7px;max-width:640px;line-height:1.65">has fulfilled all requirements of the programme</div>
       <div style="font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;color:#1F3D24;margin-top:6px;letter-spacing:.5px">Research with AI</div>
@@ -358,6 +359,7 @@ function drawCert(ctx, W, H, logo, d, qr){
   var y = 380;
   if (d.org){ ctx.fillStyle = "#5C6B5A"; ctx.font = '500 13px "Spectral"'; spaced(ctx, d.org.toUpperCase(), cx, y, 2); y += 22; }
   if (d.score){ var _sc = parseInt(d.score, 10); if (_sc){ ctx.fillStyle = "#B98A2D"; ctx.font = '600 11px "Spectral"'; spaced(ctx, (_sc >= 18 ? "◆ PASSED WITH DISTINCTION ◆ SCORE " : "◆ EXAMINATION PASSED ◆ SCORE ") + _sc + " OF 20", cx, y + 2, 3.5); y += 24; } }
+  if (d.fieldVerified){ ctx.fillStyle = "#2C5F2D"; ctx.font = '700 10px "Spectral"'; var _ft = "◆ FIELD-VERIFIED · REGISTRY-CHECKED ◆"; var _fw = ctx.measureText(_ft).width + 70; roundRectP(ctx, cx - _fw/2, y - 12, _fw, 22, 11); ctx.strokeStyle = "#2C5F2D"; ctx.lineWidth = 1; ctx.stroke(); ctx.fillStyle = "#2C5F2D"; spaced(ctx, _ft, cx, y + 3, 3); y += 26; }
   ctx.fillStyle = "#5C6B5A"; ctx.font = '300 15px "Spectral"'; ctx.fillText("has fulfilled all requirements of the programme", cx, y + 8);
   ctx.fillStyle = "#1F3D24"; ctx.font = '700 32px "Cormorant Garamond"'; ctx.fillText("Research with AI", cx, y + 46);
   ctx.fillStyle = "#B98A2D"; ctx.font = '500 12px "Spectral"'; spaced(ctx, "EXECUTIVE PROGRAMME · COURSE 03", cx, y + 68, 4);
@@ -406,7 +408,7 @@ function downloadCert(){
     var S = 2, W = 1240, H = 860;
     var cv = document.createElement("canvas"); cv.width = W * S; cv.height = H * S;
     var ctx = cv.getContext("2d"); ctx.scale(S, S); ctx.textBaseline = "alphabetic";
-    drawCert(ctx, W, H, logo, { name: name, org: org, date: dateStr, certId: certId, score: (window.__CERT || {}).score }, qr);
+    drawCert(ctx, W, H, logo, { name: name, org: org, date: dateStr, certId: certId, score: (window.__CERT || {}).score, fieldVerified: window.__FIELDV }, qr);
     var nm = (name || "certificate").replace(/[^A-Za-z0-9]+/g, "-").replace(/^-|-$/g, "");
     saveCanvasPng(cv, "Cambium-Academy-Research-with-AI-" + nm + "-certificate.png");
     if (btn){ btn.textContent = "Saved ✓"; setTimeout(function(){ btn.textContent = old; btn.disabled = false; }, 2500); }
@@ -574,6 +576,7 @@ function tidyName(n){
         if (ol && org) { ol.textContent = org; ol.style.display = "block"; }
         var hl = document.getElementById("honorsLine"), sc = parseInt(score, 10);
         if (hl && sc) { hl.style.display = "block"; hl.innerHTML = (sc >= 18 ? "&#9670; PASSED WITH DISTINCTION &#9670; SCORE " : "&#9670; EXAMINATION PASSED &#9670; SCORE ") + sc + " OF 20"; }
+        try { var _pr = JSON.parse(localStorage.getItem("cambium-c03-practical")||"null"); var fm = document.getElementById("fieldMark"); if (fm && _pr && _pr.passed) { fm.style.display = "inline-block"; window.__FIELDV = true; } } catch(e){}
         var m = (document.body.innerText || "").match(/CAMB-C03-[A-Z0-9]{6}/);
         if (m && window.QRCode) {
           try {

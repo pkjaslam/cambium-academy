@@ -24,7 +24,7 @@
   function read(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch(e){ return null; } }
   function advise(){
     var s = read("cambium-c03-slides") || {}, seen = s.seen || 0;
-    var lecture = seen >= 60 || !!(read("cambium-c03-lecture") || {}).watched;
+    var lecture = seen >= 70 || !!(read("cambium-c03-lecture") || {}).watched;
     var cards = Object.keys(read("cambium-c03-cards") || {}).length;
     var pg = read("cambium-c03-playground") || {};
     var pgN = (pg.tok?1:0) + (pg.lm?1:0) + (pg.net?1:0) + (pg.ins?1:0) + (pg.ps?1:0);
@@ -33,7 +33,7 @@
     if (quiz.passed) return { k: "next-quizpassed", t: "You passed the quiz with " + (quiz.best || "a good score") + " out of 20. Claim your certificate; you earned it.", href: "certificate.html", label: "Get my certificate" };
     if (lecture && cards >= 24 && pgN >= 5) return { k: "next-quizready", t: "Lecture, flashcards, and all five games: done. The quiz is unlocked" + (quiz.best ? ", and your best so far is " + quiz.best + " out of 20; fourteen passes." : ". Twenty questions, fourteen to pass. You are ready."), href: "quiz.html", label: "Start the quiz" };
     if (!lecture) {
-      if (seen > 0) return { k: "next-slides-continue", t: "Step 1 of your path: the lecture. You are " + seen + " slides in, out of 60. Keep going; the next module is shorter than you think.", href: "slides.html#" + Math.min(seen + 1, 60), label: "Continue the slides" };
+      if (seen > 0) return { k: "next-slides-continue", t: "Step 1 of your path: the lecture. You are " + seen + " slides in, out of 70. Keep going; the next module is shorter than you think.", href: "slides.html#" + Math.min(seen + 1, 70), label: "Continue the slides" };
       return { k: "next-slides-start", t: "Welcome. Your path has three study steps before the quiz: the lecture, the flashcards, and the AI Lab. Start with the slides, or watch the video and mark it watched on the course home.", href: "slides.html", label: "Start the lecture" };
     }
     if (cards < 24) return { k: "next-cards", t: "Lecture done. Step 2: the flashcards. You know " + cards + " of 24; clear the whole deck and the ideas will stick for the quiz.", href: "flashcards.html", label: "Open flashcards" };

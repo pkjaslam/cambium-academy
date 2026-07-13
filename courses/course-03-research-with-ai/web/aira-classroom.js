@@ -43,7 +43,7 @@
     var s = {
       name: (cert.name || learner.name || "").split(" ")[0] || "",
       slidesSeen: slides.seen || 0,
-      lectureDone: (slides.seen || 0) >= 60 || !!lecture.watched,
+      lectureDone: (slides.seen || 0) >= 70 || !!lecture.watched,
       cardsKnown: Object.keys(cards).length,
       missTop: missList.slice(0, 3),
       labsDone: 5 - labsLeft.length,
@@ -58,7 +58,7 @@
   }
   function nextStepText(s){
     if (s.certIssued) return "You have finished this course, certificate and all. Try the capstone to make it real, or drill anything that still feels soft. I am proud of you.";
-    if (!s.lectureDone) return "Finish the lecture first: " + (s.slidesSeen > 0 ? "you are " + s.slidesSeen + " of 60 slides in, keep going." : "start the slides above, about 45 minutes.");
+    if (!s.lectureDone) return "Finish the lecture first: " + (s.slidesSeen > 0 ? "you are " + s.slidesSeen + " of 70 slides in, keep going." : "start the slides above, about 45 minutes.");
     if (s.cardsKnown < 24) return "The lecture is done. Next: the flashcards, " + s.cardsKnown + " of 24 marked known so far" + (s.missTop.length ? ", and I can drill the ones you keep missing" : "") + ".";
     if (s.labsDone < 5) return "Lecture and flashcards done. Next: win " + s.labsLeft.join(", ") + " in the AI Lab.";
     if (!s.quizPassed) return "Your whole path is complete, so the quiz is unlocked. Twenty questions, fourteen to pass" + (s.quizBest ? ", and your best so far is " + s.quizBest + " of 20" : "") + ". Go get your certificate.";
@@ -68,7 +68,7 @@
     if (!s.anything) return "";
     var bits = [];
     if (s.name) bits.push("name " + s.name);
-    bits.push("slides " + Math.min(s.slidesSeen, 60) + "/60" + (s.lectureDone ? " (lecture done)" : ""));
+    bits.push("slides " + Math.min(s.slidesSeen, 70) + "/70" + (s.lectureDone ? " (lecture done)" : ""));
     bits.push("flashcards " + s.cardsKnown + "/24 known");
     if (s.missTop.length) bits.push("keeps missing: " + s.missTop.map(function(e){ return '"' + e.f + '" (' + e.m + ')'; }).join(", "));
     bits.push("AI Lab " + s.labsDone + "/5 games won" + (s.labsLeft.length ? " (left: " + s.labsLeft.join(", ") + ")" : ""));
@@ -274,7 +274,7 @@
     else if (s.quizPassed) bits.push("quiz passed, go print that certificate");
     else {
       if (s.lectureDone) bits.push("lecture done");
-      else if (s.slidesSeen > 0) bits.push("you are " + s.slidesSeen + " of 60 slides in");
+      else if (s.slidesSeen > 0) bits.push("you are " + s.slidesSeen + " of 70 slides in");
       if (s.cardsKnown > 0) bits.push(s.cardsKnown + " of 24 cards known");
       if (s.labsDone > 0) bits.push(s.labsDone + " of 5 Lab games won");
       if (s.quizBest > 0 && !s.quizPassed) bits.push("quiz best " + s.quizBest + "/20, so close");

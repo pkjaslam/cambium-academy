@@ -2,34 +2,34 @@
 // Loads after the main slides script and wraps the global go().
 (function(){
   var CP = {
-    8:  { m: "Module 1 checkpoint", qs: [
+    10:  { m: "Module 1 checkpoint", qs: [
       ["The twin rule of the 2026 research stack:", ["AI supplies trust, you supply speed","AI supplies speed, you supply trust","AI supplies both, you supervise"], 1],
       ["Kosmos-class autonomous agents matter because they show...", ["AI research is now error-free","months of work in a day, with roughly one finding in five wrong","AI can replace peer review"], 1] ] },
-    14: { m: "Module 2 checkpoint", qs: [
+    17: { m: "Module 2 checkpoint", qs: [
       ["The researcher's upgrade to every factual prompt:", ["a world-class expert persona","demanded uncertainty: flag what to verify and the assumptions made","asking twice and comparing"], 1],
       ["Personas (\"act as a statistician\") reliably change...", ["accuracy","tone and style, not truth","the model's training data"], 1] ] },
-    21: { m: "Module 3 checkpoint", qs: [
+    25: { m: "Module 3 checkpoint", qs: [
       ["For a literature review, the best FIRST agent is...", ["a generalist deep-research agent","an academic specialist like Elicit that searches verified paper databases","whichever is fastest"], 1],
       ["An agent's 20-source report should be treated as...", ["a finished, audited answer","a first draft with leads: audit the 2-3 load-bearing sources","unusable"], 1] ] },
-    27: { m: "Module 4 checkpoint", qs: [
+    32: { m: "Module 4 checkpoint", qs: [
       ["By early 2026, fabricated references appeared in about...", ["1 in 10,000 papers","1 in 277 papers","1 in 5 papers"], 1],
       ["The one rule written in stone:", ["trust citations from big-name models","a citation you never opened is a citation you cannot trust","only check citations in your own field"], 1] ] },
-    31: { m: "Module 5 checkpoint", qs: [
+    37: { m: "Module 5 checkpoint", qs: [
       ["The cheapest, highest-leverage AI hour in a project is...", ["polishing the abstract","before data exists: design, power, and confound consulting","after rejection"], 1],
       ["A power calculation from AI is usable when...", ["it sounds confident","the formula and assumptions are shown and a second tool agrees","it matches your hopes"], 1] ] },
-    36: { m: "Module 6 checkpoint", qs: [
+    43: { m: "Module 6 checkpoint", qs: [
       ["The two loop steps that catch silent analysis errors:", ["persona + politeness","explain-it-back and the tiny hand-checked test","running it twice"], 1],
       ["AI-assisted qualitative coding is legitimate when...", ["the AI codes everything unsupervised","AI proposes, the human adjudicates, and the trail is kept","themes look reasonable"], 1] ] },
-    42: { m: "Module 7 checkpoint", qs: [
+    50: { m: "Module 7 checkpoint", qs: [
       ["A vision model identifying a structure on a micrograph is...", ["a result for the paper","a hypothesis for the expert to check","proof if confidence is high"], 1],
       ["Source-grounded library assistants matter because errors...", ["disappear entirely","stay inside a corpus you own, with citations to check","become someone else's problem"], 1] ] },
-    47: { m: "Module 8 checkpoint", qs: [
+    56: { m: "Module 8 checkpoint", qs: [
       ["Journal AI policies in 2026 are...", ["basically identical","concretely different: Science, Nature, Elsevier, NIH each have their own rules","unenforceable, so ignorable"], 1],
       ["Uploading someone else's unpublished manuscript to an AI tool is...", ["fine if credited","a confidentiality violation; NIH bars reviewers from it","standard practice"], 1] ] },
-    52: { m: "Module 9 checkpoint", qs: [
+    62: { m: "Module 9 checkpoint", qs: [
       ["The two nevers of reference integrity:", ["never cite preprints, never cite books","never hand-type a citation, never trust an AI-typed one","never use Zotero, never use BibTeX"], 1],
       ["Reproducibility in 2026 became...", ["impossible at scale","a prompt: ask AI to document, pin, script, and README, then correct it","a paid service only"], 1] ] },
-    56: { m: "Module 10 checkpoint", qs: [
+    66: { m: "Module 10 checkpoint", qs: [
       ["About 70% of journals have AI policies; papers actually disclosing AI use measure about...", ["50%","10%","0.1%"], 2],
       ["Data that could not go in an email to a stranger...", ["can go in a chatbot if deleted after","never touches a cloud chatbot: use local or institution-hosted models","is fine in incognito mode"], 1] ] }
   };
@@ -40,7 +40,7 @@
     var prev = {};
     try { prev = JSON.parse(localStorage.getItem(PROGKEY) || "{}"); } catch(e){}
     var reached = Math.max(prev.seen || 0, (typeof i === "number" ? i : 0) + 1);
-    localStorage.setItem(PROGKEY, JSON.stringify({ seen: reached, total: 60, done: reached >= 60 }));
+    localStorage.setItem(PROGKEY, JSON.stringify({ seen: reached, total: 70, done: reached >= 70 }));
   }
   var overlay = document.createElement("div");
   overlay.style.cssText = "display:none;position:fixed;inset:0;background:rgba(31,61,36,.72);z-index:50;align-items:center;justify-content:center;padding:16px";

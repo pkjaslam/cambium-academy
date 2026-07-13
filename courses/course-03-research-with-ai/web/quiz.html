@@ -53,7 +53,7 @@
     <div class="kicker">Cambium Academy · Course 03 · Final quiz</div>
     <h1>Research with AI · Quiz</h1>
     <p>20 questions, all covered in the course. Pass at 70% (14 of 20). Nothing is stored or sent anywhere.
-    <br><span class="toplink">Need a refresher? <a href="slides.html">Reread the slides</a> · <a href="flashcards.html">Flashcards</a> · <a href="community.html">Stuck? Ask for help</a> · <a href="index.html">Course home</a> · <a href="classroom.html">AI Classroom</a> · <a href="../../../start/">All courses</a></span></p>
+    <br><span class="toplink">Need a refresher? <a href="slides.html">Reread the slides</a> · <a href="flashcards.html">Flashcards</a> · <a href="community.html">Stuck? Ask for help</a> · <a href="index.html">Course home</a> · <a href="classroom.html">AI Classroom</a> · <a href="pack.html">Pack</a><a href="../../../start/">All courses</a></span></p>
   </div>
 </header>
 <div class="wrap">
@@ -161,12 +161,12 @@ document.getElementById('grade').onclick = function(){
 (function(){
   function rd(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch(e){ return null; } }
   var seen = (rd("cambium-c03-slides") || {}).seen || 0;
-  var lecture = seen >= 60 || !!(rd("cambium-c03-lecture") || {}).watched;
+  var lecture = seen >= 70 || !!(rd("cambium-c03-lecture") || {}).watched;
   var cards = Object.keys(rd("cambium-c03-cards") || {}).length;
   var pg = rd("cambium-c03-playground") || {};
   var pgN = (pg.tok?1:0) + (pg.lm?1:0) + (pg.net?1:0) + (pg.ins?1:0) + (pg.ps?1:0);
   var steps = [
-    { ok: lecture, label: "The lecture", detail: lecture ? "done" : (seen > 0 ? seen + " of 60 slides read" : "read the slides or watch the video"), href: "slides.html" },
+    { ok: lecture, label: "The lecture", detail: lecture ? "done" : (seen > 0 ? seen + " of 70 slides read" : "read the slides or watch the video"), href: "slides.html" },
     { ok: cards >= 24, label: "All 24 flashcards", detail: cards >= 24 ? "done" : cards + " of 24 known so far", href: "flashcards.html" },
     { ok: pgN >= 5, label: "All 5 AI Lab games", detail: pgN >= 5 ? "done" : pgN + " of 5 won", href: "playground.html" }
   ];
