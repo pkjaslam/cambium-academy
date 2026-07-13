@@ -51,7 +51,7 @@ Living index of every public link. When a new course goes live, copy a course bl
 - Capstone: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/capstone.html
 - Career guide: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/career.html
 - Transcript: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/transcript.html
-- Lecture video (full 28-min, v2): https://youtu.be/OXhUOGckmPU
+- Lecture video (full 35-min v2, includes the Riverbend case-study thread): https://youtu.be/vgZAYc14y4s
 
 ## Share images (link-preview cards)
 
