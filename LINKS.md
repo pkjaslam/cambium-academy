@@ -38,7 +38,7 @@ Living index of every public link. When a new course goes live, copy a course bl
 - Career guide: https://pkjaslam.github.io/cambium-academy/courses/course-02-prompting-essentials/web/career.html
 - Transcript: https://pkjaslam.github.io/cambium-academy/courses/course-02-prompting-essentials/web/transcript.html
 
-### Course 03 — Research with AI · LIVE
+### Course 03 — Research with AI v2 · LIVE (the complete 2026 toolkit)
 
 - Course page: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/index.html
 - Slides: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/slides.html
@@ -51,7 +51,7 @@ Living index of every public link. When a new course goes live, copy a course bl
 - Capstone: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/capstone.html
 - Career guide: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/career.html
 - Transcript: https://pkjaslam.github.io/cambium-academy/courses/course-03-research-with-ai/web/transcript.html
-- Lecture video: premieres soon (film assembling from Aira's presenter beats)
+- Lecture video (full 28-min, v2): https://youtu.be/OXhUOGckmPU
 
 ## Share images (link-preview cards)
 
