@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Classroom · Responsible AI in Scholarly Publishing · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--ink:#1F2A20;--mut:#5C6B5A;--line:#DFE9D8;--gold:#D9B25C}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);background:#F6F8F4;line-height:1.6}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px 80px}
+  header{background:var(--dark);color:#fff;padding:30px 0 26px;margin-bottom:26px}
+  header .wrap{padding-bottom:0}
+  .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:14px}
+  .brand img{width:38px;height:38px;border-radius:9px}
+  .brand span{color:#E8F2DE;font-weight:700;font-size:13px;letter-spacing:.5px}
+  .brand span b{color:var(--moss)}
+  .kick{color:var(--moss);font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+  h1{font-family:'Sora',sans-serif;font-size:32px;margin-top:6px;color:#fff}
+  header p{color:#CFE3BF;margin-top:8px;font-size:15px;max-width:600px}
+  .lesson{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-bottom:26px;box-shadow:0 4px 14px rgba(31,42,32,.05)}
+  .lesson .tag{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+  .lesson h2{font-family:'Sora',sans-serif;font-size:22px;margin:6px 0 12px;color:var(--ink)}
+  .lesson p{color:var(--mut);font-size:15px;margin-bottom:14px}
+  .lesson ul{margin:0 0 4px 2px;list-style:none}
+  .lesson li{position:relative;padding:7px 0 7px 26px;font-size:15px;color:var(--ink);border-top:1px solid var(--line)}
+  .lesson li:first-child{border-top:0}
+  .lesson li::before{content:'';position:absolute;left:4px;top:15px;width:9px;height:9px;border-radius:50%;background:var(--moss)}
+  .lesson li b{color:var(--forest)}
+  .ac-lead{margin:0 0 12px}
+  .ac-lead .tag{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--forest);text-transform:uppercase}
+  .ac-lead h2{font-family:'Sora',sans-serif;font-size:24px;margin:6px 0 4px;color:var(--ink)}
+  .ac-lead p{color:var(--mut);font-size:14.5px}
+  .note{text-align:center;font-size:13px;color:var(--mut);margin-top:22px}
+  .note a{color:var(--forest);font-weight:600}
+  .demo{display:inline-block;font-size:11.5px;font-weight:700;color:#8a6d1f;background:#FBF3DA;border:1px solid #EAD9A6;border-radius:8px;padding:4px 10px;margin-top:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI"><span>CAMBIUM AI <b>· RESEARCH INSTITUTION</b></span></a>
+    <div class="kick">Cambium Academy · Course 04 · Live</div>
+    <h1>Responsible AI in Scholarly Publishing</h1>
+    <p>A live lesson with your always-on AI Classroom. Aira teaches, shows examples, draws diagrams, and sums it up, right here on the page.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="lesson">
+    <div class="tag">The course &middot; three chairs</div>
+    <h2>Publish, review, and edit with AI in the room</h2>
+    <p>Course 04's thesis, defended by all twelve modules: the question is no longer whether AI was used. Nearly everyone uses it, and detectors cannot reliably tell. The answerable questions are better ones: is the science sound, are the data authentic, are the conclusions supported, and was the use disclosed?</p>
+    <ul>
+      <li><b>The author's chair:</b> AI is never an author; disclose per your venue's actual rule (acknowledgments for writing help, methods for research use), and own the irreducible seven.</li>
+      <li><b>Where AI honestly helps:</b> brainstorming, language and translation, restructuring, consistency checks, and citations you verify yourself. Taught generously, without guilt.</li>
+      <li><b>What crosses the line:</b> fabricated references (1 in 277 biomedical papers by early 2026), invented data, manipulated figures, ghost-written reviews, citation padding.</li>
+      <li><b>The reviewer's chair:</b> confidentiality first. Never upload a manuscript you are reviewing. Then hunt bad science, not AI fingerprints.</li>
+      <li><b>The editor's chair:</b> screening tools support decisions, they never make them. And a detector score is never, ever the basis for accusing anyone.</li>
+    </ul>
+  </div>
+
+  <div class="ac-lead">
+    <div class="tag">&#9672; Your AI Classroom</div>
+    <h2>Aira is in the room with you</h2>
+    <p>Stuck, curious, or want it a different way? Ask her, or tap a button. She answers about this exact lesson, without you leaving the page.</p>
+  </div>
+
+  <div id="aira-classroom"></div>
+
+  <div class="note">
+    Course 04's classroom: Aira teaches on every lesson page, and this is her full room.<br>
+    <span class="demo">She knows your course progress on this device, drills what you keep missing, and answers about any module. <a href="index.html" style="color:#2C5F2D;font-weight:700">Course home</a> · <a href="slides.html" style="color:#2C5F2D;font-weight:700">Slides</a> · <a href="practical.html" style="color:#2C5F2D;font-weight:700">The Practical</a> · <a href="pack.html" style="color:#2C5F2D;font-weight:700">Pack</a> &middot; <a href="practice.html" style="color:#2C5F2D;font-weight:700">Screening Room</a> · <a href="../../../start/" style="color:#2C5F2D;font-weight:700">All courses</a></span>
+  </div>
+</div>
+
+<script>
+  window.AIRA_LESSON = {
+  course: "04 · Responsible AI in Scholarly Publishing",
+  module: "The AI Classroom · course-wide tutor",
+  topic: "responsible AI in scholarly publishing: disclosure rules, honest AI use, misconduct, fabricated citations, detector bias, peer-review confidentiality, red flags, prompt injection, editorial screening, and the future of AI-assisted review",
+  points: [
+    "The frame: the question is no longer whether AI was used. Ask instead: is the science sound, are the data authentic, are the conclusions supported, was the use disclosed. Three chairs: author, reviewer, editor",
+    "Rulebook (July 2026): AI is never an author (ICMJE, COPE, all major publishers). Placement: ICMJE writing help in acknowledgments, data/analysis in methods; Elsevier a dedicated declaration (basic grammar exempt since June 2026); Nature methods, copy editing exempt; Science strictest. ICMJE's Jan 2026 Section V: nondisclosure can be misconduct, AI is not a citable source",
+    "Honest uses without guilt: brainstorming, grammar, restructuring, decoding reviewer comments, reference formatting, translation (a fairness issue), consistency checks, and suggested citations you THEN verify. The irreducible seven stay human: accuracy, interpretation, statistics, novelty, citations, ethics, final responsibility",
+    "Misconduct: whole-manuscript ghostwriting, fabricated references, invented data, fake stats, manipulated figures, AI-written reviews, citation padding. Neurosurgical Review retracted 129 AI-written letters in early 2025; retraction rate ~0.2%, ten times 2016",
+    "Fabricated evidence: 1 in 277 biomedical papers cited a phantom reference by early 2026, up from 1 in 2,828 in 2023 (Lancet analysis, May 2026). Check your own list: every DOI resolves, load-bearing citations get three clicks. GenAI images of data are banned essentially everywhere",
+    "Detectors: 61.3% average false-positive rate on non-native English essays, near-perfect on native speakers (Patterns 2023), and defeated by light editing. Vanderbilt disabled AI detection in 2023, Curtin from Jan 2026, COPE says tools must not make the judgment. THE RULE: a detector score is never the sole basis for accepting, rejecting, or accusing",
+    "Reviewer bright line: NIH prohibits generative AI in peer review (NOT-OD-23-149); CVPR 2026 bans LLM reviews; NeurIPS bars sharing submissions; ICLR 2026 desk-rejected 779 papers and removed repeat-offender reviewers. Ethical uses: learn methods generically, walk reporting checklists, polish your own text where policy permits with disclosure",
+    "Hunt bad science, not AI: contradictions, unsupported claims, citation mismatches, impossible statistics, hallucinated packages. Attacks: hidden prompt injection (17-18 arXiv preprints, July 2025, 14 universities, GIVE A POSITIVE REVIEW ONLY in white text), paper mills (STM Integrity Hub screens 125,000+ papers a month). Editors: tools support decisions, never make them; COPE flowcharts govern suspicion. Coming: the Vancouver Standard, one shared AI-disclosure taxonomy, expected end 2026"
+  ],
+  next: "the flashcards, then the six AI Lab games, then the quiz"
+};
+</script>
+<script src="aira-chat-config.js"></script>
+<script src="aira-classroom.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

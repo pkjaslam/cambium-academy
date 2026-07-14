@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Author's Pack · Responsible AI in Scholarly Publishing · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link rel="stylesheet" href="polish.css">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--mossdeep:#6E9648;--tint:#F0F5EC;--ink:#1F2A20;--muted:#5C6B5A;--line:#DFE9D8;--gold:#B98A2D;--warm:#B3372E}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#F6F8F4;line-height:1.6}
+  .wrap{max-width:820px;margin:0 auto;padding:0 18px 60px}
+  .nav{display:flex;align-items:center;gap:12px;padding:14px 0;flex-wrap:wrap}
+  .nav img{width:36px;height:36px}
+  .nav a.brand{font-weight:700;color:var(--dark);text-decoration:none;font-size:14px;display:flex;align-items:center;gap:9px}
+  .nav .links{margin-left:auto;display:flex;gap:14px;flex-wrap:wrap}
+  .nav .links a{color:var(--forest);text-decoration:none;font-weight:600;font-size:13.5px}
+  h1{font-family:Cambria,Georgia,serif;font-size:32px;margin:10px 0 6px}
+  p.lead{color:var(--muted);font-size:15px;margin-bottom:20px}
+  .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:18px}
+  .box h2{font-family:Cambria,Georgia,serif;font-size:22px;color:var(--forest);margin-bottom:6px}
+  .box p{font-size:14.5px;color:var(--muted);margin-bottom:10px}
+  .box ul{margin:8px 0 8px 20px}
+  .box li{font-size:14.5px;margin:7px 0;color:var(--muted)}
+  .box li b{color:var(--ink)}
+  label{display:block;font-size:13px;font-weight:700;color:var(--forest);margin:12px 0 5px;letter-spacing:.3px}
+  select,input[type=text]{width:100%;padding:10px 12px;font-size:14.5px;border:1.5px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);font-family:inherit}
+  .chks{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .chks label{display:inline-flex;align-items:center;gap:7px;background:var(--tint);border:1px solid var(--line);border-radius:20px;padding:7px 13px;font-size:13px;font-weight:600;color:var(--ink);margin:0;cursor:pointer}
+  .chks input{accent-color:var(--forest)}
+  .out{background:var(--tint);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:16px 18px;font-size:14.5px;margin-top:14px;position:relative;line-height:1.65}
+  .out .where{display:block;font-size:11.5px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--mossdeep);margin-bottom:7px}
+  .copy{background:var(--tint);border:1px solid var(--line);border-radius:10px;padding:14px 44px 14px 16px;font-size:14px;color:var(--ink);margin:9px 0;position:relative}
+  .copy button,.out button{position:absolute;top:10px;right:10px;background:var(--forest);color:#fff;border:0;border-radius:7px;padding:5px 11px;font-size:11.5px;font-weight:700;cursor:pointer}
+  .card{border:1px solid var(--line);border-radius:12px;padding:16px 18px;background:#fff;margin:10px 0}
+  .card h3{font-size:15.5px;margin-bottom:6px;color:var(--ink)}
+  .card p{font-size:14px;margin:0}
+  .rule{background:#FBF3E4;border:1px solid #EAD9B8;border-left:4px solid var(--gold);border-radius:10px;padding:14px 16px;font-size:14.5px;margin:12px 0}
+  .rule b{color:#8C6320}
+  .stop{background:#FBEBE9;border:1px solid #F0CFCB;border-left:4px solid var(--warm);border-radius:10px;padding:14px 16px;font-size:14.5px;margin:12px 0}
+  .stop b{color:var(--warm)}
+  table{width:100%;border-collapse:collapse;font-size:13.8px;margin-top:8px}
+  th{background:var(--dark);color:#fff;text-align:left;padding:9px 11px;font-weight:600}
+  td{padding:9px 11px;border-bottom:1px solid var(--line);color:var(--muted);vertical-align:top}
+  td:first-child{color:var(--ink);font-weight:600;white-space:nowrap}
+  ul.res{list-style:none;margin:0}
+  ul.res li{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+  ul.res a{color:var(--forest);font-weight:600;text-decoration:none}
+  ul.res span{color:var(--muted)}
+  .printbtn{background:var(--forest);color:#fff;border:0;border-radius:9px;padding:12px 22px;font-size:14.5px;font-weight:700;cursor:pointer}
+  @media print{
+    .nav,.printbtn,.copy button,.out button{display:none !important}
+    body{background:#fff}
+    .box{break-inside:avoid;box-shadow:none;border:1px solid #ccc}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI logo">Cambium AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="slides.html">Slides</a><a href="playground.html">AI Lab</a><a href="practical.html">Practical</a><a href="practice.html">Screening Room</a><a href="capstone.html">Capstone</a><a href="referee.html">Local Referee</a><a href="auditor.html">Reference Auditor</a><a href="../../../start/">All courses</a></div>
+  </nav>
+
+  <h1>The Author's Pack</h1>
+  <p class="lead">The course, in a form you can use at 11pm the night before submission. A disclosure statement builder, ready statements per venue family, the reviewer's bright-line card, the editor's evidence rack, and the policy pages worth bookmarking. Copy any of it, or print the whole thing. Every rule here was verified on 13 July 2026, and every rule here should be re-checked at your venue before you submit.</p>
+  <button class="printbtn" onclick="window.print()">Print the whole pack</button>
+
+  <div class="box">
+    <h2>1 · The disclosure statement builder</h2>
+    <p>Pick your venue family and what you actually did. The statement below writes itself, in the right section, with the responsibility sentence intact.</p>
+
+    <label for="venue">Your venue family</label>
+    <select id="venue" onchange="build()">
+      <option value="elsevier">Elsevier journals (dedicated declaration section)</option>
+      <option value="nature">Nature portfolio / Springer Nature (methods)</option>
+      <option value="icmje">ICMJE / medical journals (acknowledgments + methods + cover letter)</option>
+      <option value="science">Science / AAAS (cover letter + methods or acknowledgments)</option>
+      <option value="wiley">Wiley (acknowledgments, methods, or figure captions by use)</option>
+      <option value="sage">SAGE (methods or acknowledgments; assistive language help exempt)</option>
+    </select>
+
+    <label for="tool">The tool and version, as you would name it</label>
+    <input type="text" id="tool" value="[tool name and version]" oninput="build()">
+
+    <label>What it actually did</label>
+    <div class="chks">
+      <label><input type="checkbox" class="use" value="lang" onchange="build()" checked> Language and readability</label>
+      <label><input type="checkbox" class="use" value="restructure" onchange="build()"> Restructuring my own text</label>
+      <label><input type="checkbox" class="use" value="translate" onchange="build()"> Translation</label>
+      <label><input type="checkbox" class="use" value="code" onchange="build()"> Drafting analysis code</label>
+      <label><input type="checkbox" class="use" value="analysis" onchange="build()"> Data processing or analysis</label>
+      <label><input type="checkbox" class="use" value="figure" onchange="build()"> Drafting a schematic figure</label>
+      <label><input type="checkbox" class="use" value="lit" onchange="build()"> Literature searching or screening</label>
+      <label><input type="checkbox" class="use" value="grammar" onchange="build()"> Basic grammar and spelling only</label>
+    </div>
+
+    <div class="out" id="stmt"><button onclick="cpEl('stmt')">Copy</button></div>
+    <div class="rule"><b>Then do the one thing this builder cannot do for you:</b> open your journal's own AI policy page and confirm the section. These rules changed in January and June of 2026 alone. Five minutes, every submission.</div>
+  </div>
+
+  <div class="box">
+    <h2>2 · The pre-submission checklist</h2>
+    <ul>
+      <li><b>Venue policy page opened today.</b> Not last year's memory, not a colleague's summary.</li>
+      <li><b>Disclosure written and placed</b> in the section that venue names.</li>
+      <li><b>Every DOI in the reference list resolves.</b> Click all of them. This is the 1-in-277 check.</li>
+      <li><b>Load-bearing citations pass three clicks:</b> exists, matches, says what you claim.</li>
+      <li><b>No generative images of data.</b> Schematics only, disclosed. Original image files kept.</li>
+      <li><b>Tables, figures, and text agree</b> on every number that appears twice.</li>
+      <li><b>The irreducible seven are yours:</b> accuracy, interpretation, statistical conclusions, novelty claims, citations, ethics, and the signature.</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <h2>3 · The reviewer's bright-line card</h2>
+    <div class="stop"><b>Never:</b> upload, paste, or otherwise feed a confidential manuscript, its figures, its code, or your draft critique of it into any AI system, unless the venue explicitly provides a sanctioned tool with confidentiality assured. NIH prohibits generative AI in peer review outright; CVPR 2026 bans LLM-written reviews; NeurIPS bars sharing submissions. The manuscript is someone else's unpublished work, and confidentiality is a promise you personally made.</div>
+    <div class="rule"><b>Legitimate, inside policy:</b> learning an unfamiliar method or statistic in general terms (no manuscript text); walking a public reporting checklist (CONSORT, PRISMA, STROBE, ARRIVE); polishing your own review prose where the venue permits it, with disclosure; and drafting questions from your own reading notes.</div>
+    <h3 style="font-size:15.5px;margin:16px 0 6px">Hunt bad science, not AI. The red flags:</h3>
+    <ul>
+      <li>Contradictions between sections (the abstract promises what the results never show).</li>
+      <li>Claims the cited reference does not actually support. Open the citation on the boldest sentence.</li>
+      <li>Unverifiable or fabricated citations: dead DOIs, papers no database has heard of.</li>
+      <li>Statistical impossibilities: a standard deviation of zero in noisy data, p-values that do not match their test statistics, means outside the possible range.</li>
+      <li>Methods that could not produce the reported results: sample sizes that do not match the tables.</li>
+      <li>Hallucinated software packages, datasets, or equations. Thirty seconds of searching settles each.</li>
+      <li>Figures that contradict the text; conclusions far broader than the data.</li>
+    </ul>
+    <div class="stop"><b>And never:</b> recommend a decision because a paper "feels AI-written." That is not a finding, it cannot be answered by the authors, and it will not survive an appeal.</div>
+  </div>
+
+  <div class="box">
+    <h2>4 · The editor's evidence rack</h2>
+    <p>Run this instead of reading a detector score. Every row is evidence about the work; none of it cares who typed.</p>
+    <table>
+      <tr><th>Check</th><th>What it catches</th></tr>
+      <tr><td>Reference resolution</td><td>Fabricated and mismatched citations. The single highest-yield check at intake.</td></tr>
+      <tr><td>Image forensics</td><td>Duplication, manipulation, and AI-generated figures (Proofig, Imagetwin class tools).</td></tr>
+      <tr><td>Statistical consistency</td><td>Impossible values, mismatched test statistics, sample sizes that do not add up.</td></tr>
+      <tr><td>Text-layer inspection</td><td>Hidden prompt injection. Select-all is free and takes three seconds.</td></tr>
+      <tr><td>Duplicate and mill signals</td><td>The same manuscript at six venues; known paper-mill fingerprints (Papermill Alarm traffic lights, STM Integrity Hub).</td></tr>
+      <tr><td>Data and code availability</td><td>Whether the claims can be examined at all.</td></tr>
+    </table>
+    <div class="stop"><b>The rule in stone:</b> an AI-detector score must never be the sole basis for accepting, rejecting, or accusing anyone. Detectors misclassified 61.3% of non-native English speakers' essays as AI-generated while scoring near-perfectly on native speakers, and a light edit defeats them entirely. A flag is a question. COPE flowcharts govern suspicion: gather evidence, contact the authors, let them respond, escalate to institutions only if warranted. Journals judge papers; institutions judge people.</div>
+  </div>
+
+  <div class="box">
+    <h2>5 · Statements you can adapt right now</h2>
+    <div class="copy" id="p1"><button onclick="cpEl('p1')">Copy</button><b>Elsevier family:</b> Declaration of generative AI and AI-assisted technologies in the writing process. During the preparation of this work the authors used [tool, version] to improve language and readability. The authors reviewed and edited the content as needed and take full responsibility for the content of the publication.</div>
+    <div class="copy" id="p2"><button onclick="cpEl('p2')">Copy</button><b>Nature portfolio (methods):</b> [Tool, version] was used to assist with restructuring author-written text and generating draft analysis code, which the authors verified against the data. Use of AI for copy editing of author-written text is not treated as disclosable under journal policy.</div>
+    <div class="copy" id="p3"><button onclick="cpEl('p3')">Copy</button><b>ICMJE / medical (acknowledgments + methods):</b> Acknowledgments: the authors used [tool, version] for language editing. Methods: [tool, version] assisted in generating statistical analysis code, which was reviewed and validated by the authors. Both uses were also stated in the cover letter at submission.</div>
+    <div class="copy" id="p4"><button onclick="cpEl('p4')">Copy</button><b>Reviewer disclosure (where permitted):</b> I used [tool, version] to improve the readability of my own review text. No part of the manuscript, its figures, or its data was entered into any AI system, and all evaluative judgments in this review are my own.</div>
+    <div class="copy" id="p5"><button onclick="cpEl('p5')">Copy</button><b>Lab policy, detector clause:</b> No member of this group will be accused of AI misuse on the basis of an AI-detection score. Concerns about a manuscript must be grounded in checkable evidence: unresolvable citations, image irregularities, statistical inconsistencies, or data that cannot be produced.</div>
+  </div>
+
+  <div class="box">
+    <h2>6 · The policy pages worth bookmarking</h2>
+    <p>All live-checked on 13 July 2026. Re-check yours quarterly; that is the single highest-value reading habit this course can leave you with.</p>
+    <ul class="res">
+      <li><a href="https://www.icmje.org/recommendations/browse/artificial-intelligence/">ICMJE, AI use by authors, reviewers, and editors</a> <span>· the January 2026 recommendations and the new standalone AI section</span></li>
+      <li><a href="https://publicationethics.org/cope-position-statements/ai-author">COPE: AI tools cannot be listed as an author</a> <span>· the position underneath every publisher policy</span></li>
+      <li><a href="https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals">Elsevier generative AI policies</a> <span>· updated June 2026: the declaration, the exemptions, the three-category image framework</span></li>
+      <li><a href="https://www.nature.com/nature-portfolio/editorial-policies/ai">Nature portfolio AI policy</a> <span>· copy editing exempt, AI-generated images not permitted</span></li>
+      <li><a href="https://www.wiley.com/en-us/publish/article/ai-guidelines/">Wiley AI guidelines for researchers</a> <span>· October 2025: disclosure by use case</span></li>
+      <li><a href="https://taylorandfrancis.com/our-policies/ai-policy/">Taylor &amp; Francis AI policy</a> <span>· tool, version, use, and reason must be stated</span></li>
+      <li><a href="https://www.sagepub.com/journals/publication-ethics-policies/artificial-intelligence-policy">SAGE AI policy</a> <span>· assistive versus generative versus prohibited</span></li>
+      <li><a href="https://www.science.org/content/page/science-journals-editorial-policies">Science journals editorial policies</a> <span>· the strictest of the majors on author disclosure</span></li>
+      <li><a href="https://grants.nih.gov/grants/guide/notice-files/NOT-OD-23-149.html">NIH NOT-OD-23-149</a> <span>· generative AI prohibited in peer review; reaffirmed May 2026</span></li>
+      <li><a href="https://grants.nih.gov/grants/guide/notice-files/NOT-OD-25-132.html">NIH NOT-OD-25-132</a> <span>· July 2025: applications substantially developed by AI are not original ideas</span></li>
+      <li><a href="https://www.nsf.gov/news/notice-to-the-research-community-on-ai">NSF, generative AI in merit review</a> <span>· reviewers may not upload proposal content</span></li>
+      <li><a href="https://retractionwatch.com/category/artificial-intelligence/">Retraction Watch, AI</a> <span>· where the fabrication and retraction stories break first</span></li>
+      <li><a href="https://publicationethics.org/guidance/flowcharts">COPE flowcharts</a> <span>· what to do, in order, when misconduct is suspected</span></li>
+    </ul>
+  </div>
+</div>
+
+<script>
+var VENUE = {
+  elsevier: { where: "Declaration of generative AI in the writing process (a dedicated section that appears in the published article)",
+    note: "Since June 2026, basic grammar, spelling, and punctuation checks do not need a declaration at Elsevier; substantive restructuring does." },
+  nature:   { where: "Methods section",
+    note: "Nature portfolio does not require declaration of AI-assisted copy editing of author-written text. AI-generated images are not permitted." },
+  icmje:    { where: "Acknowledgments (writing help) and Methods (data collection or analysis), plus the cover letter at submission",
+    note: "ICMJE's January 2026 recommendations state that nondisclosure may be construed as misconduct in some circumstances, and that AI must not be cited as a primary source." },
+  science:  { where: "The cover letter, plus the methods or acknowledgments section as the use case requires",
+    note: "Science is the strictest of the majors and publishes no copy-editing exemption. When in doubt here, disclose." },
+  wiley:    { where: "Acknowledgments (drafting, editing, translation), Methods (research use), and figure captions (AI-generated or AI-edited visuals)",
+    note: "Wiley's October 2025 guidelines: simple grammar correction and formatting typically need no disclosure. Keep documentation of your AI use." },
+  sage:     { where: "Methods or Acknowledgments",
+    note: "SAGE treats assistive language help (grammar, structure of your own writing) as NOT requiring disclosure; generative use affecting methods, analysis, or conclusions must be disclosed." }
+};
+var USE = {
+  lang:        "to improve language and readability",
+  restructure: "to restructure author-written text without altering its claims or citations",
+  translate:   "to translate author-written text, with terminology verified by the authors",
+  code:        "to draft analysis code, which the authors reviewed and verified against the data",
+  analysis:    "to assist with data processing and analysis, under author supervision and verification",
+  figure:      "to draft a schematic figure, which the authors corrected and approved",
+  lit:         "to assist with literature searching and screening, with every retained source verified by the authors",
+  grammar:     "for basic grammar and spelling checks of author-written text"
+};
+function build(){
+  var v = document.getElementById('venue').value, cfg = VENUE[v];
+  var tool = document.getElementById('tool').value.trim() || "[tool name and version]";
+  var picks = Array.prototype.filter.call(document.querySelectorAll('.use'), function(i){ return i.checked; }).map(function(i){ return i.value; });
+  var onlyGrammar = picks.length === 1 && picks[0] === "grammar";
+  var body;
+  if (!picks.length){
+    body = "Select what the tool actually did, and the statement will write itself.";
+  } else if (onlyGrammar && (v === "elsevier" || v === "nature" || v === "sage")) {
+    body = "<b>You may not need a statement at all.</b> " + cfg.note + " If you want one anyway, or if your specific journal asks: <i>During the preparation of this work the authors used " + tool + " for basic grammar and spelling checks of author-written text. The authors reviewed and edited the content and take full responsibility for the content of the publication.</i>";
+  } else {
+    var uses = picks.map(function(k){ return USE[k]; });
+    var joined = uses.length === 1 ? uses[0] : uses.slice(0, -1).join(", ") + ", and " + uses[uses.length - 1];
+    body = "During the preparation of this work the authors used " + tool + " " + joined + ". The authors reviewed and edited all output and take full responsibility for the content of the publication.";
+  }
+  document.getElementById('stmt').innerHTML =
+    '<button onclick="cpEl(\'stmt\')">Copy</button>' +
+    '<span class="where">Goes in: ' + cfg.where + '</span>' + body +
+    '<div style="margin-top:10px;font-size:12.5px;color:#5C6B5A;border-top:1px dashed #DFE9D8;padding-top:8px"><b>Venue note:</b> ' + cfg.note + '</div>';
+}
+function cpEl(id){
+  var el = document.getElementById(id).cloneNode(true);
+  var b = el.querySelector('button'); if (b) b.remove();
+  var txt = el.innerText.trim();
+  navigator.clipboard.writeText(txt).then(function(){
+    var btn = document.getElementById(id).querySelector('button');
+    if (!btn) return;
+    var old = btn.textContent; btn.textContent = "Copied";
+    setTimeout(function(){ btn.textContent = old; }, 1400);
+  }).catch(function(){});
+}
+build();
+</script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

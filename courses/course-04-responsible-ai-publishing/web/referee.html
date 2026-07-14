@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Local Referee · Responsible AI in Scholarly Publishing · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--moss:#97BC62;--lite:#C6E89B;--gold:#D9B25C;--ink:#E8F2DE;--mut:#8FA684;--line:rgba(151,188,98,.22);--warm:#E07850;--cyan:#7FD4C1}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);line-height:1.6;min-height:100vh;background:#050b06}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;background:
+    radial-gradient(ellipse 55% 40% at 18% 0%, rgba(127,212,193,.10), transparent 60%),
+    radial-gradient(ellipse 50% 38% at 85% 8%, rgba(151,188,98,.12), transparent 60%),
+    linear-gradient(180deg,#0a150b,#040805)}
+  .wrap{max-width:940px;margin:0 auto;padding:0 22px 90px}
+  .nav{display:flex;align-items:center;gap:12px;padding:18px 0;flex-wrap:wrap}
+  .nav img{width:38px;height:38px;border-radius:10px}
+  .nav a.brand{font-family:'Sora',sans-serif;font-weight:700;color:var(--lite);text-decoration:none;font-size:13px;letter-spacing:2px;display:flex;align-items:center;gap:10px}
+  .nav .links{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
+  .nav .links a{color:var(--moss);text-decoration:none;font-weight:600;font-size:13.5px}
+  .hero{text-align:center;padding:30px 0 6px}
+  .hero .over{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;letter-spacing:5px;color:var(--cyan)}
+  h1{font-family:'Sora',sans-serif;font-size:clamp(38px,6.2vw,62px);font-weight:800;margin:10px 0 12px;background:linear-gradient(100deg,#F2F8EA,#7FD4C1 55%,#C6E89B);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 26px rgba(127,212,193,.2))}
+  p.lead{color:var(--mut);font-size:16.5px;max-width:700px;margin:0 auto}
+  p.lead b{color:var(--lite)}
+  .panel{background:linear-gradient(170deg,rgba(151,188,98,.10),rgba(151,188,98,.02) 55%);border:1px solid var(--line);border-radius:22px;padding:26px;margin:24px 0;backdrop-filter:blur(8px)}
+  .tag{font-family:'Sora',sans-serif;font-size:11px;font-weight:800;letter-spacing:3px;color:#0d1a0b;background:linear-gradient(135deg,#9BE3D0,#4FA894);display:inline-block;border-radius:8px;padding:5px 12px}
+  h2{font-family:'Sora',sans-serif;font-size:25px;font-weight:800;margin:12px 0 6px}
+  p.sub{color:var(--mut);font-size:14.5px;margin-bottom:14px}
+  button{background:linear-gradient(180deg,#356B2F,#1F3D24);color:var(--lite);border:1px solid rgba(151,188,98,.65);border-radius:11px;padding:12px 20px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;transition:all .15s}
+  button:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 0 22px rgba(151,188,98,.35)}
+  button:disabled{opacity:.45;cursor:default}
+  button.cyan{background:linear-gradient(180deg,#9BE3D0,#4FA894);border-color:#9BE3D0;color:#062018}
+  button.gold{background:linear-gradient(180deg,#E7C56B,#B98A2D);border-color:#E7C56B;color:#10220E}
+  /* the airlock */
+  .airlock{border:1.5px solid rgba(127,212,193,.5);background:linear-gradient(135deg,rgba(127,212,193,.10),rgba(127,212,193,.02));border-radius:18px;padding:20px 22px;margin:20px 0}
+  .airlock h3{font-family:'Sora',sans-serif;font-size:17px;color:var(--cyan);margin-bottom:8px;display:flex;align-items:center;gap:10px}
+  .netmon{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:rgba(4,8,5,.6);border:1px solid var(--line);border-radius:13px;padding:13px 17px;margin-top:12px;font-family:'Sora',sans-serif}
+  .netmon .dot{width:12px;height:12px;border-radius:50%;background:var(--cyan);box-shadow:0 0 14px var(--cyan);animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .netmon .n{font-size:26px;font-weight:800;color:var(--cyan)}
+  .netmon .lbl{font-size:11.5px;letter-spacing:1.6px;color:var(--mut);line-height:1.4}
+  .netmon.dirty .dot,.netmon.dirty .n{background:var(--warm);color:var(--warm);box-shadow:0 0 14px var(--warm)}
+  .bar{height:10px;border-radius:6px;background:rgba(151,188,98,.12);overflow:hidden;margin-top:12px}
+  .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#4FA894,#9BE3D0);transition:width .3s;box-shadow:0 0 14px rgba(155,227,208,.5)}
+  .status{font-size:13px;color:var(--mut);margin-top:9px;font-family:'Sora',sans-serif}
+  .status b{color:var(--lite)}
+  /* modes */
+  .modes{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:16px 0}
+  .mode{background:rgba(4,8,5,.55);border:1.5px solid var(--line);border-radius:14px;padding:14px 15px;cursor:pointer;transition:all .16s}
+  .mode:hover{border-color:var(--moss);transform:translateY(-2px)}
+  .mode.on{border-color:var(--cyan);background:rgba(127,212,193,.10);box-shadow:0 0 22px rgba(127,212,193,.18)}
+  .mode .mt{font-family:'Sora',sans-serif;font-weight:700;font-size:14px;color:var(--lite);margin-bottom:4px}
+  .mode .md{font-size:11.5px;color:var(--mut);line-height:1.45}
+  textarea{width:100%;background:rgba(4,8,5,.65);border:1.5px solid var(--line);border-radius:12px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;padding:14px;min-height:170px;line-height:1.6}
+  textarea:focus{outline:none;border-color:var(--cyan)}
+  .out{background:rgba(4,8,5,.6);border:1px solid var(--line);border-left:3px solid var(--cyan);border-radius:13px;padding:17px 20px;margin-top:14px;font-size:14.5px;line-height:1.75;white-space:pre-wrap;min-height:60px;color:#DEEBD2}
+  .out:empty{display:none}
+  .out .cursor{display:inline-block;width:8px;height:16px;background:var(--cyan);animation:blink 1s steps(2) infinite;vertical-align:-2px}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+  .note{font-size:12.5px;color:var(--mut);margin-top:12px;line-height:1.65}
+  .note b{color:var(--lite)}
+  .warnbox{background:rgba(224,120,80,.10);border:1px solid rgba(224,120,80,.45);border-left:4px solid var(--warm);border-radius:12px;padding:14px 17px;font-size:13.5px;color:#F2D9CE;margin:14px 0}
+  .warnbox b{color:var(--warm)}
+  .gold-box{background:rgba(217,178,92,.09);border:1px solid rgba(217,178,92,.45);border-left:4px solid var(--gold);border-radius:12px;padding:14px 17px;font-size:13.5px;color:#EEE2C4;margin:14px 0}
+  .gold-box b{color:var(--gold)}
+  .rowc{display:flex;gap:11px;flex-wrap:wrap;align-items:center;margin-top:14px}
+  .kbd{font-family:'Courier New',monospace;background:rgba(4,8,5,.7);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:12px;color:var(--lite)}
+  @media(max-width:760px){.modes{grid-template-columns:1fr}}
+  @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI">CAMBIUM AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="slides.html">Slides</a><a href="playground.html">AI Lab</a><a href="auditor.html">Reference Auditor</a><a href="practical.html">Practical</a><a href="pack.html">Pack</a><a href="../../../start/">All courses</a></div>
+  </nav>
+
+  <div class="hero">
+    <div class="over">◈ THE COURSE'S OWN RULE, MADE REAL</div>
+    <h1>THE LOCAL REFEREE</h1>
+    <p class="lead">Module 8 told you never to put a confidential manuscript into a cloud AI system. So this page does not have one. It downloads a language model <b>into your browser</b> and runs it on your own graphics card. After the model loads, you can <b>pull out your network cable</b> and it still works. Paste the manuscript you are actually reviewing. It cannot leave this machine.</p>
+  </div>
+
+  <div class="airlock">
+    <h3>◈ The airlock</h3>
+    <p style="font-size:14px;color:#CFE3BF;margin-bottom:4px">Every other AI on the internet asks you to trust a promise. This one lets you check. The counter below watches this page's own network activity: it hooks <span class="kbd">fetch</span>, <span class="kbd">XMLHttpRequest</span>, and <span class="kbd">navigator.sendBeacon</span>, and counts every request made after the model finishes loading. Type your manuscript, run the referee, and watch it stay at zero.</p>
+    <div class="netmon" id="netmon">
+      <div class="dot"></div>
+      <div><div class="n" id="netCount">0</div><div class="lbl">REQUESTS SENT SINCE<br>THE MODEL LOADED</div></div>
+      <div style="flex:1;min-width:180px;border-left:1px solid var(--line);padding-left:16px">
+        <div class="lbl" id="netVerdict" style="color:var(--cyan);font-size:13px;letter-spacing:1px">NOTHING HAS LEFT THIS BROWSER</div>
+        <div class="lbl" id="netDetail" style="margin-top:4px;font-size:11px">Inference runs on your GPU via WebGPU. No server sees your text.</div>
+      </div>
+      <button id="proofBtn" class="cyan" style="padding:9px 15px;font-size:12px">Open the receipts</button>
+    </div>
+    <div id="proof" style="display:none;margin-top:12px;background:rgba(4,8,5,.7);border:1px solid var(--line);border-radius:11px;padding:14px 16px;font-size:12.5px;color:var(--mut);line-height:1.7">
+      <b style="color:var(--lite)">How to verify this yourself, in thirty seconds, without trusting us:</b><br>
+      1. Load the model below and wait for it to finish.<br>
+      2. Open your browser's DevTools (<span class="kbd">F12</span>) and select the <b>Network</b> tab. Clear it.<br>
+      3. Go offline: DevTools has an <b>Offline</b> throttling preset, or simply disconnect your wifi.<br>
+      4. Paste a manuscript and run the referee. It answers anyway, and the Network tab stays empty.<br>
+      <span style="color:var(--cyan)">That is what a sanctioned tool looks like. It is not a promise; it is an architecture.</span>
+      <div style="margin-top:12px;border-top:1px dashed var(--line);padding-top:11px">
+        <b style="color:var(--lite)">Two things we did on purpose, because a page that promises zero network has to mean it:</b><br>
+        &#183; <b>This page carries no analytics.</b> Every other page in the Academy has a privacy-friendly visitor counter on it. This one does not, because it would make a request, and the counter above would have to report it. We would rather lose the pageview than the point.<br>
+        &#183; <b>If you open Aira, the AI teacher in the corner, and ask her something, the counter WILL tick up.</b> That is not a bug, and we did not hide it. Aira is a cloud AI: your question goes to a server. The referee is a local one: your manuscript does not. This page will show you the difference in real time, on the same screen, which is the whole lesson in one number.
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <span class="tag">STEP 1 &#183; LOAD THE MODEL</span>
+    <h2>Bring the referee into your browser</h2>
+    <p class="sub">A small open-weights model is downloaded once from its public host and cached. That download is the only network activity this page ever makes. After it completes, everything is local, forever, offline included.</p>
+    <div class="rowc">
+      <select id="modelSel" style="background:rgba(4,8,5,.65);border:1.5px solid var(--line);border-radius:11px;color:var(--ink);padding:11px 14px;font-family:'Sora',sans-serif;font-size:13px">
+        <option value="Llama-3.2-1B-Instruct-q4f16_1-MLC">Llama 3.2 1B &#183; about 0.9 GB &#183; recommended</option>
+        <option value="SmolLM2-360M-Instruct-q4f16_1-MLC">SmolLM2 360M &#183; about 0.4 GB &#183; smallest</option>
+        <option value="Qwen3-1.7B-q4f16_1-MLC">Qwen3 1.7B &#183; about 2.0 GB &#183; strongest</option>
+      </select>
+      <button id="loadBtn" class="cyan">Download and load the referee</button>
+      <span class="status" id="loadStatus">Not loaded. Nothing has been downloaded yet.</span>
+    </div>
+    <div class="bar"><i id="loadBar"></i></div>
+    <div id="gpuWarn" class="warnbox" style="display:none"></div>
+    <div class="note"><b>Honest about the cost:</b> the first load pulls the weights from the model's public host (Hugging Face) and caches them in your browser. On a normal connection that is a couple of minutes. After that the page works with the network switched off. <b>Honest about the model:</b> this is a small model, far weaker than a frontier system. It is a competent assistant and a terrible judge. Everything below is a draft for you to correct, which is exactly the relationship this whole course teaches.</div>
+  </div>
+
+  <div class="panel">
+    <span class="tag">STEP 2 &#183; PUT IT TO WORK</span>
+    <h2>Three jobs, all of them inside the rules</h2>
+    <div class="modes" id="modes">
+      <div class="mode on" data-m="review">
+        <div class="mt">Referee a confidential manuscript</div>
+        <div class="md">The job you may never send to a cloud AI. Paste the manuscript you are reviewing and get a red-flag pass: contradictions, unsupported claims, statistical impossibilities, missing controls.</div>
+      </div>
+      <div class="mode" data-m="disclose">
+        <div class="mt">Draft my disclosure statement</div>
+        <div class="md">Describe what you actually did with AI, and get a statement in the shape your venue expects, with the responsibility sentence intact.</div>
+      </div>
+      <div class="mode" data-m="explain">
+        <div class="mt">Decode a reviewer comment</div>
+        <div class="md">Paste the cryptic criticism you cannot parse, and get the possible readings, so you answer the one they actually meant.</div>
+      </div>
+    </div>
+    <textarea id="inp" placeholder="Paste here. This text never leaves your browser."></textarea>
+    <div class="rowc">
+      <button id="runBtn" class="gold" disabled>Load the model first</button>
+      <button id="stopBtn" style="display:none">Stop</button>
+      <span class="status" id="runStatus"></span>
+    </div>
+    <div class="out" id="out"></div>
+    <div class="gold-box" id="refereeRule">
+      <b>What this referee will never do:</b> it will not tell you whether a text was written by AI, and it will refuse if you ask. That is not a technical limit; it is the course's rule in stone, built into the system prompt. A detector score is not evidence, and a small language model guessing at authorship is worse than a detector. It hunts bad science instead, which is what a referee is for.
+    </div>
+  </div>
+
+  <div class="panel">
+    <span class="tag">WHY THIS PAGE EXISTS</span>
+    <h2>The medium is the argument</h2>
+    <p class="sub" style="font-size:15px;line-height:1.75;color:#CFE3BF">Every policy in Module 8 says the same thing: the manuscript is not yours to share. NIH prohibits generative AI in peer review outright. CVPR bans LLM-written reviews. NeurIPS bars sharing submissions. And every one of those rules leaves an honest reviewer stuck, because the help would genuinely be useful and the only tools on offer are somebody else's servers.<br><br>
+    This page is the third answer. Not "use the cloud AI and hope," and not "give up the help." Instead: <b style="color:var(--cyan)">bring the model to the manuscript, instead of sending the manuscript to the model.</b> Confidentiality is preserved not by a promise in a privacy policy, but by the fact that no request is ever made.<br><br>
+    When the policies talk about "an approved secure tool," this is the shape of the thing they mean. You just used one, and you were able to check it yourself.</p>
+    <div class="note"><b>Still your responsibility:</b> your venue's rules govern, not this page. Some venues bar AI assistance in review entirely, however local it is. Read the policy, and disclose the help you used. The <a href="pack.html" style="color:var(--moss);font-weight:700">Author's Pack</a> has a reviewer disclosure line ready to adapt.</div>
+  </div>
+
+  <div class="note" style="text-align:center">Part of <a href="index.html" style="color:var(--moss)">Course 04 &#183; Responsible AI in Scholarly Publishing</a> &#183; the model runs on your hardware; the Academy never sees a byte of what you paste.</div>
+</div>
+
+<script>
+// ============ THE AIRLOCK: count every request this page makes after the model is loaded ============
+// Not a claim, a measurement. We wrap the three ways a page can talk to a network.
+(function(){
+  window.__NET = { armed: false, count: 0, urls: [] };
+  function record(url){
+    if (!window.__NET.armed) return;                 // model download is expected and allowed
+    window.__NET.count++;
+    window.__NET.urls.push(String(url).slice(0, 90));
+    paint();
+  }
+  var _fetch = window.fetch;
+  window.fetch = function(){ try { record(arguments[0] && arguments[0].url || arguments[0]); } catch(e){} return _fetch.apply(this, arguments); };
+  var _open = XMLHttpRequest.prototype.open;
+  XMLHttpRequest.prototype.open = function(m, u){ try { record(u); } catch(e){} return _open.apply(this, arguments); };
+  if (navigator.sendBeacon) {
+    var _b = navigator.sendBeacon.bind(navigator);
+    navigator.sendBeacon = function(u){ try { record(u); } catch(e){} return _b.apply(null, arguments); };
+  }
+  window.__paintNet = paint;
+  function paint(){
+    var n = window.__NET.count;
+    document.getElementById('netCount').textContent = n;
+    var mon = document.getElementById('netmon');
+    var v = document.getElementById('netVerdict'), d = document.getElementById('netDetail');
+    if (n === 0) {
+      mon.classList.remove('dirty');
+      v.textContent = "NOTHING HAS LEFT THIS BROWSER";
+      v.style.color = "var(--cyan)";
+      d.textContent = "Inference runs on your GPU via WebGPU. No server sees your text.";
+    } else {
+      mon.classList.add('dirty');
+      v.textContent = n + " REQUEST" + (n===1?"":"S") + " AFTER LOAD";
+      v.style.color = "var(--warm)";
+      d.textContent = window.__NET.urls.slice(-2).join(" · ");
+    }
+  }
+})();
+document.getElementById('proofBtn').onclick = function(){
+  var p = document.getElementById('proof');
+  var open = p.style.display === 'block';
+  p.style.display = open ? 'none' : 'block';
+  this.textContent = open ? 'Open the receipts' : 'Hide the receipts';
+};
+
+// ============ THE REFEREE ============
+var engine = null, busy = false, mode = 'review';
+
+document.getElementById('modes').addEventListener('click', function(e){
+  var m = e.target.closest('.mode'); if (!m) return;
+  document.querySelectorAll('.mode').forEach(function(x){ x.classList.remove('on'); });
+  m.classList.add('on');
+  mode = m.getAttribute('data-m');
+  var ph = {
+    review:   "Paste the manuscript you are reviewing. Abstract, methods, results, whatever you have. This text never leaves your browser, which is the entire point of this page.",
+    disclose: "Describe what you actually did with AI, and name your target journal. For example: I used an AI assistant to polish my English and to draft the plotting code, which I checked against my data. Submitting to an Elsevier journal.",
+    explain:  "Paste the reviewer comment you cannot parse."
+  }[mode];
+  document.getElementById('inp').placeholder = ph;
+  document.getElementById('out').innerHTML = '';
+});
+
+// The rule in stone, enforced in the system prompt: this referee never plays detector.
+var SYS = {
+  review: "You are a careful peer reviewer's assistant, running locally on the reviewer's own machine. You are given a confidential manuscript. Your job is to hunt BAD SCIENCE, never to guess whether AI wrote it. " +
+    "Look for and list, as specific checkable findings a reviewer could put in a report: contradictions between sections; claims unsupported by the data shown; statistical impossibilities or inconsistencies (a standard deviation of zero, a p-value that cannot follow from its test statistic, sample sizes that do not match between sections); methods that could not produce the reported results; conclusions broader than the evidence; software packages, datasets, or equations that look invented; and citations that would not support the sentence attached to them. " +
+    "For each finding give: the specific problem, and the question the reviewer should put to the authors. Be concrete and quote the manuscript. If you find nothing in a category, do not invent something. " +
+    "ABSOLUTE RULE: never state or speculate that the text was written by AI, and never give an AI-likelihood judgment. If asked, refuse and explain that a detector score is not evidence and that prose style is not misconduct. Reply in under 250 words, as a short list.",
+  disclose: "You are an expert on 2026 scholarly-publishing AI-disclosure rules, running locally on the author's machine. Given what the author did with AI and their target venue, draft a disclosure statement. " +
+    "Rules you know: AI is never an author. ICMJE: writing assistance goes in the acknowledgments; data collection or analysis goes in the methods; both stated at submission. Elsevier: a dedicated declaration section in the published article, and since June 2026 basic grammar and spelling checks are exempt. Nature portfolio: methods section, and pure copy editing of the author's own text is exempt. Science: strictest, cover letter plus methods or acknowledgments. " +
+    "Your statement must name the tool, say what it actually did, and end with the human responsibility sentence: the authors reviewed and edited the output and take full responsibility for the content. State clearly WHICH SECTION it goes in. Then add one line telling the author to check their venue's own policy page before submitting, because these rules changed twice in 2026. Under 180 words.",
+  explain: "You are a kind, experienced senior colleague, running locally on the author's machine. The author has pasted a peer-review comment they find cryptic. " +
+    "Give: (1) the two or three most likely things the reviewer actually means, ranked; (2) what evidence in the manuscript would settle which reading is right; (3) a short, non-defensive way to respond to each. Be practical and calm. Do not tell the author the reviewer is wrong or hostile. Under 200 words."
+};
+
+function gpuOk(){ return typeof navigator !== 'undefined' && !!navigator.gpu; }
+
+document.getElementById('loadBtn').onclick = async function(){
+  var btn = this, status = document.getElementById('loadStatus'), bar = document.getElementById('loadBar');
+  if (!gpuOk()){
+    var w = document.getElementById('gpuWarn');
+    w.style.display = 'block';
+    w.innerHTML = "<b>This browser cannot run a local model.</b> The Local Referee needs WebGPU, which is available in Chrome and Edge (113+), Safari 26+, and recent Firefox on Windows and Apple silicon. It is not yet shipped on Firefox for Linux. " +
+      "Nothing is broken and you have missed nothing: the lesson of this page is the architecture, not the model. Read the airlock above, then keep going. Everything else in the course works everywhere.";
+    return;
+  }
+  btn.disabled = true;
+  var model = document.getElementById('modelSel').value;
+  status.innerHTML = "Fetching the weights. This happens <b>once</b>.";
+  try {
+    var webllm = await import('./lib/web-llm.js');
+    engine = await webllm.CreateMLCEngine(model, {
+      initProgressCallback: function(p){
+        var pct = Math.round((p.progress || 0) * 100);
+        bar.style.width = pct + "%";
+        status.innerHTML = (p.text || "loading").replace(/\[.*?\]/g, "").slice(0, 90) + " <b>" + pct + "%</b>";
+      }
+    });
+    bar.style.width = "100%";
+    // ARM THE AIRLOCK: from this instant, any request at all is a violation and gets counted.
+    window.__NET.armed = true;
+    window.__paintNet();
+    status.innerHTML = "<b style='color:var(--cyan)'>Referee loaded and running locally.</b> The airlock is armed: from now on, every request this page makes is counted above. Go offline and try it.";
+    btn.textContent = "Referee is in the room";
+    var run = document.getElementById('runBtn');
+    run.disabled = false; run.textContent = "Run the referee, locally";
+  } catch(e){
+    btn.disabled = false;
+    status.innerHTML = "<b style='color:var(--warm)'>Could not load:</b> " + String(e.message || e).slice(0, 110);
+  }
+};
+
+document.getElementById('runBtn').onclick = async function(){
+  if (!engine || busy) return;
+  var text = document.getElementById('inp').value.trim();
+  var out = document.getElementById('out'), rs = document.getElementById('runStatus');
+  if (text.length < 40){ rs.textContent = "Give it something to work with (40+ characters)."; return; }
+  busy = true; this.disabled = true;
+  document.getElementById('stopBtn').style.display = 'inline-block';
+  rs.innerHTML = "Thinking, on your GPU. <b>Zero requests.</b>";
+  out.innerHTML = '<span class="cursor"></span>';
+  var acc = "";
+  try {
+    var stream = await engine.chat.completions.create({
+      messages: [{ role: "system", content: SYS[mode] }, { role: "user", content: text.slice(0, 6000) }],
+      stream: true, temperature: 0.4
+    });
+    for await (const chunk of stream) {
+      var d = chunk.choices[0] && chunk.choices[0].delta && chunk.choices[0].delta.content;
+      if (d){ acc += d; out.innerHTML = escapeHtml(acc) + '<span class="cursor"></span>'; }
+      if (!busy) break;
+    }
+    out.innerHTML = escapeHtml(acc);
+    rs.innerHTML = "Done, entirely on this machine. <b>Requests sent: " + window.__NET.count + "</b>";
+  } catch(e){
+    out.textContent = "The referee stumbled: " + String(e.message || e);
+    rs.textContent = "";
+  }
+  busy = false; this.disabled = false;
+  document.getElementById('stopBtn').style.display = 'none';
+};
+document.getElementById('stopBtn').onclick = function(){ busy = false; };
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"]/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; });
+}
+</script>
+<script src="aira.js"></script>
+</body>
+</html>

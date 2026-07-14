@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz · Responsible AI in Scholarly Publishing · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link rel="stylesheet" href="polish.css">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--tint:#F0F5EC;--ink:#1F2A20;--muted:#5C6B5A;--amber:#D97706;--line:#DFE9D8;--red:#B3372E;--redbg:#FBEBE9;--greenbg:#EBF4E4}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#F6F8F4;line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:0 18px 60px}
+  header{background:var(--dark);color:#fff;padding:34px 0 30px;margin-bottom:26px}
+  header .wrap{padding-bottom:0}
+  .kicker{color:var(--moss);font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+  h1{font-family:Cambria,Georgia,serif;font-size:34px;margin-top:6px}
+  header p{color:#CFE3BF;margin-top:8px;font-size:15px}
+  header a{color:var(--moss)}
+  .q{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 6px rgba(31,42,32,.05)}
+  .q h3{font-size:16px;margin-bottom:12px}
+  .q h3 .n{color:var(--moss);font-family:Cambria,Georgia,serif;margin-right:6px}
+  .opt{display:block;padding:9px 12px;border:1px solid var(--line);border-radius:8px;margin:7px 0;cursor:pointer;font-size:14.5px;background:#fff}
+  .opt:hover{background:var(--tint)}
+  .opt input{margin-right:9px;accent-color:var(--forest)}
+  .q.correct{border-color:var(--forest);background:var(--greenbg)}
+  .q.wrong{border-color:var(--red);background:var(--redbg)}
+  .fb{display:none;margin-top:10px;font-size:13.5px;padding:10px 12px;border-radius:8px}
+  .q.correct .fb{display:block;background:#fff;color:var(--forest)}
+  .q.wrong .fb{display:block;background:#fff;color:var(--red)}
+  .fb b{display:block;margin-bottom:2px}
+  .actions{text-align:center;margin:28px 0}
+  button{background:var(--forest);color:#fff;border:0;border-radius:9px;padding:14px 34px;font-size:17px;font-weight:700;cursor:pointer}
+  button:hover{background:#234D24}
+  #result{display:none;background:#fff;border:2px solid var(--forest);border-radius:14px;padding:26px;text-align:center;margin:26px 0}
+  #result.fail{border-color:var(--amber)}
+  #result .score{font-family:Cambria,Georgia,serif;font-size:44px;font-weight:700;color:var(--forest)}
+  #result.fail .score{color:var(--amber)}
+  #result p{color:var(--muted);margin:8px 0 14px}
+  #nameRow{margin:14px 0}
+  #nameRow input{padding:12px 14px;font-size:16px;border:1.5px solid var(--line);border-radius:8px;width:min(320px,90%)}
+  .small{font-size:12.5px;color:var(--muted);margin-top:10px}
+  .toplink{font-size:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a href="https://www.linkedin.com/company/cambium-ai-institute/" title="Cambium AI Research Institution on LinkedIn" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:16px">
+      <img src="../../../assets/logo-mark@2x.png" alt="Cambium AI logo" style="width:40px;height:40px">
+      <span style="color:#E8F2DE;font-weight:700;font-size:13px;letter-spacing:.5px">CAMBIUM AI <span style="color:var(--moss)">· RESEARCH INSTITUTION</span></span>
+    </a>
+    <div class="kicker">Cambium Academy · Course 04 · Final quiz</div>
+    <h1>Responsible AI in Scholarly Publishing · Quiz</h1>
+    <p>20 questions, all covered in the course. Pass at 70% (14 of 20). Nothing is stored or sent anywhere.
+    <br><span class="toplink">Need a refresher? <a href="slides.html">Reread the slides</a> · <a href="flashcards.html">Flashcards</a> · <a href="community.html">Stuck? Ask for help</a> · <a href="index.html">Course home</a> · <a href="classroom.html">AI Classroom</a> · <a href="practical.html">Practical</a> · <a href="practice.html">Screening Room</a> · <a href="pack.html">Pack</a> · <a href="referee.html">Local Referee</a><a href="auditor.html">Reference Auditor</a><a href="../../../start/">All courses</a></span></p>
+  </div>
+</header>
+<div class="wrap">
+  <div id="lockPanel" style="display:none;background:#fff;border:2px solid var(--amber);border-radius:14px;padding:26px;margin-bottom:20px">
+    <div style="font-family:Cambria,Georgia,serif;font-size:24px;font-weight:700;color:var(--ink);margin-bottom:6px">The quiz unlocks after you study</div>
+    <p style="color:var(--muted);font-size:14.5px;margin-bottom:16px">Certificates here are earned. Finish these three steps and this page opens automatically. Aira tracks your progress in this browser.</p>
+    <div id="lockList"></div>
+    <p style="color:var(--muted);font-size:12.5px;margin-top:14px">Watched the lecture on YouTube instead of reading the slides? Mark it watched on the <a href="index.html" style="color:var(--forest);font-weight:600">course home</a> under the video.</p>
+  </div>
+  <div id="quiz"></div>
+  <div class="actions"><button id="grade">Grade my quiz</button></div>
+  <div id="result">
+    <div class="score" id="scoreTxt"></div>
+    <p id="msg"></p>
+    <div id="nameRow" style="display:none">
+      <input id="learner" type="text" placeholder="Your full name, as it should appear *" maxlength="60">
+      <div style="margin-top:10px"><input id="ldesig" type="text" placeholder="Designation, e.g. Postdoctoral Researcher (optional)" maxlength="60"></div>
+      <div style="margin-top:10px"><input id="lorg" type="text" placeholder="Institution or organization (optional)" maxlength="80"></div>
+      <div style="margin-top:10px"><input id="lemail" type="email" placeholder="Email (optional, for your records only)" maxlength="80"></div>
+      <div class="small" style="margin-top:8px">Designation and organization appear on the certificate under your name. Email never appears on the certificate; if you add it, the Academy stores it privately so we can help you recover your certificate later. It is never shared or sold, and you can ask us to delete it anytime. Leave it blank if you prefer.</div>
+      <div style="margin-top:12px"><button id="cert">Get my certificate</button></div>
+    </div>
+    <div id="retry" style="display:none"><button onclick="location.reload()">Try again</button></div>
+    <div class="small">Certificates are honor-based, like most free online course certificates. Answers grade in your browser only.</div>
+  </div>
+</div>
+
+<script>
+const Q = [
+["The question this course retires, and what replaces it:",["Keep asking whether AI wrote the paper, but ask politely","Retire \"was AI used?\" and ask: is the science sound, are the data authentic, are the conclusions supported, was the use disclosed","Retire all questions; AI papers are fine as they are","Ask which model was used and reject the newer ones"],1,"The old question is unanswerable and punishes the innocent. The four new ones are checkable, fair, and do real editorial work.","M1"],
+["AI authorship, across ICMJE, COPE, and every major publisher:",["Never. AI cannot take responsibility, so it cannot be an author, and humans keep full responsibility for AI-assisted content","Allowed as last author only","Allowed with the model version cited","Allowed if the AI contributed more than half the text"],0,"The one point where every rulebook on earth already agrees. You can use the tools; you cannot share the blame with them.","M2"],
+["Under ICMJE recommendations, AI writing assistance and AI use in analysis are disclosed, respectively, in:",["Methods for both","The cover letter only","Acknowledgments for writing help; methods for data collection or analysis","References and the title page"],2,"The placement map matters: writing help goes in acknowledgments, research use goes in methods, and the cover letter mentions both at submission.","M2"],
+["Using AI to polish your own English about your own science is:",["Misconduct at every serious venue","A gray area no policy addresses","Honest work: exempt or lightly disclosed at most venues, and a fairness issue for non-native writers","Only permitted for review articles"],2,"Nature exempts copy editing, Elsevier exempts basic checks since June 2026, SAGE exempts assistive help. Science is strictest: there, one acknowledgment line settles it.","M3"],
+["AI-suggested citations are safe to add to your manuscript when:",["You open and verify every single one before it enters your list","They come from a frontier model","They are formatted correctly with DOIs","At least three of five look familiar"],0,"The suggestion is the assist; the verification is the job. Unopened suggestions are how 1 in 277 papers ended up citing ghosts.","M3"],
+["The irreducible seven (accuracy, interpretation, statistical conclusions, novelty, citations, ethics, final responsibility) are:",["Tasks to delegate to senior co-authors","Checks journals run automatically","Optional for short papers","The responsibilities no tool and no disclosure can transfer away from the human authors"],3,"Everything AI may legitimately do sits outside these seven. Everything that counts as misconduct violates at least one of them.","M4"],
+["A disclosure statement that works names the tool and its use, and then:",["Lists every prompt used, verbatim","States that the authors reviewed the output and take full responsibility for the content","Apologizes for the assistance","Estimates the percentage of AI-written text"],1,"Tool, use, human review, responsibility: two honest sentences. The venue's placement map decides where they go.","M4"],
+["The one-question test that separates assistance from misconduct:",["Did the AI amplify work you actually did, or manufacture work you did not do?","Was the tool free or paid?","Did a co-author approve the AI use?","Was the output longer than the input?"],0,"Suggested citations you verified: assist. Citation padding you never opened: misconduct. A restructured paragraph: assist. A discussion shipped unread: misconduct.","M5"],
+["Neurosurgical Review's 2025 mass retraction happened because:",["A data breach exposed reviewer names","Its impact factor was recalculated","The journal was flooded with AI-written letters and commentaries: 129 papers retracted in early 2025","A single fabricated image was found"],2,"Retraction Watch, February 2025. Industrial text generation met publication-count incentives, and one journal's correspondence section became the case study.","M5"],
+["By early 2026, the measured rate of biomedical papers citing at least one reference that does not exist was about:",["1 in 10,000","1 in 277, up from 1 in 2,828 in 2023","1 in 5","Too rare to measure"],1,"A Lancet-published analysis of 2 million+ papers and 97 million citations (May 2026). Roughly tenfold growth in three years, tracking AI writing adoption.","M6"],
+["The pre-submission reference audit this course prescribes:",["Trust your reference manager and skip checks","Spot-check three references at random","Ask an AI to confirm the list looks right","Every DOI resolves once; load-bearing citations get the full three clicks: exists, matches, says it"],3,"Minutes of clicking, run on your own list before reviewers and screening tools run it for you. Records come from the source of record, never from AI memory.","M6"],
+["The Stanford detector study's core finding (Patterns, 2023):",["Detectors are reliable above a 90% threshold","Detectors catch most AI text if it is unedited","Detectors work but only in English","Detectors flagged 61.3% of non-native English speakers' essays as AI-generated while scoring near-perfectly on native speakers' essays"],3,"The bias is the finding: the score measures word-choice predictability, not authorship. The people AI language help serves most are the ones detectors accuse most.","M7"],
+["The rule in stone from Module 7:",["Detector scores below 90% may be ignored","An AI-detector score must never be the sole basis for accepting, rejecting, or accusing anyone","Two agreeing detectors settle authorship","Detectors may decide desk rejections but not misconduct cases"],1,"No exceptions. Fabricated citations, impossible statistics, and manipulated images are evidence; a probability score about prose style is not.","M7"],
+["A reviewer wants AI help with a confidential manuscript. The bright line is:",["Upload it, but to a paid model","Upload it if the review is due tomorrow","Never upload confidential manuscript content to an AI system unless the venue explicitly provides a sanctioned tool; NIH prohibits it outright in its reviews","Upload it and delete the chat afterward"],2,"The manuscript is someone else's unpublished work, and confidentiality is a promise you personally made. CVPR 2026 bans LLM reviews; NeurIPS bars sharing submissions.","M8"],
+["Which of these IS an ethical AI use for a reviewer, inside policy:",["Learning an unfamiliar statistical method in general terms, sharing no manuscript text","Pasting the abstract in for a quick summary","Generating the review from the PDF, then editing it","Asking an LLM whether the paper deserves acceptance"],0,"The test for every use: no confidential content leaves your custody, and the final judgment stays yours. Checklist walking and polishing your own prose (disclosed, where permitted) also pass.","M8"],
+["The reviewer red flags this course teaches you to hunt are:",["Fluent prose, long reference lists, and confident tone","Checkable problems: contradictions between sections, impossible statistics, citations that do not support their sentence, hallucinated software packages","Signs of non-native English","High detector scores and formal vocabulary"],1,"Every real flag is evidence you can point to, which is what makes a review fair and what makes it survive appeal. Hunt bad science, not AI.","M9"],
+["The July 2025 hidden-prompt affair: authors hid instructions like GIVE A POSITIVE REVIEW ONLY in manuscripts using:",["Encrypted PDF metadata","QR codes in figures","Fake author affiliations","White text and microscopic fonts, invisible to human readers but read perfectly by any LLM a rule-breaking reviewer used"],3,"About 17 to 18 arXiv preprints, authors linked to 14 universities in 8 countries. It only works when reviewers break the confidentiality rule, and it is now analyzed as research misconduct.","M10"],
+["Editorial screening tools (Proofig, Imagetwin, Papermill Alarm, the STM Integrity Hub):",["Support editorial decisions but never make them: a flag is a question, not a verdict","Auto-reject anything flagged red","Replace peer review at scale","Exist mainly to detect AI-written prose"],0,"The rack that survived checks evidence: images, references, provenance. COPE flowcharts govern suspicion, and institutions, not journals, judge people.","M11"],
+["A detector screams 98% AI at a careful manuscript from a non-anglophone lab. The strong editor:",["Desk-rejects citing the score","Emails the authors an accusation","Sets the score aside and checks evidence: references resolve, images clean, stats consistent, data available. If those pass, the paper proceeds","Asks the authors to rewrite in a more human style"],2,"The Detector Trap in one question. If real evidence surfaces, act on THE EVIDENCE; the score adds nothing to a real finding and subtracts nothing from a clean one.","M11"],
+["The Vancouver Standard, in drafting through 2026, aims to:",["Ban generative AI from research publishing","License AI reviewers","Rank journals by AI usage","Create one shared, structured taxonomy for disclosing AI use in research, replacing today's venue-by-venue patchwork"],3,"STM, COPE, the International Science Council, and the Global Young Academy; consultation ran early 2026, refined standard expected end 2026 into 2027. Early honest disclosers will just tick boxes.","M12"]
+];
+
+const quizEl = document.getElementById('quiz');
+quizEl.innerHTML = Q.map((q,qi)=>
+  `<div class="q" id="q${qi}"><h3><span class="n">${qi+1}.</span>${q[0]}</h3>` +
+  q[1].map((o,oi)=>`<label class="opt"><input type="radio" name="q${qi}" value="${oi}">${o}</label>`).join("") +
+  `<div class="fb" id="fb${qi}"></div></div>`).join("");
+
+document.getElementById('grade').onclick = function(){
+  if (enforceCertLock()) return;
+  let score = 0, firstUnanswered = null;
+  Q.forEach((q,qi)=>{
+    const pick = document.querySelector(`input[name="q${qi}"]:checked`);
+    if (!pick && firstUnanswered === null) firstUnanswered = qi;
+  });
+  if (firstUnanswered !== null) {
+    alert("Question " + (firstUnanswered+1) + " is still unanswered. Answer all 20, then grade.");
+    document.getElementById("q"+firstUnanswered).scrollIntoView({behavior:"smooth"});
+    return;
+  }
+  Q.forEach((q,qi)=>{
+    const pick = +document.querySelector(`input[name="q${qi}"]:checked`).value;
+    const box = document.getElementById("q"+qi), fb = document.getElementById("fb"+qi);
+    const ok = pick === q[2];
+    if (ok) score++;
+    box.className = "q " + (ok ? "correct" : "wrong");
+    fb.innerHTML = (ok ? "<b>Correct.</b>" : `<b>Not quite. Correct answer: ${q[1][q[2]]}</b>`) + q[3];
+    box.querySelectorAll("input").forEach(el=>el.disabled=true);
+  });
+  const res = document.getElementById('result'), pass = score >= 14;
+  res.style.display = "block";
+  res.className = pass ? "" : "fail";
+  document.getElementById('scoreTxt').textContent = score + " / 20";
+  document.getElementById('msg').textContent = pass
+    ? "You passed. Enter your name exactly as it should appear on the certificate."
+    : "You need 14 to pass. Review the marked questions or reread the slides, then try again. The course is not going anywhere.";
+  document.getElementById('nameRow').style.display = pass ? "block" : "none";
+  document.getElementById('retry').style.display = pass ? "none" : "block";
+  if (pass) window.__score = score;
+  try {
+    const prev = JSON.parse(localStorage.getItem('cambium-c04-quiz') || '{}');
+    const missTopics = {};
+    Q.forEach((q, qi) => {
+      const pick = document.querySelector('input[name="q' + qi + '"]:checked');
+      if (!pick || +pick.value !== q[2]) { const m = q[4] || "M?"; missTopics[m] = (missTopics[m] || 0) + 1; }
+    });
+    const rec = { best: Math.max(prev.best || 0, score), passed: !!(prev.passed || pass), date: new Date().toISOString().slice(0,10), missTopics: missTopics };
+    if (prev.consumedBy) { rec.consumedBy = prev.consumedBy; rec.passed = false; }
+    localStorage.setItem('cambium-c04-quiz', JSON.stringify(rec));
+  } catch(e) {}
+  res.scrollIntoView({behavior:"smooth"});
+  this.style.display = "none";
+};
+
+// Learning-path gate: lecture + all flashcards + all playground labs before the quiz.
+(function(){
+  function rd(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch(e){ return null; } }
+  var seen = (rd("cambium-c04-slides") || {}).seen || 0;
+  var lecture = seen >= 80 || !!(rd("cambium-c04-lecture") || {}).watched;
+  var cards = Object.keys(rd("cambium-c04-cards") || {}).length;
+  var pg = rd("cambium-c04-playground") || {};
+  var pgN = (pg.disc?1:0) + (pg.line?1:0) + (pg.ghost?1:0) + (pg.flags?1:0) + (pg.inject?1:0) + (pg.trap?1:0);
+  var steps = [
+    { ok: lecture, label: "The lecture", detail: lecture ? "done" : (seen > 0 ? seen + " of 80 slides read" : "read the slides or watch the video"), href: "slides.html" },
+    { ok: cards >= 24, label: "All 24 flashcards", detail: cards >= 24 ? "done" : cards + " of 24 known so far", href: "flashcards.html" },
+    { ok: pgN >= 6, label: "All 6 AI Lab games", detail: pgN >= 6 ? "done" : pgN + " of 6 won", href: "playground.html" }
+  ];
+  if (steps.every(function(s){ return s.ok; })) return;
+  document.getElementById('quiz').style.display = "none";
+  document.querySelector('.actions').style.display = "none";
+  var panel = document.getElementById('lockPanel');
+  panel.style.display = "block";
+  document.getElementById('lockList').innerHTML = steps.map(function(s){
+    return '<a href="' + s.href + '" style="display:flex;justify-content:space-between;align-items:center;gap:10px;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;background:' + (s.ok ? '#EBF4E4' : '#fff') + '">' +
+      '<span style="font-weight:600">' + (s.ok ? '&#10003; ' : '&#9675; ') + s.label + '</span><span style="font-size:13px;color:var(--muted)">' + s.detail + ' &#8594;</span></a>';
+  }).join("");
+})();
+
+// ONE CERTIFICATE PER BROWSER: once issued, the quiz and name form close here for good.
+function certIssued(){
+  try { return JSON.parse(localStorage.getItem('cambium-c04-cert') || 'null') || null; } catch(e){ return null; }
+}
+function enforceCertLock(){
+  var cert = certIssued();
+  if (!cert || !cert.issued) return false;
+  ['quiz','result','lockPanel'].forEach(function(id){ var el = document.getElementById(id); if (el) el.style.display = 'none'; });
+  var acts = document.querySelector('.actions'); if (acts) acts.style.display = 'none';
+  var p = document.getElementById('certLockPanel');
+  if (!p) {
+    p = document.createElement('div');
+    p.id = 'certLockPanel';
+    p.style.cssText = 'background:#fff;border:2px solid var(--forest);border-radius:16px;padding:28px;text-align:center;margin:18px 0';
+    var host = document.getElementById('quiz');
+    (host ? host.parentNode : document.body).insertBefore(p, host || null);
+  }
+  p.innerHTML = '<h2 style="font-family:Cambria,Georgia,serif;color:var(--forest);font-size:24px;margin-bottom:8px">Certificate already issued</h2>' +
+    '<p style="color:var(--muted);font-size:14.5px;max-width:520px;margin:0 auto 14px">This browser&#8217;s certificate belongs to <b>' + cert.name + '</b>. Each browser issues exactly one certificate, so the quiz and name form are closed here.</p>' +
+    '<a href="certificate.html" style="display:inline-block;background:var(--forest);color:#fff;font-weight:700;padding:12px 24px;border-radius:10px;text-decoration:none">Open my certificate</a>' +
+    '<div style="margin-top:16px;padding:14px 16px;border:1px solid #E4CE96;background:#FBF6E7;border-radius:12px;font-size:14px;line-height:1.6;color:#3B3218;text-align:left">' +
+      '<b>Go further, if you want the mark that means the most:</b> <a href="practical.html" style="color:#8C6320;font-weight:700">The Practical</a> is an optional honors exam: work a real editor&#8217;s packet, from the live registry check to the decision letter. Pass, and your certificate carries <b>DESK-VERIFIED</b>. Also grab <a href="pack.html" style="color:#8C6320;font-weight:700">the Author\'s Pack</a>: every disclosure statement, checklist, and policy link from the course, ready to reuse.' +
+    '</div>' +
+    '<p style="color:var(--muted);font-size:12.5px;max-width:520px;margin:14px auto 0">A different learner on this computer? Open the Academy in a private window or another browser profile and complete your own path, every step, fair and square.</p>';
+  p.style.display = 'block';
+  return true;
+}
+window.addEventListener('pageshow', function(){ enforceCertLock(); });
+enforceCertLock();
+
+document.getElementById('cert').onclick = function(){
+  if (enforceCertLock()) return;
+  const name = document.getElementById('learner').value.trim();
+  if (!name) { alert("Enter your name first."); return; }
+  const desig = document.getElementById('ldesig').value.trim();
+  const orgName = document.getElementById('lorg').value.trim();
+  const email = document.getElementById('lemail').value.trim();
+  const org = [desig, orgName].filter(Boolean).join(", ");
+  const t = new Date();
+  const d = t.getFullYear() + "-" + String(t.getMonth()+1).padStart(2,"0") + "-" + String(t.getDate()).padStart(2,"0");
+  try { localStorage.setItem('cambium-c04-learner', JSON.stringify({ name: name, org: org, email: email })); } catch(e) {}
+  location.href = "certificate.html?name=" + encodeURIComponent(name) + (org ? "&org=" + encodeURIComponent(org) : "") + "&score=" + window.__score + "&date=" + d;
+};
+</script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

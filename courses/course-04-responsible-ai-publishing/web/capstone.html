@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capstone · Responsible AI in Scholarly Publishing · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link rel="stylesheet" href="polish.css">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--mossdeep:#6E9648;--tint:#F0F5EC;--ink:#1F2A20;--muted:#5C6B5A;--line:#DFE9D8;--gold:#B98A2D}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#F6F8F4;line-height:1.6}
+  .wrap{max-width:780px;margin:0 auto;padding:0 18px 60px}
+  .nav{display:flex;align-items:center;gap:12px;padding:14px 0;flex-wrap:wrap}
+  .nav img{width:36px;height:36px}
+  .nav a.brand{font-weight:700;color:var(--dark);text-decoration:none;font-size:14px;display:flex;align-items:center;gap:9px}
+  .nav .links{margin-left:auto;display:flex;gap:14px;flex-wrap:wrap}
+  .nav .links a{color:var(--forest);text-decoration:none;font-weight:600;font-size:13.5px}
+  h1{font-family:Cambria,Georgia,serif;font-size:32px;margin:10px 0 6px}
+  p.lead{color:var(--muted);font-size:15px;margin-bottom:24px}
+  .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:18px}
+  .box h2{font-family:Cambria,Georgia,serif;font-size:22px;color:var(--forest);margin-bottom:6px}
+  .box h3{font-size:16px;margin:16px 0 6px}
+  .box p{font-size:14.5px;color:var(--muted);margin-bottom:8px}
+  .box ul{margin:8px 0 8px 20px}
+  .box li{font-size:14.5px;margin:6px 0;color:var(--muted)}
+  .box li b{color:var(--ink)}
+  .num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--forest);color:#fff;font-family:Cambria,Georgia,serif;font-weight:700;font-size:16px;margin-right:10px}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+  th{background:var(--dark);color:#fff;text-align:left;padding:9px 12px;font-weight:600}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--muted)}
+  td:first-child{color:var(--ink);font-weight:600}
+  .tip{background:var(--tint);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:14px 16px;font-size:14px;margin-top:14px}
+  .tip b{color:var(--forest)}
+  a.cta{display:inline-block;background:var(--forest);color:#fff;font-weight:700;padding:12px 24px;border-radius:9px;text-decoration:none;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI logo">Cambium AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="slides.html">Slides</a><a href="quiz.html">Quiz</a><a href="practical.html">Practical</a><a href="pack.html">Pack</a><a href="community.html">Community</a><a href="referee.html">Local Referee</a><a href="auditor.html">Reference Auditor</a><a href="../../../start/">All courses</a></div>
+  </nav>
+
+  <h1>The capstone</h1>
+  <p class="lead">Three artifacts you would really sign. Not an exercise: a disclosure statement for your next paper, a one-page AI policy for your lab or journal, and an honest audit of a paper you have already published. Do these once and you will use them for years.</p>
+
+  <div class="box">
+    <h2><span class="num">1</span>Your disclosure statement</h2>
+    <p>Write the statement you will attach to your next submission, for the venue you will really send it to.</p>
+    <h3>What it must contain</h3>
+    <ul>
+      <li><b>The tool and version</b>, named plainly.</li>
+      <li><b>What it actually did.</b> Specific enough to be true, general enough to survive minor edits.</li>
+      <li><b>What the humans did after.</b> Reviewed and edited all output, and take full responsibility for the content.</li>
+      <li><b>The right section.</b> Look up your venue's current policy page today; do not rely on this course, or on a colleague's memory of last year's rule.</li>
+    </ul>
+    <div class="tip"><b>The tiebreak for edge cases:</b> disclose anything a careful reader would feel misled to discover later; skip anything they would find trivial. That sentence resolves cases the policies have not caught up with yet, and it always lands on the defensible side.</div>
+  </div>
+
+  <div class="box">
+    <h2><span class="num">2</span>Your one-page AI policy</h2>
+    <p>For yourself, your lab, or your journal. One page, written in your own words, that a new student or a new reviewer could follow on their first day.</p>
+    <h3>The six things it should settle</h3>
+    <ul>
+      <li><b>Permitted uses.</b> Name them generously and concretely: language and translation, restructuring, brainstorming, consistency checks, code assistance with verification. Be the person who says what IS allowed, not just what is not.</li>
+      <li><b>Disclosure defaults.</b> What your group discloses by default, and where, so nobody has to guess at midnight.</li>
+      <li><b>The verification rule.</b> Every citation opened. Every number checked. Every generated line of analysis explained back before it runs.</li>
+      <li><b>The confidentiality line.</b> Manuscripts you are reviewing, unpublished data, and anything under embargo never enter an AI system, unless the venue explicitly provides a sanctioned one.</li>
+      <li><b>The images rule.</b> No generative images of data, ever. Schematics only with disclosure.</li>
+      <li><b>Who signs.</b> Who is accountable for a submission's AI use, and what happens if something is discovered later. The answer is always a human, and the policy should name the role.</li>
+    </ul>
+    <div class="tip"><b>Write the detector clause too.</b> If you supervise, teach, or edit, put it in writing: <i>no one in this group will be accused on the basis of an AI-detector score.</i> That sentence protects the people who most need protecting, and it costs you nothing but the courage to write it down.</div>
+  </div>
+
+  <div class="box">
+    <h2><span class="num">3</span>The honest audit</h2>
+    <p>Take one paper you have already published, ideally a recent one, and run this course's checks on it. Whatever you find, you will know, and knowing is the point.</p>
+    <h3>The audit</h3>
+    <ul>
+      <li><b>Every DOI in the reference list resolves.</b> Click them. All of them. Count the casualties.</li>
+      <li><b>The load-bearing citations pass three clicks:</b> exists, matches, and actually says what you attached to it.</li>
+      <li><b>Tables, figures, and text agree</b> on every number that appears in more than one place.</li>
+      <li><b>The statistics are internally consistent:</b> do the test statistics, degrees of freedom, and p-values fit together?</li>
+      <li><b>The AI use, if any, is disclosed correctly</b> for that venue's rule as it stood at submission.</li>
+    </ul>
+    <p style="margin-top:10px">If you find something, you have three honest options depending on severity: note it in your own records, contact the journal, or publish a correction. Every one of those is better than the fourth option, which is hoping the Integrity Hub does not get there first.</p>
+    <div class="tip"><b>Most people find something.</b> A dead DOI, a rounding mismatch, a citation that says a little less than they claimed. That is not a scandal; that is what an unaudited reference list looks like, which is exactly why this course exists.</div>
+  </div>
+
+  <div class="box">
+    <h2>The rubric, if you want to grade yourself</h2>
+    <table>
+      <tr><th>Criterion</th><th>What good looks like</th></tr>
+      <tr><td>Correct placement</td><td>The disclosure sits in the section YOUR venue's current policy page specifies, and you can point to the page.</td></tr>
+      <tr><td>Honest scope</td><td>It names substantive use and skips trivia. Neither vague nor a tool inventory.</td></tr>
+      <tr><td>Responsibility claimed</td><td>The statement says a human reviewed the output and is accountable for the content.</td></tr>
+      <tr><td>Policy is usable</td><td>A new student could follow your one-pager on day one without asking you a question.</td></tr>
+      <tr><td>Policy is generous</td><td>It says clearly what IS permitted, not only what is forbidden. Honest people should feel safer after reading it.</td></tr>
+      <tr><td>The detector clause</td><td>Written down: nobody gets accused on a score.</td></tr>
+      <tr><td>Audit actually run</td><td>Every DOI clicked, not sampled. The count of what you found is written down somewhere.</td></tr>
+      <tr><td>Action taken</td><td>If the audit found something material, you did something about it.</td></tr>
+    </table>
+  </div>
+
+  <div class="box" style="text-align:center">
+    <h2>Then show it, if you want</h2>
+    <p>Post your one-page policy on the community board. Policies get better when other people poke at them, and the next person writing one will be glad yours is there.</p>
+    <a class="cta" href="community.html">Share it on the board</a>
+    <p style="margin-top:14px;font-size:13.5px">Want the harder version of this? <a href="practical.html" style="color:var(--forest);font-weight:700">The Practical</a> puts you at an editor's desk with a live registry check, a hidden prompt, and a decision letter that fails if it accuses on a detector score.</p>
+  </div>
+</div>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
