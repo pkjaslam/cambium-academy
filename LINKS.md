@@ -93,7 +93,7 @@ Living index of every public link. When a new course goes live, copy a course bl
 - Community: https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/community.html
 - Resources (every tool + stat, live-verified 2026-07-14): https://github.com/pkjaslam/cambium-academy/blob/main/courses/course-05-building-with-ai/resources.md
 - Deck: PPTX and PDF in `courses/course-05-building-with-ai/slides/`
-- Lecture video: in production (index.html carries a clearly marked placeholder until it premieres)
+- Lecture film (The Heist, 3:37): https://youtu.be/5OQ8GhopFmE
 
 ## Share images (link-preview cards)
 
