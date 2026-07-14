@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Agent Workshop · Building with AI · Cambium Academy</title>
+<meta name="description" content="A complete 90-minute live workshop kit: teach faculty, administrators, and researchers to build their first supervised AI agent, with a minute-by-minute run sheet, printable recipe cards, and a projector mode.">
+<link rel="icon" href="../../../assets/logo-mark@2x.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--moss:#97BC62;--lite:#C6E89B;--gold:#D9B25C;--ink:#E8F2DE;--mut:#8FA684;--line:rgba(151,188,98,.22);--warm:#E07850;--cyan:#7FD4C1}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);line-height:1.6;min-height:100vh;background:#050b06}
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:16px 5vw;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(5,11,6,.92);backdrop-filter:blur(8px);z-index:40}
+  .nav a.brand{font-family:'Sora',sans-serif;font-weight:700;color:var(--lite);text-decoration:none;font-size:13px;letter-spacing:2px;display:flex;align-items:center;gap:10px}
+  .nav a.brand img{height:22px}
+  .nav .links a{color:var(--mut);text-decoration:none;font-size:13.5px;margin-left:18px}
+  .nav .links a:hover{color:var(--lite)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 5vw 90px}
+  .hero{padding:54px 0 8px}
+  .hero .over{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;letter-spacing:5px;color:var(--cyan)}
+  h1{font-family:'Sora',sans-serif;font-size:clamp(36px,5.8vw,58px);font-weight:800;margin:10px 0 12px;background:linear-gradient(100deg,#F2F8EA,#D9B25C 55%,#C6E89B);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{font-size:16.5px;color:#c9d8bd;max-width:840px}
+  h2{font-family:'Sora',sans-serif;font-size:25px;font-weight:800;margin:12px 0 6px}
+  .tag{font-family:'Sora',sans-serif;font-size:11px;font-weight:800;letter-spacing:3px;color:#0d1a0b;background:linear-gradient(135deg,#E8CD8A,#B98F3E);display:inline-block;border-radius:8px;padding:5px 12px}
+  section{margin-top:48px}
+  .sub{color:var(--mut);font-size:14.5px;max-width:840px}
+  button{background:linear-gradient(180deg,#356B2F,#1F3D24);color:var(--lite);border:1px solid rgba(151,188,98,.65);border-radius:11px;padding:12px 20px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif}
+  button.gold{background:linear-gradient(180deg,#8a6b28,#5d461a);border-color:rgba(217,178,92,.65);color:#F4E8CB}
+  button.ghost{background:transparent;border-color:var(--line);color:var(--mut)}
+  table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14px}
+  th{font-family:'Sora',sans-serif;font-size:11px;letter-spacing:2px;color:var(--cyan);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line)}
+  td{padding:10px 12px;border-bottom:1px dashed rgba(151,188,98,.14);vertical-align:top}
+  td.min{font-family:'Sora',sans-serif;color:var(--gold);white-space:nowrap;font-weight:700}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:14px;margin-top:18px}
+  .pcard{background:rgba(10,18,11,.72);border:1px solid var(--line);border-radius:15px;padding:19px;page-break-inside:avoid}
+  .pcard h3{font-family:'Sora',sans-serif;font-size:16px;color:var(--lite);margin-bottom:3px}
+  .pcard .who{font-size:12px;letter-spacing:2px;color:var(--cyan);font-family:'Sora',sans-serif;margin-bottom:9px}
+  .pcard .goal{font-size:13.8px;border-left:3px solid var(--gold);padding-left:10px;margin:9px 0}
+  .pcard table{font-size:12.5px;margin-top:8px}
+  .pcard td{padding:5px 8px}
+  .pcard .why{font-size:12.5px;color:var(--mut);margin-top:9px}
+  .pcard a.load{display:inline-block;margin-top:11px;color:#0d1a0b;background:linear-gradient(135deg,#9BE3D0,#4FA894);border-radius:9px;padding:8px 14px;font-family:'Sora',sans-serif;font-size:12px;font-weight:800;letter-spacing:1.5px;text-decoration:none}
+  .crib{background:rgba(224,120,80,.07);border:1px solid rgba(224,120,80,.35);border-radius:15px;padding:18px;margin-top:16px}
+  .crib h3{font-family:'Sora',sans-serif;color:var(--warm);font-size:15px;margin-bottom:8px}
+  .crib li{margin:7px 0 7px 18px;font-size:14px}
+  .rule{background:rgba(151,188,98,.08);border:1px solid var(--line);border-radius:15px;padding:20px;margin-top:16px;font-size:16.5px}
+  .grad td b{color:var(--lite)}
+  .note{font-size:13px;color:var(--mut);margin-top:12px}
+  /* projector mode */
+  body.proj .wrap{max-width:1500px}
+  body.proj .runsheet td,body.proj .runsheet th{font-size:20px;padding:16px}
+  body.proj h2{font-size:34px}
+  body.proj .lead,body.proj .sub{font-size:21px}
+  body.proj .pcard{font-size:19px}
+  body.proj .pcard h3{font-size:24px}
+  body.proj .pcard table{font-size:17px}
+  /* print */
+  @media print{
+    body{background:#fff;color:#111}
+    .nav,.noprint,button{display:none !important}
+    .tag{color:#111;background:#eee}
+    h1{-webkit-text-fill-color:#111;color:#111;background:none;filter:none}
+    .pcard{border:1.5px solid #999;background:#fff;color:#111}
+    .pcard h3{color:#111}.pcard .who{color:#333}.pcard .why{color:#444}
+    .pcard a.load{display:none}
+    td,th{color:#111;border-color:#bbb}
+    .crib{border-color:#999;background:#fff}
+    .rule{background:#fff;border-color:#999;color:#111}
+    .lead,.sub{color:#333}
+  }
+</style>
+<link rel="stylesheet" href="polish.css">
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI">CAMBIUM AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="slides.html">Slides</a><a href="foundry.html">Foundry</a><a href="workshop.html">Workshop</a><a href="playground.html">AI Lab</a><a href="quiz.html">Quiz</a><a href="practical.html">Practical</a><a href="sandbox.html">The Dry Run</a><a href="../../../start/">All courses</a></div>
+  </nav>
+  <div class="wrap">
+
+  <div class="hero">
+    <div class="over">◈ TAKE THIS COURSE TO YOUR PEOPLE</div>
+    <h1>THE AGENT WORKSHOP</h1>
+    <p class="lead">A complete 90-minute session you can run for your department, your office, or your lab, with nothing but a projector, this website, and a room of people who keep hearing about agents and have never built one. By minute 90, every table has assembled a supervised agent in <a href="foundry.html" style="color:var(--cyan)">the Foundry</a>, watched an injection attack die at a permission gate, and left holding a recipe card they made themselves.</p>
+    <div class="noprint" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
+      <button class="gold" id="projBtn">PROJECTOR MODE</button>
+      <button class="ghost" onclick="window.print()">PRINT THE KIT</button>
+    </div>
+  </div>
+
+  <section>
+    <span class="tag">THE RUN SHEET · 90 MINUTES</span>
+    <h2>Minute by minute</h2>
+    <p class="sub">Timings assume 10 to 30 people and one facilitator. Everything the room sees runs from this site; nothing to install, nothing to sign up for. Each table needs one laptop.</p>
+    <div class="runsheet"><table>
+      <tr><th>WHEN</th><th>WHAT HAPPENS</th><th>FACILITATOR NOTES</th></tr>
+      <tr><td class="min">0:00</td><td><b>The hook.</b> Open the Foundry on the projector. Load Naive mode, run the Injection Drill, Run 1. Say nothing until the red draft appears.</td><td>Let the room read the exfiltration draft in silence. Then: "Nobody in this room would approve that email. The agent never asked."</td></tr>
+      <tr><td class="min">0:10</td><td><b>What an agent is.</b> Five slots on screen: goal, brain, tools, memory, stop rules. A model answers; an agent acts. The loop: think, call, observe, repeat.</td><td>Point at the trace from the hook, not at abstract diagrams. The evidence is already on screen.</td></tr>
+      <tr><td class="min">0:25</td><td><b>Build one together.</b> Pick the persona closest to the room and load its recipe. Walk the five slots out loud, then run it live.</td><td>Ask the room to vote each tool's scope before you set it. Disagreement is the lesson arriving.</td></tr>
+      <tr><td class="min">0:45</td><td><b>Tables build their own.</b> Each table loads a persona card below, adapts the goal to their real work, and runs it. One rule: at least one tool on Ask.</td><td>Circulate. When a permission card pops, make the table decide together before anyone clicks.</td></tr>
+      <tr><td class="min">1:10</td><td><b>Show and tell.</b> Two tables demo their run on the projector, trace visible. The room finds one thing to tighten in each design.</td><td>Push for scope cuts, not scope adds. "What could you turn OFF and still finish the job?"</td></tr>
+      <tr><td class="min">1:25</td><td><b>The close.</b> Run 2 of the drill: same attack, scoped mode, the gate holds. Read the take-home rule aloud, hand out the cards.</td><td>End on the rule below. Do not add a second moral. One is enough.</td></tr>
+    </table></div>
+    <div class="rule"><b>The take-home rule:</b> automate the bounded, gate the rest. An agent earns autonomy one verified run at a time, and it never earns the right to act where you cannot see it.</div>
+  </section>
+
+  <section>
+    <span class="tag">THE THREE PERSONA CARDS</span>
+    <h2>Pick the one that matches your room</h2>
+    <p class="sub">Each card is a complete starting design: load it in the Foundry with one click, or rebuild it by hand from the table, which is better teaching. Every card follows the same shape: a bounded goal, the fewest tools that can finish it, one gated action, and a stop budget.</p>
+    <div class="cards">
+      <div class="pcard">
+        <div class="who">FOR FACULTY</div><h3>The Quiz Smith</h3>
+        <div class="goal">Draft a balanced 5-question quiz with an answer key on my topic. Draft only; I review before anything reaches students.</div>
+        <table><tr><th>TOOL</th><th>SCOPE</th><th>WHY</th></tr>
+          <tr><td>wiki</td><td>Allow</td><td>ground the topic</td></tr>
+          <tr><td>openalex</td><td>Ask</td><td>only if sources are needed</td></tr>
+          <tr><td>notes</td><td>Allow</td><td>keep drafts this session</td></tr>
+          <tr><td>email, ics, readpage</td><td>Off</td><td>the job needs none of them</td></tr>
+        </table>
+        <div class="why">The teaching point: a drafting agent needs no send powers at all. You sign what ships, which is also your institution's academic-integrity line.</div>
+        <a class="load" href="foundry.html#preset=faculty">LOAD IN THE FOUNDRY →</a>
+      </div>
+      <div class="pcard">
+        <div class="who">FOR ADMINISTRATORS</div><h3>The Monday Brief</h3>
+        <div class="goal">Triage my pasted notes into act now, delegate, and ignore, then draft the Monday status email for my review.</div>
+        <table><tr><th>TOOL</th><th>SCOPE</th><th>WHY</th></tr>
+          <tr><td>notes</td><td>Allow</td><td>hold the triage list</td></tr>
+          <tr><td>calc</td><td>Allow</td><td>totals and counts</td></tr>
+          <tr><td>email</td><td><b>Ask</b></td><td>the draft stops in front of you</td></tr>
+          <tr><td>ics</td><td>Ask</td><td>calendar drafts on request</td></tr>
+        </table>
+        <div class="why">The teaching point: the email tool on Ask is the whole design. The agent does the sorting; the accountable human does the sending, every time.</div>
+        <a class="load" href="foundry.html#preset=admin">LOAD IN THE FOUNDRY →</a>
+      </div>
+      <div class="pcard">
+        <div class="who">FOR RESEARCHERS</div><h3>The Literature Scout</h3>
+        <div class="goal">Build a short digest of recent literature on my topic. Every citation must be verified live before it appears; drop what does not resolve.</div>
+        <table><tr><th>TOOL</th><th>SCOPE</th><th>WHY</th></tr>
+          <tr><td>openalex</td><td>Allow</td><td>find candidate papers</td></tr>
+          <tr><td>crossref</td><td>Allow</td><td>verify every DOI, live</td></tr>
+          <tr><td>notes</td><td>Allow</td><td>accumulate the digest</td></tr>
+          <tr><td>wiki</td><td>Ask</td><td>background only when needed</td></tr>
+        </table>
+        <div class="why">The teaching point: verification as a stop rule. One in 277 papers now cites a source that does not exist; your agent refuses to add to that number.</div>
+        <a class="load" href="foundry.html#preset=research">LOAD IN THE FOUNDRY →</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <span class="tag">FACILITATOR CRIB SHEET</span>
+    <h2>What will go wrong, and what to do</h2>
+    <div class="crib">
+      <h3>PREDICTABLE FAILURES, CALM ANSWERS</h3>
+      <ul>
+        <li><b>The cloud brain is slow or busy.</b> It is a free public worker. Switch the brain slot to the Recorded run for the drill moments; they are deterministic on purpose. The lesson lives in the trace, not in the model.</li>
+        <li><b>No WebGPU on the room's laptops.</b> The Local brain option grays out and says why. Nothing else breaks; use Aira Cloud or recorded runs.</li>
+        <li><b>The agent goes off protocol.</b> The loop shows a RETRY, then stops honestly if it happens twice. Read that event to the room; it is module 7 (evals) making a live appearance.</li>
+        <li><b>Someone says "our IT would never allow this."</b> Correct instinct, wrong target: everything here is read-only or draft-only by construction. That conversation about real systems is exactly what modules 3 and 8 of the course are for.</li>
+        <li><b>A table wants the agent to send the email for real.</b> Perfect. Ask them who signs it when it is wrong. Watch the scope get changed back to Ask by consensus.</li>
+        <li><b>Wifi dies.</b> The drill, the recorded runs, calc and notes all work offline once the page is loaded. Remote tools will fail visibly and the trace will say so, which is a better lesson than slides about failure.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <span class="tag">AFTER THE WORKSHOP</span>
+    <h2>Where they graduate to</h2>
+    <p class="sub">The Foundry teaches the shape of the discipline. When people want agents wired into their real inbox, files, and calendars, point them at real platforms, with the same five-slot questions in hand. Free-tier claims below were checked on 14 July 2026 and move often.</p>
+    <table class="grad">
+      <tr><th>PLATFORM</th><th>BEST FOR</th><th>HONEST NOTE</th></tr>
+      <tr><td><b>Zapier Agents</b></td><td>office automations across thousands of everyday apps</td><td>natural-language setup; metered free tier, real work needs a plan</td></tr>
+      <tr><td><b>n8n</b></td><td>technical teams who want visual control and self-hosting</td><td>steeper start; the self-hosted community edition is free</td></tr>
+      <tr><td><b>Microsoft Copilot Studio</b></td><td>organizations already living in Microsoft 365</td><td>enterprise licensing; your IT department is part of this decision</td></tr>
+      <tr><td><b>Google AI Studio / Gemini</b></td><td>prototyping agents and Gems for free</td><td>generous free tier; enterprise agent platform is a separate product</td></tr>
+      <tr><td><b>Claude Projects and skills</b></td><td>document-heavy assistants with strong instructions</td><td>conversational agent building; usage limits on free plans</td></tr>
+    </table>
+    <p class="note">Whatever the platform, carry the card: bounded goal, fewest tools, one gated action, stop budget, and a human who answers for the output. Platforms change monthly; the five slots do not.</p>
+  </section>
+
+  <div class="note" style="margin-top:56px;border-top:1px solid var(--line);padding-top:16px">Part of <a href="index.html" style="color:var(--cyan)">Course 05 · Building with AI</a>. Aira, who narrates the course, is an AI teaching assistant and says so. This kit is free to reuse in your institution with attribution to Cambium Academy.</div>
+  </div>
+<script>
+document.getElementById('projBtn').onclick=function(){document.body.classList.toggle('proj');this.textContent=document.body.classList.contains('proj')?'EXIT PROJECTOR MODE':'PROJECTOR MODE'};
+window.WORKSHOP_READY=true;
+</script>
+  <script src="aira.js"></script>
+</body>
+</html>

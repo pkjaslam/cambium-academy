@@ -83,6 +83,31 @@ print('   ' + ('PASS: a correct letter is graded as passing' if g.get('pass') is
 sys.exit(0 if g.get('pass') is True else 1)
 " || FAIL=1
 
+echo "== 6. C05 The Agent Foundry: the worker can drive the agent loop (JSON protocol) =="
+python3 - <<'PY' || FAIL=1
+import json,urllib.request,sys
+SYS=('You are a careful task agent inside a supervised sandbox for a course. Loop protocol, strict: reply ONLY one JSON object, '
+ 'no prose, no markdown. Either {"thought":"why","action":{"tool":"NAME","args":{}}} or {"thought":"why","final":"answer"}. '
+ 'Available tools (name: what it does): calc: arithmetic, safe expression only. Tool args: calc{expression}.')
+msgs=[{"role":"user","content":SYS},{"role":"assistant","content":"Understood. JSON only. Send the state."},
+ {"role":"user","content":"STEP 1 of 4. GOAL: What is 17*23? Use the calc tool, then finish."},{"role":"assistant","content":"..."},
+ {"role":"user","content":"LATEST OBSERVATION:\n(no tool used yet)\nReply ONLY the JSON object, nothing else."}]
+req=urllib.request.Request("https://aira-chat.pkjaslamagrico.workers.dev",
+  data=json.dumps({"messages":msgs}).encode(), headers={"Content-Type":"application/json","Origin":"https://pkjaslam.github.io","User-Agent":"Mozilla/5.0 (Cambium check-live)"})
+try: d=json.loads(urllib.request.urlopen(req,timeout=40).read())
+except Exception as e: print("   FAIL: worker unreachable:",e); sys.exit(1)
+r=str(d.get("reply",""))
+import re
+m=re.search(r"\{[\s\S]*\}",r)
+if not m: print("   FAIL: no JSON in reply -> the Foundry loop would stop on protocol"); sys.exit(1)
+try: j=json.loads(m.group(0))
+except Exception: print("   FAIL: unparseable protocol JSON"); sys.exit(1)
+ok = ("action" in j and j["action"].get("tool")=="calc") or ("final" in j)
+print("   provider:", d.get("provider"), "| protocol reply:", json.dumps(j)[:90])
+print("   " + ("PASS: the worker drives the agent loop in protocol" if ok else "FAIL: reply is JSON but not the loop protocol"))
+sys.exit(0 if ok else 1)
+PY
+
 echo
 [ $FAIL -eq 0 ] && echo "LIVE CHECKS PASSED" || echo "LIVE CHECKS FAILED"
 exit $FAIL
