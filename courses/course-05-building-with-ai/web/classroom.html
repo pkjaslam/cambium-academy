@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Classroom · Building with AI · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--ink:#1F2A20;--mut:#5C6B5A;--line:#DFE9D8;--gold:#D9B25C}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);background:#F6F8F4;line-height:1.6}
+  .wrap{max-width:820px;margin:0 auto;padding:0 20px 80px}
+  header{background:var(--dark);color:#fff;padding:30px 0 26px;margin-bottom:26px}
+  header .wrap{padding-bottom:0}
+  .brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:14px}
+  .brand img{width:38px;height:38px;border-radius:9px}
+  .brand span{color:#E8F2DE;font-weight:700;font-size:13px;letter-spacing:.5px}
+  .brand span b{color:var(--moss)}
+  .kick{color:var(--moss);font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+  h1{font-family:'Sora',sans-serif;font-size:32px;margin-top:6px;color:#fff}
+  header p{color:#CFE3BF;margin-top:8px;font-size:15px;max-width:600px}
+  .lesson{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 26px;margin-bottom:26px;box-shadow:0 4px 14px rgba(31,42,32,.05)}
+  .lesson .tag{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;color:var(--gold);text-transform:uppercase}
+  .lesson h2{font-family:'Sora',sans-serif;font-size:22px;margin:6px 0 12px;color:var(--ink)}
+  .lesson p{color:var(--mut);font-size:15px;margin-bottom:14px}
+  .lesson ul{margin:0 0 4px 2px;list-style:none}
+  .lesson li{position:relative;padding:7px 0 7px 26px;font-size:15px;color:var(--ink);border-top:1px solid var(--line)}
+  .lesson li:first-child{border-top:0}
+  .lesson li::before{content:'';position:absolute;left:4px;top:15px;width:9px;height:9px;border-radius:50%;background:var(--moss)}
+  .lesson li b{color:var(--forest)}
+  .ac-lead{margin:0 0 12px}
+  .ac-lead .tag{font-family:'Sora',sans-serif;font-size:11px;font-weight:700;letter-spacing:3px;color:var(--forest);text-transform:uppercase}
+  .ac-lead h2{font-family:'Sora',sans-serif;font-size:24px;margin:6px 0 4px;color:var(--ink)}
+  .ac-lead p{color:var(--mut);font-size:14.5px}
+  .note{text-align:center;font-size:13px;color:var(--mut);margin-top:22px}
+  .note a{color:var(--forest);font-weight:600}
+  .demo{display:inline-block;font-size:11.5px;font-weight:700;color:#8a6d1f;background:#FBF3DA;border:1px solid #EAD9A6;border-radius:8px;padding:4px 10px;margin-top:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI"><span>CAMBIUM AI <b>· RESEARCH INSTITUTION</b></span></a>
+    <div class="kick">Cambium Academy · Course 05 · Live</div>
+    <h1>Building with AI</h1>
+    <p>A live lesson with your always-on AI Classroom. Aira teaches, shows examples, draws diagrams, and sums it up, right here on the page.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="lesson">
+    <div class="tag">The course &middot; four habits</div>
+    <h2>Agents that do the work, and cannot do damage</h2>
+    <p>Course 05's thesis, defended by all twelve modules: making an agent look impressive takes an afternoon; making one you can trust on real inputs is the actual job, and it is the job almost everyone skips. Most pilots die not for want of a better model, but for want of scoping, testing, and supervision. Four habits fix that.</p>
+    <ul>
+      <li><b>Scope well:</b> automate the repetitive, verifiable, bounded, low-blast-radius jobs. Keep the irreversible, high-stakes, and unverifiable in human hands.</li>
+      <li><b>Wire well:</b> an agent can only do what its tools allow, so the tool menu is your first safety control. MCP is the emerging standard; Claude, ChatGPT, Zapier, and n8n get you started free.</li>
+      <li><b>Test well:</b> build a golden set of real cases with known-good answers, and rerun it on every change. Green today is not green tomorrow. This is the step the 88% skipped.</li>
+      <li><b>Supervise well:</b> least privilege, a small blast radius, and a human gate before anything irreversible. You cannot prompt your way out of prompt injection; the defense is architecture.</li>
+      <li><b>Own the outcome:</b> an agent can do the work, but a human always owns the result and the upkeep. Ship in stages, keep a kill switch, and stand behind what it does.</li>
+    </ul>
+  </div>
+
+  <div class="ac-lead">
+    <div class="tag">&#9672; Your AI Classroom</div>
+    <h2>Aira is in the room with you</h2>
+    <p>Stuck, curious, or want it a different way? Ask her, or tap a button. She answers about this exact lesson, without you leaving the page.</p>
+  </div>
+
+  <div id="aira-classroom"></div>
+
+  <div class="note">
+    Course 05's classroom: Aira teaches on every lesson page, and this is her full room.<br>
+    <span class="demo">She knows your course progress on this device, drills what you keep missing, and answers about any module. <a href="index.html" style="color:#2C5F2D;font-weight:700">Course home</a> · <a href="slides.html" style="color:#2C5F2D;font-weight:700">Slides</a> · <a href="practical.html" style="color:#2C5F2D;font-weight:700">The Practical</a> · <a href="pack.html" style="color:#2C5F2D;font-weight:700">Pack</a> &middot; <a href="practice.html" style="color:#2C5F2D;font-weight:700">Practice Range</a> · <a href="sandbox.html" style="color:#2C5F2D;font-weight:700">The Dry Run</a> · <a href="../../../start/" style="color:#2C5F2D;font-weight:700">All courses</a></span>
+  </div>
+</div>
+
+<script>
+  window.AIRA_LESSON = {
+  course: "05 · Building with AI",
+  module: "The AI Classroom · course-wide tutor",
+  topic: "building AI agents that do real work safely: what an agent is, why pilots fail, scoping, wiring and MCP, no-code building, memory, evals and golden sets, regression testing, least privilege and blast radius, prompt injection and the human gate, cost and degradation, and shipping responsibly",
+  points: [
+    "An agent is a model plus tools plus a loop plus memory. A chatbot answers; an agent ACTS, so its mistakes are real. Not magic, not a person, not reliable by default: agents pass about half of complex tasks in benchmarks like tau-bench. The loop is think, act, observe, repeat",
+    "Most pilots die (about 95% of enterprise GenAI pilots show no measurable return, MIT 2025; 88% of proofs-of-concept never scale, IDC 2026) because the demo runs on clean inputs and production does not. The blockers are integration, reliability, security, latency, and missing evals, not model quality",
+    "Scope well: automate the repetitive, verifiable, bounded, low-blast-radius jobs; keep the irreversible, high-stakes, and unverifiable in human hands (the do-not-automate list)",
+    "Wire well: an agent can only do what its tools allow, so the tool menu is your first safety control. MCP (Model Context Protocol) is the emerging standard, adopted across Anthropic, OpenAI, Google, and Microsoft. No-code: Claude/ChatGPT connectors, Zapier (9,000+ apps), n8n (400+, free self-host)",
+    "Build the thin slice (goal, tools, loop, guardrails, test); the first version is about 80% right, which is where the work starts. Memory: stateless by default, the context window forgets silently, and the model invents state to fill gaps, so make memory explicit and retrieve, do not recall",
+    "Test well (the heart): a golden set of 10-30 real cases with known-good answers and defensible criteria. 48% of teams ship with no offline evals; 63% skip monitoring. Accuracy is not reliability. Regression testing: rerun the set on every change; green today is not green tomorrow",
+    "Supervise well: least privilege (smallest key, read-only by default), a small blast radius, and a human gate before anything irreversible. Step Finance lost $27-40M to agents with a pay tool and no gate; a Replit agent deleted a production database",
+    "Prompt injection is OWASP LLM risk #1: indirect injection hides commands in content the agent reads (EchoLeak, CVE-2025-32711, M365 Copilot, June 2025). The lethal trifecta is private data + untrusted content + external communication. You cannot prompt your way out; defense is architecture. Ship in stages with a kill switch, and a human always owns the outcome"
+  ],
+  next: "the flashcards, then the five AI Lab games, then the quiz"
+};
+</script>
+<script src="aira-chat-config.js"></script>
+<script src="aira-classroom.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

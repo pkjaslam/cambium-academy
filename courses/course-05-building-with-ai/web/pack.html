@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Builder's Pack · Building with AI · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--mossdeep:#6E9648;--tint:#F0F5EC;--ink:#1F2A20;--muted:#5C6B5A;--line:#DFE9D8;--gold:#B98A2D;--warm:#C0562F}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#F6F8F4;line-height:1.55}
+  .wrap{max-width:860px;margin:0 auto;padding:0 18px 60px}
+  .nav{display:flex;align-items:center;gap:12px;padding:14px 0;flex-wrap:wrap}
+  .nav img{width:34px;height:34px}
+  .nav a.brand{font-weight:700;color:var(--dark);text-decoration:none;font-size:14px;display:flex;align-items:center;gap:9px}
+  .nav .links{margin-left:auto;display:flex;gap:14px;flex-wrap:wrap}
+  .nav .links a{color:var(--forest);text-decoration:none;font-weight:600;font-size:13.5px}
+  header{padding:26px 0 10px}
+  .kicker{color:var(--mossdeep);font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+  h1{font-family:Cambria,Georgia,serif;font-size:34px;margin:6px 0}
+  p.lead{color:var(--muted);font-size:15.5px;max-width:640px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:16px 0;box-shadow:0 2px 8px rgba(31,42,32,.05)}
+  .card h2{font-family:Cambria,Georgia,serif;font-size:22px;margin-bottom:4px}
+  .card h2 .num{color:var(--moss);margin-right:8px}
+  .card p.sub{color:var(--muted);font-size:14px;margin-bottom:14px}
+  label.fld{display:block;font-size:13px;font-weight:700;color:var(--dark);margin:12px 0 5px}
+  input[type=text],textarea{width:100%;border:1.5px solid var(--line);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit;color:var(--ink)}
+  textarea{min-height:64px}
+  input:focus,textarea:focus{outline:none;border-color:var(--moss)}
+  .toolgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px}
+  .tk{display:flex;align-items:center;gap:9px;border:1.5px solid var(--line);border-radius:10px;padding:9px 11px;font-size:13px;cursor:pointer;background:#fff}
+  .tk.on{border-color:var(--moss);background:var(--tint)}
+  .tk.on.danger{border-color:var(--warm);background:#FBEEE8}
+  .tk input{accent-color:var(--forest)}
+  .row2{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:14px}
+  button{background:var(--forest);color:#fff;border:0;border-radius:9px;padding:12px 22px;font-size:14.5px;font-weight:700;cursor:pointer}
+  button.ghost{background:#fff;color:var(--forest);border:1.5px solid var(--moss)}
+  button:hover{background:#234D24}
+  button.ghost:hover{background:var(--tint)}
+  .report{display:none;margin-top:16px;border-radius:12px;padding:16px 18px;font-size:14px;line-height:1.6}
+  .report.ok{background:#EBF4E4;border:1px solid var(--moss)}
+  .report.warn{background:#FBF3E4;border:1px solid #EAD9B8}
+  .report.bad{background:#FBEBE9;border:1px solid #E7B7AE}
+  .report h3{font-size:16px;margin-bottom:8px}
+  .flagline{display:flex;gap:9px;align-items:flex-start;margin:7px 0;font-size:13.5px}
+  .flagline .ic{flex:0 0 18px}
+  .runbook{background:#0B120C;color:#B9CFA4;border-radius:10px;padding:14px 16px;font-family:'Courier New',monospace;font-size:12.5px;white-space:pre-wrap;margin-top:12px;max-height:320px;overflow:auto}
+  .copybtn{background:var(--gold);color:#221a08;border:0;border-radius:8px;padding:8px 14px;font-size:12.5px;font-weight:700;cursor:pointer;margin-top:8px}
+  pre.tmpl{background:#0B120C;color:#B9CFA4;border-radius:10px;padding:14px 16px;font-family:'Courier New',monospace;font-size:12.3px;white-space:pre-wrap;overflow:auto}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:8px}
+  th{background:var(--dark);color:#E8F2DE;text-align:left;padding:8px 11px}
+  td{padding:8px 11px;border-bottom:1px solid var(--line)}
+  ul.links{list-style:none} ul.links li{padding:9px 0;border-bottom:1px solid var(--line)}
+  ul.links a{color:var(--forest);font-weight:600;text-decoration:none}
+  @media print{.nav,.row2,.copybtn,button{display:none !important} body{background:#fff}}
+  @media(max-width:600px){.toolgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI logo">Cambium AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="slides.html">Slides</a><a href="playground.html">AI Lab</a><a href="practical.html">Practical</a><a href="sandbox.html">The Dry Run</a><a href="../../../start/">All courses</a></div>
+  </nav>
+  <header>
+    <div class="kicker">Cambium Academy · Course 05 · Take it with you</div>
+    <h1>The Builder's Pack</h1>
+    <p class="lead">Everything you need to build a real agent, in one page you can keep. Start with the live design canvas: describe your agent and it checks your plan for the lethal trifecta and missing gates, then writes you a runbook. Below it, the templates and links from the whole course, copy-ready and printable.</p>
+  </header>
+
+  <!-- LIVE BUILDER -->
+  <div class="card">
+    <h2><span class="num">1</span>The Agent Design Canvas</h2>
+    <p class="sub">Fill this in for an agent you actually want to build. When you check it, this page runs a deterministic safety review in your browser (nothing is sent anywhere) and drafts a runbook you can copy.</p>
+    <label class="fld">What is the job, in one sentence (include where it stops)?</label>
+    <input type="text" id="goal" placeholder="Once a week, summarize new papers on five topics into a draft folder for me to review.">
+    <label class="fld">What data can it reach?</label>
+    <input type="text" id="data" placeholder="My shared reading list and a public paper search.">
+    <label class="fld">Which tools will it have? (tick only what the job truly needs)</label>
+    <div class="toolgrid" id="tools"></div>
+    <label class="fld" style="margin-top:14px"><input type="checkbox" id="untrusted" style="accent-color:var(--forest);margin-right:8px">It reads untrusted content (web pages, incoming email, shared docs from others)</label>
+    <label class="fld"><input type="checkbox" id="gate" style="accent-color:var(--forest);margin-right:8px">A human must approve before any irreversible action (send, pay, delete, post, publish)</label>
+    <label class="fld"><input type="checkbox" id="eval" style="accent-color:var(--forest);margin-right:8px">I have a golden set of real cases to test it, rerun on every change</label>
+    <div class="row2">
+      <button onclick="review()">Check my design &amp; write the runbook</button>
+      <button class="ghost" onclick="loadExample()">Load the safe example</button>
+    </div>
+    <div class="report" id="report"></div>
+  </div>
+
+  <!-- GOLDEN SET TEMPLATE -->
+  <div class="card">
+    <h2><span class="num">2</span>The golden-set template</h2>
+    <p class="sub">Ten to thirty real cases with known-good answers. Include the ugly ones. Rerun this on every change; a change that lowers the pass rate is a regression.</p>
+    <pre class="tmpl" id="tmplGolden"># Golden set for: [your agent]
+# Rerun on every change and on a schedule. A drop in pass rate = a regression.
+
+case 1  | input: [a normal, easy case]            | expect: [what a good output is] | pass? [ ]
+case 2  | input: [a malformed / corrupt input]    | expect: it FLAGS, not fakes it  | pass? [ ]
+case 3  | input: [an ambiguous request]           | expect: [the right handling]    | pass? [ ]
+case 4  | input: [a poisoned page / injection]    | expect: no dangerous action     | pass? [ ]
+case 5  | input: [an edge case you fear]          | expect: [the right answer]      | pass? [ ]
+# ...add real cases from your actual workload until you have 10-30...
+
+pass rate today: __ / __      last week: __ / __      criteria: [checkable, decided in advance]</pre>
+    <button class="copybtn" onclick="copyEl('tmplGolden')">Copy the template</button>
+  </div>
+
+  <!-- PERMISSION TIER CARD -->
+  <div class="card">
+    <h2><span class="num">3</span>The permission-tier card</h2>
+    <p class="sub">The harder something is to undo, the more human sign-off it needs before it happens. Match the gate to the risk.</p>
+    <table>
+      <tr><th>Action</th><th>Risk</th><th>Rule</th></tr>
+      <tr><td>Read a file, search, draft text</td><td>Low, reversible</td><td>Let it run</td></tr>
+      <tr><td>Write to a review folder, tag, add a draft</td><td>Low, easily undone</td><td>Let it run, output reviewed</td></tr>
+      <tr><td>Send a message, post, change a shared record</td><td>High, hard to undo</td><td>Human approves each one</td></tr>
+      <tr><td>Delete, pay, deploy, email a customer, move money</td><td>Severe, often irreversible</td><td>Human approves; consider two</td></tr>
+    </table>
+  </div>
+
+  <!-- RUNBOOK SKELETON -->
+  <div class="card">
+    <h2><span class="num">4</span>The runbook skeleton</h2>
+    <p class="sub">One page a colleague, or future-you, needs to run the agent safely. The canvas above fills a version of this for you; here is the blank.</p>
+    <pre class="tmpl" id="tmplRunbook">RUNBOOK: [agent name]
+What it does:     [one sentence, including where it stops]
+Owner:            [the human accountable for its output and upkeep]
+Tools granted:    [smallest menu; read-only by default; why each is needed]
+Data it reaches:  [and whether any is private]
+Human gate:       [which actions stop for a human, and who approves]
+Kill switch:      [exactly how to stop it, and who knows how]
+Monitoring:       [golden-set rerun schedule + the alert threshold]
+Cost/latency cap: [the ceiling, and what happens when it is hit]
+Rollout stage:    [dry run / shadow / limited / full]
+Disclosure:       [where and how you say an agent was involved]</pre>
+    <button class="copybtn" onclick="copyEl('tmplRunbook')">Copy the skeleton</button>
+  </div>
+
+  <!-- LINKS -->
+  <div class="card">
+    <h2><span class="num">5</span>The tools and standards, linked</h2>
+    <p class="sub">Verified 13 July 2026. The field moves weekly, so check the vendor page when a number matters.</p>
+    <ul class="links">
+      <li><a href="https://modelcontextprotocol.io/">Model Context Protocol (MCP)</a> · the open standard for connecting agents to tools</li>
+      <li><a href="https://zapier.com/">Zapier</a> · 9,000+ integrations and AI agents, free plan to start</li>
+      <li><a href="https://n8n.io/">n8n</a> · 400+ integrations, free to self-host on your own machine</li>
+      <li><a href="https://claude.com/">Claude</a> and <a href="https://chatgpt.com/">ChatGPT</a> · assistants with connectors and projects, free tiers</li>
+      <li><a href="https://genai.owasp.org/resource/owasp-top-10-for-agentic-applications-for-2026/">OWASP Top 10 for Agentic Applications (2026)</a> · the agent security checklist</li>
+      <li><a href="https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/">The lethal trifecta</a> · private data + untrusted content + external communication</li>
+      <li><a href="https://www.langchain.com/state-of-agent-engineering">State of Agent Engineering</a> · where the eval and monitoring gaps are measured</li>
+      <li><a href="../resources.md">The full annotated resources list</a> · every source in the course, dated</li>
+    </ul>
+  </div>
+
+  <div style="text-align:center;color:var(--muted);font-size:12.5px;margin-top:8px">Part of <a href="index.html" style="color:var(--forest)">Course 05 · Building with AI</a> · Cambium Academy · free forever · print this page to keep it</div>
+</div>
+
+<script>
+var TOOLS = [
+  { id:"read",   name:"Read files / search",        danger:false },
+  { id:"draft",  name:"Draft to a review folder",   danger:false },
+  { id:"write",  name:"Write / update records",     danger:false },
+  { id:"send",   name:"Send email or messages",     danger:true },
+  { id:"post",   name:"Post or publish publicly",   danger:true },
+  { id:"delete", name:"Delete files or records",    danger:true },
+  { id:"pay",    name:"Pay / move money",           danger:true }
+];
+var picked = { read:true, draft:true };
+function renderTools(){
+  document.getElementById("tools").innerHTML = TOOLS.map(function(t){
+    var on = !!picked[t.id];
+    return '<label class="tk ' + (on ? 'on' : '') + (t.danger ? ' danger' : '') + '"><input type="checkbox" ' + (on ? 'checked' : '') + ' onchange="pick(\'' + t.id + '\',this.checked)">' + t.name + (t.danger ? ' &#9888;' : '') + '</label>';
+  }).join("");
+}
+function pick(id, v){ if (v) picked[id] = true; else delete picked[id]; renderTools(); }
+function loadExample(){
+  document.getElementById("goal").value = "Once a week, find new papers on my five topics and write a one-paragraph summary of each into a draft folder for me to review.";
+  document.getElementById("data").value = "My shared reading list (private) and a public paper search.";
+  picked = { read:true, draft:true }; renderTools();
+  document.getElementById("untrusted").checked = true;
+  document.getElementById("gate").checked = true;
+  document.getElementById("eval").checked = true;
+  review();
+}
+function has(id){ return !!picked[id]; }
+function review(){
+  var goal = document.getElementById("goal").value.trim();
+  var data = document.getElementById("data").value.trim();
+  var untrusted = document.getElementById("untrusted").checked;
+  var gate = document.getElementById("gate").checked;
+  var evalOn = document.getElementById("eval").checked;
+  var rep = document.getElementById("report");
+  if (!goal){ rep.className = "report warn"; rep.style.display = "block"; rep.innerHTML = "<b>Add the job first.</b> One sentence, including where it stops."; return; }
+
+  var dangerTools = TOOLS.filter(function(t){ return t.danger && has(t.id); });
+  var flags = [], sev = "ok";
+  function add(icon, txt, level){ flags.push({ i: icon, t: txt }); if (level === "bad") sev = "bad"; else if (level === "warn" && sev !== "bad") sev = "warn"; }
+
+  // The lethal trifecta: private-ish data + untrusted input + a way to communicate/act out
+  var reachesData = /(private|contact|customer|internal|personal|email|file|record|database|list)/i.test(data) || has("read") || has("write");
+  var canSendOut = has("send") || has("post") || has("pay");
+  if (reachesData && untrusted && canSendOut && !gate){
+    add("&#9760;", "<b>Lethal trifecta, ungated.</b> Your agent can reach data, reads untrusted input, and can send or act externally, with no human gate. This is the exact configuration behind real 2025-2026 breaches. Break one leg: remove the send/post/pay tool, stop ingesting untrusted content, or add a human gate.", "bad");
+  } else if (reachesData && untrusted && canSendOut && gate){
+    add("&#9998;", "You have all three trifecta ingredients, but a human gate stands before every irreversible action. That gate is what keeps a poisoned input from becoming a breach. Consider whether the send/post/pay tool is needed at all.", "warn");
+  }
+  // Ungated dangerous tools
+  if (dangerTools.length && !gate){
+    add("&#10007;", "<b>" + dangerTools.map(function(t){return t.name;}).join(", ") + "</b> can take irreversible actions with no human approval. Add a human gate, or remove the tool. There is no tier where an unattended agent sends, deletes, or pays.", "bad");
+  } else if (dangerTools.length && gate){
+    add("&#10003;", "Irreversible tools present, but gated by human approval. Keep those approvals meaningful, and gate only what can hurt you so nobody approves on autopilot.", "warn");
+  }
+  // Least privilege nudge
+  if (has("delete")){ add("&#9888;", "A delete tool is rarely needed. Prefer flag-for-review over delete; deletion is irreversible and hard to verify in the moment.", sev === "bad" ? "bad" : "warn"); }
+  if (has("write") && !has("draft")){ add("&#9888;", "You grant write but not draft-to-review. Where you can, write a draft a human clears instead of changing records directly.", "warn"); }
+  // Verifiability / eval
+  if (!evalOn){ add("&#9888;", "No golden set yet. Without one you cannot tell whether the agent works or notice when it breaks. This is the step the failed pilots skipped: build 10-30 real cases before you trust it.", sev === "bad" ? "bad" : "warn"); }
+  // Scope check
+  if (goal.length < 30 || !/(weekly|daily|each|every|when|per |once)/i.test(goal)){ add("&#9888;", "The job reads broad or one-off. Automation pays off on repetitive, bounded tasks; narrow it to the smallest useful slice with a clear stopping point.", "warn"); }
+  // Good signals
+  if (!canSendOut){ add("&#10003;", "No send, post, or pay tool: least privilege by design. Even a fully fooled agent has nothing dangerous to grab.", "ok"); }
+  if (gate){ add("&#10003;", "A human gate before irreversible actions. This is where accountability lives.", "ok"); }
+  if (evalOn){ add("&#10003;", "A golden set to test with. You will know your real reliability, not your demo reliability.", "ok"); }
+
+  var head = sev === "bad" ? "This design is not safe to run yet" : sev === "warn" ? "Close, with a few things to tighten" : "This design is sound";
+  rep.className = "report " + sev;
+  rep.style.display = "block";
+  var html = "<h3>" + head + "</h3>";
+  flags.forEach(function(f){ html += '<div class="flagline"><span class="ic">' + f.i + '</span><span>' + f.t + '</span></div>'; });
+
+  // Runbook draft
+  var toolList = TOOLS.filter(function(t){ return has(t.id); }).map(function(t){ return t.name; }).join(", ") || "(none selected)";
+  var rb = "RUNBOOK (draft)\n" +
+    "What it does:    " + goal + "\n" +
+    "Owner:           [you: the human accountable for its output]\n" +
+    "Tools granted:   " + toolList + "\n" +
+    "Data it reaches: " + (data || "[fill in]") + "\n" +
+    "Human gate:      " + (gate ? "yes, before every irreversible action" : "MISSING, add one before send/pay/delete/post") + "\n" +
+    "Reads untrusted: " + (untrusted ? "yes, so treat the trifecta seriously" : "no") + "\n" +
+    "Kill switch:     [how to stop it instantly, and who knows how]\n" +
+    "Monitoring:      " + (evalOn ? "golden-set rerun on every change + weekly, alert below [threshold]" : "MISSING, build a golden set and a weekly rerun") + "\n" +
+    "Rollout stage:   dry run -> shadow -> limited -> full, widened on evidence\n" +
+    "Disclosure:      say an agent was involved wherever it touches other people";
+  html += '<div class="runbook" id="rbOut">' + rb.replace(/</g,"&lt;") + '</div><button class="copybtn" onclick="copyEl(\'rbOut\')">Copy the runbook</button>';
+  rep.innerHTML = html;
+  rep.scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+function copyEl(id){
+  var t = document.getElementById(id).innerText;
+  navigator.clipboard && navigator.clipboard.writeText(t).then(function(){ alert("Copied to your clipboard."); }, function(){ fallbackCopy(t); });
+  if (!navigator.clipboard) fallbackCopy(t);
+}
+function fallbackCopy(t){ var a = document.createElement("textarea"); a.value = t; document.body.appendChild(a); a.select(); try{ document.execCommand("copy"); alert("Copied."); }catch(e){} a.remove(); }
+renderTools();
+</script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

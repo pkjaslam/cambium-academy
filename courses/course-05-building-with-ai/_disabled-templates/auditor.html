@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Reference Auditor · Responsible AI in Scholarly Publishing · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--moss:#97BC62;--lite:#C6E89B;--gold:#D9B25C;--ink:#E8F2DE;--mut:#8FA684;--line:rgba(151,188,98,.22);--warm:#E07850;--cyan:#7FD4C1;--ok:#6FBF73}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);line-height:1.6;min-height:100vh;background:#050b06}
+  body::before{content:'';position:fixed;inset:0;z-index:-1;background:
+    radial-gradient(ellipse 55% 40% at 18% 0%, rgba(217,178,92,.10), transparent 60%),
+    radial-gradient(ellipse 50% 38% at 85% 8%, rgba(151,188,98,.12), transparent 60%),
+    linear-gradient(180deg,#0a150b,#040805)}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px 90px}
+  .nav{display:flex;align-items:center;gap:12px;padding:18px 0;flex-wrap:wrap}
+  .nav img{width:38px;height:38px;border-radius:10px}
+  .nav a.brand{font-family:'Sora',sans-serif;font-weight:700;color:var(--lite);text-decoration:none;font-size:13px;letter-spacing:2px;display:flex;align-items:center;gap:10px}
+  .nav .links{margin-left:auto;display:flex;gap:16px;flex-wrap:wrap}
+  .nav .links a{color:var(--moss);text-decoration:none;font-weight:600;font-size:13.5px}
+  .hero{text-align:center;padding:30px 0 6px}
+  .hero .over{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;letter-spacing:5px;color:var(--gold)}
+  h1{font-family:'Sora',sans-serif;font-size:clamp(38px,6.2vw,62px);font-weight:800;margin:10px 0 12px;background:linear-gradient(100deg,#F2F8EA,#E7C56B 55%,#C6E89B);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 26px rgba(217,178,92,.2))}
+  p.lead{color:var(--mut);font-size:16.5px;max-width:700px;margin:0 auto}
+  p.lead b{color:var(--lite)}
+  .panel{background:linear-gradient(170deg,rgba(151,188,98,.10),rgba(151,188,98,.02) 55%);border:1px solid var(--line);border-radius:22px;padding:26px;margin:24px 0;backdrop-filter:blur(8px)}
+  .tag{font-family:'Sora',sans-serif;font-size:11px;font-weight:800;letter-spacing:3px;color:#0d1a0b;background:linear-gradient(135deg,#E7C56B,#B98A2D);display:inline-block;border-radius:8px;padding:5px 12px}
+  h2{font-family:'Sora',sans-serif;font-size:25px;font-weight:800;margin:12px 0 6px}
+  p.sub{color:var(--mut);font-size:14.5px;margin-bottom:14px}
+  button{background:linear-gradient(180deg,#356B2F,#1F3D24);color:var(--lite);border:1px solid rgba(151,188,98,.65);border-radius:11px;padding:12px 20px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;transition:all .15s}
+  button:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 0 22px rgba(151,188,98,.35)}
+  button:disabled{opacity:.45;cursor:default}
+  button.gold{background:linear-gradient(180deg,#E7C56B,#B98A2D);border-color:#E7C56B;color:#10220E}
+  button.cyan{background:linear-gradient(180deg,#9BE3D0,#4FA894);border-color:#9BE3D0;color:#062018}
+  textarea{width:100%;background:rgba(4,8,5,.65);border:1.5px solid var(--line);border-radius:12px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:13.5px;padding:14px;min-height:180px;line-height:1.7}
+  textarea:focus{outline:none;border-color:var(--gold)}
+  .rowc{display:flex;gap:11px;flex-wrap:wrap;align-items:center;margin-top:14px}
+  .status{font-size:13px;color:var(--mut);font-family:'Sora',sans-serif}
+  .status b{color:var(--lite)}
+  /* verdict cards */
+  .tally{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:18px 0}
+  .tcard{background:rgba(4,8,5,.6);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;text-align:center}
+  .tcard .v{font-family:'Sora',sans-serif;font-size:30px;font-weight:800}
+  .tcard .l{font-size:11px;letter-spacing:1.6px;color:var(--mut);font-family:'Sora',sans-serif;margin-top:2px}
+  .tcard.ok .v{color:var(--ok)} .tcard.bad .v{color:var(--warm)} .tcard.warn .v{color:var(--gold)} .tcard.n .v{color:var(--lite)}
+  .ref{background:rgba(4,8,5,.6);border:1.5px solid var(--line);border-left:4px solid var(--mut);border-radius:13px;padding:14px 17px;margin:9px 0;font-size:13.5px;line-height:1.65}
+  .ref.ok{border-left-color:var(--ok)}
+  .ref.bad{border-left-color:var(--warm);background:rgba(224,120,80,.07)}
+  .ref.warn{border-left-color:var(--gold);background:rgba(217,178,92,.05)}
+  .ref .rt{font-family:Georgia,serif;color:#EAF2E0;font-size:14px}
+  .ref .rv{font-family:'Sora',sans-serif;font-size:11px;font-weight:800;letter-spacing:1.6px;margin-bottom:5px;display:inline-block;border-radius:6px;padding:3px 9px}
+  .ref.ok .rv{color:#0d1a0b;background:var(--ok)}
+  .ref.bad .rv{color:#2a0d05;background:var(--warm)}
+  .ref.warn .rv{color:#1a1405;background:var(--gold)}
+  .ref .rd{color:var(--mut);font-size:12.5px;margin-top:6px}
+  .ref .rd a{color:var(--moss)}
+  .note{font-size:12.5px;color:var(--mut);margin-top:12px;line-height:1.65}
+  .note b{color:var(--lite)}
+  .gold-box{background:rgba(217,178,92,.09);border:1px solid rgba(217,178,92,.45);border-left:4px solid var(--gold);border-radius:12px;padding:14px 17px;font-size:13.5px;color:#EEE2C4;margin:14px 0}
+  .gold-box b{color:var(--gold)}
+  .cyan-box{background:rgba(127,212,193,.08);border:1px solid rgba(127,212,193,.4);border-left:4px solid var(--cyan);border-radius:12px;padding:14px 17px;font-size:13.5px;color:#D3EDE6;margin:14px 0}
+  .cyan-box b{color:var(--cyan)}
+  .simbar{height:12px;border-radius:7px;background:rgba(151,188,98,.12);overflow:hidden;margin:8px 0}
+  .simbar i{display:block;height:100%;border-radius:7px;transition:width .6s}
+  input[type=text]{width:100%;background:rgba(4,8,5,.65);border:1.5px solid var(--line);border-radius:11px;color:var(--ink);padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:13.5px}
+  input[type=text]:focus{outline:none;border-color:var(--cyan)}
+  label{display:block;font-family:'Sora',sans-serif;font-size:12px;font-weight:700;letter-spacing:1.2px;color:var(--moss);margin:12px 0 5px}
+  @media(max-width:760px){.tally{grid-template-columns:1fr 1fr}}
+  @media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI">CAMBIUM AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="slides.html">Slides</a><a href="playground.html">AI Lab</a><a href="referee.html">Local Referee</a><a href="practical.html">Practical</a><a href="pack.html">Pack</a><a href="../../../start/">All courses</a></div>
+  </nav>
+
+  <div class="hero">
+    <div class="over">◈ BRING YOUR OWN BIBLIOGRAPHY</div>
+    <h1>THE REFERENCE AUDITOR</h1>
+    <p class="lead">The Lab taught you the 1-in-277 problem on a rigged reference list. This is the real instrument: <b>paste your own bibliography</b> and it resolves every DOI against the live Crossref registry, the same registry an editor's screening tools use. Phantom references surface in seconds. Run it on your next manuscript before a reviewer does.</p>
+  </div>
+
+  <div class="panel">
+    <span class="tag">PART 1 &#183; THE REGISTRY PASS</span>
+    <h2>Every DOI, resolved live</h2>
+    <p class="sub">Paste a reference list, a BibTeX file, or just a pile of DOIs. The auditor finds every DOI in the text and asks Crossref whether it exists. References without a DOI are reported honestly as unverifiable here, not silently passed.</p>
+    <textarea id="bib" placeholder="Paste your reference list, BibTeX, or DOIs here.
+
+Example:
+1. Ioannidis, J. P. A. (2005). Why most published research findings are false. PLoS Medicine, 2(8), e124. https://doi.org/10.1371/journal.pmed.0020124
+2. Okafor, C. N., & Lindgren, S. (2025). Large language models in manuscript screening. J. Editorial Practice, 18(2), 141-159. doi:10.1016/j.jedp.2025.104417"></textarea>
+    <div class="rowc">
+      <button class="gold" id="runBtn">AUDIT AGAINST THE LIVE REGISTRY</button>
+      <button id="demoBtn">Load a demo list</button>
+      <span class="status" id="stat"></span>
+    </div>
+    <div class="tally" id="tally" style="display:none">
+      <div class="tcard n"><div class="v" id="tTotal">0</div><div class="l">DOIS FOUND</div></div>
+      <div class="tcard ok"><div class="v" id="tOk">0</div><div class="l">RESOLVED</div></div>
+      <div class="tcard bad"><div class="v" id="tBad">0</div><div class="l">PHANTOM</div></div>
+      <div class="tcard warn"><div class="v" id="tWarn">0</div><div class="l">UNVERIFIABLE</div></div>
+    </div>
+    <div id="results"></div>
+    <div class="rowc" id="exportRow" style="display:none">
+      <button id="copyBtn">Copy the audit report</button>
+      <span class="status">Paste it into your submission checklist, or send it to a co-author.</span>
+    </div>
+    <div class="gold-box"><b>What a PHANTOM verdict means, and what it does not.</b> It means Crossref has no record of that DOI: the identifier resolves to nothing. That is exactly how an AI-invented citation behaves, and it is how an editor's tooling will see it. It does <b>not</b> automatically mean somebody fabricated it: a typo, a mangled copy-paste, or a very new preprint can all produce the same result. So do what this whole course teaches: treat the flag as a question, open the reference yourself, and settle it with evidence.</div>
+    <div class="note"><b>Privacy:</b> your text is parsed in your browser. The only thing that leaves this page is the bare DOI string of each reference, sent to <span style="color:var(--lite)">api.crossref.org</span> to ask whether it exists. Your manuscript, your notes, and your unpublished titles are never transmitted. If even that is too much, the <a href="referee.html" style="color:var(--moss);font-weight:700">Local Referee</a> runs with no network at all.</div>
+  </div>
+
+  <div class="panel">
+    <span class="tag">PART 2 &#183; CLICK THREE, AUTOMATED</span>
+    <h2>Does the paper you cited actually say it?</h2>
+    <p class="sub">The subtlest failure is not the fake citation; it is the real one that does not support the sentence you hung on it. Paste your claim and the abstract of the paper you cited. A language model runs <b style="color:var(--cyan)">inside your browser</b> (nothing is sent anywhere) and measures how closely the two are related.</p>
+    <label for="claim">Your sentence, as it appears in your manuscript</label>
+    <input type="text" id="claim" placeholder="e.g. Buffer strips wider than 30 m eliminate summer thermal stress in headwater streams.">
+    <label for="abs">The abstract of the paper you cited for it</label>
+    <textarea id="abs" style="min-height:130px" placeholder="Paste the abstract of the cited paper."></textarea>
+    <div class="rowc">
+      <button class="cyan" id="simBtn">CHECK IT, IN MY BROWSER</button>
+      <span class="status" id="simStat">First run downloads a small model (about 23 MB), then works offline.</span>
+    </div>
+    <div id="simOut" style="display:none;margin-top:14px">
+      <div class="simbar"><i id="simFill"></i></div>
+      <div id="simVerdict" style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700"></div>
+      <div id="simDetail" class="note" style="margin-top:6px"></div>
+    </div>
+    <div class="cyan-box"><b>Honest about what this measures.</b> It measures semantic <i>relatedness</i>, not logical support. A low score is a strong signal that you should reopen the paper; a high score is not a certificate that the citation is sound, because a paper can be closely related and still say the opposite. This is a smoke alarm, not a judge. The judgment stays yours, which is the seventh of the irreducible seven.</div>
+  </div>
+
+  <div class="note" style="text-align:center">Part of <a href="index.html" style="color:var(--moss)">Course 04 &#183; Responsible AI in Scholarly Publishing</a> &#183; DOIs go to Crossref; the similarity model runs entirely in your browser.</div>
+</div>
+
+<script>
+// ---------------- PART 1: live Crossref audit ----------------
+var DOI_RE = /10\.\d{4,9}\/[^\s"'<>,;)\]}]+/g;
+function cleanDoi(d){ return d.replace(/[.,;)\]}>]+$/, ''); }
+
+document.getElementById('demoBtn').onclick = function(){
+  document.getElementById('bib').value =
+"1. Ioannidis, J. P. A. (2005). Why most published research findings are false. PLoS Medicine, 2(8), e124. https://doi.org/10.1371/journal.pmed.0020124\n" +
+"2. Page, M. J., et al. (2021). The PRISMA 2020 statement. BMJ, 372, n71. doi:10.1136/bmj.n71\n" +
+"3. Okafor, C. N., & Lindgren, S. (2025). Large language models in manuscript screening: a prospective validation. Journal of Editorial Practice, 18(2), 141-159. doi:10.1016/j.jedp.2025.104417\n" +
+"4. Open Science Collaboration. (2015). Estimating the reproducibility of psychological science. Science, 349(6251), aac4716. doi:10.1126/science.aac4716\n" +
+"5. Vasquez-Ito, M., et al. (2024). Detector-proof prose: stylometric adaptation in AI-assisted academic writing. Nature Human Behaviour, 8(11), 2204-2216. doi:10.1038/s41562-024-09931-4\n" +
+"6. Smith, A. (2019). A reference with no DOI at all. Some Journal, 4, 12-20.";
+  document.getElementById('stat').textContent = "Demo list loaded: it contains real papers, invented ones, and a reference with no DOI.";
+};
+
+document.getElementById('runBtn').onclick = async function(){
+  var text = document.getElementById('bib').value;
+  var stat = document.getElementById('stat'), res = document.getElementById('results');
+  var lines = text.split(/\n+/).filter(function(l){ return l.trim().length > 3; });
+  var raw = text.match(DOI_RE) || [];
+  var dois = [];
+  raw.forEach(function(d){ d = cleanDoi(d); if (dois.indexOf(d) < 0) dois.push(d); });
+  // references that carry no DOI at all
+  var noDoi = lines.filter(function(l){ return !DOI_RE.test(l) && l.trim().length > 25; });
+  DOI_RE.lastIndex = 0;
+  if (!dois.length && !noDoi.length){ stat.textContent = "No references found. Paste a reference list, BibTeX, or DOIs."; return; }
+
+  this.disabled = true;
+  res.innerHTML = "";
+  document.getElementById('tally').style.display = "grid";
+  var ok = 0, bad = 0;
+  document.getElementById('tTotal').textContent = dois.length;
+  document.getElementById('tWarn').textContent = noDoi.length;
+  window.__report = ["REFERENCE AUDIT · " + new Date().toISOString().slice(0,10) + " · checked live against api.crossref.org", ""];
+
+  for (var i = 0; i < dois.length; i++){
+    var doi = dois[i];
+    stat.innerHTML = "Asking Crossref about DOI <b>" + (i+1) + " of " + dois.length + "</b>...";
+    var found = null, title = "", year = "", venue = "";
+    try {
+      var ctl = new AbortController(); var t = setTimeout(function(){ ctl.abort(); }, 10000);
+      var r = await fetch('https://api.crossref.org/works/' + encodeURIComponent(doi), { signal: ctl.signal });
+      clearTimeout(t);
+      found = r.ok;
+      if (r.ok){
+        var j = await r.json(); var m = j.message || {};
+        title = (m.title && m.title[0]) || "";
+        venue = (m['container-title'] && m['container-title'][0]) || "";
+        try { year = (m.issued['date-parts'][0][0]) || ""; } catch(e){}
+      }
+    } catch(e){ found = null; }
+
+    var div = document.createElement('div');
+    if (found === true){
+      ok++;
+      div.className = "ref ok";
+      div.innerHTML = '<span class="rv">RESOLVED</span><div class="rt">' + esc(title || "(untitled record)") + '</div>' +
+        '<div class="rd">' + esc([venue, year].filter(Boolean).join(" · ")) + ' &#183; <a href="https://doi.org/' + esc(doi) + '" target="_blank" rel="noopener">' + esc(doi) + '</a></div>';
+      window.__report.push("RESOLVED  " + doi + "  " + title.slice(0,70));
+    } else if (found === false){
+      bad++;
+      div.className = "ref bad";
+      div.innerHTML = '<span class="rv">PHANTOM &#183; NOT IN THE REGISTRY</span><div class="rt">' + esc(doi) + '</div>' +
+        '<div class="rd">Crossref returns NOT FOUND for this DOI. Open it yourself and settle it: a typo and a fabrication look identical from here, and only you can tell which it is.</div>';
+      window.__report.push("PHANTOM   " + doi + "  <- Crossref has no record of this DOI");
+    } else {
+      div.className = "ref warn";
+      div.innerHTML = '<span class="rv">COULD NOT REACH THE REGISTRY</span><div class="rt">' + esc(doi) + '</div>' +
+        '<div class="rd">The network call failed, so this DOI is unjudged. That is not a pass. Re-run when you are online.</div>';
+      window.__report.push("UNCHECKED " + doi + "  <- network error, not a pass");
+    }
+    res.appendChild(div);
+    document.getElementById('tOk').textContent = ok;
+    document.getElementById('tBad').textContent = bad;
+  }
+
+  noDoi.forEach(function(l){
+    var div = document.createElement('div');
+    div.className = "ref warn";
+    div.innerHTML = '<span class="rv">NO DOI &#183; UNVERIFIABLE HERE</span><div class="rt">' + esc(l.trim().slice(0, 150)) + '</div>' +
+      '<div class="rd">This reference carries no DOI, so the registry cannot judge it. Books, chapters, reports, and older papers are often legitimately DOI-less. Verify it by hand: does the work exist, and does it say what you claim?</div>';
+    res.appendChild(div);
+    window.__report.push("NO-DOI    " + l.trim().slice(0,70));
+  });
+
+  var verdict = bad > 0
+    ? "<b style='color:var(--warm)'>" + bad + " phantom reference" + (bad===1?"":"s") + " in your list.</b> Open every one before you submit."
+    : (dois.length ? "<b style='color:var(--ok)'>Every DOI resolved.</b> That puts you ahead of roughly 1 in 277 biomedical papers published this year." : "");
+  stat.innerHTML = verdict + (noDoi.length ? " " + noDoi.length + " reference" + (noDoi.length===1?"":"s") + " had no DOI and must be checked by hand." : "");
+  window.__report.push("", "SUMMARY: " + dois.length + " DOIs (" + ok + " resolved, " + bad + " phantom), " + noDoi.length + " without a DOI.");
+  window.__report.push("A phantom DOI is a question, not a verdict. Open it and settle it with evidence.");
+  document.getElementById('exportRow').style.display = "flex";
+  this.disabled = false;
+};
+
+document.getElementById('copyBtn').onclick = function(){
+  var btn = this;
+  navigator.clipboard.writeText((window.__report || []).join("\n")).then(function(){
+    var o = btn.textContent; btn.textContent = "Copied"; setTimeout(function(){ btn.textContent = o; }, 1400);
+  }).catch(function(){});
+};
+function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); }
+
+// ---------------- PART 2: in-browser semantic support check ----------------
+var embed = null;
+document.getElementById('simBtn').onclick = async function(){
+  var claim = document.getElementById('claim').value.trim();
+  var abs = document.getElementById('abs').value.trim();
+  var st = document.getElementById('simStat');
+  if (claim.length < 15 || abs.length < 40){ st.textContent = "Give it both: your sentence, and the cited abstract."; return; }
+  this.disabled = true;
+  try {
+    if (!embed){
+      st.innerHTML = "Downloading a small language model <b>into your browser</b>. Once only.";
+      var T = await import('./lib/transformers.js');
+      window.__cos = T.cos_sim;
+      embed = await T.pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2', { dtype: 'q8' });
+    }
+    st.innerHTML = "Comparing, <b>locally</b>. Nothing is being sent anywhere.";
+    var out = await embed([claim, abs], { pooling: 'mean', normalize: true });
+    var v = out.tolist();
+    var sim = window.__cos(v[0], v[1]);
+    var pct = Math.max(0, Math.min(100, Math.round(sim * 100)));
+    document.getElementById('simOut').style.display = "block";
+    var fill = document.getElementById('simFill');
+    fill.style.width = pct + "%";
+    var verdict = document.getElementById('simVerdict'), detail = document.getElementById('simDetail');
+    if (sim < 0.25){
+      fill.style.background = "linear-gradient(90deg,#8a4423,#E07850)";
+      verdict.innerHTML = '<span style="color:var(--warm)">Weak relation (' + pct + '%). Reopen this citation.</span>';
+      detail.innerHTML = "Your sentence and this abstract are barely about the same thing. That is the signature of a citation that drifted, was inherited from an old draft, or was suggested by a model and never checked. <b>Open the paper and read what it actually claims.</b>";
+    } else if (sim < 0.45){
+      fill.style.background = "linear-gradient(90deg,#B98A2D,#E7C56B)";
+      verdict.innerHTML = '<span style="color:var(--gold)">Related, but not obviously supporting (' + pct + '%).</span>';
+      detail.innerHTML = "Same field, same neighbourhood. That is not the same as evidence for your specific claim. Check whether the abstract really carries the weight your sentence puts on it, especially if the sentence is causal or quantitative.";
+    } else {
+      fill.style.background = "linear-gradient(90deg,#3E8E41,#9BE3D0)";
+      verdict.innerHTML = '<span style="color:var(--ok)">Closely related (' + pct + '%).</span>';
+      detail.innerHTML = "The abstract is on the same claim. Good sign, and still not proof: a closely related paper can report the <i>opposite</i> finding in language that looks identical to a similarity model. Read the direction of the result, not just the topic.";
+    }
+    st.innerHTML = "Done, <b>entirely in your browser</b>.";
+  } catch(e){
+    st.innerHTML = "<span style='color:var(--warm)'>Could not run the model:</span> " + String(e.message || e).slice(0, 90);
+  }
+  this.disabled = false;
+};
+</script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

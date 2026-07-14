@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Practice Range · Building with AI · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--mossdeep:#6E9648;--tint:#F0F5EC;--ink:#1F2A20;--muted:#5C6B5A;--line:#DFE9D8;--gold:#B98A2D;--warm:#C0562F;--greenbg:#EBF4E4;--redbg:#FBEBE9}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#F6F8F4;line-height:1.55}
+  .wrap{max-width:820px;margin:0 auto;padding:0 18px 60px}
+  .nav{display:flex;align-items:center;gap:12px;padding:14px 0;flex-wrap:wrap}
+  .nav img{width:34px;height:34px}
+  .nav a.brand{font-weight:700;color:var(--dark);text-decoration:none;font-size:14px;display:flex;align-items:center;gap:9px}
+  .nav .links{margin-left:auto;display:flex;gap:14px;flex-wrap:wrap}
+  .nav .links a{color:var(--forest);text-decoration:none;font-weight:600;font-size:13.5px}
+  header{padding:26px 0 8px}
+  .kicker{color:var(--mossdeep);font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+  h1{font-family:Cambria,Georgia,serif;font-size:34px;margin:6px 0}
+  p.lead{color:var(--muted);font-size:15.5px;max-width:640px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:16px 0;box-shadow:0 2px 8px rgba(31,42,32,.05)}
+  .card h2{font-family:Cambria,Georgia,serif;font-size:22px;margin-bottom:4px}
+  .card h2 .num{color:var(--moss);margin-right:8px}
+  .card p.sub{color:var(--muted);font-size:14px;margin-bottom:12px}
+  .item{border:1px solid var(--line);border-radius:11px;padding:13px 15px;margin:10px 0}
+  .item .q{font-size:14px;margin-bottom:8px}
+  .item .meta{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .btns{display:flex;gap:8px;flex-wrap:wrap}
+  .btns button{background:#fff;color:var(--forest);border:1.5px solid var(--line);border-radius:8px;padding:9px 15px;font-size:13px;font-weight:700;cursor:pointer}
+  .btns button:hover{border-color:var(--moss)}
+  .btns button.sel{background:var(--tint);border-color:var(--moss)}
+  .fb{display:none;margin-top:9px;font-size:13px;padding:9px 12px;border-radius:8px}
+  .fb.ok{display:block;background:var(--greenbg);color:var(--forest);border:1px solid var(--moss)}
+  .fb.no{display:block;background:var(--redbg);color:var(--warm);border:1px solid #E7B7AE}
+  textarea{width:100%;border:1.5px solid var(--line);border-radius:9px;padding:10px 12px;font-size:14px;font-family:inherit;min-height:70px}
+  .reveal{background:var(--forest);color:#fff;border:0;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px}
+  .ansbox{display:none;margin-top:10px;background:var(--tint);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:13.5px;line-height:1.6}
+  .runbook{background:#0B120C;color:#B9CFA4;border-radius:10px;padding:13px 15px;font-family:'Courier New',monospace;font-size:12.4px;white-space:pre-wrap;margin:8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI logo">Cambium AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="playground.html">AI Lab</a><a href="practical.html">Practical</a><a href="pack.html">Pack</a><a href="sandbox.html">The Dry Run</a><a href="../../../start/">All courses</a></div>
+  </nav>
+  <header>
+    <div class="kicker">Cambium Academy · Course 05 · Practice with known answers</div>
+    <h1>The Practice Range</h1>
+    <p class="lead">No scores, no gates, no pressure. Three drills with the answers built in, so you can practice the moves before the honors exam: grade a golden set, sort an agent's permissions, and repair a broken runbook. Reveal the answer whenever you want.</p>
+  </header>
+
+  <!-- DRILL 1 -->
+  <div class="card">
+    <h2><span class="num">1</span>Grade the golden set</h2>
+    <p class="sub">Six agent outputs against their criteria. Call each PASS or FAIL, then check. A shorter answer that drops a required fact is a FAIL, however nicely it reads.</p>
+    <div id="g1"></div>
+  </div>
+
+  <!-- DRILL 2 -->
+  <div class="card">
+    <h2><span class="num">2</span>Sort the permissions</h2>
+    <p class="sub">An agent is being wired. For each requested permission, decide: AUTO (safe to run alone), GATE (allow, but a human approves each use), or DENY (it does not need this at all).</p>
+    <div id="g2"></div>
+  </div>
+
+  <!-- DRILL 3 -->
+  <div class="card">
+    <h2><span class="num">3</span>Repair the broken runbook</h2>
+    <p class="sub">Here is a runbook for an agent that is about to ship. Three things are dangerously missing or wrong. Name them, then reveal the answer.</p>
+    <div class="runbook">RUNBOOK: invoice-helper
+What it does:     Reads incoming invoices and pays the ones it judges legitimate.
+Owner:           (left blank)
+Tools granted:   read_email, read_invoices, pay_vendor (any amount), delete_email
+Human gate:      none, to save time
+Kill switch:     (left blank)
+Monitoring:      none
+Rollout:         switched on for all vendors, day one</div>
+    <textarea id="d3" placeholder="1. ...&#10;2. ...&#10;3. ..."></textarea>
+    <button class="reveal" onclick="show('d3ans')">Reveal the answer</button>
+    <div class="ansbox" id="d3ans">
+      <b>The three worst problems:</b>
+      <div style="margin-top:6px">1. <b>Pay with no human gate.</b> An unrestricted pay tool, any amount, unattended, is the Step Finance failure. Paying should require human approval on every transfer, or the agent should only flag invoices for a human to pay.</div>
+      <div style="margin-top:6px">2. <b>"Pays the ones it judges legitimate" is unverifiable and high-stakes.</b> Deciding what to pay is exactly the judgment to keep human. The agent may organize and flag; it may not decide to pay.</div>
+      <div style="margin-top:6px">3. <b>No owner, no kill switch, no monitoring, and a full day-one rollout.</b> Nobody is accountable, nobody can stop it, nobody would notice a failure, and it went straight to everyone with no dry run or shadow stage. Also, a delete_email tool it does not need is extra blast radius to remove.</div>
+      <div style="margin-top:8px;color:var(--muted)">A safe version: read invoices, flag mismatches and suspected fakes to a human, and never pay anything on its own. Named owner, a kill switch everyone knows, a golden set with a weekly rerun, and a staged rollout.</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;color:var(--muted);font-size:12.5px">Warmed up? <a href="practical.html" style="color:var(--forest);font-weight:700">The Practical</a> is the graded honors exam. Part of <a href="index.html" style="color:var(--forest)">Course 05 · Building with AI</a>.</div>
+</div>
+
+<script>
+// DRILL 1: golden-set grading (pass = still meets criteria)
+var G1 = [
+ { in:"A normal week, five on-topic papers", crit:"Names each paper and matches its abstract.", out:"Five entries, each a real paper on topic with a summary matching the abstract.", pass:true, why:"PASS. Meets the criteria." },
+ { in:"A methods paper the team needs the design of", crit:"Must state study design and sample size.", out:"\"A promising study on thinning. Worth a read.\"", pass:false, why:"FAIL. It dropped the required design and sample size. Reads fine, tells you nothing you needed." },
+ { in:"A corrupt file that is not a paper", crit:"Must flag it, not summarize it.", out:"\"Unreadable file, flagged for a human.\"", pass:true, why:"PASS. It flagged instead of inventing a summary." },
+ { in:"A paper easy to overstate", crit:"Must not claim more than the abstract supports.", out:"\"This proves thinning always increases diversity.\"", pass:false, why:"FAIL. 'Proves' and 'always' overstate a cautious finding into a false universal claim." },
+ { in:"A week with one off-topic paper", crit:"Includes only on-topic papers.", out:"Four on-topic summaries; the off-topic one is left out.", pass:true, why:"PASS. Topic filtering still works." },
+ { in:"A paper with a limitation the team cares about", crit:"Must mention the stated limitation.", out:"\"Strong results. Recommended.\"", pass:false, why:"FAIL. The limitation was cut. A confident summary that hides the caveat is worse than none." }
+];
+function renderG1(){
+  document.getElementById('g1').innerHTML = G1.map(function(c, i){
+    return '<div class="item"><div class="meta">Case ' + (i+1) + ' · ' + c.in + '</div><div class="q"><b>Criteria:</b> ' + c.crit + '<br><b>Output:</b> ' + c.out + '</div>' +
+      '<div class="btns"><button onclick="g1(' + i + ',true,this)">PASS</button><button onclick="g1(' + i + ',false,this)">FAIL</button></div>' +
+      '<div class="fb" id="g1fb' + i + '"></div></div>';
+  }).join("");
+}
+function g1(i, val, btn){
+  btn.parentNode.querySelectorAll('button').forEach(function(b){ b.classList.remove('sel'); });
+  btn.classList.add('sel');
+  var ok = val === G1[i].pass, fb = document.getElementById('g1fb' + i);
+  fb.className = "fb " + (ok ? "ok" : "no");
+  fb.innerHTML = (ok ? "<b>Correct.</b> " : "<b>Not quite.</b> ") + G1[i].why;
+}
+renderG1();
+
+// DRILL 2: permission sorting (auto / gate / deny)
+var G2 = [
+ { p:"Read the shared reading list", a:"auto", why:"AUTO. Read-only and reversible; the agent needs it to do the job." },
+ { p:"Send the digest to the whole team automatically", a:"gate", why:"GATE. Sending is irreversible and public. Draft it; a human sends. If it must auto-send, a human approves." },
+ { p:"Delete files it judges to be duplicates", a:"deny", why:"DENY. Deletion is irreversible and 'duplicate' is unverifiable in the moment. Flag, never delete." },
+ { p:"Write a draft to a review folder", a:"auto", why:"AUTO. Reversible and reviewed; the safe way to let it produce output." },
+ { p:"Move budget between project accounts when low", a:"deny", why:"DENY (or at most GATE with dual approval). Moving money is severe and irreversible. This is the Step Finance trap." },
+ { p:"Search the public web", a:"auto", why:"AUTO. Read-only; the worst case is a bad answer a human catches." }
+];
+function renderG2(){
+  document.getElementById('g2').innerHTML = G2.map(function(c, i){
+    return '<div class="item"><div class="q">' + c.p + '</div>' +
+      '<div class="btns"><button onclick="g2(' + i + ',\'auto\',this)">AUTO</button><button onclick="g2(' + i + ',\'gate\',this)">GATE</button><button onclick="g2(' + i + ',\'deny\',this)">DENY</button></div>' +
+      '<div class="fb" id="g2fb' + i + '"></div></div>';
+  }).join("");
+}
+function g2(i, val, btn){
+  btn.parentNode.querySelectorAll('button').forEach(function(b){ b.classList.remove('sel'); });
+  btn.classList.add('sel');
+  var ok = val === G2[i].a, fb = document.getElementById('g2fb' + i);
+  fb.className = "fb " + (ok ? "ok" : "no");
+  fb.innerHTML = (ok ? "<b>Correct.</b> " : "<b>Reconsider.</b> ") + G2[i].why;
+}
+renderG2();
+
+function show(id){ var e = document.getElementById(id); e.style.display = e.style.display === "block" ? "none" : "block"; }
+</script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

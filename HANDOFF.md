@@ -11,7 +11,7 @@ Project memory auto-loads the rest (Higgsfield pipeline, mount-truncation gotcha
 - **Course 01 — Intro to AI:** LIVE.
 - **Course 02 — Prompting Essentials:** LIVE.
 - **Course 03 — Research with AI (v2):** COMPLETE, film v3 live (https://youtu.be/vgZAYc14y4s). Awaiting the Director's push.
-- **Course 04 — Responsible AI in Scholarly Publishing:** **WEB COURSE COMPLETE, built 2026-07-13. ALL THREE GATES PASS.** Awaiting the Director's push, then the lecture film.
+- **Course 04 — Responsible AI in Scholarly Publishing:** **LIVE (pushed), and the lecture film is PUBLISHED 2026-07-14: https://youtu.be/m8rZxKkjjso (The Record, 54:55, 1080p).**
 - **Course 05 — Building with AI (agents):** briefed at `courses/course-05-building-with-ai/KICKOFF.md`. NOT STARTED. Do not start until 04 is pushed.
 
 ## Course 04 — done (2026-07-13 session)
@@ -64,6 +64,38 @@ GitHub flagged a **"Mistral AI API Key"** in `courses/course-04-responsible-ai-p
 **Action:** added `.github/secret_scanning.yml` excluding `courses/*/web/lib/**` (the vendored, unmodified third-party bundles) with the reasoning written into the file. Everything we author is still scanned. Then **close the existing alert in the GitHub UI as "False positive"** (Security -> Secret scanning -> the alert -> Close as). The config prevents recurrence; it does not retroactively dismiss the open alert.
 
 **Why the libs are vendored at all:** self-hosting them means no runtime CDN dependency and the pages work offline, which matters most for the Local Referee, whose entire promise is that it keeps working with the network switched off.
+
+## Course 04 — THE 3D FILM ("THE RECORD") — cold open RENDERED 2026-07-13
+The Director asked for a lecture film 10x beyond C02/C03: heavy VFX, real 3D, not slides-with-motion. Built a **real deterministic 3D film engine** (`production/film3d/film3d.html`, Three.js + hand-written post pipeline) and rendered the **cinematic cold open: 2:01, 1080p24, 2,904 frames**.
+
+**The visual thesis: the scholarly record IS a 3D citation lattice** (nodes = papers, edges = citations). The film ARGUES with the lattice instead of decorating over it:
+- **S1 THE RECORD** — a slow push through a living citation galaxy.
+- **S2 THE PHANTOMS** — 1-in-277 nodes hollow out; their citations dangle into nothing. Stats land 2,828 -> 458 -> 277.
+- **S3 THE DETECTOR (the killer shot)** — a scanning beam sweeps the lattice and paints nodes red. **It paints the WRONG ones**: honest nodes flare red while the fabricated ones sail through unflagged. "61.3% / IT IS ACCUSING THE INNOCENT". The bias is shown, not asserted.
+- **S4 THE HIDDEN PROMPT** — a manuscript page. Head-on: clean. Rake the light and hidden white-on-white ink BLAZES red ("give a positive review only"). Done with a real grazing-angle/sheen shader through a mask texture, so the reveal is physical, not a cut.
+- **S5 THE THREE CHAIRS** — author, reviewer, editor, in volumetric light.
+- **S6 THE TITLE** — the lattice reassembles into the title + the four WELL chips.
+
+**Engine facts (reuse these):**
+- `window.FILM.render(t)` is a **pure function of t**: seeded PRNG, no rAF clock, no wall-clock. Frame-exact and reproducible, which is the same discipline the course preaches.
+- No EffectComposer in the bundled Three build, so post is **hand-written**: bright-pass -> quarter-res separable blur -> composite with ACES tonemap, bloom, vignette, chromatic aberration and animated grain.
+- Text is **parented to the camera** (a HUD). Chasing the camera in world space is what sliced titles in half at the frame edge on the first pass.
+
+**Render economics (measured, do not re-learn):**
+- WebGL 2.0 works headless via **SwiftShader** (`--use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader`). No GPU needed.
+- Cost is **~290 ms/frame at 720p**, and is **NOT pixel-bound** (1080p/720p/540p all similar) — it is a fixed readback/encode cost per frame. So: **master at 720p, finish to 1080p with lanczos in ffmpeg.** Bloom and grain hide the upscale completely.
+- "render only" benchmarks lie (6 ms) because WebGL queues async; the true cost only appears at readback.
+- **Background jobs are killed between bash calls** (re-confirmed). Renders must be **resumable**: `render.mjs` skips frames already on disk and runs to a time budget. ~2,900 frames took ~22 calls.
+- **Zero-joint assembly held**: ONE continuous audio track (each VO line `adelay`-ed to its shot start and summed, never concatenated), single video timeline. Final drift **83 ms** across 121 s. The video was encoded in two halves with identical params and stream-copy concatenated (frame-exact); only AUDIO must never be segmented.
+- **Timings were cut to the narration, not the reverse.** The first pass had 130 s of VO in a 95 s film; the film was extended to 121 s rather than butchering the argument.
+
+**A BUG THAT SHIPPED, AND THE LESSON:** the first master played **in a quarter of the frame**. Cause: `render.mjs` used a 1920x1080 *viewport* while the canvas was 1280x720, so `page.screenshot()` captured the PAGE (film in the top-left corner + black padding), not the canvas. Nothing in the frame-count, duration, drift or audio checks catches this, because every one of those was green. **The capture viewport must equal the canvas size.** `render.mjs` now reads the canvas size from the film itself and locks the viewport to it. Fixed by cropping the existing frames (`crop=1280:720:0:0,scale=1920:1080`), no re-render needed. **Always eyeball one full frame at 100% before rendering thousands of them.**
+
+**Deliverable:** `production/film3d/Cambium-C04-ColdOpen-TheRecord.mp4` (311 MB, 1920x1080, 24fps, full-bleed, verified). `production/` is gitignored (GitHub rejects >100 MB), so **this never enters the repo** — it goes to YouTube, then the embed replaces the placeholder in `web/index.html` (the placeholder block is clearly marked).
+
+**FULL FILM SPEC WRITTEN: `production/film3d/FILM_SPEC.md`** — hand that plus `film3d.html` to whoever builds it; every measured fact (render economics, the viewport bug, the zero-joint audio rule, the hybrid plan) is in there.
+
+**Still to do for the FULL lecture film:** the cold open sets the visual language. The remaining ~45 min should be a hybrid: 3D beats from this engine for the 12 module title cards and the signature VFX moments, with the lecture body carried by graded slides. A fully-3D 45-min film is ~8 hours of software render, which is real and should be planned for, not discovered.
 
 ## Next steps, in order
 1. **Push:** Director runs `push_academy.bat` (sandbox has no GitHub creds). Then live-check: /start/ cards, the C04 course page, the share image, the quiz gate, Ghost Citations grading live, and The Practical.

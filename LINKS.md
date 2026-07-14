@@ -56,6 +56,7 @@ Living index of every public link. When a new course goes live, copy a course bl
 ### Course 04 — Responsible AI in Scholarly Publishing · LIVE (authors, reviewers, editors)
 
 - Course page: https://pkjaslam.github.io/cambium-academy/courses/course-04-responsible-ai-publishing/web/index.html
+- Lecture film (The Record, 54:55): https://youtu.be/m8rZxKkjjso
 - Slides (80, twelve modules): https://pkjaslam.github.io/cambium-academy/courses/course-04-responsible-ai-publishing/web/slides.html
 - AI Lab (6 games, incl. live-registry Ghost Citations): https://pkjaslam.github.io/cambium-academy/courses/course-04-responsible-ai-publishing/web/playground.html
 - **The Local Referee** (an LLM running IN THE BROWSER, zero network, for confidential manuscripts): https://pkjaslam.github.io/cambium-academy/courses/course-04-responsible-ai-publishing/web/referee.html

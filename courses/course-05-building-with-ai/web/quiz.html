@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz · Building with AI · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link rel="stylesheet" href="polish.css">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--tint:#F0F5EC;--ink:#1F2A20;--muted:#5C6B5A;--amber:#D97706;--line:#DFE9D8;--red:#B3372E;--redbg:#FBEBE9;--greenbg:#EBF4E4}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#F6F8F4;line-height:1.55}
+  .wrap{max-width:780px;margin:0 auto;padding:0 18px 60px}
+  header{background:var(--dark);color:#fff;padding:34px 0 30px;margin-bottom:26px}
+  header .wrap{padding-bottom:0}
+  .kicker{color:var(--moss);font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+  h1{font-family:Cambria,Georgia,serif;font-size:34px;margin-top:6px}
+  header p{color:#CFE3BF;margin-top:8px;font-size:15px}
+  header a{color:var(--moss)}
+  .q{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin-bottom:14px;box-shadow:0 2px 6px rgba(31,42,32,.05)}
+  .q h3{font-size:16px;margin-bottom:12px}
+  .q h3 .n{color:var(--moss);font-family:Cambria,Georgia,serif;margin-right:6px}
+  .opt{display:block;padding:9px 12px;border:1px solid var(--line);border-radius:8px;margin:7px 0;cursor:pointer;font-size:14.5px;background:#fff}
+  .opt:hover{background:var(--tint)}
+  .opt input{margin-right:9px;accent-color:var(--forest)}
+  .q.correct{border-color:var(--forest);background:var(--greenbg)}
+  .q.wrong{border-color:var(--red);background:var(--redbg)}
+  .fb{display:none;margin-top:10px;font-size:13.5px;padding:10px 12px;border-radius:8px}
+  .q.correct .fb{display:block;background:#fff;color:var(--forest)}
+  .q.wrong .fb{display:block;background:#fff;color:var(--red)}
+  .fb b{display:block;margin-bottom:2px}
+  .actions{text-align:center;margin:28px 0}
+  button{background:var(--forest);color:#fff;border:0;border-radius:9px;padding:14px 34px;font-size:17px;font-weight:700;cursor:pointer}
+  button:hover{background:#234D24}
+  #result{display:none;background:#fff;border:2px solid var(--forest);border-radius:14px;padding:26px;text-align:center;margin:26px 0}
+  #result.fail{border-color:var(--amber)}
+  #result .score{font-family:Cambria,Georgia,serif;font-size:44px;font-weight:700;color:var(--forest)}
+  #result.fail .score{color:var(--amber)}
+  #result p{color:var(--muted);margin:8px 0 14px}
+  #nameRow{margin:14px 0}
+  #nameRow input{padding:12px 14px;font-size:16px;border:1.5px solid var(--line);border-radius:8px;width:min(320px,90%)}
+  .small{font-size:12.5px;color:var(--muted);margin-top:10px}
+  .toplink{font-size:14px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a href="https://www.linkedin.com/company/cambium-ai-institute/" title="Cambium AI Research Institution on LinkedIn" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:16px">
+      <img src="../../../assets/logo-mark@2x.png" alt="Cambium AI logo" style="width:40px;height:40px">
+      <span style="color:#E8F2DE;font-weight:700;font-size:13px;letter-spacing:.5px">CAMBIUM AI <span style="color:var(--moss)">· RESEARCH INSTITUTION</span></span>
+    </a>
+    <div class="kicker">Cambium Academy · Course 05 · Final quiz</div>
+    <h1>Building with AI · Quiz</h1>
+    <p>20 questions, all covered in the course. Pass at 70% (14 of 20). Nothing is stored or sent anywhere.
+    <br><span class="toplink">Need a refresher? <a href="slides.html">Reread the slides</a> · <a href="flashcards.html">Flashcards</a> · <a href="community.html">Stuck? Ask for help</a> · <a href="index.html">Course home</a> · <a href="classroom.html">AI Classroom</a> · <a href="practical.html">Practical</a> · <a href="practice.html">Practice Range</a> · <a href="pack.html">Pack</a> · <a href="sandbox.html">The Dry Run</a> · <a href="../../../start/">All courses</a></span></p>
+  </div>
+</header>
+<div class="wrap">
+  <div id="lockPanel" style="display:none;background:#fff;border:2px solid var(--amber);border-radius:14px;padding:26px;margin-bottom:20px">
+    <div style="font-family:Cambria,Georgia,serif;font-size:24px;font-weight:700;color:var(--ink);margin-bottom:6px">The quiz unlocks after you study</div>
+    <p style="color:var(--muted);font-size:14.5px;margin-bottom:16px">Certificates here are earned. Finish these three steps and this page opens automatically. Aira tracks your progress in this browser.</p>
+    <div id="lockList"></div>
+    <p style="color:var(--muted);font-size:12.5px;margin-top:14px">Watched the lecture on YouTube instead of reading the slides? Mark it watched on the <a href="index.html" style="color:var(--forest);font-weight:600">course home</a> under the video.</p>
+  </div>
+  <div id="quiz"></div>
+  <div class="actions"><button id="grade">Grade my quiz</button></div>
+  <div id="result">
+    <div class="score" id="scoreTxt"></div>
+    <p id="msg"></p>
+    <div id="nameRow" style="display:none">
+      <input id="learner" type="text" placeholder="Your full name, as it should appear *" maxlength="60">
+      <div style="margin-top:10px"><input id="ldesig" type="text" placeholder="Designation, e.g. Data Analyst (optional)" maxlength="60"></div>
+      <div style="margin-top:10px"><input id="lorg" type="text" placeholder="Institution or organization (optional)" maxlength="80"></div>
+      <div style="margin-top:10px"><input id="lemail" type="email" placeholder="Email (optional, for your records only)" maxlength="80"></div>
+      <div class="small" style="margin-top:8px">Designation and organization appear on the certificate under your name. Email never appears on the certificate; if you add it, the Academy stores it privately so we can help you recover your certificate later. It is never shared or sold, and you can ask us to delete it anytime. Leave it blank if you prefer.</div>
+      <div style="margin-top:12px"><button id="cert">Get my certificate</button></div>
+    </div>
+    <div id="retry" style="display:none"><button onclick="location.reload()">Try again</button></div>
+    <div class="small">Certificates are honor-based, like most free online course certificates. Answers grade in your browser only.</div>
+  </div>
+</div>
+
+<script>
+const Q = [
+["An AI agent, at its simplest, is:",["A chatbot with a nicer personality","A model, plus tools, plus a loop, plus memory, that ACTS in the world rather than only replying","A person you hire through an app","A single very long prompt"],1,"A chatbot answers; an agent uses tools in a loop to change things. That capacity to act is the point, and the risk.","M1"],
+["The clearest line between a chatbot and an agent is that an agent:",["Acts in the world with tools, so its mistakes are real and often unattended","Is always more accurate","Costs more to run","Uses a bigger model"],0,"A wrong chatbot reply you read and discard. A wrong agent action changes a real file, message, or record, possibly before anyone looks.","M1"],
+["Most AI agent pilots fail because:",["The models are not yet capable enough","AI is a passing fad","The demo ran on clean, cooperative inputs and production has neither, and the boring parts were skipped","There are not enough GPUs"],2,"The failure signature is always the same: it worked in the room and fell over in the world. The gap is scoping, testing, and supervising, not model quality.","M2"],
+["The real blockers to getting an agent into production are mainly:",["A weak model","Slow internet","Too few features","Integration, reliability, security, latency, and missing evaluation, not model quality"],3,"A newer, smarter model fixes none of these five. About 95% of enterprise GenAI pilots showed no measurable return (MIT NANDA, 2025); 88% of proofs-of-concept never scaled (IDC, 2026).","M2"],
+["A job is a good fit for automation when it is:",["Rare, high-stakes, and irreversible","Repetitive, verifiable, bounded, and low blast radius","Anything a human finds boring","Something only an expert can check"],1,"All four marks make a job safe to automate. Miss one and it is a maybe; miss two and it is a trap dressed as a time-saver.","M3"],
+["The honest test for whether NOT to automate a task is:",["Whether it is boring","Whether the AI is expensive","Whether a competitor automated it","Whether you would have to re-check every output anyway, making the automation pointless and risky"],3,"If you would re-read everything the agent produced, it saved you nothing and added a risk. Automate the checking, or do not automate at all. Irreversible and unverifiable jobs stay human.","M3"],
+["An agent can only ever do:",["What its tools allow, which is why the tool menu is your first safety control","Whatever the model privately decides","Whatever the last user typed","Anything, once it is switched on"],0,"No email tool, no rogue emails; a read-only tool cannot delete. You draw the menu, and the menu sets the blast radius. Most disasters trace to a tool that should not have been on it.","M4"],
+["MCP, the Model Context Protocol, is:",["A specific AI model","A programming language for agents","An open standard for connecting agents to tools, introduced by Anthropic and now under the Agentic AI Foundation","A paid subscription tier"],2,"MCP (Anthropic, Nov 2024) is the emerging standard, adopted by OpenAI, Google, and Microsoft and donated to the Linux Foundation's Agentic AI Foundation in Dec 2025. It is why you can increasingly connect tools by clicking.","M4"],
+["The right way to build your first agent is to:",["Start with the smallest useful slice, tested, then widen it on evidence","Automate your whole workflow at once","Make it fully autonomous on day one","Wait for a better model"],0,"Ambition kills first agents. The five-step recipe is goal, tools, loop, guardrails, test, and the thin slice is small, checkable, safe, and shippable this week.","M5"],
+["By default, what an agent remembers between runs is:",["Everything, perfectly","Almost nothing, unless you explicitly provide it each run","Stored forever by the model","Whatever it feels like"],1,"Agents are stateless by default, and the context window silently drops the oldest facts. Make memory explicit: write it down somewhere durable and hand it back every run.","M6"],
+["When a needed fact is missing from its context, a model typically:",["Stops and asks you","Crashes safely","Invents a plausible-sounding fact to fill the gap, which can look exactly like a real one","Refuses to continue"],2,"That is the hallucination habit, and in an agent it is worse, because the agent may ACT on the invented fact before a human sees it. Retrieve from the source of record; do not rely on recall.","M6"],
+["An eval, or golden set, is:",["The agent's own opinion of its work","A marketing demo","A single impressive example","A set of real cases with known-good answers you score the agent against"],3,"It turns 'seems to work' into a defensible number. Nearly half of teams ship agents with no offline evaluation at all, which is a cause of the failure rate, not a coincidence beside it.","M7"],
+["\"Accuracy is not reliability\" means:",["Accuracy does not matter","An agent right half the time on average may be right on every easy case and wrong on every hard one","Reliable agents are always accurate","You should ignore the success rate"],1,"Averages conceal the pattern. Repeated runs on the hard cases expose it: top agents pass hard tasks on all tries under a quarter of the time. Only an eval shows you which cases are which.","M7"],
+["Regression testing an agent means:",["Rerunning your whole golden set on every change, and on a schedule even when nothing changed","Testing only the newest thing you added","Asking the agent if it still works","Waiting for users to complain"],0,"Green today is not green tomorrow: models update, prompts shift, and inputs drift, all silently. No change ships until the golden set is green again.","M8"],
+["Least privilege means giving an agent:",["Every permission it might ever need, to be safe","Admin access, to save wiring later","Exactly the permissions its job needs and not one more, read-only by default","Your own credentials"],2,"Reading a folder does not require the power to delete it; drafting an email does not require the power to send it. Scope and time-box every key. The gap between what it can do and what it needs is your blast radius.","M9"],
+["The blast radius of an agent is:",["How fast it responds","The worst thing it can do with the tools you gave it","The size of its model","How many users it has"],1,"Compute it per tool and shrink it by design: remove tools, narrow scope, gate the irreversible. Step Finance lost $27 to 40 million in Jan 2026 to agents with a standing pay tool and no human gate.","M9"],
+["Indirect prompt injection is when:",["A user is rude to the agent","The model runs out of memory","The agent is too slow","Poison hidden in content the agent reads (a page, an email, a file) is obeyed as a command"],3,"A model cannot cleanly tell instructions from data. EchoLeak (CVE-2025-32711, Microsoft 365 Copilot, June 2025) leaked internal data from a single crafted email using hidden white text.","M10"],
+["The reliable defense against prompt injection is:",["Telling the model, in its prompt, to refuse injected instructions","Using a bigger, newer model","Architecture: least privilege, breaking the lethal trifecta, and a human gate before anything irreversible","Hoping the attack is obvious"],2,"You cannot prompt your way out; the attacker's instruction sits right beside yours. The lethal trifecta is private data plus untrusted content plus external communication. Remove any one and the leak cannot happen.","M10"],
+["\"Automation rots quietly\" refers to the fact that:",["Inputs drift, models change, and costs creep, with nothing announcing it, so an unwatched agent slowly stops working","Agents get bored of their task","Code deletes itself over time","AI becomes sentient"],0,"An agent is a small machine running unattended in a changing world. The cheap fix is a scheduled golden-set rerun plus one alert; 63% of teams skip monitoring and find failures from the damage.","M11"],
+["When an agent's output goes out under your name, who is accountable, and how should it ship?",["The AI vendor, and all at once","The model, and fully autonomously","Nobody, since it was automated","You, the human; and it ships in stages (dry run, shadow, limited, wider) with a kill switch"],3,"An agent can do the work but cannot own the outcome. A human always does, including the maintenance. Widen on evidence, never on enthusiasm, and keep a way to turn it off.","M12"]
+];
+
+const quizEl = document.getElementById('quiz');
+quizEl.innerHTML = Q.map((q,qi)=>
+  `<div class="q" id="q${qi}"><h3><span class="n">${qi+1}.</span>${q[0]}</h3>` +
+  q[1].map((o,oi)=>`<label class="opt"><input type="radio" name="q${qi}" value="${oi}">${o}</label>`).join("") +
+  `<div class="fb" id="fb${qi}"></div></div>`).join("");
+
+document.getElementById('grade').onclick = function(){
+  if (enforceCertLock()) return;
+  let score = 0, firstUnanswered = null;
+  Q.forEach((q,qi)=>{
+    const pick = document.querySelector(`input[name="q${qi}"]:checked`);
+    if (!pick && firstUnanswered === null) firstUnanswered = qi;
+  });
+  if (firstUnanswered !== null) {
+    alert("Question " + (firstUnanswered+1) + " is still unanswered. Answer all 20, then grade.");
+    document.getElementById("q"+firstUnanswered).scrollIntoView({behavior:"smooth"});
+    return;
+  }
+  Q.forEach((q,qi)=>{
+    const pick = +document.querySelector(`input[name="q${qi}"]:checked`).value;
+    const box = document.getElementById("q"+qi), fb = document.getElementById("fb"+qi);
+    const ok = pick === q[2];
+    if (ok) score++;
+    box.className = "q " + (ok ? "correct" : "wrong");
+    fb.innerHTML = (ok ? "<b>Correct.</b>" : `<b>Not quite. Correct answer: ${q[1][q[2]]}</b>`) + q[3];
+    box.querySelectorAll("input").forEach(el=>el.disabled=true);
+  });
+  const res = document.getElementById('result'), pass = score >= 14;
+  res.style.display = "block";
+  res.className = pass ? "" : "fail";
+  document.getElementById('scoreTxt').textContent = score + " / 20";
+  document.getElementById('msg').textContent = pass
+    ? "You passed. Enter your name exactly as it should appear on the certificate."
+    : "You need 14 to pass. Review the marked questions or reread the slides, then try again. The course is not going anywhere.";
+  document.getElementById('nameRow').style.display = pass ? "block" : "none";
+  document.getElementById('retry').style.display = pass ? "none" : "block";
+  if (pass) window.__score = score;
+  try {
+    const prev = JSON.parse(localStorage.getItem('cambium-c05-quiz') || '{}');
+    const missTopics = {};
+    Q.forEach((q, qi) => {
+      const pick = document.querySelector('input[name="q' + qi + '"]:checked');
+      if (!pick || +pick.value !== q[2]) { const m = q[4] || "M?"; missTopics[m] = (missTopics[m] || 0) + 1; }
+    });
+    const rec = { best: Math.max(prev.best || 0, score), passed: !!(prev.passed || pass), date: new Date().toISOString().slice(0,10), missTopics: missTopics };
+    if (prev.consumedBy) { rec.consumedBy = prev.consumedBy; rec.passed = false; }
+    localStorage.setItem('cambium-c05-quiz', JSON.stringify(rec));
+  } catch(e) {}
+  res.scrollIntoView({behavior:"smooth"});
+  this.style.display = "none";
+};
+
+// Learning-path gate: lecture + all flashcards + all playground games before the quiz.
+(function(){
+  function rd(k){ try { return JSON.parse(localStorage.getItem(k) || "null"); } catch(e){ return null; } }
+  var seen = (rd("cambium-c05-slides") || {}).seen || 0;
+  var lecture = seen >= 79 || !!(rd("cambium-c05-lecture") || {}).watched;
+  var cards = Object.keys(rd("cambium-c05-cards") || {}).length;
+  var pg = rd("cambium-c05-playground") || {};
+  var pgN = (pg.scope?1:0) + (pg.wire?1:0) + (pg.break?1:0) + (pg.eval?1:0) + (pg.blast?1:0);
+  var steps = [
+    { ok: lecture, label: "The lecture", detail: lecture ? "done" : (seen > 0 ? seen + " of 79 slides read" : "read the slides or watch the video"), href: "slides.html" },
+    { ok: cards >= 24, label: "All 24 flashcards", detail: cards >= 24 ? "done" : cards + " of 24 known so far", href: "flashcards.html" },
+    { ok: pgN >= 5, label: "All 5 AI Lab games", detail: pgN >= 5 ? "done" : pgN + " of 5 won", href: "playground.html" }
+  ];
+  if (steps.every(function(s){ return s.ok; })) return;
+  document.getElementById('quiz').style.display = "none";
+  document.querySelector('.actions').style.display = "none";
+  var panel = document.getElementById('lockPanel');
+  panel.style.display = "block";
+  document.getElementById('lockList').innerHTML = steps.map(function(s){
+    return '<a href="' + s.href + '" style="display:flex;justify-content:space-between;align-items:center;gap:10px;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:8px 0;background:' + (s.ok ? '#EBF4E4' : '#fff') + '">' +
+      '<span style="font-weight:600">' + (s.ok ? '&#10003; ' : '&#9675; ') + s.label + '</span><span style="font-size:13px;color:var(--muted)">' + s.detail + ' &#8594;</span></a>';
+  }).join("");
+})();
+
+// ONE CERTIFICATE PER BROWSER: once issued, the quiz and name form close here for good.
+function certIssued(){
+  try { return JSON.parse(localStorage.getItem('cambium-c05-cert') || 'null') || null; } catch(e){ return null; }
+}
+function enforceCertLock(){
+  var cert = certIssued();
+  if (!cert || !cert.issued) return false;
+  ['quiz','result','lockPanel'].forEach(function(id){ var el = document.getElementById(id); if (el) el.style.display = 'none'; });
+  var acts = document.querySelector('.actions'); if (acts) acts.style.display = 'none';
+  var p = document.getElementById('certLockPanel');
+  if (!p) {
+    p = document.createElement('div');
+    p.id = 'certLockPanel';
+    p.style.cssText = 'background:#fff;border:2px solid var(--forest);border-radius:16px;padding:28px;text-align:center;margin:18px 0';
+    var host = document.getElementById('quiz');
+    (host ? host.parentNode : document.body).insertBefore(p, host || null);
+  }
+  p.innerHTML = '<h2 style="font-family:Cambria,Georgia,serif;color:var(--forest);font-size:24px;margin-bottom:8px">Certificate already issued</h2>' +
+    '<p style="color:var(--muted);font-size:14.5px;max-width:520px;margin:0 auto 14px">This browser&#8217;s certificate belongs to <b>' + cert.name + '</b>. Each browser issues exactly one certificate, so the quiz and name form are closed here.</p>' +
+    '<a href="certificate.html" style="display:inline-block;background:var(--forest);color:#fff;font-weight:700;padding:12px 24px;border-radius:10px;text-decoration:none">Open my certificate</a>' +
+    '<div style="margin-top:16px;padding:14px 16px;border:1px solid #E4CE96;background:#FBF6E7;border-radius:12px;font-size:14px;line-height:1.6;color:#3B3218;text-align:left">' +
+      '<b>Go further, if you want the mark that means the most:</b> <a href="practical.html" style="color:#8C6320;font-weight:700">The Practical</a> is an optional honors exam: audit a real agent run, find the injection it obeyed and the step it skipped, then write the fix. Pass, and your certificate carries <b>SHIP-VERIFIED</b>. Also grab <a href="pack.html" style="color:#8C6320;font-weight:700">the Builder\'s Pack</a>: the agent design canvas, the golden-set template, and the runbook, ready to reuse.' +
+    '</div>' +
+    '<p style="color:var(--muted);font-size:12.5px;max-width:520px;margin:14px auto 0">A different learner on this computer? Open the Academy in a private window or another browser profile and complete your own path, every step, fair and square.</p>';
+  p.style.display = 'block';
+  return true;
+}
+window.addEventListener('pageshow', function(){ enforceCertLock(); });
+enforceCertLock();
+
+document.getElementById('cert').onclick = function(){
+  if (enforceCertLock()) return;
+  const name = document.getElementById('learner').value.trim();
+  if (!name) { alert("Enter your name first."); return; }
+  const desig = document.getElementById('ldesig').value.trim();
+  const orgName = document.getElementById('lorg').value.trim();
+  const email = document.getElementById('lemail').value.trim();
+  const org = [desig, orgName].filter(Boolean).join(", ");
+  const t = new Date();
+  const d = t.getFullYear() + "-" + String(t.getMonth()+1).padStart(2,"0") + "-" + String(t.getDate()).padStart(2,"0");
+  try { localStorage.setItem('cambium-c05-learner', JSON.stringify({ name: name, org: org, email: email })); } catch(e) {}
+  location.href = "certificate.html?name=" + encodeURIComponent(name) + (org ? "&org=" + encodeURIComponent(org) : "") + "&score=" + window.__score + "&date=" + d;
+};
+</script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

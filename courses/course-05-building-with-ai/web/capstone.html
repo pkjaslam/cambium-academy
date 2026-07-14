@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capstone · Building with AI · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link rel="stylesheet" href="polish.css">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--mossdeep:#6E9648;--tint:#F0F5EC;--ink:#1F2A20;--muted:#5C6B5A;--line:#DFE9D8;--gold:#B98A2D}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#F6F8F4;line-height:1.6}
+  .wrap{max-width:780px;margin:0 auto;padding:0 18px 60px}
+  .nav{display:flex;align-items:center;gap:12px;padding:14px 0;flex-wrap:wrap}
+  .nav img{width:36px;height:36px}
+  .nav a.brand{font-weight:700;color:var(--dark);text-decoration:none;font-size:14px;display:flex;align-items:center;gap:9px}
+  .nav .links{margin-left:auto;display:flex;gap:14px;flex-wrap:wrap}
+  .nav .links a{color:var(--forest);text-decoration:none;font-weight:600;font-size:13.5px}
+  h1{font-family:Cambria,Georgia,serif;font-size:32px;margin:10px 0 6px}
+  p.lead{color:var(--muted);font-size:15px;margin-bottom:24px}
+  .box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px;margin-bottom:18px}
+  .box h2{font-family:Cambria,Georgia,serif;font-size:22px;color:var(--forest);margin-bottom:6px}
+  .box h3{font-size:16px;margin:16px 0 6px}
+  .box p{font-size:14.5px;color:var(--muted);margin-bottom:8px}
+  .box ul{margin:8px 0 8px 20px}
+  .box li{font-size:14.5px;margin:6px 0;color:var(--muted)}
+  .box li b{color:var(--ink)}
+  .num{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--forest);color:#fff;font-family:Cambria,Georgia,serif;font-weight:700;font-size:16px;margin-right:10px}
+  table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+  th{background:var(--dark);color:#fff;text-align:left;padding:9px 12px;font-weight:600}
+  td{padding:9px 12px;border-bottom:1px solid var(--line);color:var(--muted)}
+  td:first-child{color:var(--ink);font-weight:600}
+  .tip{background:var(--tint);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:14px 16px;font-size:14px;margin-top:14px}
+  .tip b{color:var(--forest)}
+  a.cta{display:inline-block;background:var(--forest);color:#fff;font-weight:700;padding:12px 24px;border-radius:9px;text-decoration:none;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI logo">Cambium AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="slides.html">Slides</a><a href="quiz.html">Quiz</a><a href="practical.html">Practical</a><a href="pack.html">Pack</a><a href="sandbox.html">The Dry Run</a><a href="community.html">Community</a><a href="../../../start/">All courses</a></div>
+  </nav>
+
+  <h1>The capstone</h1>
+  <p class="lead">Three artifacts you would really ship. Not an exercise: one real automation you will actually run, the eval that proves it works, and the runbook that keeps it safe. Do these once and you will use them for every agent you build after.</p>
+
+  <div class="box">
+    <h2><span class="num">1</span>Build one real automation</h2>
+    <p>Pick a weekly chore of your own and build the smallest useful slice of it, with no code required.</p>
+    <h3>How to choose and build it</h3>
+    <ul>
+      <li><b>Scope it first.</b> Score the job against the four marks: repetitive, verifiable, bounded, low blast radius. If it is irreversible, high-stakes, or unverifiable, narrow it or keep a human in the loop.</li>
+      <li><b>Wire the smallest menu.</b> Give it only the tools the job needs, read-only wherever possible. Leave send, pay, delete, and publish off the menu unless the job truly requires them.</li>
+      <li><b>Build the thin slice.</b> One narrow, useful job, running this week, with your assistant's connectors or a workflow tool like Zapier or n8n. Start free.</li>
+      <li><b>Write down what good looks like.</b> Before you trust it, describe a good output in concrete, checkable terms. That description becomes your eval.</li>
+    </ul>
+    <div class="tip"><b>The builder's mantra:</b> the smallest thing that is still useful, running and tested, beats the grand vision that never ships. A weekly literature digest, an invoice-flagger, a tidy-the-inbox drafter: small and real wins.</div>
+  </div>
+
+  <div class="box">
+    <h2><span class="num">2</span>Write its eval</h2>
+    <p>The artifact that turns "seems to work" into a number you can defend, and the instrument that keeps it working.</p>
+    <h3>What the golden set must contain</h3>
+    <ul>
+      <li><b>Ten to thirty real cases</b> pulled from your actual workload, not the happy path you designed for.</li>
+      <li><b>The ugly ones on purpose:</b> a malformed input, an ambiguous request, and a poisoned page or injection. An eval that only tests the easy cases is a demo with extra steps.</li>
+      <li><b>A known-good answer for each,</b> and a pass/fail criterion you decided in advance. Prefer checkable criteria over "looks thorough."</li>
+      <li><b>Today's pass rate, written down,</b> and the rule that you rerun the whole set on every change and on a schedule. A change that lowers the rate is a regression.</li>
+    </ul>
+    <div class="tip"><b>The one honest sentence to aim for:</b> "On my twenty real cases it passes eighteen, and here are the two it misses and why." That sentence is worth more than any demo, and almost nobody who ships an agent can say it. Be the person who can.</div>
+  </div>
+
+  <div class="box">
+    <h2><span class="num">3</span>Write its runbook</h2>
+    <p>One page a colleague, or future-you, needs to run the agent safely. This is where supervising well becomes a document.</p>
+    <h3>What the runbook settles</h3>
+    <ul>
+      <li><b>What it does and where it stops,</b> in one plain sentence, and <b>who owns it:</b> the named human accountable for its output and its upkeep.</li>
+      <li><b>The tools it has and why each,</b> and which data it reaches, flagging anything private. The gap between what it can do and what it needs is your blast radius.</li>
+      <li><b>The human gate:</b> which actions stop for a human, and who approves. Anything irreversible, send, pay, delete, publish, is gated or removed.</li>
+      <li><b>The kill switch,</b> exactly how to stop it instantly, and everyone who needs to know how.</li>
+      <li><b>The monitoring:</b> the golden-set rerun schedule and the alert threshold. And the cost and latency ceiling, with what happens when it is hit.</li>
+      <li><b>The rollout stage and the disclosure:</b> dry run, shadow, limited, then full, widened on evidence; and where you say an agent was involved wherever it touches other people.</li>
+    </ul>
+    <div class="tip"><b>Use the live canvas.</b> The <a href="pack.html" style="color:var(--forest);font-weight:700">Builder's Pack</a> has an Agent Design Canvas that checks your plan for the lethal trifecta and missing gates, and drafts a runbook you can copy. Run your capstone through it before you ship.</div>
+  </div>
+
+  <div class="box">
+    <h2>The rubric, if you want to grade yourself</h2>
+    <table>
+      <tr><th>Criterion</th><th>What good looks like</th></tr>
+      <tr><td>Well scoped</td><td>The job is repetitive, verifiable, bounded, and reversible; nothing irreversible happens without a human.</td></tr>
+      <tr><td>Least privilege</td><td>The tool menu is the smallest that does the job, read-only by default. No dangerous tool it does not need.</td></tr>
+      <tr><td>Actually tested</td><td>A golden set of 10-30 real cases exists, including ugly ones, with a written pass rate today.</td></tr>
+      <tr><td>Rerun on change</td><td>You have a rule and a schedule for rerunning the set. Green today is not green tomorrow.</td></tr>
+      <tr><td>Gated and stoppable</td><td>A human gate before irreversible actions, a kill switch everyone knows, and monitoring with an alert.</td></tr>
+      <tr><td>Injection-tolerant</td><td>Even a fully fooled agent cannot cause real harm, because the architecture, not a prompt, contains it.</td></tr>
+      <tr><td>Owned</td><td>A named human is accountable for the output and the upkeep, and disclosure is honest where it touches others.</td></tr>
+    </table>
+  </div>
+
+  <div class="box" style="text-align:center">
+    <h2>Then show it, if you want</h2>
+    <p>Post your runbook on the community board. Designs get better when other people poke at them, and the next person building an agent will be glad yours is there.</p>
+    <a class="cta" href="community.html">Share it on the board</a>
+    <p style="margin-top:14px;font-size:13.5px">Want the harder version of this? <a href="practical.html" style="color:var(--forest);font-weight:700">The Practical</a> puts you in the reviewer's seat: audit a real agent run, find the injection it obeyed and the step it skipped, and write the fix, which fails if it leaves the agent ungated.</p>
+  </div>
+</div>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

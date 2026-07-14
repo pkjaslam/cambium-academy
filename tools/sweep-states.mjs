@@ -25,8 +25,9 @@ const COURSES = [
   { slug: 'course-02-prompting-essentials',      k: 'c02', slides: 40, cards: 24, labs: ['tok','lm','net'] },
   { slug: 'course-03-research-with-ai',          k: 'c03', slides: 70, cards: 24, labs: ['tok','lm','net','ins','ps'] },
   { slug: 'course-04-responsible-ai-publishing', k: 'c04', slides: 80, cards: 24, labs: ['disc','line','ghost','flags','inject','trap'] },
+  { slug: 'course-05-building-with-ai',          k: 'c05', slides: 79, cards: 24, labs: ['scope','wire','break','eval','blast'] },
 ];
-const PAGES = ['index','slides','flashcards','quiz','playground','capstone','career','certificate','community','classroom','practical','pack','practice','changelog','transcript','referee','auditor'];
+const PAGES = ['index','slides','flashcards','quiz','playground','capstone','career','certificate','community','classroom','practical','pack','practice','changelog','transcript','referee','auditor','sandbox'];
 
 const STATES = {
   fresh: () => {},

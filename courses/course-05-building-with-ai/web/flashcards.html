@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcards · Responsible AI in Scholarly Publishing · Cambium Academy</title>
+<link rel="icon" href="../../../assets/favicon.png">
+<link rel="stylesheet" href="polish.css">
+<style>
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--mossdeep:#6E9648;--tint:#F0F5EC;--ink:#1F2A20;--muted:#5C6B5A;--line:#DFE9D8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:#F6F8F4;line-height:1.55;min-height:100vh}
+  .wrap{max-width:720px;margin:0 auto;padding:0 18px 50px}
+  .nav{display:flex;align-items:center;gap:12px;padding:12px 0;flex-wrap:wrap}
+  .nav img{width:36px;height:36px}
+  .nav a.brand{font-weight:700;color:var(--dark);text-decoration:none;font-size:14px;display:flex;align-items:center;gap:9px}
+  .nav .links{margin-left:auto;display:flex;gap:14px;flex-wrap:wrap}
+  .nav .links a{color:var(--forest);text-decoration:none;font-weight:600;font-size:13.5px}
+  h1{font-family:Cambria,Georgia,serif;font-size:28px;margin:8px 0 4px}
+  p.lead{color:var(--muted);font-size:14.5px;margin-bottom:18px}
+  .stats{display:flex;gap:10px;margin-bottom:14px;font-size:13px;flex-wrap:wrap}
+  .pill{background:#fff;border:1px solid var(--line);border-radius:20px;padding:5px 14px;color:var(--muted)}
+  .pill b{color:var(--forest)}
+  .card{perspective:1200px;cursor:pointer;height:290px;margin-bottom:14px}
+  .inner{position:relative;width:100%;height:100%;transition:transform .45s;transform-style:preserve-3d}
+  .card.flipped .inner{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px;border:1px solid var(--line)}
+  .front{background:#fff}
+  .front .term{font-family:Cambria,Georgia,serif;font-size:28px;font-weight:700;color:var(--dark)}
+  .front .tap{position:absolute;bottom:14px;font-size:12px;color:var(--muted)}
+  .back{background:var(--dark);color:#fff;transform:rotateY(180deg)}
+  .back .def{font-size:16.5px;line-height:1.65;color:#E8F2DE;max-width:560px}
+  .mod{position:absolute;top:14px;left:0;right:0;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--mossdeep)}
+  .back .mod{color:var(--moss)}
+  .actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  button{border:0;border-radius:9px;padding:12px 22px;font-size:14.5px;font-weight:700;cursor:pointer}
+  .grade{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:96px;line-height:1.2}
+  .grade .iv{font-size:11px;font-weight:600;opacity:.85}
+  .again{background:#fff;color:var(--red,#B3372E);border:1.5px solid #E9C9C5}
+  .hard{background:#FBF3E4;color:#8C6320;border:1.5px solid #EAD9B8}
+  .good{background:var(--forest);color:#fff}
+  .easy{background:var(--moss);color:var(--dark)}
+  .know{background:var(--forest);color:#fff}
+  .subtle{background:none;border:0;color:var(--muted);font-weight:600;font-size:13px;text-decoration:underline;cursor:pointer;padding:8px}
+  .done{background:#fff;border:2px solid var(--forest);border-radius:16px;padding:30px;text-align:center;display:none}
+  .done h2{font-family:Cambria,Georgia,serif;color:var(--forest);font-size:26px;margin-bottom:8px}
+  .done p{color:var(--muted);font-size:14.5px;margin-bottom:14px}
+  .row2{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+  a.abtn{background:var(--forest);color:#fff;border-radius:9px;padding:12px 22px;font-size:14.5px;font-weight:700;text-decoration:none}
+  .cardFx{position:absolute;inset:0;border-radius:16px;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;z-index:6}
+  .cardFx .chk{width:104px;height:104px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:58px;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .cardFx .lbl{position:absolute;bottom:34px;font-size:15px;font-weight:700;letter-spacing:.3px}
+  .cardFx.ok{animation:fxok .55s ease forwards}
+  .cardFx.no{animation:fxno .42s ease forwards}
+  @keyframes fxok{0%{opacity:0;transform:scale(.7)}22%{opacity:1;transform:scale(1)}78%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.06)}}
+  @keyframes fxno{0%{opacity:0}30%{opacity:1}100%{opacity:0}}
+  #known,#left{display:inline-block}
+  .pulse{animation:pulseC .5s ease}
+  @keyframes pulseC{0%{transform:scale(1)}40%{transform:scale(1.4);color:#1E7d34}100%{transform:scale(1)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI logo">Cambium AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="slides.html">Slides</a><a href="quiz.html">Quiz</a><a href="classroom.html">AI Classroom</a><a href="community.html">Community</a><a href="practical.html">Practical</a><a href="practice.html">Screening Room</a><a href="pack.html">Pack</a><a href="referee.html">Local Referee</a><a href="auditor.html">Reference Auditor</a><a href="../../../start/">All courses</a></div>
+  </nav>
+
+  <h1>Flashcards</h1>
+  <p class="lead">24 core ideas from the course, scheduled by <b>FSRS</b>, the same spaced-repetition algorithm Anki uses. Tap a card to flip it, then grade yourself honestly: the algorithm decides when you see it again, spacing what you know and hammering what you do not. Everything is computed and stored in this browser. Nothing is sent anywhere.</p>
+
+  <div class="stats">
+    <span class="pill">Due now: <b id="left">24</b></span>
+    <span class="pill">Known: <b id="known">0</b> / 24</span>
+    <span class="pill" id="schedPill" style="display:none">Next review: <b id="nextDue">-</b></span>
+    <button class="subtle" onclick="resetAll()">Reset progress</button>
+  </div>
+
+  <div class="card" id="card" onclick="flipCard()">
+    <div class="inner">
+      <div class="face front"><div class="mod" id="modF"></div><div class="term" id="term"></div><div class="tap">tap to flip</div></div>
+      <div class="face back"><div class="mod" id="modB"></div><div class="def" id="def"></div></div>
+    </div>
+    <div class="cardFx" id="cardFx"></div>
+  </div>
+
+  <div class="actions" id="actions">
+    <button class="grade again" id="btnAgain" data-r="1" disabled style="opacity:.4">Again<span class="iv" id="iv1"></span></button>
+    <button class="grade hard"  id="btnHard"  data-r="2" disabled style="opacity:.4">Hard<span class="iv" id="iv2"></span></button>
+    <button class="grade good"  id="btnGood"  data-r="3" disabled style="opacity:.4">Good<span class="iv" id="iv3"></span></button>
+    <button class="grade easy"  id="btnEasy"  data-r="4" disabled style="opacity:.4">Easy<span class="iv" id="iv4"></span></button>
+  </div>
+  <p id="flipHint" style="text-align:center;font-size:13px;color:var(--muted);margin-top:10px">Flip the card and read the answer first, then grade yourself honestly. The interval under each button is when FSRS will show you this card again.</p>
+
+  <div class="done" id="done">
+    <h2>Deck cleared.</h2>
+    <p id="doneMsg">Every card marked known.</p>
+    <div class="row2">
+      <a class="abtn" href="playground.html" id="doneNext">Next: the AI Lab</a>
+      <button class="again" onclick="resetAll()">Study again</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+const CARDS = [
+["M1","What an agent is","A model, plus tools, plus a loop, plus memory. The model thinks, a tool acts, the loop repeats, memory carries state. A chatbot answers; an agent ACTS in the world."],
+["M1","Chatbot versus agent","A chatbot replies with text and changes nothing, so its blast radius is zero. An agent uses tools to change things: files, messages, records. Its mistakes are real, and you may not be watching."],
+["M2","The pilot graveyard","About 95% of enterprise GenAI pilots delivered no measurable return (MIT NANDA, 2025); 88% of AI proofs-of-concept never scaled (IDC, 2026). The demo runs on clean inputs; production does not."],
+["M2","The real blockers","Integration, reliability, security, latency, and MISSING EVALS, not model quality. A newer, smarter model fixes none of the five. The winners did the boring parts everyone else skipped."],
+["M3","The four marks of a good job to automate","Repetitive, verifiable, bounded, and low blast radius. Miss one and it is a maybe; miss two and it is a trap dressed as a time-saver."],
+["M3","The do-not-automate list","Irreversible, high-stakes, unverifiable, or you would have to check it anyway. Automate the boring and reversible; keep the rest in human hands. Naming what you will not automate is the senior move."],
+["M4","The tool menu is your first safety control","An agent can only do what its tools allow. Read-only cannot delete; no email tool means no rogue emails. You draw the menu, and the menu sets the blast radius."],
+["M4","MCP, the emerging standard","The Model Context Protocol: one shared way to connect agents to tools. Anthropic Nov 2024, adopted by OpenAI, Google, and Microsoft, donated to the Agentic AI Foundation (Linux Foundation) Dec 2025."],
+["M5","The five-step build","Goal, tools, loop, guardrails, test. Same recipe for a weekend project and a billion-dollar agent; the whole difference between them is guardrails and test."],
+["M5","The thin slice","The smallest useful job, running and tested, beats the grand plan that never ships. Small is also safe: a narrow agent with a small tool menu has a small blast radius by construction."],
+["M6","Stateless by default","Assume the agent forgot everything. The context window is short-term memory and silently drops the oldest facts. Make memory explicit: write it down somewhere durable and hand it back each run."],
+["M6","Why it invents state","When a needed fact is missing, a model fills the gap with plausible text instead of saying it does not know. Retrieve from the source of record, do not rely on recall, and gate what gets stored."],
+["M7","The golden set","Ten to thirty real cases, including ugly ones, with known-good answers and defensible pass/fail criteria. It turns 'seems to work' into a number. 48% of teams ship with NO offline evals."],
+["M7","Accuracy is not reliability","An agent right half the time on average may be right on every easy case and wrong on every hard one. Only an eval, and repeated runs on the hard cases, tells you which."],
+["M8","Regression testing","Rerun the whole golden set on every change, and on a schedule when nothing changed. Green today is not green tomorrow: models update, prompts shift, and inputs drift, all silently."],
+["M8","The metric that matters","Success rate over time, not one lucky score. A slow slide is drift; a cliff is a broken change or a model update. Watch the trend so you see failure coming instead of discovering it from the damage."],
+["M9","Least privilege","Give the agent exactly the permissions its job needs and not one more. Read-only by default; scope and time-box every key. The oldest rule in security, made urgent again by agents."],
+["M9","The blast radius","The worst thing the agent can do with the tools you gave it. Shrink it by removing tools and gating irreversible actions. Step Finance lost $27-40M to agents with a pay tool and no human gate."],
+["M10","Indirect prompt injection","Poison hidden in content the agent reads (a page, an email) is obeyed as a command, because a model cannot tell instructions from data. EchoLeak (CVE-2025-32711, M365 Copilot, June 2025) leaked data from one crafted email."],
+["M10","You cannot prompt your way out","Defense is architecture, not instructions: least privilege, break the lethal trifecta (private data + untrusted content + external communication), and a human gate before anything irreversible."],
+["M11","Automation rots quietly","Inputs drift, models change, and costs creep, with nothing announcing it. Set cost and latency ceilings and a kill switch. Right-size the model: let the eval, not the marketing, pick it."],
+["M11","Monitoring, the cheap version","Log every run and rerun the golden set on a schedule with one alert. 63% of teams skip monitoring, so their failures are found from the damage instead of from a warning. Be the minority that watches."],
+["M12","Ship in stages","Dry run, then shadow, then a limited slice, then wider, each step earned by a golden-set rerun, with a kill switch throughout. Widen on evidence, not enthusiasm."],
+["M12","Own the outcome","An agent can do the work but cannot own it. When its output goes out under your name, you are accountable, and you own the maintenance too. A human always stands behind what the agent did."]
+];
+
+// ---------------------------------------------------------------------------
+// FSRS spaced repetition (ts-fsrs 5.4.1, MIT), running entirely in this browser.
+// Two stores, on purpose:
+//   cambium-c05-cards : the course CONTRACT. { index: 1 } once a card is first
+//                       answered Good or Easy. The quiz gate, progress bar, Aira
+//                       and the classroom all read this, so its shape never changes.
+//   cambium-c05-fsrs  : the SCHEDULE. One FSRS card state per index, with a real
+//                       due date, so the deck comes back at the right time instead
+//                       of just recycling inside one sitting.
+// ---------------------------------------------------------------------------
+const KEY  = "cambium-c05-cards";
+const FKEY = "cambium-c05-fsrs";
+const MK   = "cambium-c05-cardmiss";
+
+let known = {};
+try { known = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e) { known = {}; }
+let sched = {};
+try { sched = JSON.parse(localStorage.getItem(FKEY) || "{}"); } catch(e) { sched = {}; }
+
+let f = null, FSRS = null, queue = [], seenBack = false, current = null;
+
+// JSON.parse gives back strings, not Dates. FSRS needs real Dates or it throws.
+function revive(c){
+  if (!c) return null;
+  c.due = new Date(c.due);
+  if (c.last_review) c.last_review = new Date(c.last_review);
+  return c;
+}
+function cardState(i){
+  if (sched[i]) return revive(JSON.parse(JSON.stringify(sched[i])));
+  return FSRS.createEmptyCard();
+}
+function dueNow(i, now){
+  if (!sched[i]) return true;
+  return new Date(sched[i].due) <= now;
+}
+function fmt(d, now){
+  const ms = new Date(d) - now;
+  const m = Math.round(ms / 60000);
+  if (m < 1) return "now";
+  if (m < 60) return m + "m";
+  const h = Math.round(m / 60);
+  if (h < 24) return h + "h";
+  const days = Math.round(h / 24);
+  if (days < 31) return days + "d";
+  return Math.round(days / 30) + "mo";
+}
+function buildQueue(){
+  const now = new Date();
+  queue = CARDS.map((c, i) => i).filter(i => dueNow(i, now));
+  for (let i = queue.length - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); const t = queue[i]; queue[i] = queue[j]; queue[j] = t; }
+}
+function setActions(on){
+  ["btnAgain","btnHard","btnGood","btnEasy"].forEach(id => {
+    const b = document.getElementById(id);
+    b.disabled = !on;
+    b.style.opacity = on ? "1" : ".4";
+  });
+  const h = document.getElementById('flipHint');
+  if (h) h.style.visibility = on ? "hidden" : "visible";
+}
+function flipCard(){
+  document.getElementById('card').classList.toggle('flipped');
+  if (!seenBack){
+    seenBack = true;
+    setActions(true);
+    // Show the REAL interval each grade would produce, straight from FSRS.
+    try {
+      const now = new Date();
+      const preview = f.repeat(cardState(current), now);
+      [1,2,3,4].forEach(r => {
+        const el = document.getElementById('iv' + r);
+        if (el && preview[r]) el.textContent = fmt(preview[r].card.due, now);
+      });
+    } catch(e){}
+  }
+}
+window.flipCard = flipCard;
+
+function nextDueLabel(){
+  const now = new Date();
+  const futures = CARDS.map((c,i) => sched[i] ? new Date(sched[i].due) : null).filter(d => d && d > now).sort((a,b) => a - b);
+  return futures.length ? fmt(futures[0], now) : null;
+}
+function refresh(){
+  document.getElementById('known').textContent = Object.keys(known).length;
+  document.getElementById('left').textContent = queue.length;
+  const nd = nextDueLabel(), pill = document.getElementById('schedPill');
+  if (nd && pill){ pill.style.display = "inline-block"; document.getElementById('nextDue').textContent = "in " + nd; }
+  else if (pill) pill.style.display = "none";
+
+  const doneEl = document.getElementById('done'), cardEl = document.getElementById('card'), act = document.getElementById('actions');
+  const hint = document.getElementById('flipHint');
+  if (!queue.length){
+    doneEl.style.display = "block"; cardEl.style.display = "none"; act.style.display = "none";
+    if (hint) hint.style.display = "none";
+    try {
+      const rd = k => { try { return JSON.parse(localStorage.getItem(k) || "{}"); } catch(e){ return {}; } };
+      const pg = rd("cambium-c05-playground");
+      const labs = ["scope","wire","break","eval","blast"].filter(k => pg[k]).length;
+      const lec = !!(rd("cambium-c05-slides").done) || !!(rd("cambium-c05-lecture").watched);
+      const nb = document.getElementById('doneNext'), msg = document.getElementById('doneMsg');
+      const kn = Object.keys(known).length;
+      const tail = nd ? " FSRS has scheduled your next review in " + nd + "; come back then and the deck will be waiting." : "";
+      if (kn < 24){
+        nb.href = "index.html"; nb.textContent = "Back to the course";
+        msg.textContent = "Nothing is due right now, but only " + kn + " of 24 cards are known." + tail + " The quiz unlocks when all 24 are known.";
+      } else if (labs < 5){
+        nb.href = "playground.html"; nb.textContent = "Next on your path: the AI Lab";
+        msg.textContent = "All 24 cards known." + tail + " One step left before the quiz: win the five games in the AI Lab.";
+      } else if (!lec){
+        nb.href = "index.html"; nb.textContent = "Finish the lecture";
+        msg.textContent = "All 24 cards known." + tail + " Finish the lecture and the quiz unlocks.";
+      } else {
+        nb.href = "quiz.html"; nb.textContent = "Take the quiz";
+        msg.textContent = "All 24 cards known and your path is complete: the quiz is unlocked." + tail;
+      }
+    } catch(e){}
+    return;
+  }
+  doneEl.style.display = "none"; cardEl.style.display = "block"; act.style.display = "flex";
+  if (hint) hint.style.display = "block";
+  current = queue[0];
+  const c = CARDS[current];
+  cardEl.classList.remove('flipped');
+  seenBack = false;
+  setActions(false);
+  [1,2,3,4].forEach(r => { const el = document.getElementById('iv' + r); if (el) el.textContent = ""; });
+  document.getElementById('modF').textContent = "Module " + c[0].slice(1);
+  document.getElementById('modB').textContent = c[1];
+  document.getElementById('term').textContent = c[1];
+  document.getElementById('def').textContent = c[2];
+}
+function flashFeedback(gotIt){
+  const fx = document.getElementById('cardFx');
+  if (!fx) return;
+  fx.className = 'cardFx';
+  if (gotIt){
+    fx.style.background = 'rgba(44,95,45,.93)';
+    fx.innerHTML = '<div class="chk" style="background:#3E8E41">&#10003;</div><div class="lbl" style="color:#EAF3E6">Scheduled &#183; counted</div>';
+    void fx.offsetWidth; fx.classList.add('ok');
+    const k = document.getElementById('known');
+    if (k){ k.classList.remove('pulse'); void k.offsetWidth; k.classList.add('pulse'); }
+  } else {
+    fx.style.background = 'rgba(224,178,74,.92)';
+    fx.innerHTML = '<div class="chk" style="background:#C9962E">&#8635;</div><div class="lbl" style="color:#3B2E0B">No worries &#183; it comes back sooner</div>';
+    void fx.offsetWidth; fx.classList.add('no');
+  }
+}
+function grade(rating){
+  if (!seenBack || current === null) return;
+  const i = queue.shift();
+  const now = new Date();
+  const res = f.next(cardState(i), now, rating);
+  const next = res.card;
+  sched[i] = next;
+  localStorage.setItem(FKEY, JSON.stringify(sched));
+
+  const gotIt = rating >= 3;                       // Good or Easy = "known" (the course contract)
+  if (gotIt){
+    known[i] = 1;
+    localStorage.setItem(KEY, JSON.stringify(known));
+  } else {
+    // Again / Hard: FSRS brings it back in minutes, so requeue it this session too.
+    if (new Date(next.due) - now < 20 * 60 * 1000) queue.push(i);
+    try {
+      const mm = JSON.parse(localStorage.getItem(MK) || "{}");
+      const e = mm[i] || { m: CARDS[i][0], f: CARDS[i][1], n: 0 };
+      e.n++; mm[i] = e;
+      localStorage.setItem(MK, JSON.stringify(mm));
+    } catch(e){}
+  }
+  flashFeedback(gotIt);
+  setActions(false);
+  setTimeout(refresh, gotIt ? 520 : 420);
+}
+function resetAll(){
+  known = {}; sched = {};
+  localStorage.removeItem(KEY); localStorage.removeItem(FKEY);
+  buildQueue(); refresh();
+}
+window.resetAll = resetAll;
+
+(async function(){
+  try {
+    FSRS = await import('./lib/ts-fsrs.mjs');
+    f = FSRS.fsrs(FSRS.generatorParameters({ enable_fuzz: true, enable_short_term: true }));
+  } catch(e){
+    // The deck must work even if the algorithm cannot load.
+    FSRS = { createEmptyCard: () => ({ due: new Date() }) };
+    f = {
+      repeat: () => ({}),
+      next: (c, now, r) => ({ card: { due: new Date(now.getTime() + (r >= 3 ? 864e5 : 6e5)), last_review: now } })
+    };
+  }
+  document.querySelectorAll('.grade').forEach(b => {
+    b.addEventListener('click', () => grade(+b.getAttribute('data-r')));
+  });
+  document.addEventListener('keydown', e => {
+    if (!seenBack){ if (e.key === " " || e.key === "Enter"){ e.preventDefault(); flipCard(); } return; }
+    if (["1","2","3","4"].indexOf(e.key) >= 0){ e.preventDefault(); grade(+e.key); }
+  });
+  buildQueue();
+  refresh();
+})();
+</script>
+<script src="aira.js"></script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "5a080e9323014859a02d9cfcaed337c9"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

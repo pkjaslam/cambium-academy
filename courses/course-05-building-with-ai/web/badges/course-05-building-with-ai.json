@@ -1,0 +1,25 @@
+{
+  "@context": "https://w3id.org/openbadges/v2",
+  "type": "BadgeClass",
+  "id": "https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/badges/course-05-building-with-ai.json",
+  "name": "Building with AI, Cambium Academy Course 05",
+  "description": "Completed the full learning path of Cambium Academy Course 05: the 12-module lecture on building AI agents that work and cannot cause harm; all 24 flashcards; all five hands-on AI Lab games; and a 20-question quiz passed at 70% or better. Approximately 3 instructional hours. Every number and tool in the curriculum was verified against its primary source on 13 July 2026.",
+  "image": "https://pkjaslam.github.io/cambium-academy/assets/social-course05.png",
+  "criteria": {
+    "narrative": "Read or watch the full 12-module lecture; clear all 24 flashcards (flip required before marking); win all five AI Lab games (Scope It, Wire It, Break It, Eval It, Blast Radius); then pass the 20-question quiz at 70% or better. The quiz stays locked until every prior step is complete. Holders demonstrate that they can scope a task for automation by reversibility and blast radius; wire an agent to tools and connectors with least privilege; test an agent with a golden set and regression checks; defend against prompt injection through architecture rather than prompting; and keep a human accountable with an approval gate before any irreversible action. Holders who also pass The Practical (an optional honors exam auditing a real agent run, whose remediation fails automatically if it leaves the agent able to act with no human gate, or relies only on prompting the model to behave) carry a SHIP-VERIFIED mark on their certificate.",
+    "id": "https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/index.html"
+  },
+  "issuer": "https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/badges/issuer.json",
+  "tags": [
+    "AI",
+    "AI agents",
+    "automation",
+    "no-code",
+    "prompt injection",
+    "AI safety",
+    "evals",
+    "least privilege",
+    "AI literacy",
+    "Cambium Academy"
+  ]
+}
