@@ -77,12 +77,31 @@ Living index of every public link. When a new course goes live, copy a course bl
 - Deck: PPTX and PDF in `courses/course-04-responsible-ai-publishing/slides/`
 - Lecture video: in production (index.html carries a clearly marked placeholder until it premieres)
 
+### Course 05 — Building with AI · LIVE (faculty, administrators, researchers)
+
+- Course page: https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/index.html
+- Slides (79, ten modules): https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/slides.html
+- **The Agent Foundry** (assemble a real agent in your browser, watch every move, injection drill): https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/foundry.html
+- **The Workshop** (90-minute facilitator kit, three persona builds): https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/workshop.html
+- AI Lab (5 games, five-of-five gate): https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/playground.html
+- The Practical (honors exam, the Incident Room): https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/practical.html
+- The Dry Run (configure and inject an agent, in-browser): https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/sandbox.html
+- Flashcards: https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/flashcards.html
+- Quiz: https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/quiz.html
+- Certificate (CAMB-C05, chips SCOPE/WIRE/TEST/SUPERVISE WELL): https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/certificate.html
+- AI Classroom: https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/classroom.html
+- Community: https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/community.html
+- Resources (every tool + stat, live-verified 2026-07-14): https://github.com/pkjaslam/cambium-academy/blob/main/courses/course-05-building-with-ai/resources.md
+- Deck: PPTX and PDF in `courses/course-05-building-with-ai/slides/`
+- Lecture video: in production (index.html carries a clearly marked placeholder until it premieres)
+
 ## Share images (link-preview cards)
 
 - Academy card (for /start/): https://pkjaslam.github.io/cambium-academy/assets/social-academy.png
 - Course 02 card: https://pkjaslam.github.io/cambium-academy/assets/social-course02.png
 - Course 03 card: https://pkjaslam.github.io/cambium-academy/assets/social-course03.png
 - Course 04 card: https://pkjaslam.github.io/cambium-academy/assets/social-course04.png
+- Course 05 card: https://pkjaslam.github.io/cambium-academy/assets/social-course05.png
 - Intro to AI card (Course 01): https://pkjaslam.github.io/cambium-academy/assets/social-preview.png
 
 ## Channels
@@ -99,4 +118,4 @@ Living index of every public link. When a new course goes live, copy a course bl
 4. Flip the `/start/` catalog card from "coming soon" to LIVE and link it in.
 5. Update this file, then push.
 
-_Last updated: 2026-07-13 (Course 04 built: 80 slides, 6 Lab games, The Practical, plus the Local Referee (in-browser WebLLM), the Reference Auditor (live Crossref), and FSRS flashcards. Every policy and statistic live-verified 2026-07-13.)_
+_Last updated: 2026-07-14 (Course 05 activated: 79 slides, the Agent Foundry (build a real agent in-browser), a 90-min Workshop kit, 5 Lab games, the Incident Room honors exam, agent-loop certificate. All tools and stats live-verified 2026-07-14.)_
