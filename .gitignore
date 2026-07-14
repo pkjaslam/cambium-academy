@@ -13,3 +13,11 @@ Thumbs.db
 # Video production artifacts (masters, frames, re-stitch kit) — huge, never in the Pages repo
 courses/**/production/
 **/__pycache__/
+
+# scratch verification screenshots (never ship)
+courses/*/shot_*.jpg
+courses/*/ui_*.jpg
+courses/*/cert_orig_*
+courses/*/cert_new_*
+courses/*/cert_v2_*
+courses/*/cele_shot.jpg
