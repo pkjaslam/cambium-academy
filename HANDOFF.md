@@ -56,6 +56,15 @@ Both new pages are wired into every nav, the index (two feature cards), Aira's p
 - **`tools/sweep-states.mjs` was testing almost nothing.** It seeded `cambium-<k>-progress` and `cambium-<k>-lab-<g>` — **keys no course has ever read**. So "midway" and "honors" were effectively the fresh state. Now each course declares its own shape (slides/cards/lab keys) and the tool seeds the keys the courses actually read (`-slides`, `-cards`, `-playground`, `-quiz`, `-cert`, `-practical`, `-lecture`). It also no longer hardcodes the session path or the Chrome binary: use `ACADEMY_ROOT` and `CHROME_PATH` env vars.
 - **`tools/check-live.sh` extended** with the C04 contracts: it now parses the DOI arrays out of `playground.html` and `practical.html` and asserts **every** one behaves as the game claims against the live registry (11 DOIs: reals resolve 200, fabrications 404), and asserts Aira grades a model-correct decision letter as passing.
 
+## GitHub secret-scanning alert (2026-07-13) — FALSE POSITIVE, no rotation needed
+GitHub flagged a **"Mistral AI API Key"** in `courses/course-04-responsible-ai-publishing/web/lib/transformers.js`. It is **not a secret**. The match is the string `Mistral3ForConditionalGeneration`: a model **class name** in the vendored Transformers.js library, which happens to be exactly 32 alphanumeric characters (a Mistral key's shape) and to contain the word "Mistral". It sits in a list beside `Gemma3ForConditionalGeneration`. A self-scan also found AWS-key-shaped runs (`AKIA...`) inside `web-llm.js`: those are coincidental character sequences inside its base64 WASM blob.
+
+**Verified: nothing is exposed. Do NOT rotate anything.** A full-repo sweep for real key prefixes (`sk-`, `hf_`, `AIza`, `ghp_`, `sk-ant-`, `gsk_`, `nvapi-`, `mr2_`) returns zero hits. `aira-chat-config.js` carries only the worker URL; the key stays a server-side Cloudflare secret, as designed.
+
+**Action:** added `.github/secret_scanning.yml` excluding `courses/*/web/lib/**` (the vendored, unmodified third-party bundles) with the reasoning written into the file. Everything we author is still scanned. Then **close the existing alert in the GitHub UI as "False positive"** (Security -> Secret scanning -> the alert -> Close as). The config prevents recurrence; it does not retroactively dismiss the open alert.
+
+**Why the libs are vendored at all:** self-hosting them means no runtime CDN dependency and the pages work offline, which matters most for the Local Referee, whose entire promise is that it keeps working with the network switched off.
+
 ## Next steps, in order
 1. **Push:** Director runs `push_academy.bat` (sandbox has no GitHub creds). Then live-check: /start/ cards, the C04 course page, the share image, the quiz gate, Ghost Citations grading live, and The Practical.
 2. **Course 04 lecture film** (parametric renderer, `production/filmv2/lib/film_slide.js` reads `slides_data.js`; ZERO-JOINT assembly: one continuous audio track, one video timeline). `index.html` carries a clearly-marked placeholder block until it premieres.
