@@ -27,7 +27,7 @@ Living index of every public link. When a new course goes live, copy a course bl
 ### Course 02 — Prompting Essentials · LIVE
 
 - Course page: https://pkjaslam.github.io/cambium-academy/courses/course-02-prompting-essentials/web/index.html
-- Lecture video: https://youtu.be/yhboxB9DM34
+- Lecture video (remastered audio, 2026-07-14): https://youtu.be/gVl6BDelW2M
 - Slides: https://pkjaslam.github.io/cambium-academy/courses/course-02-prompting-essentials/web/slides.html
 - Flashcards: https://pkjaslam.github.io/cambium-academy/courses/course-02-prompting-essentials/web/flashcards.html
 - AI Lab: https://pkjaslam.github.io/cambium-academy/courses/course-02-prompting-essentials/web/playground.html
@@ -87,7 +87,7 @@ Living index of every public link. When a new course goes live, copy a course bl
 
 ## Channels
 
-- YouTube: Course 01 https://youtu.be/jRpYchejlTg · Course 02 https://youtu.be/yhboxB9DM34
+- YouTube: Course 01 https://youtu.be/jRpYchejlTg · Course 02 https://youtu.be/gVl6BDelW2M
 - LinkedIn (institute): https://www.linkedin.com/company/cambium-ai-institute/
 - LinkedIn (director): https://www.linkedin.com/in/jaslampk
 
