@@ -39,10 +39,10 @@
   var btn = document.getElementById("lectureBtn");
   if (btn) {
     var w = !!(read("cambium-c05-lecture") || {}).watched;
-    if (w) { btn.textContent = "Lecture marked as watched"; btn.style.background = "#97BC62"; btn.style.color = "#1F3D24"; }
+    if (w) { btn.textContent = "Transcript marked as read"; btn.style.background = "#97BC62"; btn.style.color = "#1F3D24"; }
     btn.addEventListener("click", function(){
       localStorage.setItem("cambium-c05-lecture", JSON.stringify({ watched: true, date: new Date().toISOString().slice(0,10) }));
-      btn.textContent = "Lecture marked as watched";
+      btn.textContent = "Transcript marked as read";
       btn.style.background = "#97BC62"; btn.style.color = "#1F3D24";
       render();
     });

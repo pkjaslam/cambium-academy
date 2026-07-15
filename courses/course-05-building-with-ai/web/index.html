@@ -89,6 +89,40 @@
   </div>
 </header>
 
+<section style="padding-top:30px">
+  <div class="wrap">
+    <div style="background:linear-gradient(160deg,#EAF3E2,#F7FBF1);border:1px solid var(--line);border-radius:20px;padding:28px 30px 24px;box-shadow:0 12px 44px rgba(31,42,32,.08)">
+      <div style="font-size:12px;letter-spacing:3px;color:#0E8C7E;font-weight:800;text-transform:uppercase">&#9670; What makes this course different</div>
+      <h2 style="margin:8px 0 4px">You build a real agent in your browser. Then you watch it get robbed.</h2>
+      <p class="lead" style="margin:0">Not slides about agents. Two live instruments and a workshop, all free, no signup, all running in your browser: assemble an agent and watch every move it makes, run a real prompt-injection attack, and see the exact same attack stopped cold by a permission gate.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:20px">
+
+        <div style="position:relative;background:#fff;border:1.5px solid #D9B25C;border-radius:16px;padding:22px;box-shadow:0 6px 22px rgba(185,138,45,.16)">
+          <span style="display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:1.5px;color:#7A5417;background:rgba(217,178,92,.24);border-radius:20px;padding:5px 12px;text-transform:uppercase">Build &amp; watch it think</span>
+          <h3 style="font-size:20px;margin:12px 0 7px">The Agent Foundry</h3>
+          <p style="font-size:14.5px;color:var(--muted);margin:0 0 16px">Assemble an agent from five slots, hand it live tools with the scopes you choose, and watch every thought and every tool call on a live flight recorder. Set a tool to Ask and it stops and asks <i>you</i>. Then run the injection drill: naive mode obeys a poisoned page, scoped mode watches the same attack die at the gate.</p>
+          <a href="foundry.html" style="display:inline-block;background:linear-gradient(135deg,#B98A2D,#8C6320);color:#fff;font-weight:700;font-size:14px;padding:11px 22px;border-radius:11px;text-decoration:none;box-shadow:0 6px 18px rgba(185,138,45,.35)">Open the Foundry &#8594;</a>
+        </div>
+
+        <div style="position:relative;background:#fff;border:1.5px solid #7FD4C1;border-radius:16px;padding:22px;box-shadow:0 6px 22px rgba(127,212,193,.16)">
+          <span style="display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:1.5px;color:#0C5C4E;background:rgba(127,212,193,.24);border-radius:20px;padding:5px 12px;text-transform:uppercase">The thesis, made real</span>
+          <h3 style="font-size:20px;margin:12px 0 7px">The Dry Run</h3>
+          <p style="font-size:14.5px;color:var(--muted);margin:0 0 16px">Configure an agent's tools and gates, then run it against a poisoned input, entirely in your browser. Over-permission it and watch the injection exfiltrate data. Give it least privilege and a human gate, and watch the same attack hit a wall and die. No cloud, no account, deterministic.</p>
+          <a href="sandbox.html" style="display:inline-block;background:linear-gradient(135deg,#2C8C77,#1F6E5C);color:#fff;font-weight:700;font-size:14px;padding:11px 22px;border-radius:11px;text-decoration:none;box-shadow:0 6px 18px rgba(44,140,119,.35)">Open The Dry Run &#8594;</a>
+        </div>
+
+        <div style="position:relative;background:#fff;border:1.5px solid #97BC62;border-radius:16px;padding:22px;box-shadow:0 6px 22px rgba(151,188,98,.16)">
+          <span style="display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:1.5px;color:#2C6E3F;background:rgba(151,188,98,.22);border-radius:20px;padding:5px 12px;text-transform:uppercase">Teach it to your team</span>
+          <h3 style="font-size:20px;margin:12px 0 7px">The Workshop</h3>
+          <p style="font-size:14.5px;color:var(--muted);margin:0 0 16px">A complete ninety-minute class in a page: a minute-by-minute run sheet, three guided builds for faculty, administrators and researchers, printable recipe cards, projector mode, and a crib sheet for everything that goes wrong in a real room. Free to run in your department.</p>
+          <a href="workshop.html" style="display:inline-block;background:linear-gradient(135deg,#2C5F2D,#1F3D24);color:#fff;font-weight:700;font-size:14px;padding:11px 22px;border-radius:11px;text-decoration:none;box-shadow:0 6px 18px rgba(44,95,45,.3)">Open the Workshop kit &#8594;</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 <section>
   <div class="wrap">
     <h2>The question has changed</h2>
@@ -101,15 +135,22 @@
 
 <section style="padding-top:0">
   <div class="wrap">
-    <h2>The lecture</h2>
-    <p class="lead">The full lecture, narrated by Aira. Prefer reading? The <a href="slides.html" style="color:var(--forest)">79 slides</a> cover every word, and the <a href="transcript.html" style="color:var(--forest)">transcript</a> is right here.</p>
+    <h2>Start with the film. Then read the lecture.</h2>
+    <p class="lead"><b>The Heist is a 3.5-minute film, not the whole course.</b> Think of it as the trailer: it shows you what you are about to learn and why it matters. The actual lecture is the <a href="slides.html" style="color:var(--forest);font-weight:600">79 slides</a> (or the full <a href="transcript.html" style="color:var(--forest);font-weight:600">transcript</a>), and reading those is what completes this step. Watching the film alone does not.</p>
     <div class="video-shell">
       <div class="ratio" id="videoBox">
         <iframe id="lectureFrame" src="https://www.youtube.com/embed/5OQ8GhopFmE?rel=0&amp;enablejsapi=1" title="The Heist: how AI agents get robbed, Cambium Academy Course 05" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
       <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap"><a href="https://youtu.be/5OQ8GhopFmE" target="_blank" rel="noopener" style="display:inline-block;background:var(--moss);color:var(--dark);font-weight:700;padding:11px 22px;border-radius:8px;text-decoration:none">Watch on YouTube</a></div>
       <div class="video-note">The Heist, a 3.5-minute film. Prefer YouTube? <a href="https://youtu.be/5OQ8GhopFmE" target="_blank" rel="noopener" style="color:var(--forest)">Watch it there</a> (chapters and subtitles included). Prefer reading? The <a href="slides.html" style="color:var(--forest)">full slides</a> and the <a href="transcript.html" style="color:var(--forest)">transcript</a> cover every word.</div>
-      <div style="margin-top:12px"><button id="lectureBtn" style="background:var(--forest);color:#fff;border:0;border-radius:8px;padding:11px 20px;font-size:14px;font-weight:700;cursor:pointer">I finished the lecture</button><span style="font-size:12.5px;color:var(--muted);margin-left:10px">Counts as your lecture step if you read the transcript instead of the slides.</span></div>
+      <div style="margin-top:16px;padding:16px 18px;background:var(--tint);border:1px solid var(--line);border-radius:12px">
+        <div style="font-weight:700;color:var(--forest);font-size:15px;margin-bottom:10px">Now the lecture, this is the part that teaches you</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a href="slides.html" style="display:inline-block;background:var(--forest);color:#fff;font-weight:700;padding:11px 22px;border-radius:8px;text-decoration:none">Read the 79 slides &#8594;</a>
+          <a href="transcript.html" style="display:inline-block;border:1.5px solid var(--forest);color:var(--forest);font-weight:700;padding:11px 22px;border-radius:8px;text-decoration:none">Read the transcript</a>
+        </div>
+      </div>
+      <div style="margin-top:12px"><button id="lectureBtn" style="background:var(--forest);color:#fff;border:0;border-radius:8px;padding:11px 20px;font-size:14px;font-weight:700;cursor:pointer">I read the full transcript</button><span style="font-size:12.5px;color:var(--muted);margin-left:10px">Only mark this if you read the whole transcript. The 3.5-minute film is not the lecture, and clicking through the slides is the intended path.</span></div>
     </div>
   </div>
 </section>
