@@ -76,14 +76,14 @@
 <body>
   <nav class="nav">
     <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI">CAMBIUM AI</a>
-    <div class="links"><a href="index.html">Course</a><a href="make-agent.html">Build an agent</a><a href="slides.html">Slides</a><a href="foundry.html">Foundry</a><a href="workshop.html">Workshop</a><a href="playground.html">AI Lab</a><a href="quiz.html">Quiz</a><a href="practical.html">Practical</a><a href="sandbox.html">The Dry Run</a><a href="../../../start/">All courses</a></div>
+    <div class="links"><a href="index.html">Course</a><a href="make-agent.html">Build an agent</a><a href="slides.html">Slides</a><a href="playground.html">AI Lab</a><a href="quiz.html">Quiz</a><a href="practical.html">Practical</a><a href="../../../start/">All courses</a></div>
   </nav>
   <div class="wrap">
 
   <div class="hero">
     <div class="over">◈ TAKE THIS COURSE TO YOUR PEOPLE</div>
     <h1>THE AGENT WORKSHOP</h1>
-    <p class="lead">A complete 90-minute session you can run for your department, your office, or your lab, with nothing but a projector, this website, and a room of people who keep hearing about agents and have never built one. By minute 90, every table has assembled a supervised agent in <a href="foundry.html" style="color:var(--cyan)">the Foundry</a>, watched an injection attack die at a permission gate, and left holding a recipe card they made themselves.</p>
+    <p class="lead">A complete 90-minute session you can run for your department, your office, or your lab, with nothing but a projector, this website, and a room of people who keep hearing about agents and have never built one. By minute 90, every person in the room has built a <b>real, working agent</b> in their own Claude or ChatGPT account, and knows the one rule that keeps it safe.</p>
     <div class="noprint" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
       <button class="gold" id="projBtn">PROJECTOR MODE</button>
       <button class="ghost" onclick="window.print()">PRINT THE KIT</button>
@@ -93,10 +93,10 @@
   <section style="margin-top:36px">
     <span class="tag">NERVOUS? START HERE</span>
     <h2>The whole class in three moves</h2>
-    <p class="sub">You do not need to be technical. If you can open a website and talk to a room, you can run this. The heavy lifting is done by <a href="foundry.html" style="color:var(--cyan)">the Foundry game</a>, which walks everyone through it step by step.</p>
+    <p class="sub">You do not need to be technical. If you can open a website and talk to a room, you can run this. The heavy lifting is done by <a href="make-agent.html" style="color:var(--cyan)">the Build a real agent guide</a>, which walks everyone through it step by step, in whichever tool they already use.</p>
     <div class="cards" style="margin-top:16px">
-      <div class="pcard"><div class="who">MOVE 1 &#183; 10 MIN</div><h3>&#128064; Show them the danger</h3><p>Open the Foundry game on the projector and play the first part together. Stop the moment the agent tries to email private data to a stranger. Let the room gasp. That is the whole reason this class exists.</p></div>
-      <div class="pcard"><div class="who">MOVE 2 &#183; 40 MIN</div><h3>&#129302; Everyone builds one</h3><p>Each table opens the same game on a laptop and plays it, picking a different job. They build a real agent, hit the attack, and stop it at the permission gate. You just walk around and enjoy it.</p></div>
+      <div class="pcard"><div class="who">MOVE 1 &#183; 10 MIN</div><h3>&#128064; Show them the danger</h3><p>Play the 90-second video at the top of <a href="make-agent.html" style="color:var(--cyan)">the guide</a> on the projector. In a minute and a half they see exactly what an agent is and how one is built. No theory needed.</p></div>
+      <div class="pcard"><div class="who">MOVE 2 &#183; 40 MIN</div><h3>&#129302; Everyone builds one</h3><p>Everyone opens the guide on a laptop and follows the five moves in their own Claude or ChatGPT account, building an agent for a job they actually have. You just walk around and help. This is the part they remember.</p></div>
       <div class="pcard"><div class="who">MOVE 3 &#183; 10 MIN</div><h3>&#128737;&#65039; Name the one rule</h3><p>Bring it back together and say the sentence that fits every agent they will ever build: automate the bounded, gate the rest. Hand out the recipe cards. Done.</p></div>
     </div>
   </section>
@@ -107,12 +107,12 @@
     <p class="sub">Timings assume 10 to 30 people and one facilitator. Everything the room sees runs from this site; nothing to install, nothing to sign up for. Each table needs one laptop.</p>
     <div class="runsheet"><table>
       <tr><th>WHEN</th><th>WHAT HAPPENS</th><th>FACILITATOR NOTES</th></tr>
-      <tr><td class="min">0:00</td><td><b>The hook.</b> Open <a href="foundry.html">the Foundry game</a> on the projector. Pick a job together, then reach the heist and stop the moment the agent tries to email private data to a stranger.</td><td>Let the room read it in silence. Then: "Nobody here would approve that. The agent never even asked."</td></tr>
+      <tr><td class="min">0:00</td><td><b>The hook.</b> Play the 90-second video at the top of <a href="make-agent.html">the guide</a> on the projector. Then ask: "who here has an inbox they wish sorted itself?"</td><td>Hands go up. That is your whole motivation, no slides needed.</td></tr>
       <tr><td class="min">0:10</td><td><b>What an agent is.</b> One plain sentence: an agent is a model in a loop that thinks, uses a tool, sees the result, and goes again. That is the whole machine.</td><td>Point at the trace you all just watched, not at a diagram. The proof is already on screen.</td></tr>
-      <tr><td class="min">0:25</td><td><b>Build one together.</b> Play the game as a room. Vote on each choice out loud, especially the big one: should it send email on its own, or ask a human first?</td><td>Let someone pick "let it send" once and watch the game push back. Disagreement is the lesson arriving.</td></tr>
-      <tr><td class="min">0:45</td><td><b>Tables build their own.</b> Each table opens the same game on a laptop and plays it, picking a different job. Goal: reach the attack and stop it at the gate.</td><td>Circulate. When the permission popup appears, make the table decide together before anyone clicks.</td></tr>
-      <tr><td class="min">1:10</td><td><b>Show and tell.</b> Two tables share the job they built and what the attack tried to do. The room names one thing they could turn off and still finish the job.</td><td>Push for scope cuts, not adds. "What is the least this agent needs?"</td></tr>
-      <tr><td class="min">1:25</td><td><b>The close.</b> Back on the projector, finish the game: the same attack hits the gate and dies. Read the take-home rule, hand out the recipe cards.</td><td>End on the rule below. One moral is enough.</td></tr>
+      <tr><td class="min">0:25</td><td><b>Build one together.</b> On the projector, walk the five moves in a real tool: create it, write the job, add a file, add a tool, run it. Ask the room what to type.</td><td>Ask out loud on move 4: "should it be allowed to send email on its own?" The debate that follows is the lesson arriving.</td></tr>
+      <tr><td class="min">0:45</td><td><b>Everyone builds their own.</b> Each person follows the guide in their own account and builds an agent for a real job of theirs. One rule: nothing irreversible without approval.</td><td>Circulate and unblock. Most people finish in 15 minutes and immediately start improving it.</td></tr>
+      <tr><td class="min">1:10</td><td><b>Show and tell.</b> Two or three people demo the agent they just built. The room names one tool each could turn off and still finish the job.</td><td>Push for scope cuts, not adds. "What is the least this agent needs?"</td></tr>
+      <tr><td class="min">1:25</td><td><b>The close.</b> Show the safety rule at the bottom of the guide: fewest tools, and anything it cannot undo asks first. Read the take-home rule, hand out the cards.</td><td>End on the rule below. One moral is enough.</td></tr>
     </table></div>
     <div class="rule"><b>The take-home rule:</b> automate the bounded, gate the rest. An agent earns autonomy one verified run at a time, and it never earns the right to act where you cannot see it.</div>
   </section>
