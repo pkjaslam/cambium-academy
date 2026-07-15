@@ -81,6 +81,7 @@ Living index of every public link. When a new course goes live, copy a course bl
 
 - Course page: https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/index.html
 - Slides (79, ten modules): https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/slides.html
+- **Make a real agent in Claude** (the practical step-by-step guide): https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/make-agent.html
 - **The Agent Foundry** (assemble a real agent in your browser, watch every move, injection drill): https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/foundry.html
 - **The Workshop** (90-minute facilitator kit, three persona builds): https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/workshop.html
 - AI Lab (5 games, five-of-five gate): https://pkjaslam.github.io/cambium-academy/courses/course-05-building-with-ai/web/playground.html

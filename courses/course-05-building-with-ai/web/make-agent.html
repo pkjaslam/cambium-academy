@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Make a real AI agent in Claude · Building with AI · Cambium Academy</title>
+<meta name="description" content="A plain, five-step guide to building and running a real AI agent in Claude, no code. Create a Project, give it a job, add its knowledge, connect its tools, and run it.">
+<link rel="icon" href="../../../assets/logo-mark@2x.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--forest:#2C5F2D;--dark:#1F3D24;--moss:#97BC62;--mossdeep:#6E9648;--tint:#F1F6EC;--ink:#1F2A20;--muted:#5C6B5A;--line:#DFE9D8;--gold:#B98A2D;--warm:#D97706;--claude:#D97757}
+  body{font-family:'DM Sans',sans-serif;color:var(--ink);background:#fff;line-height:1.6}
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:14px 5vw;border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(255,255,255,.94);backdrop-filter:blur(8px);z-index:40}
+  .nav a.brand{font-family:'Sora',sans-serif;font-weight:700;color:var(--forest);text-decoration:none;font-size:12.5px;letter-spacing:2px;display:flex;align-items:center;gap:10px}
+  .nav a.brand img{height:20px}
+  .nav .links a{color:var(--muted);text-decoration:none;font-size:13px;margin-left:16px}
+  .nav .links a:hover{color:var(--forest)}
+  .wrap{max-width:820px;margin:0 auto;padding:0 22px 90px}
+  .hero{padding:44px 0 8px;text-align:center}
+  .kick{font-family:'Sora',sans-serif;font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--mossdeep)}
+  h1{font-family:'Sora',sans-serif;font-size:clamp(30px,5.2vw,46px);font-weight:800;letter-spacing:-.02em;margin:10px 0 12px;color:var(--dark)}
+  .lead{font-size:18px;color:var(--muted);max-width:600px;margin:0 auto}
+  .what{background:var(--tint);border:1px solid var(--line);border-radius:16px;padding:20px 24px;margin:26px 0 8px;font-size:16px}
+  .what b{color:var(--forest)}
+  /* video slot */
+  .videowrap{margin:26px 0 10px}
+  .ratio{position:relative;padding-top:56.25%;border-radius:14px;overflow:hidden;background:#12281f;border:1px solid var(--line)}
+  .ratio iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .ratio .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#CFE3BF;padding:24px}
+  .vnote{font-size:13px;color:var(--muted);text-align:center;margin-top:10px}
+  /* steps */
+  .steps{margin-top:34px}
+  .step{display:grid;grid-template-columns:64px 1fr;gap:20px;padding:26px 0;border-top:1px solid var(--line);align-items:start}
+  .step .n{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--forest),var(--mossdeep));color:#fff;font-family:'Sora',sans-serif;font-weight:800;font-size:24px;display:flex;align-items:center;justify-content:center}
+  .step h2{font-family:'Sora',sans-serif;font-size:23px;font-weight:800;color:var(--dark);margin-bottom:6px}
+  .step p{font-size:16px;color:#3a473a;margin-bottom:14px}
+  .step p b{color:var(--forest)}
+  .step .tip{font-size:14px;color:var(--muted);background:var(--tint);border-left:3px solid var(--moss);border-radius:0 8px 8px 0;padding:9px 14px;margin-top:12px}
+  /* clean UI mockups (illustrative, not real screenshots) */
+  .mock{border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 8px 26px -12px rgba(31,42,32,.22);background:#fff;font-family:'DM Sans',sans-serif}
+  .mock .bar{background:#F4F2EE;border-bottom:1px solid #E8E4DD;padding:9px 14px;display:flex;align-items:center;gap:7px}
+  .mock .bar i{width:10px;height:10px;border-radius:50%;background:#D6D0C6;display:inline-block}
+  .mock .bar .ttl{margin-left:8px;font-size:12px;color:#8a857b;font-weight:600}
+  .mock .body{padding:16px 18px}
+  .mlabel{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#a08f7a;font-weight:700;margin-bottom:6px}
+  .mrow{display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid #EDE9E2;border-radius:9px;margin-top:8px;font-size:14px;color:#3a3a3a}
+  .mrow .dot{width:26px;height:26px;border-radius:7px;background:#F0EDE7;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+  .mrow.hot{border-color:var(--claude);background:rgba(217,119,87,.06)}
+  .mbtn{display:inline-block;background:var(--claude);color:#fff;font-weight:700;font-size:13px;border-radius:9px;padding:9px 16px;margin-top:4px}
+  .mbtn.ghost{background:#fff;color:#3a3a3a;border:1px solid #E0DBD3}
+  .mbox{border:1px dashed #D8D2C8;border-radius:10px;padding:12px 14px;font-size:13.5px;color:#555;background:#FBFAF7;margin-top:8px;line-height:1.5}
+  .mchip{display:inline-block;font-size:12px;background:#EFEBE4;border-radius:20px;padding:4px 11px;margin:4px 5px 0 0;color:#5a5346}
+  .mchip.on{background:rgba(151,188,98,.2);color:#3d5b2a;font-weight:600}
+  .bubble{max-width:78%;padding:10px 14px;border-radius:14px;font-size:14px;margin-top:9px}
+  .bubble.u{background:#EEF4E8;margin-left:auto;border-bottom-right-radius:4px}
+  .bubble.a{background:#F6F4F0;border:1px solid #ECE8E1;border-bottom-left-radius:4px}
+  /* closing */
+  .rule{background:linear-gradient(135deg,#F5F0E1,#EFE8D3);border:1px solid #E3D9BF;border-left:4px solid var(--gold);border-radius:14px;padding:20px 24px;margin-top:34px}
+  .rule h3{font-family:'Sora',sans-serif;font-size:18px;color:var(--dark);margin-bottom:6px}
+  .rule p{font-size:15px;color:#4a4030}
+  .also{margin-top:24px;font-size:15px;color:var(--muted)}
+  .also b{color:var(--forest)}
+  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .cta a{display:inline-block;font-family:'Sora',sans-serif;font-weight:700;font-size:14px;text-decoration:none;border-radius:11px;padding:12px 22px}
+  .cta a.primary{background:var(--forest);color:#fff}
+  .cta a.ghost{border:1.5px solid var(--forest);color:var(--forest)}
+  .foot{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;font-size:13px;color:var(--muted)}
+  .foot a{color:var(--forest)}
+  @media(max-width:560px){.step{grid-template-columns:1fr;gap:12px}.step .n{width:48px;height:48px;font-size:20px}}
+</style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand" href="https://www.linkedin.com/company/cambium-ai-institute/"><img src="../../../assets/logo-mark@2x.png" alt="Cambium AI">CAMBIUM AI</a>
+    <div class="links"><a href="index.html">Course</a><a href="slides.html">Slides</a><a href="foundry.html">Practice</a><a href="playground.html">AI Lab</a><a href="../../../start/">All courses</a></div>
+  </nav>
+  <div class="wrap">
+
+  <div class="hero">
+    <div class="kick">Do it for real</div>
+    <h1>Make your first AI agent in Claude</h1>
+    <p class="lead">An "agent" sounds complicated. It is not. It is just an AI you have given a job, some knowledge, and a few tools, saved so you can reuse it. Here is how to build a real one in Claude in about five minutes. No code.</p>
+  </div>
+
+  <div class="what">
+    <b>What you need:</b> a Claude account (the free plan works to try it; saving a Project needs Claude Pro). Open <a href="https://claude.ai" target="_blank" rel="noopener" style="color:var(--forest)">claude.ai</a> in another tab and follow along.
+  </div>
+
+  <!-- VIDEO (embedded once produced) -->
+  <div class="videowrap">
+    <div class="ratio" id="videoBox">
+      <video controls preload="metadata" poster="" style="position:absolute;inset:0;width:100%;height:100%;background:#12281f" playsinline>
+        <source src="make-agent-demo.mp4" type="video/mp4">
+        Your browser cannot play this video. The five written steps below are the complete guide.
+      </video>
+    </div>
+    <div class="vnote">A 90-second walkthrough of all five steps. The written steps below are the full guide, follow them in your own Claude tab.</div>
+  </div>
+
+  <div class="steps">
+
+    <div class="step">
+      <div class="n">1</div>
+      <div>
+        <h2>Create a Project</h2>
+        <p>In Claude, open <b>Projects</b> in the left sidebar and click <b>New project</b>. Give it a name and a one-line goal. A Project is just a saved workspace: your agent lives here, and it remembers its job every time.</p>
+        <div class="mock"><div class="bar"><i></i><i></i><i></i><span class="ttl">claude.ai · Projects</span></div><div class="body">
+          <div class="mlabel">Your projects</div>
+          <div class="mrow"><span class="dot">&#128193;</span>Weekly research digest</div>
+          <div class="mrow hot"><span class="dot" style="background:var(--claude);color:#fff">+</span><b>New project</b></div>
+          <div class="mbox" style="margin-top:12px">Name: <b>Grant Helper</b> &nbsp;·&nbsp; Goal: draft and check my grant sections</div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">2</div>
+      <div>
+        <h2>Give it a job (the instructions)</h2>
+        <p>Open the Project and set its <b>Custom instructions</b>. This is the whole trick. Write a short job description: who it is, what it does, its rules. Claude follows this in every chat inside the Project, so you never re-explain.</p>
+        <div class="mock"><div class="bar"><i></i><i></i><i></i><span class="ttl">Grant Helper · Instructions</span></div><div class="body">
+          <div class="mlabel">Custom instructions</div>
+          <div class="mbox">You are a grant-writing assistant for an ecology lab. Draft clear, honest sections from my notes. Never invent citations or results. Ask before assuming a number. Keep the tone plain and specific.</div>
+          <span class="mbtn">Save instructions</span>
+        </div></div>
+        <div class="tip">Think of it as a job description, not a magic spell. Plain and specific beats clever.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">3</div>
+      <div>
+        <h2>Give it knowledge (your files)</h2>
+        <p>Upload the documents your agent should always know: a style guide, past reports, a data file. Drop them in the Project's <b>Files</b> panel. Now every answer is grounded in your material, not the whole internet.</p>
+        <div class="mock"><div class="bar"><i></i><i></i><i></i><span class="ttl">Grant Helper · Files</span></div><div class="body">
+          <div class="mlabel">Project knowledge</div>
+          <div class="mrow"><span class="dot">&#128196;</span>lab-style-guide.pdf</div>
+          <div class="mrow"><span class="dot">&#128202;</span>2025-field-results.csv</div>
+          <div class="mrow hot"><span class="dot" style="background:var(--claude);color:#fff">&#8593;</span>Drop a file, or click to upload</div>
+        </div></div>
+        <div class="tip">Supports PDF, text, CSV, code and images. Up to 20 files. This is the agent's private library.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">4</div>
+      <div>
+        <h2>Give it tools (connectors)</h2>
+        <p>Want it to reach your real apps, your calendar, your drive, the web? Add a <b>connector</b>. Claude's directory has hundreds, and each is a few clicks, no setup. This is what turns a chatbot into an agent that can actually do things.</p>
+        <div class="mock"><div class="bar"><i></i><i></i><i></i><span class="ttl">Claude · Connectors</span></div><div class="body">
+          <div class="mlabel">Add a tool</div>
+          <div class="mrow"><span class="dot">&#128218;</span>Google Drive &nbsp;<span class="mbtn ghost" style="margin-left:auto;padding:5px 12px">Connect</span></div>
+          <div class="mrow"><span class="dot">&#128197;</span>Calendar &nbsp;<span class="mbtn ghost" style="margin-left:auto;padding:5px 12px">Connect</span></div>
+          <div class="mrow"><span class="dot">&#127760;</span>Web search &nbsp;<span class="mchip on" style="margin-left:auto">On</span></div>
+        </div></div>
+        <div class="tip"><b>Course rule:</b> only add the tools this job truly needs, and turn on approval for anything it cannot undo (like sending or deleting). That one habit is the whole safety lesson.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="n">5</div>
+      <div>
+        <h2>Run it</h2>
+        <p>Start a chat inside the Project and give it a real task. It already knows its job, reads your files, and can use its tools. That is your agent, running. Reuse it any time by opening the Project again.</p>
+        <div class="mock"><div class="bar"><i></i><i></i><i></i><span class="ttl">Grant Helper · Chat</span></div><div class="body">
+          <div class="bubble u">Draft the Significance section from my field notes, in our house style.</div>
+          <div class="bubble a">Done. I used <b>lab-style-guide.pdf</b> and pulled the 2025 numbers from your CSV. I left two figures blank and flagged them, since your notes did not confirm them. Want me to tighten the opening?</div>
+        </div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="rule">
+    <h3>The one rule to carry with you</h3>
+    <p>An agent is only as safe as the tools you gave it. Give it the fewest tools for the job, and make anything irreversible ask you first. You do not need the agent to be perfect; you need its worst mistake to be impossible or easy to catch. That is the whole of this course, in one sentence.</p>
+  </div>
+
+  <div class="also">
+    <b>Same idea, any tool.</b> This exact pattern, a job, some knowledge, a few scoped tools, is how you build an agent in ChatGPT (a Custom GPT), Google Gemini (a Gem), or a no-code tool like Zapier or Copilot Studio. Learn it once in Claude and you can build one anywhere.
+  </div>
+
+  <div class="cta">
+    <a class="primary" href="https://claude.ai" target="_blank" rel="noopener">Open Claude and build one &#8594;</a>
+    <a class="ghost" href="foundry.html">Or practice first, no account needed</a>
+  </div>
+
+  <div class="foot">Part of <a href="index.html">Course 05 · Building with AI</a>. Steps reflect Claude Projects as of July 2026; Claude's interface may move things around, but the five moves stay the same. Prefer to practice without an account? The <a href="foundry.html">guided Foundry game</a> lets you build and run a pretend agent right here.</div>
+
+  </div>
+</body>
+</html>
